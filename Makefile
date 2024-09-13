@@ -6,17 +6,10 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/13 14:32:15 by timschmi         ###   ########.fr        #
+#    Updated: 2024/09/13 14:46:45 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-RED = \033[31m
-GREEN = \033[32m
-YELLOW = \033[33m
-BLUE = \033[34m
-MAGENTA = \033[35m
-CYAN = \033[36m
-RESET = \033[0m
 SRC_PATH := src/
 OBJ_PATH := obj/
 INCLUDE_PATH := include/
@@ -38,16 +31,6 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-# $(LIBFT):
-# 	@printf "$(GREEN)\n\nBuilding libraries\n\n$(RESET)"
-# 	@make bonus -s -C $(LIB) & PID=$$!; \
-# 	while kill -0 $$PID 2>/dev/null; do \
-# 		printf "$(GREEN)█ $(RESET)"; \
-# 		sleep 0.1; \
-# 	done; \
-# 	wait $$PID;
-# 	@printf "$(GREEN)\n\nBuild complete.$(RESET)\n\n"
-
 $(NAME): $(FT_LIBS) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -pthread -lm -g
 	@make -s welcome 
@@ -66,12 +49,12 @@ obj/%.o: src/%.c
 clean:
 	@make clean -s -C $(LIB)
 	@make clean -s -C $(LIBG)
-	@rm -rf obj
+	@rm -rf %.o
 
 fclean: clean
 	@make fclean -s -C $(LIB)
 	@make fclean -s -C $(LIBG)
-	@rm -rf $(NAME)
+	@rm -rf $(OBJS)
 
 welcome:
 	@cat $(ART)
