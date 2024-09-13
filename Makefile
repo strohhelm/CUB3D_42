@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/13 14:46:45 by timschmi         ###   ########.fr        #
+#    Updated: 2024/09/13 16:32:54 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ FT_LIBS := $(LIBG)/libget_next_line.a $(LIBFT) $(MLX)
 HEADER := cub.h -I ./include -I $(MLX_PATH)/include
 ART = $(INCLUDE_PATH)art.txt
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =  -fsanitize=address # -Wall -Wextra -Werror
 
 all: $(NAME)
 
