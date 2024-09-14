@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/14 15:34:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:39:24 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	draw_line_y(mlx_image_t *img, t_pixel_line z, int w, int h)
 	}
 }
 
+//needs mlx_img pointer and colour input;
 void	draw_line(t_point *p_a, t_point *p_b, t_player *size)
 {
 	t_pixel_line	z;
