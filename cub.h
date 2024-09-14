@@ -31,6 +31,7 @@ typedef struct s_game
 	mlx_image_t *img;
 	t_player player;
 	int **map;
+	int color;
 } t_game;
 
 //structure of values needed for putting pixels betwwen two points.
@@ -47,5 +48,8 @@ typedef struct s_algorythm {
 	t_point	p_b;
 	t_point	p_t;
 }	t_pixel_line;
+
+
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/14 17:56:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:04:46 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ void render(void *param)
 	game = (t_game*)param;
 	grid(game);
 	draw_player(game->img, &game->player);
+	draw_line(&game->player.pos, &game->player.dir, game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	usleep(1000);
 }
@@ -199,6 +200,10 @@ int main(void)
 	game.player.height = HEIGHT;
 	game.player.width = WIDTH;
 	game.player.colour = 0x6cf542ff;
+	game.color = 0xFFFF00FF;
+	game.player.dir.x = 130;
+	game.player.dir.y = 120;
+
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	
