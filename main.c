@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/13 18:20:24 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:36:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void grid(mlx_image_t *img)
 	}
 }
 
-void draw_player(mlx_image_t *img, player_t *player)
+void draw_player(mlx_image_t *img, t_player *player)
 {
 	int x = 0 + (int)player->x_pos;
 	int y = 0 + (int)player->y_pos;
@@ -85,9 +85,9 @@ void draw_player(mlx_image_t *img, player_t *player)
 
 void ft_hook(mlx_key_data_t keydata, void *param)
 {
-	player_t *player;
+	t_player *player;
 
-	player = (player_t*)param;
+	player = (t_player*)param;
 
 	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 		player->y_pos -= 5;
@@ -102,9 +102,9 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 
 void render(void *param)
 {
-	player_t *player;
+	t_player *player;
 
-	player = (player_t*)param;
+	player = (t_player*)param;
 	grid(player->img);
 	draw_player(player->img, player);
 	mlx_image_to_window(player->mlx, player->img, 0, 0);
@@ -116,10 +116,13 @@ int main(void)
 {
 	// mlx_t *mlx;
 	// mlx_image_t *img;
-	player_t player;
+	t_player player;
 
 	player.x_pos = 120;
 	player.y_pos = 120;
+	player.height = HEIGHT;
+	player.width = WIDTH;
+	player.colour = 0x6cf542ff;
 
 	player.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	

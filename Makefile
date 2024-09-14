@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/13 16:32:54 by timschmi         ###   ########.fr        #
+#    Updated: 2024/09/14 15:28:07 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ INCLUDE_PATH := include/
 		
 SRC :=	main.c
 
-OBJS := $(SRC:.c=.o)
+OBJS := $(patsubst src/%.c, obj/%.o,$(SRC))
 NAME := cub3d
 LIB := $(INCLUDE_PATH)libft
 LIBG := $(INCLUDE_PATH)get_next_line
@@ -32,7 +32,7 @@ CFLAGS =  -fsanitize=address # -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(FT_LIBS) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -pthread -lm -g
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -pthread -lm 
 	@make -s welcome 
 	
 $(FT_LIBS): 
@@ -44,7 +44,7 @@ $(FT_LIBS):
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -o $@ -c $^ -O0 -g
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	@make clean -s -C $(LIB)

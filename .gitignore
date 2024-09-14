@@ -1,3 +1,6 @@
 .DS_Store
-.vs_code
-.cub3d
+.vscode
+cub3d
+MLX42
+*.o
+*.a

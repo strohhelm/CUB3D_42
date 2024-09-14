@@ -9,14 +9,36 @@
 #include "include/libft/libft.h"
 #include "include/MLX42/include/MLX42/MLX42.h"
 
-typedef struct player_s
+typedef struct s_player
 {
+	int height;
+	int width;
 	double x_pos;
 	double y_pos;
 	int start;
 	mlx_t *mlx;
 	mlx_image_t *img;
-}	player_t;
+	long colour;
+}	t_player;
 
+typedef struct s_coordinate {
+	double	x;
+	double	y;
+}	t_point;
+
+//structure of values needed for putting pixels betwwen two points.
+typedef struct s_algorythm {
+	int		a;
+	int		b;
+	int		p;
+	int		xdiff;
+	int		ydiff;
+	int		zdiff;
+	int		zstep;
+	long	col;
+	t_point	p_a;
+	t_point	p_b;
+	t_point	p_t;
+}	t_pixel_line;
 
 #endif
