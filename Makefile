@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/14 18:04:57 by timschmi         ###   ########.fr        #
+#    Updated: 2024/09/14 18:05:25 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRC_PATH := src/
 OBJ_PATH := obj/
 INCLUDE_PATH := include/
 		
-SRC :=	main.c draw_lines.c
+SRC :=	main.c draw_line.c
 
 OBJS := $(patsubst src/%.c, obj/%.o,$(SRC))
 NAME := cub3d

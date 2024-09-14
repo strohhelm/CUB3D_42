@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/14 18:03:29 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:12:05 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ void	draw_line_y(mlx_image_t *img, t_pixel_line z, int w, int h)
 			mlx_put_pixel(img, z.p_t.x, z.p_t.y, z.col);
 		z.ydiff--;
 	}
+}
+
+int ft_absolute(int a, int b)
+{
+	int nb;
+
+	nb = a - b;
+	return((nb>=0) * nb + (nb < 0) * -1 *nb);
 }
 
 //needs mlx_img pointer and colour input;
