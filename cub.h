@@ -9,22 +9,29 @@
 #include "include/libft/libft.h"
 #include "include/MLX42/include/MLX42/MLX42.h"
 
-typedef struct s_player
-{
-	int height;
-	int width;
-	double x_pos;
-	double y_pos;
-	int start;
-	mlx_t *mlx;
-	mlx_image_t *img;
-	long colour;
-}	t_player;
-
 typedef struct s_coordinate {
 	double	x;
 	double	y;
 }	t_point;
+
+typedef struct s_player
+{
+	int height;
+	int width;
+	t_point pos;
+	t_point dir;
+	t_point scr;
+	int start;
+	long colour;
+}	t_player;
+
+typedef struct s_game
+{
+	mlx_t *mlx;
+	mlx_image_t *img;
+	t_player player;
+	int **map;
+} t_game;
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
