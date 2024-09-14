@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/14 17:38:05 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:56:50 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,19 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 		if (collision(game->player, game, 2))
 			game->player.pos.x -= 5;
 	}
+}
+//speed = how much rotation per call of function, l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;
+void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r)
+{
+	double tmp_x;
+
+	speed *= l_r;
+	tmp_x = dir->x;
+	dir->x = dir->x * cos(speed) - dir->y * sin(speed);
+	dir->y = tmp_x * sin(speed) + dir->y * cos(speed);
+	tmp_x = plane->x;
+	plane->x = plane->x * cos(speed) - plane->y * sin(speed);
+	plane->y = tmp_x * sin(speed) + plane->y * cos(speed);
 }
 
 void render(void *param)
