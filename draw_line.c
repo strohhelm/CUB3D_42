@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/14 18:12:05 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:35:56 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int ft_absolute(int a, int b)
 }
 
 //needs mlx_img pointer and colour input;
-void	draw_line(t_point *p_a, t_point *p_b, t_game *game)
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color)
 {
 	t_pixel_line	z;
 
 	z.p_a = *p_a;
 	z.p_b = *p_b;
 	z.p_t = *p_a;
-	z.col = game->color;
+	z.col = color;
 	z.xdiff = ft_absolute(p_a->x, p_b->x);
 	z.ydiff = ft_absolute(p_a->y, p_b->y);
 	if (z.xdiff >= z.ydiff)

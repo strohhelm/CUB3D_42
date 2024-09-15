@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/14 18:34:55 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:39:27 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void grid(t_game *game)
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
@@ -191,12 +191,12 @@ void player_dir_line(t_game *game)
 
 	temp_dir.x = game->player.pos.x + game->player.dir.x;
 	temp_dir.y = game->player.pos.y + game->player.dir.y;
-	draw_line(&game->player.pos, &temp_dir, game);
+	draw_line(&game->player.pos, &temp_dir, game, 0xFFFF00FF);
 	temp_scr_start.x = temp_dir.x - game->player.scr.x;
 	temp_scr_start.y = temp_dir.y - game->player.scr.y;
 	temp_scr_end.x = temp_dir.x + game->player.scr.x;
 	temp_scr_end.y = temp_dir.y + game->player.scr.y;
-	draw_line(&temp_scr_start, &temp_scr_end, game);
+	draw_line(&temp_scr_start, &temp_scr_end, game, 0x00FF00FF);
 }
 
 void render(void *param)
@@ -207,9 +207,9 @@ void render(void *param)
 	grid(game);
 	draw_player(game->img, &game->player);
 	player_dir_line(game);
-
+	raycasting(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	usleep(1000);
+	usleep(50000);
 }
 
 int main(void)

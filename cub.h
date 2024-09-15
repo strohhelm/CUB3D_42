@@ -50,6 +50,7 @@ typedef struct s_algorythm {
 }	t_pixel_line;
 
 
-void	draw_line(t_point *p_a, t_point *p_b, t_game *game);
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
+void raycasting(t_game *game);
 
 #endif
