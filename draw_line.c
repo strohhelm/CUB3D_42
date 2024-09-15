@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/14 17:39:24 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:35:56 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,28 @@ void	draw_line_y(mlx_image_t *img, t_pixel_line z, int w, int h)
 	}
 }
 
+int ft_absolute(int a, int b)
+{
+	int nb;
+
+	nb = a - b;
+	return((nb>=0) * nb + (nb < 0) * -1 *nb);
+}
+
 //needs mlx_img pointer and colour input;
-void	draw_line(t_point *p_a, t_point *p_b, t_player *size)
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color)
 {
 	t_pixel_line	z;
 
 	z.p_a = *p_a;
 	z.p_b = *p_b;
 	z.p_t = *p_a;
-	z.col = size->colour;
+	z.col = color;
 	z.xdiff = ft_absolute(p_a->x, p_b->x);
 	z.ydiff = ft_absolute(p_a->y, p_b->y);
 	if (z.xdiff >= z.ydiff)
-		draw_line_x(size->img, z, size->width, size->height);
+		draw_line_x(game->img, z, WIDTH, HEIGHT);
 	if (z.ydiff > z.xdiff)
-		draw_line_y(size->img, z, size->width, size->height);
+		draw_line_y(game->img, z, WIDTH, HEIGHT);
 	return ;
 }

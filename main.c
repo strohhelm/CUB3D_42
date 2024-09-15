@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/14 17:56:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:39:27 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void grid(t_game *game)
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+    {1, 0, 0, 1, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
@@ -137,6 +137,19 @@ int collision(t_player player, t_game *game, int mod)
 	return (1);
 }
 
+void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r)
+{
+	double tmp_x;
+
+	speed *= l_r;
+	tmp_x = dir->x;
+	dir->x = dir->x * cos(speed) - dir->y * sin(speed);
+	dir->y = tmp_x * sin(speed) + dir->y * cos(speed);
+	tmp_x = plane->x;
+	plane->x = plane->x * cos(speed) - plane->y * sin(speed);
+	plane->y = tmp_x * sin(speed) + plane->y * cos(speed);
+}
+
 void ft_hook(mlx_key_data_t keydata, void *param)
 {
 	t_game *game;
@@ -163,19 +176,27 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 		if (collision(game->player, game, 2))
 			game->player.pos.x -= 5;
 	}
+	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
+	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
 }
 //speed = how much rotation per call of function, l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;
-void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r)
-{
-	double tmp_x;
 
-	speed *= l_r;
-	tmp_x = dir->x;
-	dir->x = dir->x * cos(speed) - dir->y * sin(speed);
-	dir->y = tmp_x * sin(speed) + dir->y * cos(speed);
-	tmp_x = plane->x;
-	plane->x = plane->x * cos(speed) - plane->y * sin(speed);
-	plane->y = tmp_x * sin(speed) + plane->y * cos(speed);
+void player_dir_line(t_game *game)
+{
+	t_point temp_dir;
+	t_point temp_scr_start;
+	t_point temp_scr_end;
+
+	temp_dir.x = game->player.pos.x + game->player.dir.x;
+	temp_dir.y = game->player.pos.y + game->player.dir.y;
+	draw_line(&game->player.pos, &temp_dir, game, 0xFFFF00FF);
+	temp_scr_start.x = temp_dir.x - game->player.scr.x;
+	temp_scr_start.y = temp_dir.y - game->player.scr.y;
+	temp_scr_end.x = temp_dir.x + game->player.scr.x;
+	temp_scr_end.y = temp_dir.y + game->player.scr.y;
+	draw_line(&temp_scr_start, &temp_scr_end, game, 0x00FF00FF);
 }
 
 void render(void *param)
@@ -185,10 +206,11 @@ void render(void *param)
 	game = (t_game*)param;
 	grid(game);
 	draw_player(game->img, &game->player);
+	player_dir_line(game);
+	raycasting(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	usleep(1000);
+	usleep(50000);
 }
-
 
 int main(void)
 {
@@ -199,6 +221,13 @@ int main(void)
 	game.player.height = HEIGHT;
 	game.player.width = WIDTH;
 	game.player.colour = 0x6cf542ff;
+	game.color = 0xFFFF00FF;
+	game.player.dir.x = 50;
+	game.player.dir.y = 0;
+	game.player.scr.x = 0;
+	game.player.scr.y = 50;
+
+
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	
