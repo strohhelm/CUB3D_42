@@ -6,13 +6,13 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/15 14:33:20 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:40:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int comp_ident(char *str, int **idents)
+int	comp_ident(char *str, int **idents)
 {
 	char	*arr[7];
 	int		i;
@@ -41,7 +41,7 @@ int comp_ident(char *str, int **idents)
 	return (error(SET, FALSEIDENT), FALSEIDENT);
 }
 
-int check_identifyer(char **line, int *map_flag)
+int	check_identifyer(char **line, int *map_flag)
 {
 	static int idents[6];
 	int i;
@@ -64,11 +64,18 @@ int check_identifyer(char **line, int *map_flag)
 	return (current);
 }
 
-void	insert_map(t_map *map, char **line, int *map_flag)
+void	insert_map(t_map *map, char **str, int *map_flag)
 {
-	int	len;
+	static char **arr;
+	static int	arrlen;
+	char **tmp;
+	int strlen;
+	int	i;
 	
-	len = arr_len()
+	tmp = (char **)malloc(sizeof(char *) * arrlen + 2);
+	error_
+	strlen = ft_strlen(str);
+
 }
 
 void	get_info(int fd, t_player *player, t_map *map)
@@ -89,6 +96,7 @@ void	get_info(int fd, t_player *player, t_map *map)
 		else if (map_flag)
 			insert_map(map, &next_line, &map_flag);
 	}
+	validate_map(map);
 }
 
 void	read_input(int argc, char **argv, t_player *player, t_map *map)

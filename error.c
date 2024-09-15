@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/15 14:15:06 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:38:40 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,14 @@ int	error(int e_action, int e_error)
 	else if (e_action == SET)
 		error_status = e_error;
 	return (NOUGHT);
+}
+
+void err_check(void *p, int e_error)
+{
+	if (!p)
+	{
+		exit(e_error);
+	}
+	else
+		return ;
 }

@@ -85,7 +85,8 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
-/*		main.c		*/
+
+/*		main.c				*/
 void grid(t_game *game);
 void draw_player(mlx_image_t *img, t_player *player);
 int collision(t_player player, t_game *game, int mod);
@@ -94,6 +95,13 @@ void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
 void render(void *param);
 
 /*		read_input.c		*/
+int		comp_ident(char *str, int **idents);
+int		check_identifyer(char **line, int *map_flag);
+void	insert_map(t_map *map, char **str, int *map_flag);
+void	get_info(int fd, t_player *player, t_map *map);
+void	read_input(int argc, char **argv, t_player *player, t_map *map);
+
+/*		read_map.c			*/
 
 
 
