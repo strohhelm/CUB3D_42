@@ -9,6 +9,30 @@
 #include "include/libft/libft.h"
 #include "include/MLX42/include/MLX42/MLX42.h"
 
+enum e_identifyers
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+	CEILING,
+	FLOOR,
+};
+enum e_action
+{
+	GET,
+	SET,
+};
+
+enum e_error
+{
+	FALSEIDENT = -3,
+	DOUBLEIDENT = -2,
+	EMPTYLINE = -1,
+	NOUGHT,
+
+};
+
 typedef struct s_coordinate {
 	double	x;
 	double	y;
@@ -30,8 +54,21 @@ typedef struct s_game
 	mlx_t *mlx;
 	mlx_image_t *img;
 	t_player player;
-	int **map;
+	t_map map;
 } t_game;
+
+typedef struct s_map
+{
+	int **map;
+	int map_h;
+	int map_w;
+	mlx_texture_t north;
+	mlx_texture_t south;
+	mlx_texture_t east;
+	mlx_texture_t west;
+	long ceiling;
+	long floor;
+} t_map;
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
@@ -47,5 +84,17 @@ typedef struct s_algorythm {
 	t_point	p_b;
 	t_point	p_t;
 }	t_pixel_line;
+
+/*		main.c		*/
+void grid(t_game *game);
+void draw_player(mlx_image_t *img, t_player *player);
+int collision(t_player player, t_game *game, int mod);
+void ft_hook(mlx_key_data_t keydata, void *param);
+void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
+void render(void *param);
+
+/*		read_input.c		*/
+
+
 
 #endif
