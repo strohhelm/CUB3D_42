@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	draw_line_x(mlx_image_t *img, t_pixel_line z, int w, int h)
 {

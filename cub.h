@@ -68,6 +68,7 @@ typedef struct s_game
 	mlx_image_t *img;
 	t_player player;
 	t_map map;
+	long color;
 } t_game;
 
 
@@ -99,6 +100,9 @@ int collision(t_player player, t_game *game, int mod);
 void ft_hook(mlx_key_data_t keydata, void *param);
 void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
 void render(void *param);
+
+/*		raycaster.c			*/
+void raycasting(t_game *game);
 
 /*		read_input.c		*/
 int		comp_ident(char *str, int **idents);

@@ -14,10 +14,11 @@ SRC_PATH := src/
 OBJ_PATH := obj/
 INCLUDE_PATH := include/
 		
-SRC :=	main.c \
+FILES :=	main.c \
 		draw_line.c \
 		raycaster.c
 
+SRC := $(addprefix src/,$(FILES))
 OBJS := $(patsubst src/%.c, obj/%.o,$(SRC))
 NAME := cub3d
 LIB := $(INCLUDE_PATH)libft
@@ -41,12 +42,12 @@ $(FT_LIBS):
 	
 	@make -s -C $(LIB)
 	@make -s -C $(LIBG)
-	@cd include && git clone https://github.com/codam-coding-college/MLX42.git
-	@cd include/MLX42 && cmake -B build && cmake --build build -j4
+	# @cd include && git clone https://github.com/codam-coding-college/MLX42.git
+	# @cd include/MLX42 && cmake -B build && cmake --build build -j4
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $^
 
 clean:
 	@make clean -s -C $(LIB)
