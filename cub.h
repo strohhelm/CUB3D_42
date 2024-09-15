@@ -30,7 +30,7 @@ enum e_error
 	DOUBLEIDENT = -2,
 	EMPTYLINE = -1,
 	NOUGHT,
-
+	MALLOC,
 };
 
 typedef struct s_coordinate {
@@ -85,6 +85,8 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
+/*		draw_line.c			*/
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 
 /*		main.c				*/
 void grid(t_game *game);
@@ -103,6 +105,12 @@ void	read_input(int argc, char **argv, t_player *player, t_map *map);
 
 /*		read_map.c			*/
 
+/*		error.c				*/
+int	error(int e_action, int e_error);
+void err_check(void *p, int e_error);
 
+/*		utils.c				*/
+int arr_len(char **arr);
+int	mv_arr(char **src, char **dest);
 
 #endif
