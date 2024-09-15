@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/15 14:32:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/15 16:56:16 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ int arr_len(char **arr)
 	{
 		while (arr[i])
 			i++;
+	}
+	return (i);
+}
+
+int	mv_arr(char **src, char **dest)
+{
+	int i = -1;
+	if (src && dest)
+	{
+		while (src[++i])
+			dest[i] = src[i];
+		dest[i] = NULL;
 	}
 	return (i);
 }
