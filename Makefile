@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/16 14:54:03 by timschmi         ###   ########.fr        #
+#    Updated: 2024/09/16 19:13:18 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ SRC_PATH := src/
 OBJ_PATH := obj/
 INCLUDE_PATH := include/
 		
-SRC :=	main.c draw_line.c raycaster.c movement.c collision.c
+SRC :=	main.c \
+		draw_line.c \
+		raycaster.c
 
 OBJS := $(patsubst src/%.c, obj/%.o,$(SRC))
 NAME := cub3d
