@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/15 16:40:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:16:16 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	check_identifyer(char **line, int *map_flag)
 		if (*line[i] == '1')
 			*map_flag = 1;
 	}
-	return (current);
+	return (current); 
 }
 
 void	insert_map(t_map *map, char **str, int *map_flag)
@@ -73,9 +73,14 @@ void	insert_map(t_map *map, char **str, int *map_flag)
 	int	i;
 	
 	tmp = (char **)malloc(sizeof(char *) * arrlen + 2);
-	error_
-	strlen = ft_strlen(str);
-
+	err_check(tmp, MALLOC);
+	mv_arr(arr, tmp);
+	if (arrlen > 0)
+		free(arr);
+	tmp[arrlen] = *str;
+	tmp[arrlen + 1] = NULL;
+	arr = tmp;
+	arrlen++;
 }
 
 void	get_info(int fd, t_player *player, t_map *map)
@@ -84,7 +89,7 @@ void	get_info(int fd, t_player *player, t_map *map)
 	int map_flag;
 
 	map_flag = 0;
-	while (!error(GET, NOUGHT) && map_flag < 2)
+	while (!error(GET, NOUGHT))
 	{
 		next_line = get_next_line(fd);
 		if (!next_line)
@@ -96,6 +101,8 @@ void	get_info(int fd, t_player *player, t_map *map)
 		else if (map_flag)
 			insert_map(map, &next_line, &map_flag);
 	}
+	if (error(GET, NOUGHT))
+		
 	validate_map(map);
 }
 
@@ -107,7 +114,7 @@ void	read_input(int argc, char **argv, t_player *player, t_map *map)
 	i = 0;
 	if(argc != 2)
 		return (-1);
-	fd = open(argv[1]);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (-1);
 	if (!ft_strchr(argv[1], '.')
