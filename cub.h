@@ -1,7 +1,7 @@
 #ifndef CUB_H
 #define CUB_H
 
-#define WIDTH 800
+#define WIDTH 1600
 #define HEIGHT 800
 
 #include <math.h>

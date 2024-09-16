@@ -6,19 +6,43 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:22:03 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:50:07 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+unsigned int darken_color(unsigned int hex_color, float value, float max_value) {
+    // Clamp the value between 0 and max_value
+    if (value < 0) value = 0;
+    if (value > max_value) value = max_value;
+    
+    // Calculate the darkening factor (a value between 0 and 1)
+    float factor = 1.0f - (value / max_value);
+    
+    // Extract RGB components
+    unsigned char r = (hex_color >> 16) & 0xFF;
+    unsigned char g = (hex_color >> 8) & 0xFF;
+    unsigned char b = hex_color & 0xFF;
+    
+    // Darken each component
+    r = (unsigned char)(r * factor);
+    g = (unsigned char)(g * factor);
+    b = (unsigned char)(b * factor);
+    
+    // Recombine the RGB components into a single hex value
+    unsigned int new_color = (r << 16) | (g << 8) | b;
+    
+    return new_color;
+}
+
 void raycasting(t_game *game)
 {
 	int x = 0;
 
-	while (x < WIDTH)
+	while (x < 800)
 	{
-		double camx = 2 * x / (double)WIDTH -1;
+		double camx = 2 * x / (double)800 -1;
 		double ray_dir_x = game->player.dir.x + game->player.scr.x * camx;
 		double ray_dir_y = game->player.dir.y + game->player.scr.y * camx;
 
@@ -76,15 +100,13 @@ void raycasting(t_game *game)
 				my += stepy;
 				side = 1;
 			}
-			printf("map(x: %d, y: %d)\n", mx, my);
+			// printf("map(x: %d, y: %d)\n", mx, my);
 			if (game->map.map[mx][my] == 1)
 			{
 				hit = 1;
 
 			}
 		}
-		x++;
-
 		if (side == 0)
 		{
 			walldist = sdistx - deldistx;
@@ -97,5 +119,24 @@ void raycasting(t_game *game)
 		hitp.x = game->player.pos.x + walldist *ray_dir_x;
 		hitp.y = game->player.pos.y + walldist *ray_dir_y;
 		draw_line(&game->player.pos, &hitp, game, 0xFF0000FF);
+
+		int lineheight = HEIGHT / walldist;
+		int start = -lineheight / 2 + HEIGHT / 2;
+		if (start < 0)
+			start = 0;
+		int end = lineheight / 2 + HEIGHT / 2;
+		if (end >= HEIGHT)
+			end = HEIGHT - 1;
+		while(start <= end)
+		{
+			int color;
+			if (side == 0)
+				color = 0xFF0000FF;
+			else
+				color = 0xFFFF00FF;
+			mlx_put_pixel(game->img, x + 800, start, color);
+			start++;
+		}
+		x++;
 	}
 }

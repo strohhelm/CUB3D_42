@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:03:27 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:46:51 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,31 @@ void player_dir_line(t_game *game)
 	draw_line(&temp_scr_start, &temp_scr_end, game, 0x00FF00FF);
 }
 
+void blank(t_game *game)
+{
+	int x = 800;
+	int y = 0;
+
+	while (x < 1600)
+	{
+		y = 0;
+		while (y < 800)
+		{
+			mlx_put_pixel(game->img, x, y, 0x808080FF);
+			y++;
+		}
+		x++;
+	}
+}
+
+
 void render(void *param)
 {
 	t_game *game;
 
 	game = (t_game*)param;
 	grid(game);
+	blank(game);
 	raycasting(game);
 	draw_player(game->img, &game->player);
 	player_dir_line(game);
