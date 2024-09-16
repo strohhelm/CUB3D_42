@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 15:49:59 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:03:27 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void player_dir_line(t_game *game)
 
 	temp_dir.x = game->player.pos.x + game->player.dir.x;
 	temp_dir.y = game->player.pos.y + game->player.dir.y;
-	printf("point a(x: %f, y: %f) || point b(x: %f, y: %f)\n", game->player.pos.x, game->player.pos.y, temp_dir.x, temp_dir.y);
+	// printf("point a(x: %f, y: %f) || point b(x: %f, y: %f)\n", game->player.pos.x, game->player.pos.y, temp_dir.x, temp_dir.y);
 	draw_line(&game->player.pos, &temp_dir, game, 0xFFFF00FF);
 	temp_scr_start.x = temp_dir.x - game->player.scr.x;
 	temp_scr_start.y = temp_dir.y - game->player.scr.y;
@@ -130,9 +130,9 @@ void render(void *param)
 
 	game = (t_game*)param;
 	grid(game);
+	raycasting(game);
 	draw_player(game->img, &game->player);
 	player_dir_line(game);
-	raycasting(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	usleep(100000);
 }
@@ -146,10 +146,10 @@ int main(void)
 	game.player.height = HEIGHT;
 	game.player.width = WIDTH;
 	game.player.color = 0x6cf542ff;
-	game.player.dir.x = 0.5;
+	game.player.dir.x = 1;
 	game.player.dir.y = 0;
 	game.player.scr.x = 0;
-	game.player.scr.y = 0.5;
+	game.player.scr.y = 0.66;
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	
