@@ -46,16 +46,8 @@ typedef struct s_player
 	t_point dir;
 	t_point scr;
 	int start;
-	long colour;
+	long color;
 }	t_player;
-
-typedef struct s_game
-{
-	mlx_t *mlx;
-	mlx_image_t *img;
-	t_player player;
-	t_map map;
-} t_game;
 
 typedef struct s_map
 {
@@ -69,6 +61,15 @@ typedef struct s_map
 	long ceiling;
 	long floor;
 } t_map;
+
+typedef struct s_game
+{
+	mlx_t *mlx;
+	mlx_image_t *img;
+	t_player player;
+	t_map map;
+} t_game;
+
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
@@ -85,6 +86,9 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
+
+void raycasting(t_game *game);
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 
 /*		main.c				*/
 void grid(t_game *game);

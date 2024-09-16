@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/14 18:35:56 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:01:30 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,20 @@ int ft_absolute(int a, int b)
 void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color)
 {
 	t_pixel_line	z;
+	t_point a, b;
 
-	z.p_a = *p_a;
-	z.p_b = *p_b;
-	z.p_t = *p_a;
+	a.x = p_a->x * 80;
+	a.y = p_a->y * 80;
+
+	b.x = p_b->x * 80;
+	b.y = p_b->y * 90;
+
+	z.p_a = a;
+	z.p_b = b;
+	z.p_t = a;
 	z.col = color;
-	z.xdiff = ft_absolute(p_a->x, p_b->x);
-	z.ydiff = ft_absolute(p_a->y, p_b->y);
+	z.xdiff = ft_absolute(a.x, b.x);
+	z.ydiff = ft_absolute(a.y, b.y);
 	if (z.xdiff >= z.ydiff)
 		draw_line_x(game->img, z, WIDTH, HEIGHT);
 	if (z.ydiff > z.xdiff)

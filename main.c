@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/15 15:39:27 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:49:59 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void grid(t_game *game)
 	int x = 0;
 	int y = 0;
 
-	game->map = (int**)malloc(sizeof(int*) * 10);
+	game->map.map = (int**)malloc(sizeof(int*) * 10);
 	while (x < 10)
 	{
-		game->map[x] = (int*)malloc(sizeof(int) * 10);
+		game->map.map[x] = (int*)malloc(sizeof(int) * 10);
 		x++;
 	}
 
@@ -43,7 +43,7 @@ void grid(t_game *game)
 		y = 0;
 		while (y < 10)
 		{
-			game->map[x][y] = arr[x][y];
+			game->map.map[x][y] = arr[x][y];
 			y++;
 		}
 		x++;
@@ -67,7 +67,7 @@ void grid(t_game *game)
 				{
 					if ((arr_x == x * 80 || arr_y == y * 80) || (arr_x == 799 || arr_y == 799)) // if the current pixel is in the border of the block or the edges of our window its painted black to create a grid layout
 						mlx_put_pixel(game->img, arr_x, arr_y, 0x000000FF);
-					else if (game->map[x][y] == 1)
+					else if (game->map.map[x][y] == 1)
 						mlx_put_pixel(game->img, arr_x, arr_y, 0xD3D3D3FF);
 					else
 						mlx_put_pixel(game->img, arr_x, arr_y, 0x808080FF);
@@ -83,14 +83,18 @@ void grid(t_game *game)
 
 void draw_player(mlx_image_t *img, t_player *player)
 {
-	int x = (int)player->pos.x - 10;
-	int y = (int)player->pos.y - 10;
+	int x = player->pos.x * 80 - 10;
+	int y = player->pos.y * 80 - 10;
 	int size_x = 0;
 	int size_y = 0;
 
+	// double scalex = double(WIDTH / 10);
+	// double scaley = double(HEIGHT / 10);
+	// printf("draw x: %d, y: %d\n", x, y);
+
 	while (size_x < 20)
 	{
-		y = (int)player->pos.y - 10;
+		y = player->pos.y * 80 - 10;
 		size_y = 0;
 		while (size_y < 20)
 		{
@@ -103,86 +107,6 @@ void draw_player(mlx_image_t *img, t_player *player)
 	}
 }
 
-int collision(t_player player, t_game *game, int mod)
-{
-	double x;
-	double y;
-	double px = player.pos.x;
-	double py = player.pos.y;
-	if (mod == 1)
-	{
-		x = ((px + 10) / 80);
-		y = ((py) / 80);
-	}
-	else if (mod == 2)
-	{
-		x = ((px - 10) / 80) -0.001;
-		y = ((py) / 80);
-	}
-	else if (mod == 3)
-	{
-		x = ((px) / 80);
-		y = ((py + 10) / 80);
-	}
-	else if (mod == 4)
-	{
-		x = ((px) / 80);
-		y = ((py - 10) / 80) - 0.001;
-	}
-	int ix = (int)floor(x);
-	int iy = (int)floor(y);
-	// printf("player: x: %f y: %f, index: x: %d y: %d\n", player.pos.x, player.pos.y, ix, iy);
-	if (game->map[ix][iy] == 1)
-		return(0);
-	return (1);
-}
-
-void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r)
-{
-	double tmp_x;
-
-	speed *= l_r;
-	tmp_x = dir->x;
-	dir->x = dir->x * cos(speed) - dir->y * sin(speed);
-	dir->y = tmp_x * sin(speed) + dir->y * cos(speed);
-	tmp_x = plane->x;
-	plane->x = plane->x * cos(speed) - plane->y * sin(speed);
-	plane->y = tmp_x * sin(speed) + plane->y * cos(speed);
-}
-
-void ft_hook(mlx_key_data_t keydata, void *param)
-{
-	t_game *game;
-
-	game = (t_game*)param;
-
-	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		if (collision(game->player, game, 4))
-			game->player.pos.y -= 5;
-	}
-	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		if (collision(game->player, game, 3))
-			game->player.pos.y += 5;
-	}
-	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		if (collision(game->player, game, 1))
-			game->player.pos.x += 5;
-	}
-	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		if (collision(game->player, game, 2))
-			game->player.pos.x -= 5;
-	}
-	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
-	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
-}
-//speed = how much rotation per call of function, l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;
-
 void player_dir_line(t_game *game)
 {
 	t_point temp_dir;
@@ -191,6 +115,7 @@ void player_dir_line(t_game *game)
 
 	temp_dir.x = game->player.pos.x + game->player.dir.x;
 	temp_dir.y = game->player.pos.y + game->player.dir.y;
+	printf("point a(x: %f, y: %f) || point b(x: %f, y: %f)\n", game->player.pos.x, game->player.pos.y, temp_dir.x, temp_dir.y);
 	draw_line(&game->player.pos, &temp_dir, game, 0xFFFF00FF);
 	temp_scr_start.x = temp_dir.x - game->player.scr.x;
 	temp_scr_start.y = temp_dir.y - game->player.scr.y;
@@ -209,25 +134,22 @@ void render(void *param)
 	player_dir_line(game);
 	raycasting(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	usleep(50000);
+	usleep(100000);
 }
 
 int main(void)
 {
 	t_game game;
 
-	game.player.pos.x = 120;
-	game.player.pos.y = 120;
+	game.player.pos.x = 1.5;
+	game.player.pos.y = 1.5;
 	game.player.height = HEIGHT;
 	game.player.width = WIDTH;
-	game.player.colour = 0x6cf542ff;
-	game.color = 0xFFFF00FF;
-	game.player.dir.x = 50;
+	game.player.color = 0x6cf542ff;
+	game.player.dir.x = 0.5;
 	game.player.dir.y = 0;
 	game.player.scr.x = 0;
-	game.player.scr.y = 50;
-
-
+	game.player.scr.y = 0.5;
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	

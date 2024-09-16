@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/15 16:22:05 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:12:20 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,27 @@ void raycasting(t_game *game)
 {
 	int x = 0;
 
-	while (x < WIDTH)
+	while (x < 1)
 	{
-		double camx = (2 * x / (double)WIDTH) -1;
-		double ray_dir_x = game->player.dir.x + game->player.scr.x * camx;
-		double ray_dir_y = game->player.dir.y + game->player.scr.y * camx;
+		// double camx = (2 * x / (double)WIDTH) -1;
+		// double ray_dir_x = game->player.dir.x + game->player.scr.x * camx;
+		// double ray_dir_y = game->player.dir.y + game->player.scr.y * camx;
+		t_point temp_dir;
+		t_point temp_scr_start;
+		t_point temp_scr_end;
+
+		temp_dir.x = game->player.pos.x + game->player.dir.x;
+		temp_dir.y = game->player.pos.y + game->player.dir.y;
+		temp_scr_start.x = temp_dir.x - game->player.scr.x;
+		temp_scr_start.y = temp_dir.y - game->player.scr.y;
+		temp_scr_end.x = temp_dir.x + game->player.scr.x;
+		temp_scr_end.y = temp_dir.y + game->player.scr.y;
+
+		double ray_dir_x = temp_scr_end.x;
+		double ray_dir_y = temp_scr_end.y;
+
+		draw_line(&game->player.pos, &temp_scr_end, game, 0xFFFF00FF);
+
 
 		// int mx = (int)floor(game->player.pos.x / 80);
 		// int my = (int)floor(game->player.pos.y / 80);
@@ -83,7 +99,7 @@ void raycasting(t_game *game)
 			int ix = (int)floor(mx / 80);
 			int iy = (int)floor(my / 80);
 
-			if (game->map[ix][iy] == 1)
+			if (game->map.map[ix][iy] == 1)
 			{
 				hit = 1;
 				t_point hit;
@@ -95,14 +111,13 @@ void raycasting(t_game *game)
 					i = 1;
 				}
 				else
-				 i = 0;
-				printf("HIT!!!\n");
+					i = 0;
+				// printf("HIT!!!\n");
 			}
-			else
-				printf("MISS\n");
-
+			// else
+			// 	// printf("MISS\n");
 		}
 		x++;
 	}
-	printf("EXIT\n");
+	// printf("EXIT\n");
 }
