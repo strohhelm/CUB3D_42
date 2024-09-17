@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:46:51 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:26:53 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,6 @@ void draw_player(mlx_image_t *img, t_player *player)
 	int size_x = 0;
 	int size_y = 0;
 
-	// double scalex = double(WIDTH / 10);
-	// double scaley = double(HEIGHT / 10);
-	// printf("draw x: %d, y: %d\n", x, y);
-
 	while (size_x < 20)
 	{
 		y = player->pos.y * 80 - 10;
@@ -141,7 +137,6 @@ void blank(t_game *game)
 	}
 }
 
-
 void render(void *param)
 {
 	t_game *game;
@@ -168,7 +163,10 @@ int main(void)
 	game.player.dir.x = 1;
 	game.player.dir.y = 0;
 	game.player.scr.x = 0;
-	game.player.scr.y = 0.66;
+	game.player.scr.y = 0.5;
+
+	// double scalex = double(WIDTH / 10);
+	// double scaley = double(HEIGHT / 10);
 
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	

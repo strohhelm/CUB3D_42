@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 17:49:14 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:25:00 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 
 	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		// if (collision(game->player, game, 4))
+		if (collision(game->player, game, 4))
 			game->player.pos.y -= 0.1;
 	}
 	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		// if (collision(game->player, game, 3))
+		if (collision(game->player, game, 3))
 			game->player.pos.y += 0.1;
 	}
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		// if (collision(game->player, game, 1))
+		if (collision(game->player, game, 1))
 			game->player.pos.x += 0.1;
 	}
 	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		// if (collision(game->player, game, 2))
+		if (collision(game->player, game, 2))
 			game->player.pos.x -= 0.1;
 	}
 	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))

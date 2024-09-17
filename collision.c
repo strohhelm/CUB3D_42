@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 15:34:05 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:39:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,27 @@ int collision(t_player player, t_game *game, int mod)
 	double py = player.pos.y;
 	if (mod == 1)
 	{
-		x = px + 0.1;
+		x = px + 0.11;
 		y = py;
 	}
 	else if (mod == 2)
 	{
-		x = px - 0.1;
+		x = px - 0.11;
 		y = py;
 	}
 	else if (mod == 3)
 	{
 		x = px;
-		y = py + 0.1;
+		y = py + 0.11;
 	}
 	else if (mod == 4)
 	{
 		x = px;
-		y = py - 0.1;
+		y = py - 0.11;
 	}
 	int ix = x;
 	int iy = y;
-	printf("player: x: %f y: %f, index: x: %d y: %d\n", player.pos.x, player.pos.y, ix, iy);
+	printf("player: x: %f y: %f, index: x: %d y: %d\n", x, y, ix, iy);
 	if (game->map.map[ix][iy] == 1)
 		return(0);
 	return (1);

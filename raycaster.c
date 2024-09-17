@@ -6,35 +6,11 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 18:50:07 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:23:54 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-unsigned int darken_color(unsigned int hex_color, float value, float max_value) {
-    // Clamp the value between 0 and max_value
-    if (value < 0) value = 0;
-    if (value > max_value) value = max_value;
-    
-    // Calculate the darkening factor (a value between 0 and 1)
-    float factor = 1.0f - (value / max_value);
-    
-    // Extract RGB components
-    unsigned char r = (hex_color >> 16) & 0xFF;
-    unsigned char g = (hex_color >> 8) & 0xFF;
-    unsigned char b = hex_color & 0xFF;
-    
-    // Darken each component
-    r = (unsigned char)(r * factor);
-    g = (unsigned char)(g * factor);
-    b = (unsigned char)(b * factor);
-    
-    // Recombine the RGB components into a single hex value
-    unsigned int new_color = (r << 16) | (g << 8) | b;
-    
-    return new_color;
-}
 
 void raycasting(t_game *game)
 {
