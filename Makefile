@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/16 19:13:18 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/09/17 11:00:49 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,15 @@ OBJ_PATH := obj/
 INCLUDE_PATH := include/
 		
 FILES :=	main.c \
-		draw_line.c \
-		raycaster.c
+			collision.c \
+			draw_line.c \
+			error.c \
+			movement.c \
+			raycaster.c \
+			read_input.c \
+			read_map.c \
+			utils.c
+			
 
 SRC := $(addprefix src/,$(FILES))
 OBJS := $(patsubst src/%.c, obj/%.o,$(SRC))
@@ -35,7 +42,7 @@ CFLAGS =  -fsanitize=address # -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(FT_LIBS) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -pthread -lm 
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -pthread -lm -g
 	@make -s welcome 
 	
 $(FT_LIBS): 
@@ -47,7 +54,7 @@ $(FT_LIBS):
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -o $@ -c $^
+	@$(CC) $(CFLAGS) -o $@ -c $^ -g
 
 clean:
 	@make clean -s -C $(LIB)

@@ -6,37 +6,13 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 19:14:06 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/17 19:21:39 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-unsigned int darken_color(unsigned int hex_color, float value, float max_value) {
-    // Clamp the value between 0 and max_value
-    if (value < 0) value = 0;
-    if (value > max_value) value = max_value;
-    
-    // Calculate the darkening factor (a value between 0 and 1)
-    float factor = 1.0f - (value / max_value);
-    
-    // Extract RGB components
-    unsigned char r = (hex_color >> 16) & 0xFF;
-    unsigned char g = (hex_color >> 8) & 0xFF;
-    unsigned char b = hex_color & 0xFF;
-    
-    // Darken each component
-    r = (unsigned char)(r * factor);
-    g = (unsigned char)(g * factor);
-    b = (unsigned char)(b * factor);
-    
-    // Recombine the RGB components into a single hex value
-    unsigned int new_color = (r << 16) | (g << 8) | b;
-    
-    return new_color;
-}
-
-void raycasting(t_game *game)
+void	raycasting(t_game *game)
 {
 	int x = 0;
 
@@ -100,11 +76,10 @@ void raycasting(t_game *game)
 				my += stepy;
 				side = 1;
 			}
-			// printf("map(x: %d, y: %d)\n", mx, my);
-			if (game->map.map[mx][my] == 1)
+			printf("map(x: %d, y: %d)\n", mx, my);
+			if (game->map.map[my][mx] == 1)
 			{
 				hit = 1;
-
 			}
 		}
 		if (side == 0)
@@ -116,9 +91,13 @@ void raycasting(t_game *game)
 			walldist = sdisty - deldisty;
 		}
 		t_point hitp;
-		hitp.x = game->player.pos.x + walldist *ray_dir_x;
-		hitp.y = game->player.pos.y + walldist *ray_dir_y;
-		draw_line(&game->player.pos, &hitp, game, 0xFF0000FF);
+		t_point pos;
+		hitp.x = (game->player.pos.x + walldist *ray_dir_x) * game->map.scale;
+		hitp.y = (game->player.pos.y + walldist *ray_dir_y) * game->map.scale;
+		pos.x = game->player.pos.x *game->map.scale;
+		pos.y = game->player.pos.y *game->map.scale;
+		if (x %10 == 0)
+		draw_line(&pos, &hitp, game, 0xFF0000FF);
 
 		int lineheight = HEIGHT / walldist;
 		int start = -lineheight / 2 + HEIGHT / 2;

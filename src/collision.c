@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/16 15:34:05 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:16:29 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int collision(t_player player, t_game *game, int mod)
 {
