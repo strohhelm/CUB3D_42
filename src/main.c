@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/17 19:14:21 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:26:27 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,15 @@ void blank(t_game *game)
 	while (x < WIDTH)
 	{
 		y = 0;
-		while (y < (WIDTH / 2))
-		{
-			mlx_put_pixel(game->img, x, y, 0x808080FF);
-			y++;
-		}
+		while (y <= (HEIGHT / 2))
+			mlx_put_pixel(game->img, x, y++, game->map.ceiling);
+		while (y < (HEIGHT))
+			mlx_put_pixel(game->img, x, y++, game->map.floor);
 		x++;
 	}
 }
 
 
-void render(void *param)
-{
-	t_game *game;
-
-	game = (t_game*)param;
-	grid(game);
-	blank(game);
-	raycasting(game);
-	draw_player(game);
-	player_dir_line(game);
-	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	usleep(100000);
-}
 
 void	screen_init(t_player *player)
 {
@@ -136,14 +122,33 @@ void	screen_init(t_player *player)
 		scr.y = player->pov;
 	else if (dir.x < 0)
 		scr.y = -player->pov;
-	printf("dir: %f %f\n", dir.x, dir.y);
-	printf("scr: %f %f\n", scr.x, scr.y);
+	// printf("dir: %f %f\n", dir.x, dir.y);
+	// printf("scr: %f %f\n", scr.x, scr.y);
 	player->scr = scr;
+}
+
+void render(void *param)
+{
+	t_game *game;
+
+	game = (t_game*)param;
+	grid(game);
+	blank(game);
+	raycasting(game);
+	draw_player(game);
+	player_dir_line(game);
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
+	usleep(1000);
+}
+void	load_textures(t_map *map)
+{
+	map->north = mlx_load_png("./include/textures/3.png");
 }
 
 int main(int argc, char **argv)
 {
 	t_game game;
+	
 	int scale;
 	if (!(argc == 2))
 		return (printf("invalid input!\n"));
@@ -152,8 +157,12 @@ int main(int argc, char **argv)
 	game.player.color = 0x6cf542ff;
 	game.player.pov = 0.5;
 	game.map.str_map = NULL;
-	read_input(argv, &game.player, &game.map);
+	game.map.ceiling = 0x00d4ffff;
+	game.map.floor = 0x119c02ff; 
+	if (read_input(argv, &game.player, &game.map))
+		return (printf("invalid input!\n"), 0);
 	screen_init(&game.player);
+	load_textures(&game.map);
 	if ((HEIGHT / game.map.map_h) < (WIDTH/2 / game.map.map_w))
 		scale = (HEIGHT / game.map.map_h);
 	else
@@ -163,8 +172,19 @@ int main(int argc, char **argv)
 	game.player.pos.y = (game.player.pos.y * scale + scale / 2) / scale;
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
+	for (uint32_t i = 0; i < game.map.north->height; i++ && i < HEIGHT)
+	{
+		for(u_int32_t j = 0; j < game.map.north->width; j++ && j < WIDTH)
+		{
+			uint8_t *pos = &game.map.north->pixels[(i * game.map.north->width + j) * game.map.north->bytes_per_pixel];
+			
+			uint8_t *img_pos = &game.img->pixels[(i * game.img->width + j) * game.map.north->bytes_per_pixel];
+			memmove(img_pos, pos , game.map.north->bytes_per_pixel);
+		}
+	}
+	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, &ft_hook, (void*)&game);
-	mlx_loop_hook(game.mlx, render, (void*)&game);
+	// mlx_loop_hook(game.mlx, render, (void*)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);

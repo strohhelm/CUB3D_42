@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/17 11:00:49 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/09/18 15:14:32 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ HEADER := cub.h -I ./include -I $(MLX_PATH)/include
 ART = $(INCLUDE_PATH)art.txt
 CC = cc
 CFLAGS =  -fsanitize=address # -Wall -Wextra -Werror
-
+DEPFLAGS= -MMD -MP
 all: $(NAME)
 
 $(NAME): $(FT_LIBS) $(OBJS)
@@ -54,12 +54,12 @@ $(FT_LIBS):
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -o $@ -c $^ -g
+	@$(CC) $(CFLAGS) $(DEPFLAGS) -o $@ -c $^ -g
 
 clean:
 	@make clean -s -C $(LIB)
 	@make clean -s -C $(LIBG)
-	@rm -rf %.o
+	@rm -rf obj
 
 fclean: clean
 	@make fclean -s -C $(LIB)

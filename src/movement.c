@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/17 19:12:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:44:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,56 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 	{
 		// if (collision(game->player, game, 4))
 			game->player.pos.y -= 0.1;
+			return ;
 	}
-	if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		// if (collision(game->player, game, 3))
 			game->player.pos.y += 0.1;
+			return ;
+
 	}
 	if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		// if (collision(game->player, game, 1))
 			game->player.pos.x += 0.1;
+			return ;
+
 	}
 	if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		// if (collision(game->player, game, 2))
 			game->player.pos.x -= 0.1;
+			return ;
+
 	}
 	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
+		{
+			rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
+			return ;
+		}
 	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+			return ;
+		
+	}
+	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS))
 	{
 		mlx_terminate(game->mlx);
 		exit(0);
 	}
-
-	printf("px: %f, py: %f\n", game->player.pos.x, game->player.pos.y);
+	// if (keydata.key == MLX_KEY_UP && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	// {
+	// 	game->player.scr += 0.1;
+	// 	return ;
+	// }
+	// if (keydata.key == MLX_KEY_DOWN && (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	// {
+	// 	game->player.pov -= 0.1;
+	// 	return ;
+	// }
+	return ;
 }
 
 //speed = how much rotation per call of function, l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;

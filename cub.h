@@ -12,6 +12,13 @@
 #include "include/get_next_line/get_next_line.h"
 #include "include/MLX42/include/MLX42/MLX42.h"
 
+enum e_colors 
+{
+	NO = 0x9B5DE5FF,
+	WE = 0xFF6F61FF,
+	SO = 0xDFFF00FF,
+	EA = 0x3E00FFFF,
+};
 enum e_identifyers
 {
 	NORTH,
@@ -59,14 +66,14 @@ typedef struct s_map
 	char **str_map;
 	int map_h;
 	int map_w;
-	mlx_texture_t north;
-	mlx_texture_t south;
-	mlx_texture_t east;
-	mlx_texture_t west;
 	long ceiling;
 	long floor;
 	int	start[3];
 	int	scale;
+	mlx_texture_t *north;
+	mlx_texture_t *south;
+	mlx_texture_t *east;
+	mlx_texture_t *west;
 } t_map;
 
 typedef struct s_game
@@ -76,6 +83,7 @@ typedef struct s_game
 	t_player player;
 	t_map map;
 	long	color;
+
 } t_game;
 
 
@@ -133,3 +141,20 @@ int		arr_len(char **arr);
 int		mv_arr(char **src, char **dest);
 
 #endif
+
+// Deep Amethyst
+// Hex: #9B5DE5
+// A rich purple with a soft, luxurious feel.
+
+// Burnt Coral
+// Hex: #FF6F61
+// A warm, slightly muted coral, striking but not too bold.
+
+// Electric Limoncello
+// Hex: #DFFF00
+// A zesty and vibrant yellow-green that stands out.
+
+// Iridescent Indigo
+// Hex: #3E00FF
+// A deep, electric blue with a hint of indigo, giving a futuristic vibe.
+
