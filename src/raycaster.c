@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/18 16:53:26 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:30:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,27 @@ void	draw_tex(t_game *game, int x, int start, int end, t_point hit)
 {
 	double step;
 	int i;
-	int colour;
 	double x_scale;
-	int arr_pos;
-
+	uint8_t *tex_pos;
+	uint8_t *img_pos;
+	
 	i = 0;
 	step = game->map.north->height / (end - start);
 	hit.x /= game->map.scale;
 	hit.y /= game->map.scale;
-	hit.x = fmod(hit.x, 1.0);
-	x_scale = game->map.north->width * hit.x;
+	x_scale = game->map.north->width * fmod(hit.x, 1.0);
 	
 	while (i <= (end - start))
 	{
-		arr_pos = (i * (int)step) * game->map.north->width + (int)x_scale;
-		colour = game->map.north->pixels[arr_pos];
+		int arr_pos = ((i * (int)step) * game->map.north->width + (int)x_scale) * game->map.north->bytes_per_pixel;
 		
-		colour = colour | 0xFF;
-		printf("py: %d, px : %d\n", i * (int)step, (int)x_scale);
-		printf("value:%x arr pos:%d\n", colour, arr_pos);
-		mlx_put_pixel(game->img, x + (WIDTH / 2), start + i, colour);
+		tex_pos = &game->map.north->pixels[arr_pos];
+
+
+		int pic_pos = ((start + i) * game->img->width + (x + WIDTH / 2)) * game->map.north->bytes_per_pixel;
+		
+		img_pos = &game->img->pixels[pic_pos];
+		ft_memmove(img_pos, tex_pos, game->map.north->bytes_per_pixel);
 		i++;
 	}
 	

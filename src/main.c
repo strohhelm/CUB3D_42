@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/18 17:26:27 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:18:55 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,19 +172,19 @@ int main(int argc, char **argv)
 	game.player.pos.y = (game.player.pos.y * scale + scale / 2) / scale;
 	game.mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	game.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
-	for (uint32_t i = 0; i < game.map.north->height; i++ && i < HEIGHT)
-	{
-		for(u_int32_t j = 0; j < game.map.north->width; j++ && j < WIDTH)
-		{
-			uint8_t *pos = &game.map.north->pixels[(i * game.map.north->width + j) * game.map.north->bytes_per_pixel];
+	// for (uint32_t i = 0; i < game.map.north->height; i++ && i < HEIGHT)
+	// {
+	// 	for(u_int32_t j = 0; j < game.map.north->width; j++ && j < WIDTH)
+	// 	{
+	// 		uint8_t *pos = &game.map.north->pixels[(i * game.map.north->width + j) * game.map.north->bytes_per_pixel];
 			
-			uint8_t *img_pos = &game.img->pixels[(i * game.img->width + j) * game.map.north->bytes_per_pixel];
-			memmove(img_pos, pos , game.map.north->bytes_per_pixel);
-		}
-	}
+	// 		uint8_t *img_pos = &game.img->pixels[(i * game.img->width + j) * game.map.north->bytes_per_pixel];
+	// 		memmove(img_pos, pos , game.map.north->bytes_per_pixel);
+	// 	}
+	// }
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, &ft_hook, (void*)&game);
-	// mlx_loop_hook(game.mlx, render, (void*)&game);
+	mlx_loop_hook(game.mlx, render, (void*)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);
