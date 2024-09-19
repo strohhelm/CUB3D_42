@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/19 14:59:53 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:10:56 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int collision(t_point new_pos, t_game *game)
 
 	int ix = new_pos.x;
 	int iy = new_pos.y;
+	
 	if (game->map.map[ix][iy] == 1)
 		return(0);
 	return (1);

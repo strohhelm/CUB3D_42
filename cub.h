@@ -112,7 +112,7 @@ void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 /*		main.c				*/
 void	grid(t_game *game);
 void	draw_player(t_game *game);
-int		collision(t_player player, t_game *game, int mod);
+int collision(t_point new_pos, t_game *game);
 void	ft_hook(mlx_key_data_t keydata, void *param);
 void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
 void	render(void *param);
