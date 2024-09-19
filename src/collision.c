@@ -1,14 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/15 16:40:50 by pstrohal         ###   ########.fr       */
+/*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
+/*   Updated: 2024/09/19 14:59:53 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
+int collision(t_point new_pos, t_game *game)
+{
+	new_pos.x += 0.01;
+	new_pos.y += 0.01;
+
+	int ix = new_pos.x;
+	int iy = new_pos.y;
+	if (game->map.map[ix][iy] == 1)
+		return(0);
+	return (1);
+}

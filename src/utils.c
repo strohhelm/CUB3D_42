@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collision.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/17 16:51:23 by timschmi         ###   ########.fr       */
+/*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
+/*   Updated: 2024/09/19 15:00:05 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
-int collision(t_point new_pos, t_game *game)
+int arr_len(char **arr)
 {
-	new_pos.x += 0.01;
-	new_pos.y += 0.01;
+	int	i;
+	
+	i = 0;
+	if (arr)
+	{
+		while (arr[i])
+			i++;
+	}
+	return (i);
+}
 
-	int ix = new_pos.x;
-	int iy = new_pos.y;
-	if (game->map.map[ix][iy] == 1)
-		return(0);
-	return (1);
+int	mv_arr(char **src, char **dest)
+{
+	int i = 0;
+	if (src && dest)
+	{
+		while (src[i])
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = NULL;
+	}
+	return (i);
 }

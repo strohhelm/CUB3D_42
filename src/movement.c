@@ -6,11 +6,11 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/17 16:49:37 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:59:56 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 // void ft_hook(mlx_key_data_t keydata, void *param)
 // {
@@ -105,11 +105,14 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 		}
 
 	}
-	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
-	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (keydata.key == MLX_KEY_LEFT && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		{
+			rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
+			return ;
+		}
+	if (keydata.key == MLX_KEY_RIGHT && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
-
 }
 
 
