@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/18 18:18:55 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:11:50 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,16 +112,18 @@ void	screen_init(t_player *player)
 	t_point scr;
 
 	dir = player->dir;
+	player->dir.x/= 10;
+	player->dir.y /=10;
 	scr.x = 0;
 	scr.y = 0;
 	if (dir.y > 0)
-		scr.x = -player->pov;
+		scr.x = (-player->pov)/10;
 	else if (dir.y < 0)
-		scr.x = player->pov;
+		scr.x = player->pov / 10;
 	else if (dir.x > 0)
-		scr.y = player->pov;
+		scr.y = player->pov / 10;
 	else if (dir.x < 0)
-		scr.y = -player->pov;
+		scr.y = -player->pov / 10;
 	// printf("dir: %f %f\n", dir.x, dir.y);
 	// printf("scr: %f %f\n", scr.x, scr.y);
 	player->scr = scr;
@@ -134,15 +136,16 @@ void render(void *param)
 	game = (t_game*)param;
 	grid(game);
 	blank(game);
+	ft_hook(game);
 	raycasting(game);
 	draw_player(game);
 	player_dir_line(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	usleep(1000);
+	usleep(10000);
 }
 void	load_textures(t_map *map)
 {
-	map->north = mlx_load_png("./include/textures/3.png");
+	map->north = mlx_load_png("./include/textures/5.png");
 }
 
 int main(int argc, char **argv)
@@ -183,7 +186,7 @@ int main(int argc, char **argv)
 	// 	}
 	// }
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	mlx_key_hook(game.mlx, &ft_hook, (void*)&game);
+	// mlx_key_hook(game.mlx, &ft_hook, (void*)&game);
 	mlx_loop_hook(game.mlx, render, (void*)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);

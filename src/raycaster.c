@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/19 15:00:01 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:05:48 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	get_colour(t_point pos, t_point hit, int side)
 		return (0);
 }
 
-void	draw_tex(t_game *game, int x, int start, int end, t_point hit)
+void	draw_tex(t_game *game, int x, int start, int end, t_point hit, t_point ray, int side)
 {
 	double step;
 	int i;
@@ -55,22 +55,23 @@ void	draw_tex(t_game *game, int x, int start, int end, t_point hit)
 	uint8_t *img_pos;
 	
 	i = 0;
-	step = game->map.north->height / (end - start);
-	hit.x /= game->map.scale;
-	hit.y /= game->map.scale;
-	x_scale = game->map.north->width * fmod(hit.x, 1.0);
-	
+	step = 1.0 * game->map.north->height / (end - start);
+
+	x_scale = (double)game->map.north->height * fmod(hit.x, 1.0);
+
 	while (i <= (end - start))
 	{
-		int arr_pos = ((i * (int)step) * game->map.north->width + (int)x_scale) * game->map.north->bytes_per_pixel;
-		
-		tex_pos = &game->map.north->pixels[arr_pos];
-
-
-		int pic_pos = ((start + i) * game->img->width + (x + WIDTH / 2)) * game->map.north->bytes_per_pixel;
-		
-		img_pos = &game->img->pixels[pic_pos];
-		ft_memmove(img_pos, tex_pos, game->map.north->bytes_per_pixel);
+		if (!(start + i < 0 || start + i > HEIGHT))
+		{
+			int tex_y =(int)i * step;
+			int arr_pos = (tex_y * game->map.north->width + (int)x_scale) * game->map.north->bytes_per_pixel;
+			
+			tex_pos = &game->map.north->pixels[arr_pos];
+			int pic_pos = ((start + i) * game->img->width + (x + WIDTH / 2)) * game->map.north->bytes_per_pixel;
+			
+			img_pos = &game->img->pixels[pic_pos];
+			ft_memmove(img_pos, tex_pos, game->map.north->bytes_per_pixel);
+		}
 		i++;
 	}
 	
@@ -142,40 +143,65 @@ void	raycasting(t_game *game)
 				my += stepy;
 				side = 1;
 			}
-			// printf("map(x: %d, y: %d)\n", mx, my);
-			if (game->map.map[my][mx] == 1)
+			printf("map(x: %d, y: %d\n w:%d, h:%d\n)\n", mx, my, game->map.map_w, game->map.map_h);
+			if ((mx < 0 || mx > game->map.map_w - 1))
+			{
+				if (mx < 0)
+					mx += 1;
+				else 
+					mx -= 1;
+				hit = 1;
+			}
+			else if (my < 0 || my > game->map.map_h -1 )
+			{
+				if (my < 0)
+					my += 1;
+				else 
+					my -= 1;
+				hit = 1;
+			}
+			else if (game->map.map[my][mx] == 1)
 			{
 				hit = 1;
 			}
 		}
 		if (side == 0)
 		{
-			walldist = sdistx - deldistx;
+			walldist = (sdistx - deldistx) / 10;
 		}
 		else
 		{
-			walldist = sdisty - deldisty;
+			walldist = (sdisty - deldisty) / 10;
 		}
 		t_point hitp;
 		t_point pos;
-		hitp.x = (game->player.pos.x + walldist *ray_dir_x) * game->map.scale;
-		hitp.y = (game->player.pos.y + walldist *ray_dir_y) * game->map.scale;
+		t_point wallhit;
+		t_point ray;
+		ray.x = ray_dir_x;
+		ray.y = ray_dir_y;
+		wallhit.x = game->player.pos.x + walldist * 10 *ray_dir_x;
+		wallhit.y = game->player.pos.y + walldist * 10 *ray_dir_y;
+		
+		hitp.x = (game->player.pos.x + walldist * 10 *ray_dir_x) * game->map.scale;
+		hitp.y = (game->player.pos.y + walldist *10 * ray_dir_y) * game->map.scale;
+		
 		pos.x = game->player.pos.x *game->map.scale;
 		pos.y = game->player.pos.y *game->map.scale;
+		
 		if (x %15 == 0)
-		draw_line(&pos, &hitp, game, 0xFF0000FF);
+			draw_line(&pos, &hitp, game, 0xFF0000FF);
+		int colour = get_colour(pos, hitp, side);
 
 		int lineheight = HEIGHT / walldist;
 		int start = -lineheight / 2 + HEIGHT / 2;
-		if (start < 0)
+		if (colour != NO && start < 0)
 			start = 0;
 		int end = lineheight / 2 + HEIGHT / 2;
-		if (end >= HEIGHT)
+		if (colour != NO && end >= HEIGHT)
 			end = HEIGHT - 1;
 			// printf("posx: %f y: %f | hitx: %f y: %f side :%d\n", pos.x, pos.y, hitp.x, hitp.y, side);
-			int colour = get_colour(pos, hitp, side);
-		if (colour == NO)
-			draw_tex(game, x, start, end, hitp);
+		// if (colour == NO)
+		// 	draw_tex(game, x, start, end, wallhit, ray, side);
 		else
 		{
 			while(start <= end)
@@ -183,6 +209,7 @@ void	raycasting(t_game *game)
 				mlx_put_pixel(game->img, x + (WIDTH / 2), start, colour);
 				start++;
 			}
+			
 		}
 		x++;
 	}

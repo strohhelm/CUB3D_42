@@ -69,7 +69,7 @@ typedef struct s_map
 	long ceiling;
 	long floor;
 	int	start[3];
-	int	scale;
+	double	scale;
 	mlx_texture_t *north;
 	mlx_texture_t *south;
 	mlx_texture_t *east;
@@ -112,8 +112,8 @@ void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 /*		main.c				*/
 void	grid(t_game *game);
 void	draw_player(t_game *game);
-int collision(t_point new_pos, t_game *game);
-void	ft_hook(mlx_key_data_t keydata, void *param);
+int 	collision(t_point new_pos, t_game *game);
+void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
 void	render(void *param);
 

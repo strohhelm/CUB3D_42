@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/19 15:09:19 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:09:50 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void ft_hook(mlx_key_data_t keydata, void *param)
+void ft_hook(t_game *game)
 {
-	t_game *game;
+	// t_game *game;
 
-	game = (t_game*)param;
+	// game = (t_game*)param;
 
 	t_point new_pos;
 	double dirx , diry;
-	dirx = game->player.dir.x / 5 + game->player.pos.x;
-	diry = game->player.dir.y / 5 + game->player.pos.y;
+	dirx = game->player.dir.x + game->player.pos.x;
+	diry = game->player.dir.y + game->player.pos.y;
 
-	if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 	{
 		new_pos.x = dirx;
 		new_pos.y = diry;
@@ -33,23 +33,23 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 			game->player.pos.y = new_pos.y;
 		}
 	}
-	else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 	{
-		new_pos.x = game->player.pos.x - game->player.dir.x / 5;
-		new_pos.y= game->player.pos.y - game->player.dir.y / 5;
+		new_pos.x = game->player.pos.x - game->player.dir.x ;
+		new_pos.y= game->player.pos.y - game->player.dir.y;
 		if (collision(new_pos, game))
 		{
 			game->player.pos.x = new_pos.x;
 			game->player.pos.y = new_pos.y;
 		}
 	}
-	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 	{
 		dirx = game->player.dir.y;
 		diry = (game->player.dir.x * -1);
 
-		new_pos.x = game->player.pos.x + dirx * 0.2;
-		new_pos.y = game->player.pos.y + diry * 0.2;
+		new_pos.x = game->player.pos.x + dirx;
+		new_pos.y = game->player.pos.y + diry;
 		if (collision(new_pos, game))
 		{
 			game->player.pos.x = new_pos.x;
@@ -57,13 +57,13 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 		}
 
 	}
-	else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 	{
 		dirx = (game->player.dir.y * -1);
 		diry = game->player.dir.x;
 
- 		new_pos.x = game->player.pos.x + dirx * 0.2;
-		new_pos.y = game->player.pos.y + diry * 0.2;
+ 		new_pos.x = game->player.pos.x + dirx;
+		new_pos.y = game->player.pos.y + diry;
 		if (collision(new_pos, game))
 		{
 			game->player.pos.x = new_pos.x;
@@ -71,13 +71,18 @@ void ft_hook(mlx_key_data_t keydata, void *param)
 		}
 
 	}
-	if (keydata.key == MLX_KEY_Q && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_Q))
 		{
 			rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
 			return ;
 		}
-	if (keydata.key == MLX_KEY_E && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_E))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_terminate(game->mlx);
+		exit(0);
+	}
 }
 
 //speed = how much rotation per call of function, l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;
