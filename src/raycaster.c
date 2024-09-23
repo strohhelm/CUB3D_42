@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/20 21:05:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/23 21:02:20 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	get_colour(t_point pos, t_point hit, int side)
 		return (0);
 }
 
-void	draw_tex(t_game *game, int x, int start, int end, t_point hit, t_point ray, int side)
+void	draw_tex(t_game *game, int x, t_point line, int dir, t_point hit)
 {
 	double step;
 	int i;
@@ -55,22 +55,24 @@ void	draw_tex(t_game *game, int x, int start, int end, t_point hit, t_point ray,
 	uint8_t *img_pos;
 	
 	i = 0;
-	step = 1.0 * game->map.north->height / (end - start);
-
-	x_scale = (double)game->map.north->height * fmod(hit.x, 1.0);
-
-	while (i <= (end - start))
+	step = 1.0 * game->map.textures[dir]->height / (line.y - line.x);
+	if (dir ==  NO || dir == SO)
+		x_scale = (double)game->map.textures[dir]->height * fmod(hit.x, 1.0);
+	else if (dir == WE || dir == EA)
+		x_scale = (double)game->map.textures[dir]->height * fmod(hit.y, 1.0);
+	
+	while (i <= (line.y - line.x))
 	{
-		if (!(start + i < 0 || start + i > HEIGHT))
+		if (!(line.x + i < 0 || line.x + i > HEIGHT))
 		{
 			int tex_y =(int)i * step;
-			int arr_pos = (tex_y * game->map.north->width + (int)x_scale) * game->map.north->bytes_per_pixel;
+			int arr_pos = (tex_y * game->map.textures[dir]->width + (int)x_scale) * game->map.textures[dir]->bytes_per_pixel;
 			
-			tex_pos = &game->map.north->pixels[arr_pos];
-			int pic_pos = ((start + i) * game->img->width + (x + WIDTH / 2)) * game->map.north->bytes_per_pixel;
+			tex_pos = &game->map.textures[dir]->pixels[arr_pos];
+			int pic_pos = ((line.x + i) * game->img->width + (x + WIDTH / 2)) * game->map.textures[dir]->bytes_per_pixel;
 			
 			img_pos = &game->img->pixels[pic_pos];
-			ft_memmove(img_pos, tex_pos, game->map.north->bytes_per_pixel);
+			ft_memmove(img_pos, tex_pos, game->map.textures[dir]->bytes_per_pixel);
 		}
 		i++;
 	}
@@ -143,7 +145,7 @@ void	raycasting(t_game *game)
 				my += stepy;
 				side = 1;
 			}
-			printf("map(x: %d, y: %d\n w:%d, h:%d\n)\n", mx, my, game->map.map_w, game->map.map_h);
+			// printf("map(x: %d, y: %d\n w:%d, h:%d\n)\n", mx, my, game->map.map_w, game->map.map_h);
 			if ((mx < 0 || mx > game->map.map_w - 1))
 			{
 				if (mx < 0)
@@ -190,27 +192,19 @@ void	raycasting(t_game *game)
 		
 		if (x %15 == 0)
 			draw_line(&pos, &hitp, game, 0xFF0000FF);
-		int colour = get_colour(pos, hitp, side);
+		int direction = get_colour(pos, hitp, side);
 
 		int lineheight = HEIGHT / walldist;
 		int start = -lineheight / 2 + HEIGHT / 2;
-		if (colour != NO && start < 0)
+		if (direction != NO && start < 0)
 			start = 0;
 		int end = lineheight / 2 + HEIGHT / 2;
-		if (colour != NO && end >= HEIGHT)
+		if (direction != NO && end >= HEIGHT)
 			end = HEIGHT - 1;
-			// printf("posx: %f y: %f | hitx: %f y: %f side :%d\n", pos.x, pos.y, hitp.x, hitp.y, side);
-		// if (colour == NO)
-		// 	draw_tex(game, x, start, end, wallhit, ray, side);
-		else
-		{
-			while(start <= end)
-			{
-				mlx_put_pixel(game->img, x + (WIDTH / 2), start, colour);
-				start++;
-			}
-			
-		}
+		t_point line;
+		line.x = start;
+		line.y = end;
+		draw_tex(game, x, line, direction, wallhit);
 		x++;
 	}
 }

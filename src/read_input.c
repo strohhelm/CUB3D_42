@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/17 18:58:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:57:53 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	insert_map(t_map *map, char **str, int *map_flag)
 	if (arrlen > 0)
 		free(map->str_map);
 	tmp[arrlen] = *str;
-	(*str)[ft_strlen(*str) - 1] = ' ';
 	tmp[arrlen + 1] = NULL;
 	map->str_map = tmp;
 }
@@ -97,8 +96,10 @@ void	get_info(int fd, t_map *map)
 			break ;
 		if (*next_line == '\n')
 			continue ;
+		if (next_line[ft_strlen(next_line) - 1] == '\n')
+			next_line[ft_strlen(next_line) - 1] = '\0';
 		else if (!map_flag && check_identifyer(next_line, &map_flag) >= 0)
-			;// insert_info(map, player, &next_line);
+			insert_info(map, &next_line);
 		else if (map_flag)
 			insert_map(map, &next_line, &map_flag);
 	}
@@ -107,15 +108,9 @@ void	get_info(int fd, t_map *map)
 		printf("invalid input");
 		exit (2);
 	}
-	for (int k = 0; map->str_map[k]; k++)
-		{
-			printf("%s\n", map->str_map[k]);
-			fflush(stdout);
-		}
 	validate_map(map);
 
 }
-//git commit -m "changed dependency on 80x80 grid, fixed all 'minimap functions' connected to that"
 
 void	get_start_pos(t_map *map, t_player *player)
 	{
@@ -152,18 +147,5 @@ int	read_input(char **argv, t_player *player, t_map *map)
 	get_info(fd, map);
 	get_start_pos(map, player);
 	close (fd);
-	for (int i = 0; i < map->map_h; i++)
-	{
-		for(int k = 0; k < map->map_w; k++)
-		{
-			if (map->map[i][k] == -1)
-				write(1, " ", 1);
-			else if (map->map[i][k] == 1)
-				write(1, "1", 1);
-			else
-				write(1, "0", 1);
-		}
-		write(1, "\n", 1);
-	}
 	return (0);
 }

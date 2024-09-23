@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/20 20:11:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/23 21:00:40 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void render(void *param)
 }
 void	load_textures(t_map *map)
 {
-	map->north = mlx_load_png("./include/textures/5.png");
+	map->textures[NORTH] = mlx_load_png("./include/textures/5.png");
 }
 
 int main(int argc, char **argv)

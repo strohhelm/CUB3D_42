@@ -70,10 +70,7 @@ typedef struct s_map
 	long floor;
 	int	start[3];
 	double	scale;
-	mlx_texture_t *north;
-	mlx_texture_t *south;
-	mlx_texture_t *east;
-	mlx_texture_t *west;
+	mlx_texture_t *textures[4];
 } t_map;
 
 typedef struct s_game
@@ -131,6 +128,9 @@ int		read_input(char **argv, t_player *player, t_map *map);
 int		check_line(t_map *map, int x, int y, int i);
 int		max_width(char **arr, int *y);
 void	validate_map(t_map *map);
+
+/*		read_settigns.c		*/
+void	insert_info(t_map *map, char **str);
 
 /*		error.c				*/
 int		error(int e_action, int e_error);

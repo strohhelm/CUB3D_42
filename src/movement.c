@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/20 20:09:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:16:08 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void ft_hook(t_game *game)
 		}
 
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_Q))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		{
 			rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
 			return ;
 		}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_E))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
