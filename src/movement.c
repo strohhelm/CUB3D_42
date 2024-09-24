@@ -6,16 +6,16 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/24 15:24:31 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:30:38 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void rotation_extra_keys(t_game *game)
+void	rotation_extra_keys(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_Q))
-			rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_E))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
@@ -25,13 +25,13 @@ void rotation_extra_keys(t_game *game)
 	}
 }
 
-void update_pos(t_game *game, t_point new_pos)
+void	update_pos(t_game *game, t_point new_pos)
 {
 	game->player.pos.x = new_pos.x;
 	game->player.pos.y = new_pos.y;
 }
 
-void set_new_pos(t_game *game, t_point *new_pos, char key)
+void	set_new_pos(t_game *game, t_point *new_pos, char key)
 {
 	if (key == 'w')
 	{
@@ -40,8 +40,8 @@ void set_new_pos(t_game *game, t_point *new_pos, char key)
 	}
 	else if (key == 's')
 	{
-		new_pos->x = game->player.pos.x - game->player.dir.x ;
-		new_pos->y= game->player.pos.y - game->player.dir.y;
+		new_pos->x = game->player.pos.x - game->player.dir.x;
+		new_pos->y = game->player.pos.y - game->player.dir.y;
 	}
 	else if (key == 'a')
 	{
@@ -50,14 +50,14 @@ void set_new_pos(t_game *game, t_point *new_pos, char key)
 	}
 	else if (key == 'd')
 	{
- 		new_pos->x = game->player.pos.x + (game->player.dir.y * -1);
+		new_pos->x = game->player.pos.x + (game->player.dir.y * -1);
 		new_pos->y = game->player.pos.y + game->player.dir.x;
 	}
 }
 
-void ft_hook(t_game *game)
+void	ft_hook(t_game *game)
 {
-	t_point new_pos;
+	t_point	new_pos;
 
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 	{
@@ -82,10 +82,11 @@ void ft_hook(t_game *game)
 	rotation_extra_keys(game);
 }
 
-//speed = how much rotation per call of function, l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;
-void rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r)
+// speed = how much rotation per call of function,
+//	l_r = left or right rotation; left -> l_r = 1, right -> l_r = -1;
+void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r)
 {
-	double tmp_x;
+	double	tmp_x;
 
 	speed *= l_r;
 	tmp_x = dir->x;

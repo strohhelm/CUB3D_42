@@ -87,6 +87,24 @@ typedef struct s_game
 
 } t_game;
 
+typedef struct s_rays
+{
+	double camx;
+	double ray_dir_x;
+	double ray_dir_y;
+	int mx;
+	int my;
+	double sdistx;
+	double sdisty;
+	double deldistx;
+	double deldisty;
+	double walldist;
+	int stepx;
+	int stepy;
+	int hit;
+	int side;
+} t_rays;
+
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
