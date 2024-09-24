@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/18 15:14:32 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/09/24 15:03:35 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,10 @@ FILES :=	main.c \
 			raycaster.c \
 			read_input.c \
 			read_map.c \
-			utils.c
+			utils.c \
+			player.c \
+			grid.c \
+			render.c
 			
 
 SRC := $(addprefix src/,$(FILES))
@@ -37,7 +40,7 @@ FT_LIBS := $(LIBG)/libget_next_line.a $(LIBFT) $(MLX)
 HEADER := cub.h -I ./include -I $(MLX_PATH)/include
 ART = $(INCLUDE_PATH)art.txt
 CC = cc
-CFLAGS =  -fsanitize=address # -Wall -Wextra -Werror
+CFLAGS =  -fsanitize=address #-Wall -Wextra -Werror
 DEPFLAGS= -MMD -MP
 all: $(NAME)
 

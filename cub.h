@@ -19,6 +19,7 @@ enum e_colors
 	SO = 0xDFFF00FF,
 	EA = 0x3E00FFFF,
 };
+
 enum e_identifyers
 {
 	NORTH,
@@ -103,19 +104,34 @@ typedef struct s_algorythm {
 }	t_pixel_line;
 
 /*		draw_line.c			*/
-int ft_absolute(int a, int b);
+int		ft_absolute(int a, int b);
 void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 
 void	raycasting(t_game *game);
 void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 
-/*		main.c				*/
+// grid.c
 void	grid(t_game *game);
+
+// player.c
 void	draw_player(t_game *game);
+void	player_dir_line(t_game *game);
+
+// collision.c
 int 	collision(t_point new_pos, t_game *game);
+
+// render
+void	render(void *param);
+void	load_textures(t_map *map);
+void	screen_init(t_player *player);
+void	blank(t_game *game);
+
+// movement.c
 void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
-void	render(void *param);
+void update_pos(t_game *game, t_point new_pos);
+
+/*		main.c				*/
 
 /*		raycaster.c			*/
 void	raycasting(t_game *game);

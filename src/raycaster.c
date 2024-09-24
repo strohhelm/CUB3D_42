@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/20 21:05:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:30:32 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ void	raycasting(t_game *game)
 				my += stepy;
 				side = 1;
 			}
-			printf("map(x: %d, y: %d\n w:%d, h:%d\n)\n", mx, my, game->map.map_w, game->map.map_h);
 			if ((mx < 0 || mx > game->map.map_w - 1))
 			{
 				if (mx < 0)
@@ -152,7 +151,7 @@ void	raycasting(t_game *game)
 					mx -= 1;
 				hit = 1;
 			}
-			else if (my < 0 || my > game->map.map_h -1 )
+			else if (my < 0 || my > game->map.map_h - 1)
 			{
 				if (my < 0)
 					my += 1;
@@ -199,9 +198,8 @@ void	raycasting(t_game *game)
 		int end = lineheight / 2 + HEIGHT / 2;
 		if (colour != NO && end >= HEIGHT)
 			end = HEIGHT - 1;
-			// printf("posx: %f y: %f | hitx: %f y: %f side :%d\n", pos.x, pos.y, hitp.x, hitp.y, side);
-		// if (colour == NO)
-		// 	draw_tex(game, x, start, end, wallhit, ray, side);
+		if (colour == NO)
+			draw_tex(game, x, start, end, wallhit, ray, side);
 		else
 		{
 			while(start <= end)
