@@ -175,6 +175,7 @@ void	insert_info(t_map *map, char **str);
 /*		error.c				*/
 int		error(int e_action, int e_error);
 void	err_check(void *p, int e_error);
+void	error_print(char *msg, int exitcode);
 
 /*		utils.c				*/
 int		arr_len(char **arr);

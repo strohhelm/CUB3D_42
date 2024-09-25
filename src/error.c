@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/24 14:39:51 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:18:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ void err_check(void *p, int e_error)
 	}
 	else
 		return ;
+}
+void	error_print(char *msg, int exitcode)
+{
+	printf("%s\n", msg);
+	exit(exitcode);
 }

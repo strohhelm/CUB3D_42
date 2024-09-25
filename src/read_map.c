@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/25 17:44:22 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:25:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,32 @@ void fill_array(t_map *map)
 	}
 }
 
+void	validate_int_map(t_map *map)
+{
+	int	y;
+	int	x;
+	int	**p;
+
+	y = -1;
+	p = map->map;
+	while (++y < map->map_h)
+	{
+		x = -1;
+		while (++x < map->map_w)
+		{
+			if ((y == 0 || x == 0 || y == map->map_h || x == map->map_w) && p[y][x] == 0)
+				exit(20);
+			else if (p[y][x] == -1)
+			{
+				if (y > 0 && x > 0 && y < map->map_h && x < map->map_w)
+				{
+					if (p[y][x + 1] == 0 || p[y][x - 1] == 0 || p[y + 1][x] == 0 || p[y - 1][x] == 0)
+						exit(21);
+				}
+			}
+		}
+	}
+}
 
 void validate_map(t_map *map)
 {
@@ -130,5 +156,6 @@ void validate_map(t_map *map)
 	i = -1;
 	map->map = alloc_int_arr(x, y);
 	fill_array(map);
+	validate_int_map(map);
 	return ;
 }
