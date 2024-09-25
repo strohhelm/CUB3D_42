@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/24 14:38:13 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:41:01 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	screen_init(t_player *player)
 		scr.y = player->pov / 10;
 	else if (dir.x < 0)
 		scr.y = -player->pov / 10;
-	// printf("dir: %f %f\n", dir.x, dir.y);
-	// printf("scr: %f %f\n", scr.x, scr.y);
 	player->scr = scr;
 }
 
@@ -64,8 +62,4 @@ void render(void *param)
 	player_dir_line(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	usleep(10000);
-}
-void	load_textures(t_map *map)
-{
-	map->north = mlx_load_png("./include/textures/5.png");
 }

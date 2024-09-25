@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 13:38:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:02:48 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	rotation_extra_keys(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_Q))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_Q) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_E))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_E)|| mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{

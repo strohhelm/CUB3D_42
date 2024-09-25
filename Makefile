@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/25 13:38:48 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/09/25 13:39:03 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ FILES :=	main.c \
 			read_input.c \
 			read_map.c \
 			read_settings.c \
-			utils.c
 			utils.c \
 			player.c \
 			grid.c \

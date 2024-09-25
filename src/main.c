@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 13:37:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:11:46 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int main(int argc, char **argv)
 	if (read_input(argv, &game.player, &game.map))
 		return (printf("invalid input!\n"), 0);
 	screen_init(&game.player);
-	load_textures(&game.map);
 	second_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_loop_hook(game.mlx, render, (void*)&game);

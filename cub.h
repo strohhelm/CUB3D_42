@@ -100,6 +100,12 @@ typedef struct s_rays
 	int stepy;
 	int hit;
 	int side;
+	int lineheight;
+	int start;
+	int end;
+	t_point wallhit;
+	int dir;
+
 } t_rays;
 
 
