@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/23 20:38:16 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/09/25 13:38:48 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,10 @@ FILES :=	main.c \
 			read_map.c \
 			read_settings.c \
 			utils.c
+			utils.c \
+			player.c \
+			grid.c \
+			render.c
 			
 
 SRC := $(addprefix src/,$(FILES))
@@ -38,7 +42,7 @@ FT_LIBS := $(LIBG)/libget_next_line.a $(LIBFT) $(MLX)
 HEADER := cub.h -I ./include -I $(MLX_PATH)/include
 ART = $(INCLUDE_PATH)art.txt
 CC = cc
-CFLAGS =  -fsanitize=address # -Wall -Wextra -Werror
+CFLAGS =  -fsanitize=address #-Wall -Wextra -Werror
 DEPFLAGS= -MMD -MP
 all: $(NAME)
 
