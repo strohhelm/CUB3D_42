@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/24 15:57:27 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:30:45 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,4 +218,5 @@ void	raycasting(t_game *game)
 		}
 		x++;
 	}
+	free(rays);
 }
