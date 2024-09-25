@@ -66,8 +66,8 @@ typedef struct s_map
 	char **str_map;
 	int map_h;
 	int map_w;
-	long ceiling;
-	long floor;
+	int ceiling;
+	int floor;
 	int	start[3];
 	double	scale;
 	mlx_texture_t *textures[4];

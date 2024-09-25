@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/23 21:02:20 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:32:54 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,30 @@ int	get_colour(t_point pos, t_point hit, int side)
 	if (pos.x <= hit.x && pos.y >= hit.y)
 	{
 		if (side == 0)
-			return (EA);
+			return (EAST);
 		else
-			return (NO);
+			return (NORTH);
 	}
 	else if (pos.x >= hit.x && pos.y >= hit.y)
 	{
 		if (side == 0)
-			return (WE);
+			return (WEST);
 		else
-			return (NO);
+			return (NORTH);
 	}
 	else if (pos.x >= hit.x && pos.y <= hit.y)
 	{
 		if (side == 0)
-			return (WE);
+			return (WEST);
 		else
-			return (SO);
+			return (SOUTH);
 	}
 	else if ((pos.x <= hit.x && pos.y <= hit.y))
 	{
 		if (side == 0)
-			return (EA);
+			return (EAST);
 		else
-			return (SO);
+			return (SOUTH);
 	}
 	else
 		return (0);
@@ -53,14 +53,13 @@ void	draw_tex(t_game *game, int x, t_point line, int dir, t_point hit)
 	double x_scale;
 	uint8_t *tex_pos;
 	uint8_t *img_pos;
-	
+
 	i = 0;
 	step = 1.0 * game->map.textures[dir]->height / (line.y - line.x);
 	if (dir ==  NO || dir == SO)
-		x_scale = (double)game->map.textures[dir]->height * fmod(hit.x, 1.0);
+		x_scale = (double)game->map.textures[dir]->width * fmod(hit.x, 1.0);
 	else if (dir == WE || dir == EA)
-		x_scale = (double)game->map.textures[dir]->height * fmod(hit.y, 1.0);
-	
+		x_scale = (double)game->map.textures[dir]->width * fmod(hit.y, 1.0);
 	while (i <= (line.y - line.x))
 	{
 		if (!(line.x + i < 0 || line.x + i > HEIGHT))

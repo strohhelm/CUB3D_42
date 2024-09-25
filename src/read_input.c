@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/23 20:57:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:30:30 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	get_info(int fd, t_map *map)
 			continue ;
 		if (next_line[ft_strlen(next_line) - 1] == '\n')
 			next_line[ft_strlen(next_line) - 1] = '\0';
-		else if (!map_flag && check_identifyer(next_line, &map_flag) >= 0)
+		if (!map_flag && check_identifyer(next_line, &map_flag) >= 0)
 			insert_info(map, &next_line);
 		else if (map_flag)
 			insert_map(map, &next_line, &map_flag);
@@ -132,6 +132,25 @@ void	get_start_pos(t_map *map, t_player *player)
 		player->dir.x = dir_x;
 		player->dir.y = dir_y;
 	}
+
+void	print_input(t_player *player, t_map *map)
+{
+	printf("CEILING %x\nFLOOR %x\n", map->ceiling, map->floor);
+	for(int i = 0; i < map->map_h; i++)
+	{
+		for(int k = 0; k < map->map_w; k++)
+		{
+			if (map->map[i][k] == 1)
+				write(1, "1", 1);
+			else if (map->map[i][k] == 0)
+				write(1, "0", 1);
+			else
+				write(1, "-", 1);
+		}
+		write(1, "\n", 1);
+	}
+}
+
 int	read_input(char **argv, t_player *player, t_map *map)
 {
 	int i;
@@ -147,5 +166,6 @@ int	read_input(char **argv, t_player *player, t_map *map)
 	get_info(fd, map);
 	get_start_pos(map, player);
 	close (fd);
+	print_input(player, map);
 	return (0);
 }

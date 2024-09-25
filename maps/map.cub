@@ -1,7 +1,7 @@
-NO           			./textures/wall1.png 
-EA  	              ./textures/wall4.png                     
-WE	      		    ./textures/wall3.png                                        		     
-SO              		./textures/wall2.png 			
+NO           			./include/textures/3.png 
+EA  	              ./include/textures/3.png                     
+WE	      		    ./include/textures/3.png                                        		     
+SO              		./include/textures/3.png 			
 F 128, 128, 128
 C 128, 128, 128
 
