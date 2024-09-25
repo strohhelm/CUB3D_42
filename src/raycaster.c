@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 14:46:57 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:36:09 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 	
 	while (i <= ray->lineheight)
 	{
-		if (!(ray->start + i < 0 || ray->start + i > HEIGHT))
+		if (!(ray->start + i <= 0 || ray->start + i >= HEIGHT))
 		{
 			tex.y =i * step;
 			
@@ -75,7 +75,12 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 			int pic_pos = ((ray->start + i) * game->img->width + (x + WIDTH / 2)) * game->map.textures[ray->dir]->bytes_per_pixel;
 			
 			img_pos = &game->img->pixels[pic_pos];
-			ft_memmove(img_pos, tex_pos, game->map.textures[ray->dir]->bytes_per_pixel);
+			uint32_t test;
+			ft_memmove(&test, tex_pos, game->map.textures[ray->dir]->bytes_per_pixel);
+			if (test > 0)
+				ft_memmove(img_pos, tex_pos, game->map.textures[ray->dir]->bytes_per_pixel);
+			// printf("%d,%d,%d,%d\n", tex_pos[0],tex_pos[1],tex_pos[2],tex_pos[3]);
+			// printf("%d,%d,%d,%d\n", img_pos[0],img_pos[1],img_pos[2],img_pos[3]);
 		}
 		i++;
 	}
@@ -193,7 +198,7 @@ void	raycasting(t_game *game)
 		pos.x = game->player.pos.x * game->map.scale;
 		pos.y = game->player.pos.y * game->map.scale;
 		
-		if (x %15 == 0)
+		if (x %50 == 0)
 			draw_line(&pos, &hitp, game, 0xFF0000FF);
 		
 		ray->dir = get_direction(pos, hitp, ray->side);

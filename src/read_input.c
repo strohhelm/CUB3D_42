@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/24 19:30:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:01:13 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void	get_start_pos(t_map *map, t_player *player)
 
 void	print_input(t_player *player, t_map *map)
 {
-	printf("CEILING %x\nFLOOR %x\n", map->ceiling, map->floor);
 	for(int i = 0; i < map->map_h; i++)
 	{
 		for(int k = 0; k < map->map_w; k++)

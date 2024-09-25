@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 14:11:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:38:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ void init_game(t_game *game)
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.5;
 	game->map.str_map = NULL;
-	game->map.ceiling = 0x00d4ffff;
-	game->map.floor = 0x119c02ff;
-
+}
+void	leaks()
+{
+	system("leaks cub3d");
 }
 
 int main(int argc, char **argv)
 {
 	t_game game;
 	
+	atexit(leaks);
 	if (!(argc == 2))
 		return (printf("invalid input!\n"));
 	init_game(&game);

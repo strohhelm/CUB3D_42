@@ -6,16 +6,20 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/24 20:29:21 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:04:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+unsigned int get_colour(int r, int g, int b)
+{
+	return (r << 24 | g << 16 | b << 8 | 255);
+}
 
 void	set_colour(int type, t_map *map, char *str)
 {
 	char **col;
-	int colour;
+	unsigned int colour;
 	int rgb[3];
 	int len;
 	char *tmp;
@@ -36,11 +40,13 @@ void	set_colour(int type, t_map *map, char *str)
 	if (!(rgb[0] >= 0 && rgb[0] <= 255) || !(rgb[1] >= 0 && rgb[1] <= 255)
 		|| !(rgb[2] >= 0 && rgb[2] <= 255))
 		exit (7);
-	colour = rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255;
+	colour = get_colour(rgb[0], rgb[1], rgb[2]);
 	if (type == CEILING)
 		map->ceiling = colour;
 	else
 		map->floor = colour;
+	printf("r:%d g:%d b:%d\n", rgb[0],rgb[1],rgb[2]);
+	printf("CEILING %x\nFLOOR %x\n", map->ceiling, map->floor);
 	return ;
 }
 
@@ -80,7 +86,7 @@ void	insert_info(t_map *map, char **str)
 	else if(*str[i] =='F')
 		set_info(FLOOR, map, str, i + 1);
 	else if (*str[i] == 'C')
-		set_info(SOUTH, map, str, i + 1);
+		set_info(CEILING, map, str, i + 1);
 	else
 	{
 		char d = *str[i];

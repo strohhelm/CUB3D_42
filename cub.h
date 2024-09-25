@@ -1,7 +1,7 @@
 #ifndef CUB_H
 #define CUB_H
 
-#define WIDTH 1600
+#define WIDTH 2400
 #define HEIGHT 800
 
 #include <math.h>
@@ -67,8 +67,8 @@ typedef struct s_map
 	char **str_map;
 	int map_h;
 	int map_w;
-	int ceiling;
-	int floor;
+	unsigned int ceiling;
+	unsigned int floor;
 	int	start[3];
 	double	scale;
 	mlx_texture_t *textures[4];

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 13:41:01 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:30:39 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void render(void *param)
 	grid(game);
 	blank(game);
 	ft_hook(game);
+	// printf("posx:%f, posy:%f, h:%d, w:%d\n", game->player.pos.x, game->player.pos.y, game->map.map_h, game->map.map_w);
 	raycasting(game);
 	draw_player(game);
 	player_dir_line(game);

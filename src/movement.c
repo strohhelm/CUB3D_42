@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 14:02:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:43:18 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,52 +31,56 @@ void	update_pos(t_game *game, t_point new_pos)
 	game->player.pos.y = new_pos.y;
 }
 
-void	set_new_pos(t_game *game, t_point *new_pos, char key)
+void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
 {
 	if (key == 'w')
 	{
-		new_pos->x = game->player.dir.x + game->player.pos.x;
-		new_pos->y = game->player.dir.y + game->player.pos.y;
+		new_pos->x = game->player.pos.x + game->player.dir.x * mod;
+		new_pos->y = game->player.pos.y + game->player.dir.y * mod;
 	}
 	else if (key == 's')
 	{
-		new_pos->x = game->player.pos.x - game->player.dir.x;
-		new_pos->y = game->player.pos.y - game->player.dir.y;
+		new_pos->x = game->player.pos.x - game->player.dir.x * mod;
+		new_pos->y = game->player.pos.y - game->player.dir.y * mod;
 	}
 	else if (key == 'a')
 	{
-		new_pos->x = game->player.pos.x + game->player.dir.y;
-		new_pos->y = game->player.pos.y + (game->player.dir.x * -1);
+		new_pos->x = game->player.pos.x + game->player.dir.y * mod;
+		new_pos->y = game->player.pos.y - game->player.dir.x * mod;
 	}
 	else if (key == 'd')
 	{
-		new_pos->x = game->player.pos.x + (game->player.dir.y * -1);
-		new_pos->y = game->player.pos.y + game->player.dir.x;
+		new_pos->x = game->player.pos.x - game->player.dir.y * mod;
+		new_pos->y = game->player.pos.y + game->player.dir.x * mod;
 	}
 }
 
 void	ft_hook(t_game *game)
 {
 	t_point	new_pos;
-
+	int mod;
+	
+	mod = 1;
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
+		mod = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 	{
-		set_new_pos(game, &new_pos, 'w');
+		set_new_pos(game, &new_pos, 'w', mod);
 		collision(new_pos, game);
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 	{
-		set_new_pos(game, &new_pos, 's');
+		set_new_pos(game, &new_pos, 's', mod);
 		collision(new_pos, game);
 	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 	{
-		set_new_pos(game, &new_pos, 'a');
+		set_new_pos(game, &new_pos, 'a', mod);
 		collision(new_pos, game);
 	}
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 	{
-		set_new_pos(game, &new_pos, 'd');
+		set_new_pos(game, &new_pos, 'd', mod);
 		collision(new_pos, game);
 	}
 	rotation_extra_keys(game);
