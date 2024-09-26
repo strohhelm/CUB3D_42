@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 16:23:19 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:40:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	init_game(t_game *game)
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.5;
 	game->map.str_map = NULL;
-	game->map.textures[CEILING] = mlx_load_png("./include/textures/floor.png");
-	game->map.textures[FLOOR] = mlx_load_png("./include/textures/clouds.png");
+	game->map.textures[FLOOR] = mlx_load_png("./include/textures/floor.png");
+	game->map.textures[CEILING] = mlx_load_png("./include/textures/clouds.png");
 }
 
 void	leaks(void)
