@@ -69,9 +69,10 @@ typedef struct s_map
 	int map_w;
 	unsigned int ceiling;
 	unsigned int floor;
+	
 	int	start[3];
 	double	scale;
-	mlx_texture_t *textures[4];
+	mlx_texture_t *textures[6];
 } t_map;
 
 typedef struct s_game

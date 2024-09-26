@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/25 15:04:02 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:01:25 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	set_colour(int type, t_map *map, char *str)
 		map->ceiling = colour;
 	else
 		map->floor = colour;
-	printf("r:%d g:%d b:%d\n", rgb[0],rgb[1],rgb[2]);
-	printf("CEILING %x\nFLOOR %x\n", map->ceiling, map->floor);
+	// printf("r:%d g:%d b:%d\n", rgb[0],rgb[1],rgb[2]);
+	// printf("CEILING %x\nFLOOR %x\n", map->ceiling, map->floor);
 	return ;
 }
 
@@ -73,23 +73,23 @@ void	insert_info(t_map *map, char **str)
 	int	i;
 
 	i = 0;
-	while (*str && *str[i] && (*str[i] == ' ' || *str[i] == '\t'))
+	while (*str && (*str)[i] && ((*str)[i] == ' ' || (*str)[i] == '\t'))
 		i++;
-	if (!ft_strncmp(&(*str[i]), "NO", 2))
+	if (!ft_strncmp(&((*str)[i]), "NO", 2))
 		set_info(NORTH, map, str, i + 2);
-	else if (!ft_strncmp(&(*str[i]), "SO", 2))
+	else if (!ft_strncmp(&((*str)[i]), "SO", 2))
 		set_info(SOUTH, map, str, i + 2);
-	else if (!ft_strncmp(&(*str[i]), "EA", 2))
+	else if (!ft_strncmp(&((*str)[i]), "EA", 2))
 		set_info(EAST, map, str, i + 2);
-	else if (!ft_strncmp(&(*str[i]), "WE", 2))
+	else if (!ft_strncmp(&((*str)[i]), "WE", 2))
 		set_info(WEST, map, str, i + 2);
-	else if(*str[i] =='F')
+	else if((*str)[i] =='F')
 		set_info(FLOOR, map, str, i + 1);
-	else if (*str[i] == 'C')
+	else if ((*str)[i] == 'C')
 		set_info(CEILING, map, str, i + 1);
 	else
 	{
-		char d = *str[i];
+		char d = (*str)[i];
 		printf("invalid input!\n");
 		exit(13);
 	}

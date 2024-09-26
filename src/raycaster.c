@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 17:36:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:44:58 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 		tex.x = game->map.textures[ray->dir]->width * fmod(ray->wallhit.x, 1.0);
 	else
 		tex.x = game->map.textures[ray->dir]->width * fmod(ray->wallhit.y, 1.0);
+
+
+
+		
 	if (ray->dir == WEST || ray->dir == SOUTH)
 		tex.x = game->map.textures[ray->dir]->width - tex.x;
 	
@@ -67,11 +71,11 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 	{
 		if (!(ray->start + i <= 0 || ray->start + i >= HEIGHT))
 		{
-			tex.y =i * step;
+			tex.y = i * step;
 			
 			int arr_pos = ((int)tex.y * game->map.textures[ray->dir]->width + (int)tex.x) * game->map.textures[ray->dir]->bytes_per_pixel;
-			
 			tex_pos = &game->map.textures[ray->dir]->pixels[arr_pos];
+
 			int pic_pos = ((ray->start + i) * game->img->width + (x + WIDTH / 2)) * game->map.textures[ray->dir]->bytes_per_pixel;
 			
 			img_pos = &game->img->pixels[pic_pos];
@@ -208,6 +212,7 @@ void	raycasting(t_game *game)
 		ray->end = ray->lineheight / 2 + HEIGHT / 2;		
 		draw_tex(game, x, ray);
 		x++;
+		// draw_f_and_c();
 	}
 	free(ray);
 }

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/25 15:01:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:04:22 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_identifyer(char *line, int *map_flag)
 	current = -2;
 	while (line[i] == ' ')
 		i++;
-	if (line[i] && !line[i])
+	if (!line[i])
 		return (EMPTYLINE);
 	current = comp_ident(&line[i], idents);
 	if (current >= 0)
@@ -165,6 +165,6 @@ int	read_input(char **argv, t_player *player, t_map *map)
 	get_info(fd, map);
 	get_start_pos(map, player);
 	close (fd);
-	print_input(player, map);
+	// print_input(player, map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/25 18:25:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:47:54 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	check_line(t_map *map, int x, int y, int i)
 			map->start[1] = i;
 		}
 		else if (map->str_map[i][j])
-			return (printf("invalid_input\n"), 1);
+			error_print("too many players\n", 23);
 	}
-	return (0);
+	return (pl_pos);
 }
 
 int	max_width(char **arr, int *y)
@@ -128,7 +128,7 @@ void	validate_int_map(t_map *map)
 				exit(20);
 			else if (p[y][x] == -1)
 			{
-				if (y > 0 && x > 0 && y < map->map_h && x < map->map_w)
+				if (y > 0 && x > 0 && y < map->map_h - 1 && x < map->map_w - 1)
 				{
 					if (p[y][x + 1] == 0 || p[y][x - 1] == 0 || p[y + 1][x] == 0 || p[y - 1][x] == 0)
 						exit(21);
@@ -143,16 +143,22 @@ void validate_map(t_map *map)
 	int	i;
 	int	x;
 	int y;
+	int check;
+	int tmp;
 
 	i = -1;
 	x = max_width(map->str_map, &y);
 	map->map_h = y;
 	map->map_w = x;
+	check = 0;
 	while (map->str_map && map->str_map[++i])
 	{
-		if (check_line(map, x, y, i))
-			exit(2);
+		tmp = check_line(map, x, y, i);
+		if (tmp == 1)
+			check++;
 	}
+	if (!check)
+		error_print("No Player!",26);
 	i = -1;
 	map->map = alloc_int_arr(x, y);
 	fill_array(map);
