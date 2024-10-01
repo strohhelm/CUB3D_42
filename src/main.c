@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/26 14:08:00 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:24:48 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void second_init(t_game *game)
 {
 	double scale;
-	if ((HEIGHT / game->map.map_h) < (WIDTH / 2 / game->map.map_w))
+	if ((HEIGHT / game->map.map_h) < (WIDTH / game->map.map_w))
 		scale = (HEIGHT / game->map.map_h);
 	else
-		scale = (WIDTH / 2 / game->map.map_w);
+		scale = (WIDTH / game->map.map_w);
 	game->map.scale = scale;
 	game->player.pos.x += 0.5;
 	game->player.pos.y += 0.5;

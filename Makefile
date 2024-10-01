@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/09/25 13:39:03 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/01 15:08:37 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ FT_LIBS := $(LIBG)/libget_next_line.a $(LIBFT) $(MLX)
 HEADER := cub.h -I ./include -I $(MLX_PATH)/include
 ART = $(INCLUDE_PATH)art.txt
 CC = cc
-CFLAGS =  -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS = -fsanitize=address #-Wall -Wextra -Werror-Ofast
 DEPFLAGS= -MMD -MP
 all: $(NAME)
 

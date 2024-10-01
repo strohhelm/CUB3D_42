@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/26 17:00:49 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:27:54 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void blank(t_game *game)
 {
-	int x = WIDTH/2;
+	int x = 0;
 	int y = 0;
 
 	while (x < WIDTH)
@@ -106,14 +106,14 @@ void	backgroud(t_game *game)
 		rowdist = posZ / p;
 
 		
-		floorstep.x = rowdist * (rayX.x - ray0.x) / (WIDTH / 2);
-		floorstep.y = rowdist * (rayX.y - ray0.y) / (WIDTH / 2);
+		floorstep.x = rowdist * (rayX.x - ray0.x) / (WIDTH);
+		floorstep.y = rowdist * (rayX.y - ray0.y) / (WIDTH);
 
 		floor.x = game->player.pos.x + rowdist * ray0.x;
 		floor.y = game->player.pos.y + rowdist * ray0.y;
 		
 		
-		x = WIDTH / 2; 
+		x = WIDTH; 
 		while (x < WIDTH)
 		{
 			// int texX = (int)(floortex->width * fmod(floor.x, 1.0)) & floortex->width - 1;
@@ -164,10 +164,10 @@ void render(void *param)
 
 	game = (t_game*)param;
 	ft_hook(game);
-	grid(game);
+	// grid(game);
 	blank(game);
-	draw_player(game);
-	player_dir_line(game);
+	// draw_player(game);
+	// player_dir_line(game);
 	// backgroud(game);
 	raycasting(game);
 }

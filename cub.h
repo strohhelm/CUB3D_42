@@ -1,7 +1,7 @@
 #ifndef CUB_H
 #define CUB_H
 
-#define WIDTH 2400
+#define WIDTH 1200
 #define HEIGHT 800
 
 #include <math.h>
@@ -105,6 +105,8 @@ typedef struct s_rays
 	int start;
 	int end;
 	t_point wallhit;
+	t_point hitp;
+	t_point pos;
 	int dir;
 
 } t_rays;

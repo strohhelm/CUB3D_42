@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/25 16:43:18 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:06:05 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	rotation_extra_keys(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_Q) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, -1);
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, -1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_E)|| mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.1, 1);
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_terminate(game->mlx);
