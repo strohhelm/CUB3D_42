@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/30 15:24:48 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:53:52 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void init_game(t_game *game)
 	game->map.textures[CEILING] = mlx_load_png("./include/textures/floor.png");
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/clouds.png");
 }
+
 void	leaks()
 {
 	system("leaks cub3d");

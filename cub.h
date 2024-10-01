@@ -111,6 +111,16 @@ typedef struct s_rays
 
 } t_rays;
 
+typedef struct s_texture
+{
+	double	step;
+	t_point	tex;
+	uint8_t	*tex_pos;
+	uint8_t	*img_pos;
+	int		arr_pos;
+	int		pic_pos;
+	uint32_t test;
+}	t_texture;
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {

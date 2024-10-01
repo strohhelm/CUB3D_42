@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 15:06:05 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:56:20 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,25 @@ void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
 	{
 		new_pos->x = game->player.pos.x + game->player.dir.x * mod;
 		new_pos->y = game->player.pos.y + game->player.dir.y * mod;
+		collision(*new_pos, game);
 	}
 	else if (key == 's')
 	{
 		new_pos->x = game->player.pos.x - game->player.dir.x * mod;
 		new_pos->y = game->player.pos.y - game->player.dir.y * mod;
+		collision(*new_pos, game);
 	}
 	else if (key == 'a')
 	{
 		new_pos->x = game->player.pos.x + game->player.dir.y * mod;
 		new_pos->y = game->player.pos.y - game->player.dir.x * mod;
+		collision(*new_pos, game);
 	}
 	else if (key == 'd')
 	{
 		new_pos->x = game->player.pos.x - game->player.dir.y * mod;
 		new_pos->y = game->player.pos.y + game->player.dir.x * mod;
+		collision(*new_pos, game);
 	}
 }
 
@@ -64,25 +68,13 @@ void	ft_hook(t_game *game)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
 		mod = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-	{
 		set_new_pos(game, &new_pos, 'w', mod);
-		collision(new_pos, game);
-	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-	{
 		set_new_pos(game, &new_pos, 's', mod);
-		collision(new_pos, game);
-	}
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-	{
 		set_new_pos(game, &new_pos, 'a', mod);
-		collision(new_pos, game);
-	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-	{
 		set_new_pos(game, &new_pos, 'd', mod);
-		collision(new_pos, game);
-	}
 	rotation_extra_keys(game);
 }
 
