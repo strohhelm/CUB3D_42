@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 16:43:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:46:28 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,51 +27,6 @@ void blank(t_game *game)
 		x++;
 	}
 }
-// void	background(t_game *game)
-// {
-// 	mlx_texture_t	*floortex;
-// 	mlx_texture_t	*ceilingtex;
-	
-// 	floortex = game->map.textures[FLOOR];
-// 	ceilingtex = game->map.textures[CEILING];
-
-// 	t_point far1;
-// 	t_point far2;
-// 	t_point near1;
-// 	t_point near2;
-
-// 	far1.x = game->player.pos
-	
-	
-// 	y = 0;
-// 	while (y < HEIGHT / 2)
-// 	{
-		
-		
-// 		x = WIDTH / 2; 
-// 		while (x < WIDTH)
-// 		{
-// 			int texX = (int)(floortex->width * fmod(floor.x, 1.0)) & floortex->width - 1;
-// 			int texY = (int)(floortex->height * fmod(floor.y, 1.0)) & floortex->height - 1;
-// 			// floor.x += floorstep.x;
-// 			// floor.y += floorstep.y;
-			
-// 			uint8_t *tex_pos = &floortex->pixels[(floortex->width * texY + texX) * 4];
-// 			uint32_t colour;
-// 			ft_memmove(&colour, tex_pos, 4);
-// 			mlx_put_pixel(game->img, x, y + HEIGHT / 2, colour);
-			
-// 			// texX = (uint32_t)(ceilingtex->width * (floor.x - cellX)) & ceilingtex->width - 1;
-// 			// texY = (uint32_t)(ceilingtex->height * (floor.y - cellY)) & ceilingtex->height - 1;
-// 			// tex_pos = &ceilingtex->pixels[ceilingtex->width * texY + texX];
-// 			// ft_memcpy(&colour, tex_pos, 4);
-// 			// mlx_put_pixel(game->img, x, HEIGHT - y, game->map.ceiling);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
 
 void	backgroud(t_game *game)
 {
@@ -86,6 +41,8 @@ void	backgroud(t_game *game)
 	float	floorstepY;
 	float	floorX;
 	float	floorY;
+	static double t = 0;
+	static double test2;
 	
 	int		y;
 	int		x;
@@ -95,54 +52,56 @@ void	backgroud(t_game *game)
 	
 	floortex = game->map.textures[FLOOR];
 	ceilingtex = game->map.textures[CEILING];
+	
 	y = HEIGHT / 2;
-	while (y > 0)
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+		t += 0.01;
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+		t -= 0.01;
+	while (y < HEIGHT)
 	{
-		raydirx0 = (game->player.dir.x - game->player.scr.x) * game->map.scale;
-		raydiry0 = (game->player.dir.y - game->player.scr.y) * game->map.scale;
-		raydirx1 = (game->player.dir.x + game->player.scr.x) * game->map.scale;
-		raydiry1 = (game->player.dir.y + game->player.scr.y) * game->map.scale;
+		raydirx0 = (game->player.dir.x - game->player.scr.x) * 10;
+		raydiry0 = (game->player.dir.y - game->player.scr.y) * 10;
+		raydirx1 = (game->player.dir.x + game->player.scr.x) * 10;
+		raydiry1 = (game->player.dir.y + game->player.scr.y) * 10;
 		
 		
-		p = y - HEIGHT/ 2;
-		posZ = 0.5 * HEIGHT;
+		p = y - HEIGHT / 2;
+		posZ = HEIGHT / 2;
 		rowdist = posZ / p;
 
 		
-		floorstepX = rowdist * (raydirx1 - raydirx0) / (WIDTH / 2);
-		floorstepY = rowdist * (raydiry1 - raydiry0) / (WIDTH / 2);
+		floorstepX = rowdist * ((raydirx1 - raydirx0) / (WIDTH / 2));
+		floorstepY = rowdist * ((raydiry1 - raydiry0) / (WIDTH / 2));
 
-		floorX = (- game->player.pos.x) + rowdist * raydirx0;
-		floorY = (- game->player.pos.y) + rowdist * raydiry0;
-		
+		floorX = (game->player.pos.x) + rowdist * raydirx0;
+		floorY = (game->player.pos.y) + rowdist * raydiry0;
 		
 		x = WIDTH; 
 		while (x < WIDTH)
 		{
-			int texX = (int)((double)floortex->width * fmod(floorX, 1.0)) & floortex->width - 1;
-			int texY = (int)((double)floortex->height * fmod(floorY, 1.0)) & floortex->height - 1;
-			
-			floorX += floorstepX;
-			floorY += floorstepY;
+			int texX = (int)(floortex->width * fmod(floorX, 1.0)) %floortex->width;
+			int texY = (int)(floortex->height * fmod(floorY, 1.0)) % floortex->height;
 			
 			uint8_t *tex_pos = &floortex->pixels[(floortex->width * texY + texX) * 4];
-			// uint32_t colour;
-			// ft_memmove(&colour, tex_pos, sizeof(uint32_t));
-			uint8_t *img_pos = &game->img->pixels[(WIDTH * (HEIGHT - y - 1) + x) * 4];
+			uint8_t *img_pos = &game->img->pixels[(WIDTH * y + x) * 4];
+			
 			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
-			
-			
-			// mlx_put_pixel(game->img, WIDTH - x, HEIGHT - y - 1, colour & 255);
-			
-			// int texX = (uint32_t)(ceilingtex->width * fmod(floor.x, 1.0)) & ceilingtex->width - 1;
-			// int texY = (uint32_t)(ceilingtex->height * fmod(floor.y, 1.0)) & ceilingtex->height - 1;
-			// uint8_t *tex_pos = &ceilingtex->pixels[ceilingtex->width * texY + texX];
-			// ft_memcpy(&colour, tex_pos, 4);
-			// mlx_put_pixel(game->img, x, y, colour);
-			x++;
 
+			
+			
+			texX = (int)((ceilingtex->width) * floorX ) % ceilingtex->width;
+			texY = (int)((ceilingtex->height) * floorY) % ceilingtex->height;
+			
+			tex_pos = &ceilingtex->pixels[(ceilingtex->width * texY + texX) * 4];
+			img_pos = &game->img->pixels[(WIDTH * (HEIGHT - y) + x) * 4];
+			
+			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
+			floorX += floorstepX;
+			floorY += floorstepY;
+			x++;
 		}
-		y--;
+		y++;
 	}
 }
 
@@ -157,7 +116,7 @@ void	screen_init(t_player *player)
 	scr.x = 0;
 	scr.y = 0;
 	if (dir.y > 0)
-		scr.x = (-player->pov)/10;
+		scr.x = (-player->pov) / 10;
 	else if (dir.y < 0)
 		scr.x = player->pov / 10;
 	else if (dir.x > 0)

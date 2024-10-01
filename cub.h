@@ -108,6 +108,8 @@ typedef struct s_rays
 	t_point hitp;
 	t_point pos;
 	int dir;
+	double test1;
+	double test2;
 
 } t_rays;
 

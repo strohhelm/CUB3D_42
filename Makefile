@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/01 16:10:27 by timschmi         ###   ########.fr        #
+#    Updated: 2024/10/01 16:46:06 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,7 @@ $(FT_LIBS):
 	
 	@make -s -C $(LIB)
 	@make -s -C $(LIBG)
-	# @cd include && git clone https://github.com/codam-coding-college/MLX42.git
-	# @cd include/MLX42 && cmake -B build && cmake --build build -j4
+	git submodule update --init
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
