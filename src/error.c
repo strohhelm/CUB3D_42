@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:23:29 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:54:30 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,27 @@ int	error(int e_action, int e_error)
 	return (NOUGHT);
 }
 
-void	err_check(void *p, int e_error)
+void	err_check(void *p, char *msg)
 {
 	if (!p)
 	{
-		exit(e_error);
+		error_print(msg);
 	}
 	else
 		return ;
 }
-void	error_print(char *msg, int exitcode)
+
+void	error_print(char *msg)
 {
-	printf("%s\n", msg);
-	exit(exitcode);
+	printf("Error\n%s\n", msg);
+	exit(1);
+}
+void	check_error(int e)
+{
+	if (e == DOUBLEIDENT)
+		error_print("Woah hey there! There is a twice set identifier!");
+	else if (e)
+		error_print("Woah hey there! Thats not a valid identifier!");
+	else
+		return ;
 }

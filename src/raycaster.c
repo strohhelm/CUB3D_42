@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 17:24:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:35:47 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,9 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 {
 	t_texture	*tex;
 
-	tex = (t_texture *)malloc(sizeof(t_texture));
+	tex = &ray->tex;
 	tex_calc(game, ray, tex);
 	tex_loop(game, ray, tex, x);
-	free(tex);
 }
 
 void	init_rays(t_game *game, t_rays *ray, int x)

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:01:51 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:43:32 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,47 @@ unsigned int get_colour(int r, int g, int b)
 {
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
+void	fill_col_arr(char ***col, char *str)
+{
+	int len;
+	char *tmp;
+	*col = ft_split(str,',');
+	if (!*col)
+		error_print("Shit went down in ft_split, get a working pc mate!");
+	len = arr_len(*col);
+	while (--len >= 0)
+	{
+		tmp = ft_strtrim((*col)[len], " \t");
+		if (!tmp)
+			error_print("Shit went down in ft_strtrim, get a working pc mate!");
+		free((*col)[len]);
+		(*col)[len] = tmp;
+	}
+	return ;
+}
 
 void	set_colour(int type, t_map *map, char *str)
 {
 	char **col;
 	unsigned int colour;
 	int rgb[3];
-	int len;
-	char *tmp;
-	col = ft_split(str,',');
-	len = arr_len(col);
-	while (--len >= 0)
-	{
-		tmp = ft_strtrim(col[len], " \t");
-		free(col[len]);
-		col[len] = tmp;
-	}
-	if (arr_len(col) != 3 || ft_strlen(col[0]) > 3 || ft_strlen(col[1]) > 3
-		|| ft_strlen(col[2]) > 3)
-		exit(6);
+
+	fill_col_arr(&col, str);
+	if (arr_len(col) != 3 || ft_strlen(col[0]) == 0 || ft_strlen(col[1]) == 0
+		|| ft_strlen(col[2]) == 0)
+		error_print("Aha what do you want me to do? imagine colours?");
 	rgb[0] = ft_atoi(col[0]);
 	rgb[1] = ft_atoi(col[1]);
 	rgb[2] = ft_atoi(col[2]);
 	if (!(rgb[0] >= 0 && rgb[0] <= 255) || !(rgb[1] >= 0 && rgb[1] <= 255)
 		|| !(rgb[2] >= 0 && rgb[2] <= 255))
-		exit (7);
+		error_print("Aha what do you want me to do? range: 0-255!");
 	colour = get_colour(rgb[0], rgb[1], rgb[2]);
 	if (type == CEILING)
 		map->ceiling = colour;
 	else
 		map->floor = colour;
-	// printf("r:%d g:%d b:%d\n", rgb[0],rgb[1],rgb[2]);
-	// printf("CEILING %x\nFLOOR %x\n", map->ceiling, map->floor);
+	free_string_array(col);
 	return ;
 }
 
@@ -55,17 +64,20 @@ void	set_info(int type, t_map *map, char **str, int i)
 	char *rem_str;
 
 	rem_str = ft_substr(*str, i, ft_strlen(&(*str)[i]));
+	if (!rem_str)
+		error_print("Shit went down in ft_substr, get a working pc mate!");
 	rem_str = ft_strtrim(rem_str, " \t");
-	if (type < CEILING && *rem_str && rem_str[0] == '.' && rem_str[1] == '/')
+	if (!rem_str)
+		error_print("Shit went down in ft_strtrim, get a working pc mate!");
+	if (type < CEILING)
 	{
 		map->textures[type] = mlx_load_png(rem_str);
 		if (!map->textures[type])
-			exit(5);
+			error_print("Well wtf did you try here? Get an actual texture buddy!");
 	}
 	else if (type == CEILING || type == FLOOR)
 		set_colour(type, map, rem_str);
 	free(rem_str);
-	// free(*str);
 }
 
 void	insert_info(t_map *map, char **str)
@@ -88,9 +100,7 @@ void	insert_info(t_map *map, char **str)
 	else if ((*str)[i] == 'C')
 		set_info(CEILING, map, str, i + 1);
 	else
-	{
-		printf("invalid input!\n");
-		exit(13);
-	}
+		error_print("OOPS! We encountered a wrong identifier!");
+	free(*str);
 	return ;
 }

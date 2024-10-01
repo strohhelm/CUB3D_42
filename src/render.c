@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 17:19:34 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:44:52 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,6 @@ void render(void *param)
 	blank(game);
 	// draw_player(game);
 	// player_dir_line(game);
-	backgroud(game);
+	// backgroud(game);
 	raycasting(game);
 }
