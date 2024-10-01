@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 15:56:20 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:23:52 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	rotation_extra_keys(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_Q) || mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_Q) || mlx_is_key_down(game->mlx,
+			MLX_KEY_LEFT))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, -1);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_E)|| mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_E) || mlx_is_key_down(game->mlx,
+			MLX_KEY_RIGHT))
 		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
@@ -62,8 +64,8 @@ void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
 void	ft_hook(t_game *game)
 {
 	t_point	new_pos;
-	int mod;
-	
+	int		mod;
+
 	mod = 1;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
 		mod = 2;

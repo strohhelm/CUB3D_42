@@ -6,13 +6,13 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:18:23 by timschmi          #+#    #+#             */
-/*   Updated: 2024/09/24 15:06:22 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:23:34 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void color_cell(t_game *game, int fy, int fx, int x, int y)
+void	color_cell(t_game *game, int fy, int fx, int x, int y)
 {
 	if (game->map.map[fy][fx] == 1)
 		mlx_put_pixel(game->img, x, y, 0xD3D3D3FF);

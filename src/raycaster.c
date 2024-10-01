@@ -6,48 +6,50 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 15:52:40 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:24:07 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int return_orientation(int one, int two, int side)
+int	return_orientation(int one, int two, int side)
 {
 	if (side == 0)
-		return(one);
+		return (one);
 	else
-		return(two);
+		return (two);
 }
 
 int	get_direction(t_point pos, t_point hit, int side)
 {
 	if (pos.x <= hit.x && pos.y >= hit.y)
-		return(return_orientation(EAST, NORTH, side));
+		return (return_orientation(EAST, NORTH, side));
 	else if (pos.x >= hit.x && pos.y >= hit.y)
-		return(return_orientation(WEST, NORTH, side));
+		return (return_orientation(WEST, NORTH, side));
 	else if (pos.x >= hit.x && pos.y <= hit.y)
-		return(return_orientation(WEST, SOUTH, side));
+		return (return_orientation(WEST, SOUTH, side));
 	else if ((pos.x <= hit.x && pos.y <= hit.y))
-		return(return_orientation(EAST, SOUTH, side));
+		return (return_orientation(EAST, SOUTH, side));
 	else
 		return (0);
 }
 
-void tex_calc(t_game *game, t_rays *ray, t_texture *tex)
+void	tex_calc(t_game *game, t_rays *ray, t_texture *tex)
 {
 	tex->step = 1.0 * game->map.textures[ray->dir]->height / ray->lineheight;
 	if (ray->dir == NORTH || ray->dir == SOUTH)
-		tex->tex.x = game->map.textures[ray->dir]->width * fmod(ray->wallhit.x, 1.0);
+		tex->tex.x = game->map.textures[ray->dir]->width * fmod(ray->wallhit.x,
+				1.0);
 	else
-		tex->tex.x = game->map.textures[ray->dir]->width * fmod(ray->wallhit.y, 1.0);
+		tex->tex.x = game->map.textures[ray->dir]->width * fmod(ray->wallhit.y,
+				1.0);
 	if (ray->dir == WEST || ray->dir == SOUTH)
 		tex->tex.x = game->map.textures[ray->dir]->width - tex->tex.x;
 }
 
-void tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
+void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i <= ray->lineheight)
@@ -55,8 +57,8 @@ void tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 		if (!(ray->start + i <= 0 || ray->start + i >= HEIGHT))
 		{
 			tex->tex.y = i * tex->step;
-			tex->arr_pos = ((int)tex->tex.y * game->map.textures[ray->dir]->width
-					+ (int)tex->tex.x)
+			tex->arr_pos = ((int)tex->tex.y
+					* game->map.textures[ray->dir]->width + (int)tex->tex.x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
@@ -74,10 +76,9 @@ void tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 
 void	draw_tex(t_game *game, int x, t_rays *ray)
 {
-	t_texture *tex;
+	t_texture	*tex;
 
 	tex = (t_texture *)malloc(sizeof(t_texture));
-
 	tex_calc(game, ray, tex);
 	tex_loop(game, ray, tex, x);
 	free(tex);

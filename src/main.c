@@ -6,15 +6,16 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 15:53:52 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:23:19 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void second_init(t_game *game)
+void	second_init(t_game *game)
 {
-	double scale;
+	double	scale;
+
 	if ((HEIGHT / game->map.map_h) < (WIDTH / game->map.map_w))
 		scale = (HEIGHT / game->map.map_h);
 	else
@@ -26,7 +27,7 @@ void second_init(t_game *game)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 }
 
-void init_game(t_game *game)
+void	init_game(t_game *game)
 {
 	game->player.height = HEIGHT;
 	game->player.width = WIDTH;
@@ -37,15 +38,15 @@ void init_game(t_game *game)
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/clouds.png");
 }
 
-void	leaks()
+void	leaks(void)
 {
 	system("leaks cub3d");
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_game game;
-	
+	t_game	game;
+
 	// atexit(leaks);
 	if (!(argc == 2))
 		return (printf("invalid input!\n"));
@@ -55,7 +56,7 @@ int main(int argc, char **argv)
 	screen_init(&game.player);
 	second_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	mlx_loop_hook(game.mlx, render, (void*)&game);
+	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);

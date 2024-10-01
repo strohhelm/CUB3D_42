@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/26 16:04:22 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:24:12 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	comp_ident(char *str, int *idents)
 	char	*arr[7];
 	int		i;
 	int		len;
-	
+
 	i = -1;
 	len = 2;
 	arr[0] = "NO";
@@ -43,9 +43,9 @@ int	comp_ident(char *str, int *idents)
 
 int	check_identifyer(char *line, int *map_flag)
 {
-	static int idents[6];
-	int i;
-	int current;
+	static int	idents[6];
+	int			i;
+	int			current;
 
 	i = 0;
 	current = -2;
@@ -64,14 +64,14 @@ int	check_identifyer(char *line, int *map_flag)
 			*map_flag = 1;
 		}
 	}
-	return (current); 
+	return (current);
 }
 
 void	insert_map(t_map *map, char **str, int *map_flag)
 {
-	int	arrlen;
-	char **tmp;
-	
+	int		arrlen;
+	char	**tmp;
+
 	arrlen = arr_len(map->str_map);
 	tmp = (char **)malloc(sizeof(char *) * (arrlen + 2));
 	err_check(tmp, MALLOC);
@@ -85,8 +85,8 @@ void	insert_map(t_map *map, char **str, int *map_flag)
 
 void	get_info(int fd, t_map *map)
 {
-	char *next_line;
-	int map_flag;
+	char	*next_line;
+	int		map_flag;
 
 	map_flag = 0;
 	while (!error(GET, NOUGHT))
@@ -106,38 +106,37 @@ void	get_info(int fd, t_map *map)
 	if (error(GET, NOUGHT))
 	{
 		printf("invalid input");
-		exit (2);
+		exit(2);
 	}
 	validate_map(map);
-
 }
 
 void	get_start_pos(t_map *map, t_player *player)
-	{
-		int dir_x;
-		int dir_y;
-		
-		dir_x = 0;
-		dir_y = 0;
-		player->pos.x = (double)map->start[0];
-		player->pos.y = (double)map->start[1];
-		if (map->start[2] == 78)
-			dir_y = -1;
-		else if (map->start[2] == 83)
-			dir_y = 1;
-		else if (map->start[2] == 69)
-			dir_x = 1;
-		else if (map->start[2] == 87)
-			dir_x = -1;
-		player->dir.x = dir_x;
-		player->dir.y = dir_y;
-	}
+{
+	int	dir_x;
+	int	dir_y;
+
+	dir_x = 0;
+	dir_y = 0;
+	player->pos.x = (double)map->start[0];
+	player->pos.y = (double)map->start[1];
+	if (map->start[2] == 78)
+		dir_y = -1;
+	else if (map->start[2] == 83)
+		dir_y = 1;
+	else if (map->start[2] == 69)
+		dir_x = 1;
+	else if (map->start[2] == 87)
+		dir_x = -1;
+	player->dir.x = dir_x;
+	player->dir.y = dir_y;
+}
 
 void	print_input(t_player *player, t_map *map)
 {
-	for(int i = 0; i < map->map_h; i++)
+	for (int i = 0; i < map->map_h; i++)
 	{
-		for(int k = 0; k < map->map_w; k++)
+		for (int k = 0; k < map->map_w; k++)
 		{
 			if (map->map[i][k] == 1)
 				write(1, "1", 1);
@@ -152,19 +151,20 @@ void	print_input(t_player *player, t_map *map)
 
 int	read_input(char **argv, t_player *player, t_map *map)
 {
-	int i;
-	int  fd;
-	char *tmp;
+	int		i;
+	int		fd;
+	char	*tmp;
+
 	i = 0;
-	if (!ft_strchr(argv[1], '.')
-		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".cub\0", 5))
+	if (!ft_strchr(argv[1], '.') || ft_strncmp(ft_strrchr(argv[1], '.'),
+			".cub\0", 5))
 		return (-1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (-1);
 	get_info(fd, map);
 	get_start_pos(map, player);
-	close (fd);
+	close(fd);
 	// print_input(player, map);
 	return (0);
 }

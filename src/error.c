@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/25 18:18:10 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:23:29 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error(int e_action, int e_error)
 {
-	static int error_status;
+	static int	error_status;
 
 	if (e_action == GET)
 		return (error_status);
@@ -23,7 +23,7 @@ int	error(int e_action, int e_error)
 	return (NOUGHT);
 }
 
-void err_check(void *p, int e_error)
+void	err_check(void *p, int e_error)
 {
 	if (!p)
 	{
