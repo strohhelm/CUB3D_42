@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 21:05:34 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:13:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_game(t_game *game)
 	game->player.pov = 0.66;//(double) HEIGHT / (double) WIDTH;
 	printf("%f\n", game->player.pov);
 	game->map.str_map = NULL;
-	game->map.textures[FLOOR] = mlx_load_png("./include/textures/5.png");
+	game->map.textures[FLOOR] = mlx_load_png("./include/textures/minecraft_grass.png");
 	if (!game->map.textures[FLOOR])
 		error_print("Cannot load floor texture");
 	game->map.textures[CEILING] = mlx_load_png("./include/textures/clouds.png");
