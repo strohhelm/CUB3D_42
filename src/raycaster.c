@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 16:48:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:24:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 	int	i;
 
 	i = 0;
-	while (i <= ray->lineheight)
+	while (i < ray->lineheight)
 	{
-		if (!(ray->start + i <= 0 || ray->start + i >= HEIGHT))
+		if (!(ray->start + i < 0 || ray->start + i >= HEIGHT))
 		{
 			tex->tex.y = i * tex->step;
 			tex->arr_pos = ((int)tex->tex.y
