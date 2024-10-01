@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/26 16:01:25 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:01:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	insert_info(t_map *map, char **str)
 		set_info(CEILING, map, str, i + 1);
 	else
 	{
-		char d = (*str)[i];
 		printf("invalid input!\n");
 		exit(13);
 	}

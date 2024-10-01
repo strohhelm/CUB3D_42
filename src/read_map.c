@@ -6,13 +6,13 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/26 16:47:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:00:54 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int	check_line(t_map *map, int x, int y, int i)
+int	check_line(t_map *map, int i)
 {
 	int	j;
 	int	k;
@@ -22,7 +22,6 @@ int	check_line(t_map *map, int x, int y, int i)
 	j = -1;
 	while (++j <= k)
 	{
-		char t = map->str_map[i][j];
 		if (map->str_map[i][j] == ' ' || map->str_map[i][j] == '0' || map->str_map[i][j] == '1' || map->str_map[i][j] == 'D')
 			continue ;
 		else if ((map->str_map[i][j] == 'N' || map->str_map[i][j] == 'E' || map->str_map[i][j] == 'S'
@@ -89,7 +88,6 @@ void fill_array(t_map *map)
 	while (++y < map->map_h)
 	{
 		x = -1;
-		char *str = map->str_map[y];
 		while (++x < map->map_w)
 		{
 			if (!map->str_map[y][x])
@@ -153,7 +151,7 @@ void validate_map(t_map *map)
 	check = 0;
 	while (map->str_map && map->str_map[++i])
 	{
-		tmp = check_line(map, x, y, i);
+		tmp = check_line(map, i);
 		if (tmp == 1)
 			check++;
 	}

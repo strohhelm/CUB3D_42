@@ -165,7 +165,7 @@ void	blank(t_game *game);
 // movement.c
 void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
-void update_pos(t_game *game, t_point new_pos);
+void	update_pos(t_game *game, t_point new_pos);
 
 /*		main.c				*/
 
@@ -175,12 +175,12 @@ void	raycasting(t_game *game);
 /*		read_input.c		*/
 int		comp_ident(char *str, int *idents);
 int		check_identifyer(char *line, int *map_flag);
-void	insert_map(t_map *map, char **str, int *map_flag);
+void	insert_map(t_map *map, char **str);
 void	get_info(int fd, t_map *map);
 int		read_input(char **argv, t_player *player, t_map *map);
 
 /*		read_map.c			*/
-int		check_line(t_map *map, int x, int y, int i);
+int		check_line(t_map *map, int i);
 int		max_width(char **arr, int *y);
 void	validate_map(t_map *map);
 

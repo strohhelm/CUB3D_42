@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:24:12 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:49:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	check_identifyer(char *line, int *map_flag)
 	return (current);
 }
 
-void	insert_map(t_map *map, char **str, int *map_flag)
+void	insert_map(t_map *map, char **str)
 {
 	int		arrlen;
 	char	**tmp;
@@ -101,7 +101,7 @@ void	get_info(int fd, t_map *map)
 		if (!map_flag && check_identifyer(next_line, &map_flag) >= 0)
 			insert_info(map, &next_line);
 		else if (map_flag)
-			insert_map(map, &next_line, &map_flag);
+			insert_map(map, &next_line);
 	}
 	if (error(GET, NOUGHT))
 	{
@@ -132,7 +132,7 @@ void	get_start_pos(t_map *map, t_player *player)
 	player->dir.y = dir_y;
 }
 
-void	print_input(t_player *player, t_map *map)
+void	print_input(t_map *map)
 {
 	for (int i = 0; i < map->map_h; i++)
 	{
@@ -151,9 +151,8 @@ void	print_input(t_player *player, t_map *map)
 
 int	read_input(char **argv, t_player *player, t_map *map)
 {
-	int		i;
-	int		fd;
-	char	*tmp;
+	int i;
+	int  fd;
 
 	i = 0;
 	if (!ft_strchr(argv[1], '.') || ft_strncmp(ft_strrchr(argv[1], '.'),

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 16:46:28 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:49:52 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	backgroud(t_game *game)
 	float	floorX;
 	float	floorY;
 	static double t = 0;
-	static double test2;
 	
 	int		y;
 	int		x;
@@ -80,9 +79,10 @@ void	backgroud(t_game *game)
 		x = WIDTH; 
 		while (x < WIDTH)
 		{
-			int texX = (int)(floortex->width * fmod(floorX, 1.0)) %floortex->width;
-			int texY = (int)(floortex->height * fmod(floorY, 1.0)) % floortex->height;
+			uint32_t texX = (int)(floortex->width * fabs(fmod(floorX, 1.0))) % floortex->width;
+			uint32_t texY = (int)(floortex->height * fabs(fmod(floorY, 1.0))) % floortex->height;
 			
+			// printf("w:%d | %f h:%d | %f\n", floortex->width, floorX, floortex->height, floorY);
 			uint8_t *tex_pos = &floortex->pixels[(floortex->width * texY + texX) * 4];
 			uint8_t *img_pos = &game->img->pixels[(WIDTH * y + x) * 4];
 			
@@ -93,7 +93,7 @@ void	backgroud(t_game *game)
 			texX = (int)((ceilingtex->width) * floorX ) % ceilingtex->width;
 			texY = (int)((ceilingtex->height) * floorY) % ceilingtex->height;
 			
-			tex_pos = &ceilingtex->pixels[(ceilingtex->width * texY + texX) * 4];
+			tex_pos = &ceilingtex->pixels[((ceilingtex->width * (texY - 1)) + texX) * 4];
 			img_pos = &game->img->pixels[(WIDTH * (HEIGHT - y) + x) * 4];
 			
 			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
