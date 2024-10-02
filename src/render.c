@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 17:19:34 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:36:00 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,11 @@ void	screen_init(t_player *player)
 void render(void *param)
 {
 	t_game *game;
-
+	double t;
+	double ft;
+	double time = 1.0 / 30.0;
+	t =	mlx_get_time();
+	// printf("time:%f\n", t);
 	game = (t_game*)param;
 	ft_hook(game);
 	// grid(game);
@@ -140,4 +144,11 @@ void render(void *param)
 	// player_dir_line(game);
 	backgroud(game);
 	raycasting(game);
+	ft = mlx_get_time() - t;
+	// printf("frametime:%f\n", ft);
+	if (ft < time)
+	{
+		// printf("sleep %d\n", (int)((time - ft) * 1000000));
+		usleep((int)((time - ft) * 1000000));
+	}
 }
