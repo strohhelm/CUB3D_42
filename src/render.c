@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/02 16:36:00 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:38:48 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void render(void *param)
 	blank(game);
 	// draw_player(game);
 	// player_dir_line(game);
-	backgroud(game);
+	// backgroud(game);
 	raycasting(game);
 	ft = mlx_get_time() - t;
 	// printf("frametime:%f\n", ft);

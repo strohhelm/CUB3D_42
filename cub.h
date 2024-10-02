@@ -1,8 +1,8 @@
 #ifndef CUB_H
 #define CUB_H
 
-#define WIDTH 1200
-#define HEIGHT 800
+#define WIDTH 2400
+#define HEIGHT 1000
 
 #include <math.h>
 #include <stdio.h>
@@ -69,7 +69,6 @@ typedef struct s_map
 	int map_w;
 	unsigned int ceiling;
 	unsigned int floor;
-	
 	int	start[3];
 	double	scale;
 	mlx_texture_t *textures[6];
@@ -84,6 +83,17 @@ typedef struct s_game
 	long	color;
 
 } t_game;
+
+typedef struct s_texture
+{
+	double	step;
+	t_point	tex;
+	uint8_t	*tex_pos;
+	uint8_t	*img_pos;
+	int		arr_pos;
+	int		pic_pos;
+	uint32_t test;
+}	t_texture;
 
 typedef struct s_rays
 {
@@ -110,19 +120,8 @@ typedef struct s_rays
 	int dir;
 	double test1;
 	double test2;
-
+	t_texture	tex;
 } t_rays;
-
-typedef struct s_texture
-{
-	double	step;
-	t_point	tex;
-	uint8_t	*tex_pos;
-	uint8_t	*img_pos;
-	int		arr_pos;
-	int		pic_pos;
-	uint32_t test;
-}	t_texture;
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
@@ -177,7 +176,13 @@ int		comp_ident(char *str, int *idents);
 int		check_identifyer(char *line, int *map_flag);
 void	insert_map(t_map *map, char **str);
 void	get_info(int fd, t_map *map);
-int		read_input(char **argv, t_player *player, t_map *map);
+void	read_input(char **argv, t_player *player, t_map *map);
+
+/*		read_input_utils.c	*/
+void	get_start_pos(t_map *map, t_player *player);
+int		comp_ident(char *str, int *idents);
+int		check_identifyer(char *line, int *map_flag);
+
 
 /*		read_map.c			*/
 int		check_line(t_map *map, int i);
@@ -189,12 +194,16 @@ void	insert_info(t_map *map, char **str);
 
 /*		error.c				*/
 int		error(int e_action, int e_error);
-void	err_check(void *p, int e_error);
-void	error_print(char *msg, int exitcode);
+void	err_check(void *p, char *msg);
+void	error_print(char *msg);
+void	check_error(int e);
 
 /*		utils.c				*/
 int		arr_len(char **arr);
+t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
+void	free_game(t_game *game, int j);
+void	free_string_array(char **str);
 
 #endif
 

@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/02 16:18:50 by timschmi         ###   ########.fr        #
+#    Updated: 2024/10/02 16:38:13 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ FILES :=	main.c \
 			movement.c \
 			raycaster.c \
 			read_input.c \
+			read_input_utils.c \
 			read_map.c \
 			read_settings.c \
 			utils.c \
