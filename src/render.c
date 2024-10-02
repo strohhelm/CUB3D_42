@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/02 16:57:44 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:00:09 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void render(void *param)
 	double t;
 	double ft;
 	double time = 1.0 / 30.0;
+	game = (t_game *)param;
 	t =	mlx_get_time();
 	// printf("time:%f\n", t);	game = (t_game *)param;
 	static int i = 0;

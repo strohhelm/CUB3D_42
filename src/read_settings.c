@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 20:43:32 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:14:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ void	set_colour(int type, t_map *map, char *str)
 void	set_info(int type, t_map *map, char **str, int i)
 {
 	char *rem_str;
+	char *tmp;
 
-	rem_str = ft_substr(*str, i, ft_strlen(&(*str)[i]));
-	if (!rem_str)
+	tmp = ft_substr(*str, i, ft_strlen(&(*str)[i]));
+	if (!tmp)
 		error_print("Shit went down in ft_substr, get a working pc mate!");
-	rem_str = ft_strtrim(rem_str, " \t");
+	rem_str = ft_strtrim(tmp, " \t");
 	if (!rem_str)
 		error_print("Shit went down in ft_strtrim, get a working pc mate!");
 	if (type < CEILING)
@@ -78,6 +79,7 @@ void	set_info(int type, t_map *map, char **str, int i)
 	else if (type == CEILING || type == FLOOR)
 		set_colour(type, map, rem_str);
 	free(rem_str);
+	free(tmp);
 }
 
 void	insert_info(t_map *map, char **str)

@@ -1,21 +1,21 @@
-NO ./include/textures/1.png
+NO ./include/textures/green.png
 
 
-WE ./include/textures/1.png
+WE ./include/textures/blue.png
 
-EA ./include/textures/1.png
-
-
+EA ./include/textures/red.png
 
 
-SO ./include/textures/1.png
+
+
+SO ./include/textures/yellow.png
 
 
 
 
 
 C 172,245,253
-F 38,150,36
+F 186, 148, 202
 
 
       111111111111111111                                     1111111111     1111111111
