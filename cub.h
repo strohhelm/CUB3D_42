@@ -1,8 +1,8 @@
 #ifndef CUB_H
 #define CUB_H
 
-#define WIDTH 2400
-#define HEIGHT 1000
+#define WIDTH 1600
+#define HEIGHT 800
 
 #include <math.h>
 #include <stdio.h>
@@ -81,7 +81,9 @@ typedef struct s_game
 	t_player player;
 	t_map map;
 	long	color;
-
+	int g;
+	int x;
+	int y;
 } t_game;
 
 typedef struct s_texture

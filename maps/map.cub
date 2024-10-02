@@ -1,11 +1,21 @@
-NO ./include/textures/castle1.png
-EA ./include/textures/castle1.png
-SO ./include/textures/castle1.png
-WE ./include/textures/castle1.png
+NO ./include/textures/1.png
+
+
+WE ./include/textures/1.png
+
+EA ./include/textures/1.png
+
+
+
+
+SO ./include/textures/1.png
+
+
+
 
 
 C 172,245,253
-F 38,30,36
+F 38,150,36
 
 
       111111111111111111                                     1111111111     1111111111

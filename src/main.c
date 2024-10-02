@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 21:13:10 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:27:59 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	second_init(t_game *game)
 
 void	init_game(t_game *game)
 {
+	game->x = 0;
+	game->y = 0;
 	game->player.height = HEIGHT;
 	game->player.width = WIDTH;
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.66;//(double) HEIGHT / (double) WIDTH;
-	printf("%f\n", game->player.pov);
 	game->map.str_map = NULL;
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/minecraft_grass.png");
 	if (!game->map.textures[FLOOR])

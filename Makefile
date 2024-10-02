@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/01 20:14:53 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/02 14:55:48 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,17 +51,18 @@ $(NAME): FT_LIBS $(OBJS)
 	@make -s welcome
 	
 FT_LIBS: $(LIBGET) $(LIBFT) $(MLX)
+
 $(LIBFT) :
 	@make -s -C $(LIB)
 $(LIBGET):
 	@make -s -C $(LIBG)
 $(MLX):
 	@git submodule update --init --recursive
-	@cd include/MLX42 && cmake -B build --quiet && cmake --build build -j4 --quiet
+	@cd include/MLX42 && cmake -B build --quiet && cmake --build build -j4 --quiet -O0
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(DEPFLAGS) -o $@ -c $^ -g
+	@$(CC) $(CFLAGS) $(DEPFLAGS) -o $@ -c $^ -g -O0
 
 clean:
 	@make clean -s -C $(LIB)

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 18:35:47 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:46:55 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ void	tex_calc(t_game *game, t_rays *ray, t_texture *tex)
 void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 {
 	int	i;
-
+	
 	i = 0;
+
 	while (i < ray->lineheight)
 	{
 		if (!(ray->start + i < 0 || ray->start + i >= HEIGHT))
@@ -188,9 +189,9 @@ void	raycasting(t_game *game)
 {
 	int		x;
 	t_rays	*ray;
-
 	x = 0;
 	ray = (t_rays *)malloc(sizeof(t_rays));
+
 	while (x < WIDTH)
 	{
 		init_rays(game, ray, x);
@@ -198,6 +199,7 @@ void	raycasting(t_game *game)
 		hit_loop(game, ray);
 		walldist(ray);
 		render_calc(game, ray);
+		ray->start -= game->y;
 		draw_tex(game, x, ray);
 		x++;
 	}

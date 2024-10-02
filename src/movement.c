@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/01 16:45:27 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:44:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 void	rotation_extra_keys(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_Q) || mlx_is_key_down(game->mlx,
-			MLX_KEY_LEFT))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, -1);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_E) || mlx_is_key_down(game->mlx,
-			MLX_KEY_RIGHT))
-		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, 1);
+	rotate_dir_plane(&game->player.dir, &game->player.scr, (game->x) * 0.0005, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_terminate(game->mlx);
+		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 		exit(0);
 	}
 }
@@ -64,9 +60,23 @@ void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
 void	ft_hook(t_game *game)
 {
 	t_point	new_pos;
-	int		mod;
-
+	int	mod = 0;
+	int x = 0;
+	int y = 0;
+	int delta_y = 0;
 	mod = 1;
+	
+	mlx_get_mouse_pos(game->mlx, &x, &y);
+	game->x = x - WIDTH / 2;
+	delta_y = y - HEIGHT / 2;
+	game->y += delta_y;
+	// printf("y - HEIGHT / 2: %d\n", y - HEIGHT/2);
+	if (game->y >= HEIGHT)
+		game->y = HEIGHT;
+	else if (game->y < -(HEIGHT))
+		game->y = -(HEIGHT) + 1;
+	// printf("x; %d, y: %d  | game->x: %d  game->y: %d  delta_y:%d\n",x,y, game->x, game->y, delta_y);
+		
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
 		mod = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
@@ -78,6 +88,7 @@ void	ft_hook(t_game *game)
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		set_new_pos(game, &new_pos, 'd', mod);
 	rotation_extra_keys(game);
+	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 }
 
 // speed = how much rotation per call of function,
