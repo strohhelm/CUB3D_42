@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/02 14:55:48 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/02 16:58:38 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ FT_LIBS := $(LIBFT) $(LIBGET) $(MLX)
 HEADER := cub.h -I ./include -I $(MLX_PATH)/include
 ART = $(INCLUDE_PATH)art.txt
 CC = cc
-CFLAGS =  -Wall -Wextra -Werror -Ofast -fsanitize=address 
+CFLAGS =  -Wall -Wextra -Werror -Ofast #-fsanitize=address 
 DEPFLAGS= -MMD -MP
 all: $(NAME)
 

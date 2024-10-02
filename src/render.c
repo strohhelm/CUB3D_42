@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/02 16:41:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:57:44 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,11 @@ void	screen_init(t_player *player)
 void render(void *param)
 {
 	t_game *game;
-	game = (t_game *)param;
+	double t;
+	double ft;
+	double time = 1.0 / 30.0;
+	t =	mlx_get_time();
+	// printf("time:%f\n", t);	game = (t_game *)param;
 	static int i = 0;
 	
 	if (i < 2)
@@ -152,6 +156,13 @@ void render(void *param)
 	// player_dir_line(game);
 	// backgroud(game);
 	raycasting(game);
+	ft = mlx_get_time() - t;
+	// printf("frametime:%f\n", ft);
+	if (ft < time)
+	{
+		// printf("sleep %d\n", (int)((time - ft) * 1000000));
+		usleep((int)((time - ft) * 1000000));
+	}
 	for (int o = 0; o < 10; o++)
 	{
 		for(int u = 0; u < 10; u++)
