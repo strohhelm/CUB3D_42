@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 16:31:09 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 17:24:37 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ FILES =	main.c \
 			read_input.c \
 			read_input_utils.c \
 			read_map.c \
+			read_map_utils.c \
 			read_settings.c \
 			utils.c \
 			player.c \
-			grid.c \
 			render.c
 
 BFILES = 	main_bonus.c \
@@ -42,8 +42,9 @@ BFILES = 	main_bonus.c \
 			error_bonus.c \
 			movement_bonus.c \
 			raycaster_bonus.c \
-			read_input_bonus.c \
 			read_input_utils_bonus.c \
+			read_input_bonus.c \
+			read_map_utils_bonus.c \
 			read_map_bonus.c \
 			read_settings_bonus.c \
 			utils_bonus.c \

@@ -1,18 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
+/*   Updated: 2024/10/03 17:25:59 by pstrohal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_H
-#define CUB_H
+# define CUB_H
 
-#define WIDTH 1600
-#define HEIGHT 800
+# define WIDTH 1600
+# define HEIGHT 800
 
-#include <math.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "include/libft/src/libft.h"
-#include "include/get_next_line/get_next_line.h"
-#include "include/MLX42/include/MLX42/MLX42.h"
+# include <math.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include "include/libft/src/libft.h"
+# include "include/get_next_line/get_next_line.h"
+# include "include/MLX42/include/MLX42/MLX42.h"
 
-enum e_colors 
+enum e_colors
 {
 	NO = 0x9B5DE5FF,
 	WE = 0xFF6F61FF,
@@ -51,79 +63,77 @@ typedef struct s_coordinate {
 
 typedef struct s_player
 {
-	int height;
-	int width;
-	t_point pos;
-	t_point dir;
-	t_point scr;
-	double pov;
-	int start;
-	long color;
+	int		height;
+	int		width;
+	t_point	pos;
+	t_point	dir;
+	t_point	scr;
+	double	pov;
+	int		start;
+	long	color;
 }	t_player;
 
 typedef struct s_map
 {
-	int **map;
-	char **str_map;
-	int map_h;
-	int map_w;
-	unsigned int ceiling;
-	unsigned int floor;
-	int	start[3];
-	double	scale;
-	mlx_texture_t *textures[6];
-} t_map;
+	int				**map;
+	char			**str_map;
+	int				map_h;
+	int				map_w;
+	unsigned int	ceiling;
+	unsigned int	floor;
+	int				start[3];
+	double			scale;
+	mlx_texture_t	*textures[4];
+}	t_map;
 
 typedef struct s_game
 {
-	mlx_t *mlx;
-	mlx_image_t *img;
-	t_player player;
-	t_map map;
-	long	color;
-	int g;
-	int x;
-	int y;
-} t_game;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_player	player;
+	t_map		map;
+	long		color;
+	int			x;
+	int			y;
+}	t_game;
 
 typedef struct s_texture
 {
-	double	step;
-	t_point	tex;
-	uint8_t	*tex_pos;
-	uint8_t	*img_pos;
-	int		arr_pos;
-	int		pic_pos;
-	uint32_t test;
+	double		step;
+	t_point		tex;
+	uint8_t		*tex_pos;
+	uint8_t		*img_pos;
+	int			arr_pos;
+	int			pic_pos;
+	uint32_t	test;
 }	t_texture;
 
+//structure of values needed raycasting.
 typedef struct s_rays
 {
-	double camx;
-	double ray_dir_x;
-	double ray_dir_y;
-	int mx;
-	int my;
-	double sdistx;
-	double sdisty;
-	double deldistx;
-	double deldisty;
-	double walldist;
-	int stepx;
-	int stepy;
-	int hit;
-	int side;
-	int lineheight;
-	int start;
-	int end;
-	t_point wallhit;
-	t_point hitp;
-	t_point pos;
-	int dir;
-	double test1;
-	double test2;
+	double		camx;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			mx;
+	int			my;
+	double		sdistx;
+	double		sdisty;
+	double		deldistx;
+	double		deldisty;
+	double		walldist;
+	int			stepx;
+	int			stepy;
+	int			hit;
+	int			side;
+	int			lineheight;
+	int			start;
+	int			end;
+	t_point		wallhit;
+	t_point		hitp;
+	t_point		pos;
+	int			dir;
 	t_texture	tex;
-} t_rays;
+}	t_rays;
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
@@ -140,32 +150,18 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
-/*		draw_line.c			*/
-int		ft_absolute(int a, int b);
-void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
-
-void	raycasting(t_game *game);
-void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
-
-/*		grid.c		*/
-void	grid(t_game *game);
-
-/*		player.c		*/
-void	draw_player(t_game *game);
-void	player_dir_line(t_game *game);
-
 /*		collision.c		*/
 void	collision(t_point new_pos, t_game *game);
 
 /*		render		*/
 void	render(void *param);
-void	load_textures(t_map *map);
 void	screen_init(t_player *player);
 void	blank(t_game *game);
 
 /*		movement.c		*/
 void	ft_hook(t_game *game);
-void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
+void	rotate_dir_plane(t_point *dir, t_point *plane, \
+		double speed, double l_r);
 void	update_pos(t_game *game, t_point new_pos);
 
 /*		main.c				*/
@@ -199,6 +195,8 @@ void	get_start_pos(t_map *map, t_player *player);
 int		comp_ident(char *str, int *idents);
 int		check_identifyer(char *line, int *map_flag);
 
+/*		read_map_utils.c	*/
+int		**alloc_int_arr(int x, int y);
 
 /*		read_map.c			*/
 int		check_line(t_map *map, int i);
