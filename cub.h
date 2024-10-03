@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "include/libft/libft.h"
+#include "include/libft/src/libft.h"
 #include "include/get_next_line/get_next_line.h"
 #include "include/MLX42/include/MLX42/MLX42.h"
 
@@ -16,10 +16,9 @@ enum e_colors
 {
 	NO = 0x9B5DE5FF,
 	WE = 0xFF6F61FF,
-	SO = 0xDFFF00FF,
+	SO = 0xDFFF0056,
 	EA = 0x3E00FFFF,
 };
-
 enum e_identifyers
 {
 	NORTH,
@@ -29,6 +28,7 @@ enum e_identifyers
 	CEILING,
 	FLOOR,
 };
+
 enum e_action
 {
 	GET,

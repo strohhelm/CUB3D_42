@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/02 17:00:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:21:30 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	backgroud(t_game *game)
 			uint8_t *img_pos = &game->img->pixels[(WIDTH * (y - 1 - game->y) + x) * 4];
 			
 			// if (y < HEIGHT - game->y)
-				// ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
+				ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
 			// else
 			// {
 				texX = (int)((ceilingtex->width) * floorX ) % ceilingtex->width;
@@ -152,18 +152,15 @@ void render(void *param)
 	}
 	ft_hook(game);
 	// grid(game);
-	blank(game);
+	// blank(game);
 	// draw_player(game);
 	// player_dir_line(game);
-	// backgroud(game);
-	raycasting(game);
+	backgroud(game);
+	// raycasting(game);
 	ft = mlx_get_time() - t;
 	// printf("frametime:%f\n", ft);
 	if (ft < time)
-	{
-		// printf("sleep %d\n", (int)((time - ft) * 1000000));
 		usleep((int)((time - ft) * 1000000));
-	}
 	for (int o = 0; o < 10; o++)
 	{
 		for(int u = 0; u < 10; u++)

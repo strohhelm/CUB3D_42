@@ -6,15 +6,18 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/02 18:11:44 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 14:50:02 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_PATH := src/
-OBJ_PATH := obj/
-INCLUDE_PATH := include/
-		
-FILES :=	main.c \
+NAME = cub3d
+SRC_PATH = src
+OBJ_PATH = obj
+INCLUDE_PATH = include
+# DEP_PATH := $(OBJ_PATH)/.dep
+CC = cc
+
+FILES =	main.c \
 			collision.c \
 			draw_line.c \
 			error.c \
@@ -28,41 +31,55 @@ FILES :=	main.c \
 			player.c \
 			grid.c \
 			render.c
-			
 
-SRC := $(addprefix src/,$(FILES))
-OBJS := $(patsubst src/%.c, obj/%.o,$(SRC))
-NAME := cub3d
-LIB := $(INCLUDE_PATH)libft
-LIBG := $(INCLUDE_PATH)get_next_line
+SRC := $(addprefix $(SRC_PATH)/, $(FILES))
+OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o,$(SRC))
+# DFLS := $(OBJS:.o=.d)
+ART := $(INCLUDE_PATH)/art.txt
+
+
+LIB := $(INCLUDE_PATH)/libft
 LIBFT := $(LIB)/libft.a
+LIBFT_FLAGS:= -L$(LIB) -lft
+
+LIBG := $(INCLUDE_PATH)/get_next_line
 LIBGET := $(LIBG)/libget_next_line.a
-MLX := $(INCLUDE_PATH)MLX42/build/libmlx42.a
-FT_LIBS := $(LIBFT) $(LIBGET) $(MLX)
-HEADER := cub.h -I ./include -I $(MLX_PATH)/include
-ART = $(INCLUDE_PATH)art.txt
-CC = cc
-CFLAGS =  -Wall -Wextra -Werror -Ofast #-fsanitize=address 
-DEPFLAGS= -MMD -MP
+GET_FLAGS := -L$(LIBG) -lget_next_line
+
+MLX := $(INCLUDE_PATH)/MLX42/build
+LIBMLX := $(MLX)/libmlx42.a
+MLXFLAGS = -L$(MLX) -lmlx42 -lglfw
+
+
+CFLAGS = -Wall -Wextra -Werror -Ofast
+# DEPFLAGS = -MMD -MP
+LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
+
+ifeq ($(DEBUG), 1)
+		CFLAGS += -fsanitize=address -g -O0
+endif
+
+# -include $(DFLS)
+
 all: $(NAME)
 
-$(NAME): FT_LIBS $(OBJS)
-	@$(CC) $(CFLAGS) $(DEPFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -pthread -lm -g
+$(NAME):  $(LIBFT) $(LIBGET) $(LIBMLX) $(OBJS)
+	@$(CC) -o $@ $(OBJS) $(LIBFLAGS) 
 	@make -s welcome
 	
-FT_LIBS: $(LIBGET) $(LIBFT) $(MLX)
-
-$(LIBFT) :
+$(LIBFT):
 	@make -s -C $(LIB)
+	
 $(LIBGET):
 	@make -s -C $(LIBG)
-$(MLX):
+
+$(LIBMLX):
 	@git submodule update --init --recursive
-	@cd include/MLX42 && cmake -B build --quiet && cmake --build build -j4 --quiet -O0
+	@cd include/MLX42 && cmake -B build --quiet && cmake --build build -j4 --quiet
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(DEPFLAGS) -o $@ -c $^ -g -O0
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@make clean -s -C $(LIB)
@@ -79,4 +96,4 @@ welcome:
 
 re: fclean all
 
-.PHONY: all clean fclean re print welcome ft
+.PHONY: all clean fclean re welcome
