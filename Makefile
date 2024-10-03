@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 16:08:22 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 16:24:57 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ BFILES = 	main_bonus.c \
 			render_bonus.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
-OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(BON))
+OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC))
 
 BON := $(addprefix $(BON_PATH)/, $(BFILES))
 BOBJ := $(patsubst $(BON_PATH)/%.c, $(BON_OBJ_PATH)/%.o, $(BON))
@@ -94,13 +94,13 @@ bon_obj/%.o: bonus/%.c
 
 $(LIBFT):
 	@make -s -C $(LIB)
-	
+
 $(LIBGET):
 	@make -s -C $(LIBG)
 
 $(LIBMLX):
-	@git submodule update --init --recursive
-	@cd include/MLX42 && cmake -B build --quiet && cmake --build build -j4 --quiet
+	@git submodule update --init --recursive >/dev/null 2>&1
+	@cd include/MLX42 && cmake -B build >/dev/null 2>&1 && cmake --build build -j4 >/dev/null 2>&1
 
 clean:
 	@make clean -s -C $(LIB)
@@ -109,11 +109,7 @@ clean:
 	@rm -rf bonus_obj
 
 deinit:
-	@if [-d "include/MLX42"]; then \
-			git submodule deinit -q -f include/MLX42 >/dev/null 2>&1;\
-			git rm -q -f include/MLX42 >/dev/null 2>&1;\
-			rm -rf include/MLX42 >2&1;\
-	fi
+	@rm -rf include/MLX42 2>&1;
 
 fclean: clean deinit
 	@make fclean -s -C $(LIB)
