@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 16:24:57 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 16:27:45 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ FILES =	main.c \
 			error.c \
 			movement.c \
 			raycaster.c \
+			cast_textures.c \
 			read_input.c \
 			read_input_utils.c \
 			read_map.c \

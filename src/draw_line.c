@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/09/17 18:30:51 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:05:09 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,25 @@ void	draw_line_y(mlx_image_t *img, t_pixel_line z, int w, int h)
 	}
 }
 
-int ft_absolute(int a, int b)
+int	ft_absolute(int a, int b)
 {
-	int nb;
+	int	nb;
 
 	nb = a - b;
-	return((nb>=0) * nb + (nb < 0) * -1 *nb);
+	return ((nb >= 0) * nb + (nb < 0) * -1 * nb);
 }
 
-//needs mlx_img pointer and colour input;
+// needs mlx_img pointer and colour input;
 void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color)
 {
 	t_pixel_line	z;
-	t_point a, b;
+	t_point			a;
+	t_point			b;
 
 	a.x = p_a->x;
 	a.y = p_a->y;
-
 	b.x = p_b->x;
 	b.y = p_b->y;
-
 	z.p_a = a;
 	z.p_b = b;
 	z.p_t = a;

@@ -147,31 +147,45 @@ void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 void	raycasting(t_game *game);
 void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
 
-// grid.c
+/*		grid.c		*/
 void	grid(t_game *game);
 
-// player.c
+/*		player.c		*/
 void	draw_player(t_game *game);
 void	player_dir_line(t_game *game);
 
-// collision.c
+/*		collision.c		*/
 int 	collision(t_point new_pos, t_game *game);
 
-// render
+/*		render		*/
 void	render(void *param);
 void	load_textures(t_map *map);
 void	screen_init(t_player *player);
 void	blank(t_game *game);
 
-// movement.c
+/*		movement.c		*/
 void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, double speed, double l_r);
 void	update_pos(t_game *game, t_point new_pos);
 
 /*		main.c				*/
+void	init_game(t_game *game);
+void	second_init(t_game *game);
+void	leaks(void);
 
 /*		raycaster.c			*/
 void	raycasting(t_game *game);
+void	init_rays(t_game *game, t_rays *ray, int x);
+void	step_and_dist(t_game *game, t_rays *ray);
+void	ray_overflow(t_game *game, t_rays *ray);
+void	hit_loop(t_game *game, t_rays *ray);
+
+/*		cast_textures.c		*/
+void	draw_tex(t_game *game, int x, t_rays *ray);
+void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
+int		return_orientation(int one, int two, int side);
+int		get_direction(t_point pos, t_point hit, int side);
+void	render_calc(t_game *game, t_rays *ray);
 
 /*		read_input.c		*/
 int		comp_ident(char *str, int *idents);
