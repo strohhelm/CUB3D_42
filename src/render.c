@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 11:21:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:54:04 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,11 @@ void render(void *param)
 	}
 	ft_hook(game);
 	// grid(game);
-	// blank(game);
+	blank(game);
 	// draw_player(game);
 	// player_dir_line(game);
-	backgroud(game);
-	// raycasting(game);
+	// backgroud(game);
+	raycasting(game);
 	ft = mlx_get_time() - t;
 	// printf("frametime:%f\n", ft);
 	if (ft < time)

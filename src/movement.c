@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 11:21:39 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:59:26 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ void	ft_hook(t_game *game)
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	game->x = x - WIDTH / 2;
 	delta_y = y - HEIGHT / 2;
-	game->y += delta_y;
+	// game->y += delta_y;
 	// printf("y - HEIGHT / 2: %d\n", y - HEIGHT/2);
-	if (game->y >= HEIGHT)
-		game->y = HEIGHT;
-	else if (game->y < -(HEIGHT))
-		game->y = -(HEIGHT) + 1;
+	// if (game->y >= HEIGHT)
+	// 	game->y = HEIGHT;
+	// else if (game->y < -(HEIGHT))
+	// 	game->y = -(HEIGHT) + 1;
 	// printf("x; %d, y: %d  | game->x: %d  game->y: %d  delta_y:%d\n",x,y, game->x, game->y, delta_y);
 		
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))

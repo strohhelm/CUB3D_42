@@ -6,16 +6,19 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 14:50:02 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 16:08:22 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
+BNAME = bcub3d
 SRC_PATH = src
 OBJ_PATH = obj
+BON_PATH = bonus
+BON_OBJ_PATH = bonus_obj
 INCLUDE_PATH = include
-# DEP_PATH := $(OBJ_PATH)/.dep
 CC = cc
+ART := $(INCLUDE_PATH)/art.txt
 
 FILES =	main.c \
 			collision.c \
@@ -32,11 +35,26 @@ FILES =	main.c \
 			grid.c \
 			render.c
 
-SRC := $(addprefix $(SRC_PATH)/, $(FILES))
-OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o,$(SRC))
-# DFLS := $(OBJS:.o=.d)
-ART := $(INCLUDE_PATH)/art.txt
+BFILES = 	main_bonus.c \
+			collision_bonus.c \
+			draw_line_bonus.c \
+			error_bonus.c \
+			movement_bonus.c \
+			raycaster_bonus.c \
+			read_input_bonus.c \
+			read_input_utils_bonus.c \
+			read_map_bonus.c \
+			read_settings_bonus.c \
+			utils_bonus.c \
+			player_bonus.c \
+			grid_bonus.c \
+			render_bonus.c
 
+SRC := $(addprefix $(SRC_PATH)/, $(FILES))
+OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(BON))
+
+BON := $(addprefix $(BON_PATH)/, $(BFILES))
+BOBJ := $(patsubst $(BON_PATH)/%.c, $(BON_OBJ_PATH)/%.o, $(BON))
 
 LIB := $(INCLUDE_PATH)/libft
 LIBFT := $(LIB)/libft.a
@@ -52,21 +70,28 @@ MLXFLAGS = -L$(MLX) -lmlx42 -lglfw
 
 
 CFLAGS = -Wall -Wextra -Werror -Ofast
-# DEPFLAGS = -MMD -MP
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
-ifeq ($(DEBUG), 1)
-		CFLAGS += -fsanitize=address -g -O0
-endif
-
-# -include $(DFLS)
-
 all: $(NAME)
+
+bonus: $(BNAME)
 
 $(NAME):  $(LIBFT) $(LIBGET) $(LIBMLX) $(OBJS)
 	@$(CC) -o $@ $(OBJS) $(LIBFLAGS) 
 	@make -s welcome
 	
+$(BNAME): $(LIBFT) $(LIBGET) $(LIBMLX) $(BOBJ)
+	# @$(CC) -o $@ $(BOBJ) $(LIBFLAGS)
+	@cat include/artbonus.txt
+
+obj/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+bon_obj/%.o: bonus/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 $(LIBFT):
 	@make -s -C $(LIB)
 	
@@ -77,23 +102,28 @@ $(LIBMLX):
 	@git submodule update --init --recursive
 	@cd include/MLX42 && cmake -B build --quiet && cmake --build build -j4 --quiet
 
-obj/%.o: src/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
-
 clean:
 	@make clean -s -C $(LIB)
 	@make clean -s -C $(LIBG)
 	@rm -rf obj
+	@rm -rf bonus_obj
 
-fclean: clean
+deinit:
+	@if [-d "include/MLX42"]; then \
+			git submodule deinit -q -f include/MLX42 >/dev/null 2>&1;\
+			git rm -q -f include/MLX42 >/dev/null 2>&1;\
+			rm -rf include/MLX42 >2&1;\
+	fi
+
+fclean: clean deinit
 	@make fclean -s -C $(LIB)
 	@make fclean -s -C $(LIBG)
 	@rm -rf $(NAME)
-
+	@rm -rf $(BNAME)
+	
 welcome:
 	@cat $(ART)
 
 re: fclean all
 
-.PHONY: all clean fclean re welcome
+.PHONY: all clean fclean bonus re welcome
