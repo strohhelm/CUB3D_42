@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 17:19:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:39:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	blank(t_game *game)
 		x++;
 	}
 }
-
 
 void	screen_init(t_player *player)
 {
@@ -66,7 +65,6 @@ void	render(void *param)
 	time = 1.0 / 30;
 	game = (t_game *)param;
 	t = mlx_get_time();
-
 	if (i < 2)
 	{
 		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);

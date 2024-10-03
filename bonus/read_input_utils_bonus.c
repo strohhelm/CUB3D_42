@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_input_utils.c                                 :+:      :+:    :+:   */
+/*   read_input_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 20:15:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:55:20 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
 
 void	get_start_pos(t_map *map, t_player *player)

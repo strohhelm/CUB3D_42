@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 16:28:49 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:39:01 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	rotation_extra_keys(t_game *game)
 {
 	rotate_dir_plane(&game->player.dir, &game->player.scr, (game->x) * 0.0005,
 		1);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, -1);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_dir_plane(&game->player.dir, &game->player.scr, 0.05, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_terminate(game->mlx);
@@ -73,15 +77,6 @@ void	ft_hook(t_game *game)
 	mod = 1;
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	game->x = x - WIDTH / 2;
-	delta_y = y - HEIGHT / 2;
-	// game->y += delta_y;
-	// printf("y - HEIGHT / 2: %d\n", y - HEIGHT/2);
-	if (game->y >= HEIGHT)
-		game->y = HEIGHT;
-	else if (game->y < -(HEIGHT))
-		game->y = -(HEIGHT) + 1;
-	// printf("x; %d, y: %d  | game->x: %d  game->y: %d  delta_y:%d\n",x,y,
-		// game->x, game->y, delta_y);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
 		mod = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))

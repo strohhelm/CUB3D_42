@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 16:28:21 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:30:58 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
-void blank(t_game *game)
+void	blank(t_game *game)
 {
-	int x = 0;
-	int y = 0;
+	int	x;
+	int	y;
 
+	x = 0;
+	y = 0;
 	while (x < WIDTH)
 	{
 		y = 0;
@@ -66,39 +68,26 @@ void	backgroud(t_game *game)
 		raydiry0 = (game->player.dir.y - game->player.scr.y) * 10;
 		raydirx1 = (game->player.dir.x + game->player.scr.x) * 10;
 		raydiry1 = (game->player.dir.y + game->player.scr.y) * 10;
-		
-		
 		p = y - HEIGHT / 2;
 		posZ = HEIGHT / 2;
 		rowdist = posZ / p ;
-
-		
 		floorstepX = rowdist * ((raydirx1 - raydirx0) / (WIDTH));
 		floorstepY = rowdist * ((raydiry1 - raydiry0) / (WIDTH));
-
 		floorX = (game->player.pos.x) + rowdist * raydirx0;
 		floorY = (game->player.pos.y) + rowdist * raydiry0;
-		
 		x = 0; 
 		while (x < WIDTH)
 		{
 			uint32_t texX = (int)(floortex->width * fabs(fmod(floorX, 1.0))) % floortex->width;
 			uint32_t texY = (int)(floortex->height * fabs(fmod(floorY, 1.0))) % floortex->height;
-			
-			// printf("w:%d | %f h:%d | %f\n", floortex->width, floorX, floortex->height, floorY);
 			uint8_t *tex_pos = &floortex->pixels[(floortex->width * texY + texX) * 4];
 			uint8_t *img_pos = &game->img->pixels[(WIDTH * (y - 1 - game->y) + x) * 4];
-			
-			// if (y < HEIGHT - game->y)
-				ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
-			// else
-			// {
-				texX = (int)((ceilingtex->width) * floorX ) % ceilingtex->width;
-				texY = (int)((ceilingtex->height) * floorY) % ceilingtex->height;
-				tex_pos = &ceilingtex->pixels[(ceilingtex->width * texY + texX) * 4];
-				img_pos = &game->img->pixels[(WIDTH * (HEIGHT - y + game->y) + x) * 4];
-				ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
-			// }
+			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
+			texX = (int)((ceilingtex->width) * floorX ) % ceilingtex->width;
+			texY = (int)((ceilingtex->height) * floorY) % ceilingtex->height;
+			tex_pos = &ceilingtex->pixels[(ceilingtex->width * texY + texX) * 4];
+			img_pos = &game->img->pixels[(WIDTH * (HEIGHT - y + game->y) + x) * 4];
+			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
 			floorX += floorstepX;
 			floorY += floorstepY;
 			x++;
@@ -109,12 +98,12 @@ void	backgroud(t_game *game)
 
 void	screen_init(t_player *player)
 {
-	t_point dir;
-	t_point scr;
+	t_point	dir;
+	t_point	scr;
 
 	dir = player->dir;
-	player->dir.x/= 10;
-	player->dir.y /=10;
+	player->dir.x /= 10;
+	player->dir.y /= 10;
 	scr.x = 0;
 	scr.y = 0;
 	if (dir.y > 0)
@@ -130,50 +119,27 @@ void	screen_init(t_player *player)
 
 void render(void *param)
 {
-	t_game *game;
-	double t;
-	double ft;
-	double time = 1.0 / 30.0;
+	t_game		*game;
+	double		t;
+	double		ft;
+	double		time;
+	static int	i = 0;
+
+	time = 1.0 / 30.0;
 	game = (t_game *)param;
-	t =	mlx_get_time();
-	static int i = 0;
-	
-	if (i < 2)
+	t = mlx_get_time();
+	if (i++ < 2)
 	{
-		int h = 0;
-		int y = 0;
 		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
-		mlx_get_mouse_pos(game->mlx, &h, &y);
-		printf("x: %d  y: %d\n", h, y);
-		i++;
-		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
+		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
+		game->x = 0;
 		return ;
 	}
 	ft_hook(game);
 	blank(game);
 	raycasting(game);
+	minimap(game);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));
-	for (int o = 0; o < 10; o++)
-	{
-		for(int u = 0; u < 10; u++)
-		{
-			mlx_put_pixel(game->img, WIDTH / 2 - 5 + u, HEIGHT / 2 - 5 + o, SO);
-		}
-	}
 }
-
-	// mlx_get_mouse_pos(game->mlx, &game->x, &game->y);
-	// if (game->x <=WIDTH && game->x >= 0 && game->y <= HEIGHT && game->y >= 0)
-	// {
-	// 	mlx_put_pixel(game->img, game->x, game->y, NO);
-	// 	j = 1;
-	// }
-	// else
-	// 	j = 0;
-	// if (i != j && j == 1)
-	// 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
-	// else if (i != j && j == 2)
-	// 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
-	// i = j;

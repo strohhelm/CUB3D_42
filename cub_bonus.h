@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 20:40:41 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:41:08 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef CUB_BONUS_H
+# define CUB_BONUS_H
 
 # define WIDTH 1600
 # define HEIGHT 800
@@ -83,7 +83,7 @@ typedef struct s_map
 	unsigned int	floor;
 	int				start[3];
 	double			scale;
-	mlx_texture_t	*textures[4];
+	mlx_texture_t	*textures[6];
 }	t_map;
 
 typedef struct s_game
@@ -150,6 +150,9 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
+/*		draw_line		*/
+void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
+
 /*		collision.c		*/
 void	collision(t_point new_pos, t_game *game);
 
@@ -163,6 +166,9 @@ void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, \
 		double speed, double l_r);
 void	update_pos(t_game *game, t_point new_pos);
+
+/*		minimap.c			*/
+void	minimap(t_game * game);
 
 /*		main.c				*/
 void	init_game(t_game *game);

@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 17:24:37 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 21:01:56 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ ART := $(INCLUDE_PATH)/art.txt
 
 FILES =	main.c \
 			collision.c \
-			draw_line.c \
 			error.c \
 			movement.c \
 			raycaster.c \
@@ -33,13 +32,14 @@ FILES =	main.c \
 			read_map_utils.c \
 			read_settings.c \
 			utils.c \
-			player.c \
 			render.c
 
 BFILES = 	main_bonus.c \
+			cast_textures_bonus.c \
 			collision_bonus.c \
 			draw_line_bonus.c \
 			error_bonus.c \
+			minimap_bonus.c \
 			movement_bonus.c \
 			raycaster_bonus.c \
 			read_input_utils_bonus.c \
@@ -71,7 +71,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw
 
 
-CFLAGS = -Wall -Wextra -Werror -Ofast
+CFLAGS = -Wall -Wextra -Werror -Ofast -g
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)
@@ -83,14 +83,14 @@ $(NAME):  $(LIBFT) $(LIBGET) $(LIBMLX) $(OBJS)
 	@make -s welcome
 	
 $(BNAME): $(LIBFT) $(LIBGET) $(LIBMLX) $(BOBJ)
-	# @$(CC) -o $@ $(BOBJ) $(LIBFLAGS)
+	@$(CC) -o $@ $(BOBJ) $(LIBFLAGS)
 	@cat include/artbonus.txt
 
 obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-bon_obj/%.o: bonus/%.c
+bonus_obj/%.o: bonus/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -122,8 +122,8 @@ fclean: clean
 welcome:
 	@cat $(ART)
 
-r: fclean all
+rb: fclean bonus
 
-re: deinit fclean all
+re: fclean all
 
 .PHONY: all clean fclean bonus re welcome

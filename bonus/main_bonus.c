@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 16:06:34 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/03 21:54:41 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	atexit(leaks);
+	// atexit(leaks);
 	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	screen_init(&game.player);
 	second_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
@@ -40,8 +41,7 @@ void	init_game(t_game *game)
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.66;
 	game->map.str_map = NULL;
-	game->map.textures[FLOOR] = 
-		mlx_load_png("./include/textures/minecraft_grass.png");
+	game->map.textures[FLOOR] = mlx_load_png("./include/textures/red.png");
 	if (!game->map.textures[FLOOR])
 		error_print("Cannot load floor texture");
 	game->map.textures[CEILING] = mlx_load_png("./include/textures/clouds.png");

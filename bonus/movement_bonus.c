@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   movement.c                                         :+:      :+:    :+:   */
+/*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 16:28:49 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:24:14 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "../cub_bonus.h"
 
 void	rotation_extra_keys(t_game *game)
 {
@@ -58,30 +58,32 @@ void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
 	}
 }
 
-void	ft_hook(t_game *game)
+void	mouse_hook(t_game *game)
 {
-	t_point	new_pos;
-	int		mod;
 	int		x;
 	int		y;
 	int		delta_y;
 
-	mod = 0;
 	x = 0;
 	y = 0;
 	delta_y = 0;
-	mod = 1;
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	game->x = x - WIDTH / 2;
 	delta_y = y - HEIGHT / 2;
-	// game->y += delta_y;
-	// printf("y - HEIGHT / 2: %d\n", y - HEIGHT/2);
+	game->y += delta_y;
 	if (game->y >= HEIGHT)
-		game->y = HEIGHT;
+		game->y = HEIGHT - 1;
 	else if (game->y < -(HEIGHT))
 		game->y = -(HEIGHT) + 1;
-	// printf("x; %d, y: %d  | game->x: %d  game->y: %d  delta_y:%d\n",x,y,
-		// game->x, game->y, delta_y);
+}
+
+void	ft_hook(t_game *game)
+{
+	t_point	new_pos;
+	int		mod;
+
+	mod = 1;
+	mouse_hook(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT_SHIFT))
 		mod = 2;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
