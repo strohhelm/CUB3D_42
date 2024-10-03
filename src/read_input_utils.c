@@ -6,13 +6,11 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 20:15:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:04:34 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../cub.h"
-
 
 void	get_start_pos(t_map *map, t_player *player)
 {
@@ -34,6 +32,7 @@ void	get_start_pos(t_map *map, t_player *player)
 	player->dir.x = dir_x;
 	player->dir.y = dir_y;
 }
+
 int	comp_ident(char *str, int *idents)
 {
 	char	*arr[7];

@@ -6,20 +6,23 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/02 18:14:23 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:52:05 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-unsigned int get_colour(int r, int g, int b)
+
+unsigned int	get_colour(int r, int g, int b)
 {
 	return (r << 24 | g << 16 | b << 8 | 255);
 }
+
 void	fill_col_arr(char ***col, char *str)
 {
-	int len;
-	char *tmp;
-	*col = ft_split(str,',');
+	int		len;
+	char	*tmp;
+
+	*col = ft_split(str, ',');
 	if (!*col)
 		error_print("Shit went down in ft_split, get a working pc mate!");
 	len = arr_len(*col);
@@ -36,9 +39,9 @@ void	fill_col_arr(char ***col, char *str)
 
 void	set_colour(int type, t_map *map, char *str)
 {
-	char **col;
-	unsigned int colour;
-	int rgb[3];
+	char			**col;
+	unsigned int	colour;
+	int				rgb[3];
 
 	fill_col_arr(&col, str);
 	if (arr_len(col) != 3 || ft_strlen(col[0]) == 0 || ft_strlen(col[1]) == 0
@@ -61,8 +64,8 @@ void	set_colour(int type, t_map *map, char *str)
 
 void	set_info(int type, t_map *map, char **str, int i)
 {
-	char *rem_str;
-	char *tmp;
+	char	*rem_str;
+	char	*tmp;
 
 	tmp = ft_substr(*str, i, ft_strlen(&(*str)[i]));
 	if (!tmp)
@@ -74,7 +77,8 @@ void	set_info(int type, t_map *map, char **str, int i)
 	{
 		map->textures[type] = mlx_load_png(rem_str);
 		if (!map->textures[type])
-			error_print("Well wtf did you try here? Get an actual texture buddy!");
+			error_print("Well wtf did you try here? \
+			Get an actual texture buddy!");
 	}
 	else if (type == CEILING || type == FLOOR)
 		set_colour(type, map, rem_str);
@@ -97,7 +101,7 @@ void	insert_info(t_map *map, char **str)
 		set_info(EAST, map, str, i + 2);
 	else if (!ft_strncmp(&((*str)[i]), "WE", 2))
 		set_info(WEST, map, str, i + 2);
-	else if((*str)[i] =='F')
+	else if ((*str)[i] == 'F')
 		set_info(FLOOR, map, str, i + 1);
 	else if ((*str)[i] == 'C')
 		set_info(CEILING, map, str, i + 1);

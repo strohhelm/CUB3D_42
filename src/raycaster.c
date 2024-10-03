@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 15:51:10 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:19:16 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	raycasting(t_game *game)
 		step_and_dist(game, ray);
 		hit_loop(game, ray);
 		render_calc(game, ray);
-		ray->start -= game->y;
 		draw_tex(game, x, ray);
 		x++;
 	}

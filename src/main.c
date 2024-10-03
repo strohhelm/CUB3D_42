@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 16:06:34 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:17:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	second_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
 	return (0);
@@ -40,13 +41,6 @@ void	init_game(t_game *game)
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.66;
 	game->map.str_map = NULL;
-	game->map.textures[FLOOR] = 
-		mlx_load_png("./include/textures/minecraft_grass.png");
-	if (!game->map.textures[FLOOR])
-		error_print("Cannot load floor texture");
-	game->map.textures[CEILING] = mlx_load_png("./include/textures/clouds.png");
-	if (!game->map.textures[CEILING])
-		error_print("Cannot load ceiling texture");
 }
 
 void	second_init(t_game *game)

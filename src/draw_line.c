@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 16:05:09 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:02:49 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
+//Bresenhams line drawing algorithm
 void	draw_line_x(mlx_image_t *img, t_pixel_line z, int w, int h)
 {
 	z.a = 2 * z.ydiff;
