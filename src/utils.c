@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 20:33:41 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:11:31 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int	mv_arr(char **src, char **dest)
 	}
 	return (i);
 }
-t_game *game_pointer(int i, void *game)
+
+t_game	*game_pointer(int i, void *game)
 {
-	static t_game *def_not_global;
+	static t_game	*def_not_global;
 
 	if (i == 1 && game)
 	{

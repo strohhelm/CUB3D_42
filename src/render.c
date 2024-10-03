@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 11:21:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:01:30 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void render(void *param)
 	double time = 1.0 / 30.0;
 	game = (t_game *)param;
 	t =	mlx_get_time();
-	// printf("time:%f\n", t);	game = (t_game *)param;
 	static int i = 0;
 	
 	if (i < 2)
@@ -151,14 +150,9 @@ void render(void *param)
 		return ;
 	}
 	ft_hook(game);
-	// grid(game);
-	// blank(game);
-	// draw_player(game);
-	// player_dir_line(game);
-	backgroud(game);
-	// raycasting(game);
+	blank(game);
+	raycasting(game);
 	ft = mlx_get_time() - t;
-	// printf("frametime:%f\n", ft);
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));
 	for (int o = 0; o < 10; o++)
@@ -169,6 +163,7 @@ void render(void *param)
 		}
 	}
 }
+
 	// mlx_get_mouse_pos(game->mlx, &game->x, &game->y);
 	// if (game->x <=WIDTH && game->x >= 0 && game->y <= HEIGHT && game->y >= 0)
 	// {
