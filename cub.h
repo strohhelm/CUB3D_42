@@ -155,7 +155,7 @@ void	draw_player(t_game *game);
 void	player_dir_line(t_game *game);
 
 /*		collision.c		*/
-int 	collision(t_point new_pos, t_game *game);
+void	collision(t_point new_pos, t_game *game);
 
 /*		render		*/
 void	render(void *param);

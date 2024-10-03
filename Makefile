@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 16:27:45 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/03 16:31:09 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ clean:
 deinit:
 	@rm -rf include/MLX42 2>&1;
 
-fclean: clean deinit
+fclean: clean
 	@make fclean -s -C $(LIB)
 	@make fclean -s -C $(LIBG)
 	@rm -rf $(NAME)
@@ -121,6 +121,8 @@ fclean: clean deinit
 welcome:
 	@cat $(ART)
 
-re: fclean all
+r: fclean all
+
+re: deinit fclean all
 
 .PHONY: all clean fclean bonus re welcome
