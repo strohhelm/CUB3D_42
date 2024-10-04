@@ -17,19 +17,17 @@ void	blank(t_game *game)
 	int	x;
 	int	y;
 
-	x = 0;
-	y = 0;
-	while (x < WIDTH)
+	x = -1;
+	while (++x < WIDTH)
 	{
-		y = 0;
-		while (y <= HEIGHT / 2 - game->y)
+		y = -1;
+		while (++y < HEIGHT)
 		{
-			if (y >= 0)
-				mlx_put_pixel(game->img, x, y++, game->map.ceiling);
+			if (y < HEIGHT / 2 - game->y)
+				mlx_put_pixel(game->img, x, y, game->map.ceiling);
+			else
+				mlx_put_pixel(game->img, x, y, game->map.floor);
 		}
-		while (y < (HEIGHT))
-			mlx_put_pixel(game->img, x, y++, game->map.floor);
-		x++;
 	}
 }
 
@@ -120,11 +118,11 @@ void	screen_init(t_player *player)
 void	put_crosshair(t_game *game)
 {
 	mlx_texture_t *tex;
-	mlx_image_t *cross;
 
 	tex = mlx_load_png("./include/textures/crosshair.png");
-	cross = mlx_texture_to_image(game->mlx, tex);
-	mlx_image_to_window(game->mlx, cross, WIDTH / 2 - cross->width/2, HEIGHT/2 - cross->height / 2);
+	game->cross = mlx_texture_to_image(game->mlx, tex);
+	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2 - game->cross->width/2, HEIGHT/2 - game->cross->height / 2);
+	mlx_delete_texture(tex);
 }
 
 void render(void *param)

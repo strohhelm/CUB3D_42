@@ -67,7 +67,7 @@ void	second_init(t_game *game)
 	game->minimap = mlx_new_image(game->mlx, MINIMAP_W, MINIMAP_W);
 }
 
-void	leaks(void)
+int	leaks(void)
 {
-	system("leaks cub3d");
+	return (system("leaks cub3d"));
 }
