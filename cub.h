@@ -167,7 +167,7 @@ void	update_pos(t_game *game, t_point new_pos);
 /*		main.c				*/
 void	init_game(t_game *game);
 void	second_init(t_game *game);
-void	leaks(void);
+int		leaks(void);
 
 /*		raycaster.c			*/
 void	raycasting(t_game *game);
