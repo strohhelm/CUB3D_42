@@ -60,10 +60,8 @@ void	get_info(int fd, t_map *map)
 
 void	read_input(char **argv, t_player *player, t_map *map)
 {
-	int	i;
 	int	fd;
 
-	i = 0;
 	if (!ft_strchr(argv[1], '.') || ft_strncmp(ft_strrchr(argv[1], '.'),
 			".cub\0", 5))
 		error_print("Woah hey there! Thats not a '.cub' file!");

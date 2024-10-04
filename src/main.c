@@ -16,7 +16,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	atexit(leaks);
 	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
@@ -58,7 +57,7 @@ void	second_init(t_game *game)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 }
 
-void	leaks(void)
+int	leaks(void)
 {
-	system("leaks cub3d");
+	return (system("leaks cub3d"));
 }

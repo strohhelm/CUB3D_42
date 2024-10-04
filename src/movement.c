@@ -68,12 +68,7 @@ void	ft_hook(t_game *game)
 	int		mod;
 	int		x;
 	int		y;
-	int		delta_y;
 
-	mod = 0;
-	x = 0;
-	y = 0;
-	delta_y = 0;
 	mod = 1;
 	mlx_get_mouse_pos(game->mlx, &x, &y);
 	game->x = x - WIDTH / 2;

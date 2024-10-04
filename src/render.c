@@ -17,19 +17,17 @@ void	blank(t_game *game)
 	int	x;
 	int	y;
 
-	x = 0;
-	y = 0;
-	while (x < WIDTH)
+	x = -1;
+	while (++x < WIDTH)
 	{
-		y = 0;
-		while (y <= HEIGHT / 2)
+		y = -1;
+		while (++y < HEIGHT)
 		{
-			if (y >= 0)
-				mlx_put_pixel(game->img, x, y++, game->map.ceiling);
+			if (y <= HEIGHT / 2 && y >= 0)
+				mlx_put_pixel(game->img, x, y, game->map.ceiling);
+			else
+				mlx_put_pixel(game->img, x, y, game->map.floor);
 		}
-		while (y < (HEIGHT))
-			mlx_put_pixel(game->img, x, y++, game->map.floor);
-		x++;
 	}
 }
 
