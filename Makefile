@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/03 21:01:56 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/04 14:48:27 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,11 +79,11 @@ all: $(NAME)
 bonus: $(BNAME)
 
 $(NAME):  $(LIBFT) $(LIBGET) $(LIBMLX) $(OBJS)
-	@$(CC) -o $@ $(OBJS) $(LIBFLAGS) 
+	@$(CC) -o $@ $(OBJS) $(LIBFLAGS) $(CFLAGS)
 	@make -s welcome
 	
 $(BNAME): $(LIBFT) $(LIBGET) $(LIBMLX) $(BOBJ)
-	@$(CC) -o $@ $(BOBJ) $(LIBFLAGS)
+	@$(CC) -o $@ $(BOBJ) $(LIBFLAGS) $(CFLAGS)
 	@cat include/artbonus.txt
 
 obj/%.o: src/%.c

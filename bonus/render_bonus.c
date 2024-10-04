@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 21:30:58 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:24:32 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,16 @@ void	screen_init(t_player *player)
 	player->scr = scr;
 }
 
+void	put_crosshair(t_game *game)
+{
+	mlx_texture_t *tex;
+	mlx_image_t *cross;
+
+	tex = mlx_load_png("./include/textures/crosshair.png");
+	cross = mlx_texture_to_image(game->mlx, tex);
+	mlx_image_to_window(game->mlx, cross, WIDTH / 2 - cross->width/2, HEIGHT/2 - cross->height / 2);
+}
+
 void render(void *param)
 {
 	t_game		*game;
@@ -138,7 +148,7 @@ void render(void *param)
 	ft_hook(game);
 	blank(game);
 	raycasting(game);
-	minimap(game);
+	minumap(game);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));
