@@ -20,6 +20,7 @@ void	rotation_extra_keys(t_game *game)
 	{
 		mlx_terminate(game->mlx);
 		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
+		free_game(game, 1);
 		exit(0);
 	}
 }

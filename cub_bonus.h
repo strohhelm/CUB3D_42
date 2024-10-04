@@ -15,8 +15,8 @@
 
 # define WIDTH 1600
 # define HEIGHT 800
-# define MINIMAP_W WIDTH/4
-# define MINIMAP_H HEIGHT/3
+# define MINIMAP_W WIDTH / 4
+# define MINIMAP_H HEIGHT / 3
 
 # include <math.h>
 # include <stdio.h>
@@ -93,6 +93,7 @@ typedef struct s_game
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	mlx_image_t	*minimap;
+	mlx_image_t	*cross;
 	t_player	player;
 	t_map		map;
 	long		color;
@@ -178,7 +179,7 @@ void	minumap(t_game * game);
 /*		main.c				*/
 void	init_game(t_game *game);
 void	second_init(t_game *game);
-void	leaks(void);
+int		leaks(void);
 
 /*		raycaster.c			*/
 void	raycasting(t_game *game);
