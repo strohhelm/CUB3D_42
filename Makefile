@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/04 14:48:27 by timschmi         ###   ########.fr        #
+#    Updated: 2024/10/04 17:29:43 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(NAME):  $(LIBFT) $(LIBGET) $(LIBMLX) $(OBJS)
 	@make -s welcome
 	
 $(BNAME): $(LIBFT) $(LIBGET) $(LIBMLX) $(BOBJ)
-	@$(CC) -o $@ $(BOBJ) $(LIBFLAGS)
+	@$(CC) -o $@ $(BOBJ) $(LIBFLAGS) $(CFLAGS)
 	@cat include/artbonus.txt
 
 obj/%.o: src/%.c

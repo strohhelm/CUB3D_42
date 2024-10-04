@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:30:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:54:34 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	player_dir_line(t_game *game)
 	mlx_put_pixel(game->img, player.x, player.y, 0x0F00FFF);
 	dir.x = (game->player.pos.x + game->player.dir.x) * game->map.scale;
 	dir.y = (game->player.pos.y + game->player.dir.y) * game->map.scale;
-	draw_line(&player, &dir, game, 0xFF00FFF);
+	draw_line(&player, &dir, game->img, 0xFF00FFF);
 	scr_start.x = (game->player.pos.x + game->player.dir.x - game->player.scr.x)
 		* game->map.scale;
 	scr_start.y = (game->player.pos.y + game->player.dir.y - game->player.scr.y)
@@ -34,7 +34,7 @@ void	player_dir_line(t_game *game)
 		* game->map.scale;
 	scr_end.y = (game->player.pos.y + game->player.dir.y + game->player.scr.y)
 		* game->map.scale;
-	draw_line(&scr_start, &scr_end, game, 0x00FF00FF);
+	draw_line(&scr_start, &scr_end, game->img, 0x00FF00FF);
 }
 
 void	draw_player(t_game *game)

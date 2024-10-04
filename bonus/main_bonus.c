@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 21:54:41 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:24:42 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int argc, char **argv)
 	screen_init(&game.player);
 	second_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
+	mlx_image_to_window(game.mlx, game.minimap, 10, 10);
+	put_crosshair(&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_loop(game.mlx);
@@ -62,6 +64,7 @@ void	second_init(t_game *game)
 	game->player.pos.y += 0.5;
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->minimap = mlx_new_image(game->mlx, MINIMAP_W, MINIMAP_W);
 }
 
 void	leaks(void)

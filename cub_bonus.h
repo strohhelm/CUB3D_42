@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 20:41:08 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:25:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # define WIDTH 1600
 # define HEIGHT 800
+# define MINIMAP_W WIDTH/4
+# define MINIMAP_H HEIGHT/3
 
 # include <math.h>
 # include <stdio.h>
@@ -28,7 +30,7 @@ enum e_colors
 {
 	NO = 0x9B5DE5FF,
 	WE = 0xFF6F61FF,
-	SO = 0xDFFF0056,
+	SO = 0xDFFF00FF,
 	EA = 0x3E00FFFF,
 };
 enum e_identifyers
@@ -90,6 +92,7 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*minimap;
 	t_player	player;
 	t_map		map;
 	long		color;
@@ -151,7 +154,7 @@ typedef struct s_algorythm {
 }	t_pixel_line;
 
 /*		draw_line		*/
-void	draw_line(t_point *p_a, t_point *p_b, t_game *game, int color);
+void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 
 /*		collision.c		*/
 void	collision(t_point new_pos, t_game *game);
@@ -160,6 +163,7 @@ void	collision(t_point new_pos, t_game *game);
 void	render(void *param);
 void	screen_init(t_player *player);
 void	blank(t_game *game);
+void	put_crosshair(t_game *game);
 
 /*		movement.c		*/
 void	ft_hook(t_game *game);
@@ -169,6 +173,7 @@ void	update_pos(t_game *game, t_point new_pos);
 
 /*		minimap.c			*/
 void	minimap(t_game * game);
+void	minumap(t_game * game);
 
 /*		main.c				*/
 void	init_game(t_game *game);
