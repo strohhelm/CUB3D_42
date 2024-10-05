@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/04 15:24:32 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/05 22:55:27 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,20 @@ void	screen_init(t_player *player)
 
 void	put_crosshair(t_game *game)
 {
-	mlx_texture_t *tex;
-
-	tex = mlx_load_png("./include/textures/crosshair.png");
-	game->cross = mlx_texture_to_image(game->mlx, tex);
+	int	x;
+	int	y;
+	
+	game->cross = mlx_new_image(game->mlx, CROSSHAIR, CROSSHAIR);
+	x = CROSSHAIR / 2;
+	y = 1;
+	// while (y < CROSSHAIR)
+	// 	mlx_put_pixel(game->cross, x, y++, 0xFF0000FF);
+	y = CROSSHAIR / 2;
+	x = 0;
+	// while (x < CROSSHAIR)
+	// 	mlx_put_pixel(game->cross, x++, y, 0xFF0000FF);
+	draw_circle(game->cross, 0xFFFF00FF);
 	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2 - game->cross->width/2, HEIGHT/2 - game->cross->height / 2);
-	mlx_delete_texture(tex);
 }
 
 void render(void *param)
@@ -147,6 +155,7 @@ void render(void *param)
 	blank(game);
 	raycasting(game);
 	minumap(game);
+	// draw_circle(game->circle);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));

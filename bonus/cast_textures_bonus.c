@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 19:54:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/05 23:32:33 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,9 @@ void	render_calc(t_game *game, t_rays *ray)
 		ray->walldist = (ray->sdisty - ray->deldisty) / 10;
 	ray->wallhit.x = game->player.pos.x + ray->walldist * 10 * ray->ray_dir_x;
 	ray->wallhit.y = game->player.pos.y + ray->walldist * 10 * ray->ray_dir_y;
-	ray->hitp.x = (game->player.pos.x + ray->walldist * 10 * ray->ray_dir_x)
-		* game->map.scale;
-	ray->hitp.y = (game->player.pos.y + ray->walldist * 10 * ray->ray_dir_y)
-		* game->map.scale;
+	ray->hitp.x = ray->walldist * 10 * ray->ray_dir_x;
+	ray->hitp.y = ray->walldist * 10 * ray->ray_dir_y;
+
 	ray->pos.x = game->player.pos.x * game->map.scale;
 	ray->pos.y = game->player.pos.y * game->map.scale;
 	ray->lineheight = HEIGHT / ray->walldist;

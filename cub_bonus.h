@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/04 15:25:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/05 23:11:18 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # define WIDTH 1600
 # define HEIGHT 800
-# define MINIMAP_W WIDTH / 4
 # define MINIMAP_H HEIGHT / 3
+# define MINIMAP_W MINIMAP_H
+# define MINIMAP_P 10
+# define CROSSHAIR 30
 
 # include <math.h>
 # include <stdio.h>
@@ -93,6 +95,7 @@ typedef struct s_game
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	mlx_image_t	*minimap;
+	mlx_image_t	*circle;
 	mlx_image_t	*cross;
 	t_player	player;
 	t_map		map;
@@ -175,6 +178,8 @@ void	update_pos(t_game *game, t_point new_pos);
 /*		minimap.c			*/
 void	minimap(t_game * game);
 void	minumap(t_game * game);
+void	minimap_init(t_game *game);
+void	draw_circle(mlx_image_t *img, uint32_t);
 
 /*		main.c				*/
 void	init_game(t_game *game);

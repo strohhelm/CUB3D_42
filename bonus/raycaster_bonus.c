@@ -6,12 +6,33 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:12 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 00:29:04 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
+void	draw_minimap_rays(t_game *game, t_rays *ray)
+{
+	t_point	a, b;
+	double	scale = 0.0;
+	double	dist;
+	double	r;
+
+	r = game->circle->width / 2 - 1;
+	a.x = game->minimap->height / 2.0 + MINIMAP_P;
+	a.y = game->minimap->height / 2.0 + MINIMAP_P;
+	b.x = (a.x + ray->hitp.x * 26);
+	b.y = (a.y + ray->hitp.y * 26);
+	dist = sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
+	if (dist > r)
+	{
+		scale = r / dist;
+		b.x = a.x + (b.x - a.x) * scale;
+		b.y = a.y + (b.y - a.y) * scale;
+	}
+	draw_line(&a, &b, game->img, SO);
+}
 void	raycasting(t_game *game)
 {
 	int		x;
@@ -25,11 +46,13 @@ void	raycasting(t_game *game)
 		step_and_dist(game, ray);
 		hit_loop(game, ray);
 		render_calc(game, ray);
+		draw_minimap_rays(game, ray);
 		ray->start -= game->y;
 		draw_tex(game, x, ray);
 		x++;
 	}
 	free(ray);
+	// exit (1);
 }
 
 void	init_rays(t_game *game, t_rays *ray, int x)
