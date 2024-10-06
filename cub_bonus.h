@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/06 17:20:42 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:39:27 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void	update_pos(t_game *game, t_point new_pos);
 void	minimap(t_game * game);
 void	minumap(t_game * game);
 void	minimap_init(t_game *game);
+uint32_t	darken_colour(uint32_t col, int amount);
 void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius);
 
 /*		main.c				*/

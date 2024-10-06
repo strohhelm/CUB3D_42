@@ -1,17 +1,17 @@
 
-WE ./include/textures/blue.png
+WE ./include/textures/castle2.png
 
-EA ./include/textures/red.png
+EA ./include/textures/castle1.png
 
-SO ./include/textures/yellow.png
+SO ./include/textures/castle3.png
 
-NO ./include/textures/green.png
-
-
+NO ./include/textures/castle4.png
 
 
-C 172,15,180
-F 26, 120, 56
+
+
+C 0,0,0
+F 0,0,0
 
 
            1111111111111111111111111

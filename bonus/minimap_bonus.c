@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/06 16:58:14 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:07:36 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,32 @@ void	change_colour(uint32_t col, unsigned int *wall, unsigned int *floor)
 
 	*floor = (red << 24 | green << 16 | blue << 8 | 255);
 	*wall = (red - 10 )/4 << 24 | (green-10)/4 << 16 | (blue-10)/4 << 8 | 255;
+}
+
+uint32_t darken_colour(uint32_t col, int amount)
+{
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+	uint8_t	a;
+
+	red = (col >> 24) & 0xFF;
+	green = (col >> 16) & 0xFF;
+	blue = (col >> 8) & 0xFF;
+	a = col & 0xFF;
+	if (amount > a)
+		a = 0;
+	else
+		a -= amount;
+	if (amount > green)
+		green = 0;
+	else
+		green -= amount;
+	if (amount > blue)
+		blue = 0;
+	else
+		blue -= amount;
+	return(red << 24 | green << 16 | blue << 8 | a);
 }
 
 void	minimap(t_game * game)
