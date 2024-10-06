@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/05 22:55:27 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:10:32 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,13 @@ void	put_crosshair(t_game *game)
 	x = 0;
 	// while (x < CROSSHAIR)
 	// 	mlx_put_pixel(game->cross, x++, y, 0xFF0000FF);
-	draw_circle(game->cross, 0xFFFF00FF);
+	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 6);
+	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 5);
+	draw_circle(game->cross, 0xFFFF00FF, CROSSHAIR / 2 - 4);
+	draw_circle(game->cross, 0xFFFF00FF, CROSSHAIR / 2 - 3);
+	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 2);
+	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 1);
+	
 	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2 - game->cross->width/2, HEIGHT/2 - game->cross->height / 2);
 }
 
@@ -153,8 +159,8 @@ void render(void *param)
 	}
 	ft_hook(game);
 	blank(game);
-	raycasting(game);
 	minumap(game);
+	raycasting(game);
 	// draw_circle(game->circle);
 	ft = mlx_get_time() - t;
 	if (ft < time)

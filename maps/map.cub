@@ -1,21 +1,17 @@
-NO ./include/textures/castle2.png
-
 
 WE ./include/textures/blue.png
 
 EA ./include/textures/red.png
 
-
-
-
 SO ./include/textures/yellow.png
 
+NO ./include/textures/green.png
 
 
 
 
-C 172,150,180
-F 26, 08, 02
+C 172,15,180
+F 26, 120, 56
 
 
            1111111111111111111111111

@@ -6,24 +6,40 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 19:54:47 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:25:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
+
+void set_index(t_point new_pos, t_game *game, int *ix, int *iy)
+{
+	double radius;
+
+	radius = 0.15;
+	*ix = new_pos.x;
+	*iy = new_pos.y;
+
+	if ((new_pos.x - game->player.pos.x) < 0)
+		*ix = new_pos.x - radius;
+	else if ((new_pos.x - game->player.pos.x) > 0)
+		*ix = new_pos.x + radius;
+	if ((new_pos.y - game->player.pos.y) < 0)
+		*iy = new_pos.y - radius;
+	else if ((new_pos.y - game->player.pos.y) > 0)
+		*iy = new_pos.y + radius;
+}
 
 void	collision(t_point new_pos, t_game *game)
 {
 	int	ix;
 	int	iy;
 
-	ix = new_pos.x;
-	iy = new_pos.y;
+	set_index(new_pos, game, &ix, &iy);
 	if (iy <= game->map.map_h && ix <= game->map.map_w
-		&& game->map.map[iy][ix] == 0)
+		&& game->map.map[iy][ix] == 0 && (game->map.map[iy][(int)game->player.pos.x] == 0
+			&& game->map.map[(int)game->player.pos.y][ix] == 0))
 	{
-		if (game->map.map[iy][(int)game->player.pos.x] == 0
-			&& game->map.map[(int)game->player.pos.y][ix] == 0)
 			update_pos(game, new_pos);
 	}
 	else if (iy <= game->map.map_h

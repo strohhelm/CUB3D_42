@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/05 23:11:18 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:20:42 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,6 @@ typedef struct s_map
 	mlx_texture_t	*textures[6];
 }	t_map;
 
-typedef struct s_game
-{
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	mlx_image_t	*minimap;
-	mlx_image_t	*circle;
-	mlx_image_t	*cross;
-	t_player	player;
-	t_map		map;
-	long		color;
-	int			x;
-	int			y;
-}	t_game;
-
 typedef struct s_texture
 {
 	double		step;
@@ -137,10 +123,29 @@ typedef struct s_rays
 	int			end;
 	t_point		wallhit;
 	t_point		hitp;
+	t_point		minimap_hit;
 	t_point		pos;
 	int			dir;
 	t_texture	tex;
 }	t_rays;
+
+typedef struct s_game
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	mlx_image_t	*minimap;
+	double		scale;
+	mlx_image_t	*circle;
+	mlx_image_t	*cross;
+	t_player	player;
+	t_map		map;
+	t_rays		ray;
+	long		color;
+	int			x;
+	int			y;
+}	t_game;
+
+
 
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
@@ -179,7 +184,7 @@ void	update_pos(t_game *game, t_point new_pos);
 void	minimap(t_game * game);
 void	minumap(t_game * game);
 void	minimap_init(t_game *game);
-void	draw_circle(mlx_image_t *img, uint32_t);
+void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius);
 
 /*		main.c				*/
 void	init_game(t_game *game);

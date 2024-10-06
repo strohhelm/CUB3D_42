@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/06 00:29:04 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 17:19:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,42 @@ void	draw_minimap_rays(t_game *game, t_rays *ray)
 	double	scale = 0.0;
 	double	dist;
 	double	r;
+	double	sc;
 
-	r = game->circle->width / 2 - 1;
-	a.x = game->minimap->height / 2.0 + MINIMAP_P;
-	a.y = game->minimap->height / 2.0 + MINIMAP_P;
-	b.x = (a.x + ray->hitp.x * 26);
-	b.y = (a.y + ray->hitp.y * 26);
+	sc = MINIMAP_H / game->scale;
+	r = game->circle->width / 2 - 4;
+	a.x = game->minimap->height / 2.0;
+	a.y = game->minimap->height / 2.0;
+	
+	b.x = (a.x + ray->minimap_hit.x * sc);
+	b.y = (a.y + ray->minimap_hit.y * sc);
 	dist = sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
 	if (dist > r)
 	{
 		scale = r / dist;
-		b.x = a.x + (b.x - a.x) * scale;
-		b.y = a.y + (b.y - a.y) * scale;
+		b.x = a.x + (b.x - a.x) * scale ;
+		b.y = a.y + (b.y - a.y) * scale ;
 	}
-	draw_line(&a, &b, game->img, SO);
+	draw_line(&a, &b, game->minimap, SO);
 }
 void	raycasting(t_game *game)
 {
 	int		x;
-	t_rays	*ray;
 
 	x = 0;
-	ray = (t_rays *)malloc(sizeof(t_rays));
+
 	while (x < WIDTH)
 	{
-		init_rays(game, ray, x);
-		step_and_dist(game, ray);
-		hit_loop(game, ray);
-		render_calc(game, ray);
-		draw_minimap_rays(game, ray);
-		ray->start -= game->y;
-		draw_tex(game, x, ray);
+		init_rays(game, &game->ray, x);
+		step_and_dist(game, &game->ray);
+		hit_loop(game, &game->ray);
+		render_calc(game, &game->ray);
+		game->ray.start -= game->y;
+		draw_tex(game, x, &game->ray);
+		if (x % 50 == 0)
+			draw_minimap_rays(game, &game->ray);
 		x++;
 	}
-	free(ray);
 	// exit (1);
 }
 

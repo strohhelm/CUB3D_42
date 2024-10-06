@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/06 00:02:26 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:58:14 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void circlePoints(int cx, int cy, int x, int y, mlx_image_t *img, uint32_t col)
 	}
 }
 
-void	draw_circle(mlx_image_t *img, uint32_t col)
+void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 {
 	int	x;
 	int	y;
@@ -156,7 +156,10 @@ void	draw_circle(mlx_image_t *img, uint32_t col)
 
 	xcenter = img->height / 2;
 	ycenter = img->width / 2;
-	r = img->width / 2 - 1;
+	if (radius <= img->width / 2 - 1)
+		r = radius;
+	else
+		r = img->width / 2 - 1;
 	r2 = r * r;
 	y = r;
 	p = (5 - r * 4) / 4;
@@ -218,9 +221,13 @@ void	minumap(t_game * game)
 	double			max;
 	t_point			pos;
 	
+	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+		game->scale += 0.1;
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+		game->scale -= 0.1;
 	h = 0;
 	printh = MINIMAP_H;
-	step = 10.0 / (double)printh;
+	step = game->scale / (double)printh;
 	min = MINIMAP_H/2.0 - 5.0;
 	max = MINIMAP_H/2.0 + 5.0;
 	change_colour(game->map.ceiling, &wall, &floor);
@@ -231,14 +238,15 @@ void	minumap(t_game * game)
 		while (w < printh)
 		{
 				x = w * step;
-				pos.y = game->player.pos.y - 5.0 + y;
-				pos.x = game->player.pos.x - 5.0 + x;
+				pos.y = game->player.pos.y - game->scale/2 + y;
+				pos.x = game->player.pos.x - game->scale/2 + x;
 			if (!colour(&game->circle->pixels[(((h) * game->circle->width) + w) * 4]))
 			{
-				mlx_put_pixel(game->minimap, w, h, colour(&game->img->pixels[(((h + MINIMAP_P) * game->img->width) + w + MINIMAP_P) * 4]));
-				if (colour(&game->img->pixels[(((h + MINIMAP_P) * game->img->width) + w + MINIMAP_P) * 4]) == SO)
-					mlx_put_pixel(game->minimap, w, h, SO);
-				else if ((int)pos.x < game->map.map_w && (int)pos.y < game->map.map_h
+				mlx_put_pixel(game->minimap, w, h, 0x00000000);
+				// mlx_put_pixel(game->minimap, w, h, colour(&game->img->pixels[(((h + MINIMAP_P) * game->img->width) + w + MINIMAP_P) * 4]));
+				// if (colour(&game->img->pixels[(((h + MINIMAP_P) * game->img->width) + w + MINIMAP_P) * 4]) == SO)
+				// 	mlx_put_pixel(game->minimap, w, h, SO);
+				 if ((int)pos.x < game->map.map_w && (int)pos.y < game->map.map_h
 					&& (int)pos.x >= 0 && (int)pos.y >= 0)
 				{
 					if (w > min && w < max && h > min && h < max)
@@ -280,7 +288,7 @@ void	minimap_init(t_game *game)
 	game->circle = mlx_new_image(game->mlx, (uint32_t)MINIMAP_W, (uint32_t)MINIMAP_H);
 	if (!game->circle)
 		error_print("Oh shit circle img failed!");
-	draw_circle(game->circle, 0xFFFFFFFF);
+	draw_circle(game->circle, 0xFFFFFFFF, game->circle->width / 2 - 1);
 	fill_outside_circle(game->circle);
 }
 
