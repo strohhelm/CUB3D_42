@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 17:19:16 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:13:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 void	raycasting(t_game *game)
 {
 	int		x;
-	t_rays	*ray;
 
 	x = 0;
-	ray = (t_rays *)malloc(sizeof(t_rays));
 	while (x < WIDTH)
 	{
-		init_rays(game, ray, x);
-		step_and_dist(game, ray);
-		hit_loop(game, ray);
-		render_calc(game, ray);
-		draw_tex(game, x, ray);
+		init_rays(game, &game->ray, x);
+		step_and_dist(game, &game->ray);
+		hit_loop(game, &game->ray);
+		render_calc(game, &game->ray);
+		draw_tex(game, x, &game->ray);
 		x++;
 	}
-	free(ray);
 }
 
 void	init_rays(t_game *game, t_rays *ray, int x)

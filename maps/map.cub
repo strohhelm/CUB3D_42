@@ -1,17 +1,15 @@
 
-WE ./include/textures/castle2.png
+WE ./include/textures/castle1.png
 
 EA ./include/textures/castle1.png
 
-SO ./include/textures/castle3.png
-
-NO ./include/textures/castle4.png
-
-
+NO ./include/textures/castle1.png
+SO ./include/textures/castle1.png
 
 
 C 0,0,0
 F 0,0,0
+
 
 
            1111111111111111111111111

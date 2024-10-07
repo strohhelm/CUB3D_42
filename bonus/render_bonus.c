@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/06 17:10:32 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:15:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void render(void *param)
 	ft_hook(game);
 	blank(game);
 	minumap(game);
+	// backgroud(game);
 	raycasting(game);
 	// draw_circle(game->circle);
 	ft = mlx_get_time() - t;

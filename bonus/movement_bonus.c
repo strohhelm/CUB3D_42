@@ -6,11 +6,34 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/03 23:24:14 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:26:20 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
+
+void	mouse(mlx_key_data_t key, void* par)
+{
+	t_game		*game;
+	static int	m = 1;
+
+	if (key.key == MLX_KEY_TAB && key.action == MLX_PRESS)
+	{
+		game = (t_game *)par;
+		game->mouse *= -1;
+		if (m != game->mouse && game->mouse > 0)
+		{
+			mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
+			m = game->mouse;
+		}
+		else if (m != game->mouse && game->mouse < 0)
+		{
+			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
+			m = game->mouse;
+		}
+	}
+}
 
 void	rotation_extra_keys(t_game *game)
 {
@@ -65,17 +88,22 @@ void	mouse_hook(t_game *game)
 	int		y;
 	int		delta_y;
 
-	x = 0;
-	y = 0;
-	delta_y = 0;
-	mlx_get_mouse_pos(game->mlx, &x, &y);
-	game->x = x - WIDTH / 2;
-	delta_y = y - HEIGHT / 2;
-	game->y += delta_y;
-	if (game->y >= HEIGHT)
-		game->y = HEIGHT - 1;
-	else if (game->y < -(HEIGHT))
-		game->y = -(HEIGHT) + 1;
+	if (game->mouse > 0)
+	{
+		x = 0;
+		y = 0;
+		delta_y = 0;
+		mlx_get_mouse_pos(game->mlx, &x, &y);
+		game->x = x - WIDTH / 2;
+		delta_y = y - HEIGHT / 2;
+		game->y += delta_y;
+		if (game->y >= HEIGHT)
+			game->y = HEIGHT - 1;
+		else if (game->y < -(HEIGHT))
+			game->y = -(HEIGHT) + 1;
+	}
+	else
+		game->x = 0;
 }
 
 void	ft_hook(t_game *game)
@@ -96,7 +124,8 @@ void	ft_hook(t_game *game)
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		set_new_pos(game, &new_pos, 'd', mod);
 	rotation_extra_keys(game);
-	mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+	if (game->mouse > 0)
+		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 }
 
 // speed = how much rotation per call of function,

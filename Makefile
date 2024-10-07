@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/04 17:31:49 by timschmi         ###   ########.fr        #
+#    Updated: 2024/10/07 09:59:20 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,10 +68,10 @@ GET_FLAGS := -L$(LIBG) -lget_next_line
 
 MLX := $(INCLUDE_PATH)/MLX42/build
 LIBMLX := $(MLX)/libmlx42.a
-MLXFLAGS = -L$(MLX) -lmlx42 -lglfw
+MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -Ofast -g -fsanitize=address -Wunreachable-code
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)

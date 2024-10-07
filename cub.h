@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/04 16:42:34 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:15:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,6 @@ typedef struct s_map
 	mlx_texture_t	*textures[4];
 }	t_map;
 
-typedef struct s_game
-{
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_player	player;
-	t_map		map;
-	long		color;
-	int			x;
-	int			y;
-}	t_game;
-
 typedef struct s_texture
 {
 	double		step;
@@ -135,6 +124,19 @@ typedef struct s_rays
 	t_texture	tex;
 }	t_rays;
 
+typedef struct s_game
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_player	player;
+	t_map		map;
+	t_rays		ray;
+	long		color;
+	int			x;
+	int			y;
+	int			mouse;
+}	t_game;
+
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
 	int		a;
@@ -159,6 +161,7 @@ void	screen_init(t_player *player);
 void	blank(t_game *game);
 
 /*		movement.c		*/
+void	mouse(mouse_key_t butt, action_t act, modifier_key_t mod, void* par);
 void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, \
 		double speed, double l_r);
@@ -216,7 +219,7 @@ void	check_error(int e);
 int		arr_len(char **arr);
 t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
-void	free_game(t_game *game, int j);
+void	free_game_end(t_game *game);
 void	free_string_array(char **str);
 
 #endif

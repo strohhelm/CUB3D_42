@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/06 17:45:42 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/06 18:12:36 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 {
 	int	i;
-	uint32_t dark;
 
 	i = 0;
 	while (i < ray->lineheight)

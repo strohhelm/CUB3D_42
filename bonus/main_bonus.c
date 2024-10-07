@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/06 16:47:38 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:24:52 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	main(int argc, char **argv)
 	minimap_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
-	// mlx_image_to_window(game.mlx, game.circle, 10, 10);
 	put_crosshair(&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
+	mlx_key_hook(game.mlx, mouse, (void *)&game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_loop(game.mlx);
 	mlx_terminate(game.mlx);
@@ -40,6 +40,7 @@ void	init_game(t_game *game)
 {
 	game->x = 0;
 	game->y = 0;
+	game->mouse = 1;
 	game->player.height = HEIGHT;
 	game->player.width = WIDTH;
 	game->player.color = 0x6cf542ff;

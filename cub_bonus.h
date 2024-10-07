@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/06 17:39:27 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:22:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_game
 	t_player	player;
 	t_map		map;
 	t_rays		ray;
+	int			mouse;
 	long		color;
 	int			x;
 	int			y;
@@ -175,6 +176,7 @@ void	blank(t_game *game);
 void	put_crosshair(t_game *game);
 
 /*		movement.c		*/
+void	mouse(mlx_key_data_t key, void* par);
 void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, \
 		double speed, double l_r);
