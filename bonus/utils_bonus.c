@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 15:46:29 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:53:13 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	free_game_end(t_game *game)
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	mlx_terminate(game->mlx);
 	i = 0;
-	while (i < 4)
+	while (i < 6)
 	{
 		mlx_delete_texture(game->map.textures[i]);
 		i++;

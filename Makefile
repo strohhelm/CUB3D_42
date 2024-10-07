@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/07 09:59:20 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/07 15:58:20 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -g -fsanitize=address -Wunreachable-code
+CFLAGS = -Wall -Wextra -Werror -Ofast -Wunreachable-code
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)
