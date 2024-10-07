@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/06 18:07:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:10:33 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,6 @@ void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 	int	y;
 	int	xcenter;
 	int	ycenter;
-	int r2;
 	int r;
 	int p;
 
@@ -186,7 +185,6 @@ void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 		r = radius;
 	else
 		r = img->width / 2 - 1;
-	r2 = r * r;
 	y = r;
 	p = (5 - r * 4) / 4;
 	x = 0;
@@ -292,12 +290,8 @@ void	fill_outside_circle(mlx_image_t *img)
 {
 	u_int32_t		x;
 	u_int32_t		y;
-	bool	inside;
-	bool	line;
 
 	y = -1;
-	inside = false;
-	line = false;
 	while (++y < img->height)
 	{
 		x = -1;

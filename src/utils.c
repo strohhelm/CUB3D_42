@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 11:11:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:34:38 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	free_game_end(t_game *game)
 {
 	int	i;
 
-	free(game->map.map);
-	free(game->map.str_map);
+	free_int_array(game->map.map, game->map.map_h);
+	free_string_array(game->map.str_map);
 	mlx_delete_image(game->mlx, game->img);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	mlx_terminate(game->mlx);
@@ -69,6 +69,19 @@ void	free_game_end(t_game *game)
 	{
 		mlx_delete_texture(game->map.textures[i]);
 		i++;
+	}
+}
+
+void	free_int_array(int **arr, int h)
+{
+
+	if (arr)
+	{
+		while (--h >= 0)
+		{
+			free(arr[h]);
+		}
+		free(arr);
 	}
 }
 
