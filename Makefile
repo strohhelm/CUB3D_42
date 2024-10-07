@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/07 15:58:20 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/10/07 16:06:30 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ FILES =	main.c \
 			read_map_utils.c \
 			read_settings.c \
 			utils.c \
-			render.c
+			render.c \
+			free.c 
 
 BFILES = 	main_bonus.c \
 			cast_textures_bonus.c \

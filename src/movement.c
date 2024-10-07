@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/07 11:15:32 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:08:22 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	mouse(mouse_key_t butt, action_t act, modifier_key_t mod, void* par)
+void	mouse(mouse_key_t butt, action_t act, modifier_key_t mod, void *par)
 {
 	t_game		*game;
 	static int	m = 1;
@@ -34,9 +34,9 @@ void	mouse(mouse_key_t butt, action_t act, modifier_key_t mod, void* par)
 		}
 	}
 }
+
 void	rotation_extra_keys(t_game *game)
 {
-
 	rotate_dir_plane(&game->player.dir, &game->player.scr, (game->x) * 0.0005,
 		1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
@@ -46,14 +46,8 @@ void	rotation_extra_keys(t_game *game)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		free_game_end(game);
-		exit(0) ;
+		exit(0);
 	}
-}
-
-void	update_pos(t_game *game, t_point new_pos)
-{
-	game->player.pos.x = new_pos.x;
-	game->player.pos.y = new_pos.y;
 }
 
 void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
@@ -88,8 +82,8 @@ void	ft_hook(t_game *game)
 {
 	t_point	new_pos;
 	int		mod;
-	int			x;
-	int			y;
+	int		x;
+	int		y;
 
 	mod = 1;
 	game->x = 0;

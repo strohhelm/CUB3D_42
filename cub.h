@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 15:34:58 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:14:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,12 @@ typedef struct s_algorythm {
 
 /*		collision.c		*/
 void	collision(t_point new_pos, t_game *game);
+void	update_pos(t_game *game, t_point new_pos);
+
+/*		free.c			*/
+void	free_game_end(t_game *game);
+void	free_string_array(char **str);
+void	free_int_array(int **arr, int h);
 
 /*		render		*/
 void	render(void *param);
@@ -161,11 +167,10 @@ void	screen_init(t_player *player);
 void	blank(t_game *game);
 
 /*		movement.c		*/
-void	mouse(mouse_key_t butt, action_t act, modifier_key_t mod, void* par);
+void	mouse(mouse_key_t butt, action_t act, modifier_key_t mod, void *par);
 void	ft_hook(t_game *game);
 void	rotate_dir_plane(t_point *dir, t_point *plane, \
 		double speed, double l_r);
-void	update_pos(t_game *game, t_point new_pos);
 
 /*		main.c				*/
 void	init_game(t_game *game);
@@ -219,9 +224,6 @@ void	check_error(int e);
 int		arr_len(char **arr);
 t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
-void	free_game_end(t_game *game);
-void	free_string_array(char **str);
-void	free_int_array(int **arr, int h);
 
 #endif
 
@@ -240,4 +242,3 @@ void	free_int_array(int **arr, int h);
 // Iridescent Indigo
 // Hex: #3E00FF
 // A deep, electric blue with a hint of indigo, giving a futuristic vibe.
-
