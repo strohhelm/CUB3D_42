@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/07 11:26:20 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:49:34 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ void	rotation_extra_keys(t_game *game)
 		1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
-		mlx_terminate(game->mlx);
 		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
-		free_game(game, 1);
+		free_game_end(game);
 		exit(0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:39 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:46:29 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,35 @@ t_game	*game_pointer(int i, void *game)
 		return (def_not_global);
 }
 
-void	free_game(t_game *game, int j)
+void	free_game_end(t_game *game)
 {
 	int	i;
 
-	free(game->map.map);
-	free(game->map.str_map);
-	if (j)
+	free_int_array(game->map.map, game->map.map_h);
+	free_string_array(game->map.str_map);
+	mlx_delete_image(game->mlx, game->img);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
+	mlx_terminate(game->mlx);
+	i = 0;
+	while (i < 4)
 	{
-		i = 0;
-		while (i < 6)
-		{
-			mlx_delete_texture(game->map.textures[i]);
-			i++;
-		}
+		mlx_delete_texture(game->map.textures[i]);
+		i++;
 	}
 }
 
+void	free_int_array(int **arr, int h)
+{
+
+	if (arr)
+	{
+		while (--h >= 0)
+		{
+			free(arr[h]);
+		}
+		free(arr);
+	}
+}
 void	free_string_array(char **str)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/07 10:15:35 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:47:56 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,16 +117,16 @@ void	screen_init(t_player *player)
 
 void	put_crosshair(t_game *game)
 {
-	int	x;
-	int	y;
+	// int	x;
+	// int	y;
 	
 	game->cross = mlx_new_image(game->mlx, CROSSHAIR, CROSSHAIR);
-	x = CROSSHAIR / 2;
-	y = 1;
+	// x = CROSSHAIR / 2;
+	// y = 1;
 	// while (y < CROSSHAIR)
 	// 	mlx_put_pixel(game->cross, x, y++, 0xFF0000FF);
-	y = CROSSHAIR / 2;
-	x = 0;
+	// y = CROSSHAIR / 2;
+	// x = 0;
 	// while (x < CROSSHAIR)
 	// 	mlx_put_pixel(game->cross, x++, y, 0xFF0000FF);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 6);

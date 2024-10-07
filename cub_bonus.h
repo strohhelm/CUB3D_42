@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 11:22:35 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:47:04 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,8 @@ void	check_error(int e);
 int		arr_len(char **arr);
 t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
-void	free_game(t_game *game, int j);
+void	free_game_end(t_game *game);
+void	free_int_array(int **arr, int h);
 void	free_string_array(char **str);
 
 #endif
