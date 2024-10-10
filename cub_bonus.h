@@ -65,6 +65,10 @@ typedef struct s_coordinate {
 	double	y;
 }	t_point;
 
+typefdef struct s_texture {
+	mlx_texture_t sides[4];
+}	t_tex;
+
 typedef struct s_player
 {
 	int		height;
