@@ -51,6 +51,7 @@ BFILES = 	main_bonus.c \
 			utils_bonus.c \
 			player_bonus.c \
 			grid_bonus.c \
+			textures_bonus \
 			render_bonus.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))

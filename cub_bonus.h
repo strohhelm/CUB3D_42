@@ -65,8 +65,8 @@ typedef struct s_coordinate {
 	double	y;
 }	t_point;
 
-typefdef struct s_texture {
-	mlx_texture_t sides[4];
+typedef struct s_indiv_texture {
+	mlx_texture_t side[4];
 }	t_tex;
 
 typedef struct s_player
@@ -92,6 +92,7 @@ typedef struct s_map
 	int				start[3];
 	double			scale;
 	mlx_texture_t	*textures[6];
+	t_tex			**indiv;
 }	t_map;
 
 typedef struct s_texture
@@ -240,6 +241,9 @@ int		error(int e_action, int e_error);
 void	err_check(void *p, char *msg);
 void	error_print(char *msg);
 void	check_error(int e);
+
+/*		textures			*/
+t_tex **allocate_textures(int height, int width, mlx_texture_t **tex);
 
 /*		utils.c				*/
 int		arr_len(char **arr);

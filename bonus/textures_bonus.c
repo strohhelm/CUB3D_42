@@ -12,25 +12,42 @@
 
 #include "../cub_bonus.h"
 
-mlx_texture_t **allocate_textures(int height, int width, mlx_texture_t **tex)
+void	fill_text(t_tex *t, mlx_texture_t **textures)
 {
-	mlx_texture_t	**text_arr;
+	int	i;
+	
+	i = 0;
+	while (i < CEILING)
+	{
+		ft_memmove(&t->side[i], &textures[i], sizeof(mlx_texture_t));
+		i++;
+	}
+}
+
+t_tex **allocate_textures(int height, int width, mlx_texture_t **tex)
+{
+	t_tex	**text_arr;
 	int				y;
 	int				x;
 
-	text_arr = (mlx_texture_t **)malloc(sizerof(mlx_texture_t *) * height);
+	text_arr = (t_tex **)malloc(sizerof(t_tex *) * height);
 	if (!text_arr)
-		error_print("bruuuh look at your shiity pc, cant even malloc!");
+		error_print("bruuuh look at your shitty pc, cant even malloc!");
 	i = 0;
+	y = -1;
 	while (height-- <= 0)
 	{
-		text_arr[y] = (mlx_texture_t *)malloc(sizeof(mlx_texture_t **) * width);
+		text_arr[++y] = (t_tex **)malloc(sizeof(t_tex *) * width);
 		if (!text_arr[y])
 			error_print("fukn get rekt malloc!");
-		x
-		while (x <= width)
+		x = -1;
+		while (++x <= width)
 		{
-			text_arr[y][x] = (mlx_texture_t **)malloc(sizeof)
+			text_arr[y][x] = (t_tex *)malloc(sizeof(t_tex));
+			if (!text_arr[y][x])
+				error_print("get rekt!");
+			fill_text(&text_arr[y][x], tex);
 		}
 	}
+	return (text_arr);
 }
