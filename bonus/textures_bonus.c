@@ -15,7 +15,7 @@
 void	fill_text(t_tex *t, mlx_texture_t **textures)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < CEILING)
 	{
@@ -27,27 +27,19 @@ void	fill_text(t_tex *t, mlx_texture_t **textures)
 t_tex **allocate_textures(int height, int width, mlx_texture_t **tex)
 {
 	t_tex	**text_arr;
-	int				y;
+	int				i;
 	int				x;
 
-	text_arr = (t_tex **)malloc(sizerof(t_tex *) * height);
+	text_arr = (t_tex **)malloc(sizerof(t_tex *) * height * width);
 	if (!text_arr)
 		error_print("bruuuh look at your shitty pc, cant even malloc!");
-	i = 0;
 	y = -1;
-	while (height-- <= 0)
+	while (i < with * height)
 	{
-		text_arr[++y] = (t_tex **)malloc(sizeof(t_tex *) * width);
-		if (!text_arr[y])
-			error_print("fukn get rekt malloc!");
-		x = -1;
-		while (++x <= width)
-		{
-			text_arr[y][x] = (t_tex *)malloc(sizeof(t_tex));
-			if (!text_arr[y][x])
-				error_print("get rekt!");
-			fill_text(&text_arr[y][x], tex);
-		}
+		text_arr[i] = (t_tex *)malloc(sizeof(t_tex));
+		if (!text_arr[i])
+			error_print("bruuuh look at your shitty pc, cant even malloc!");
+		fill_text(text_arr[i], tex);
 	}
 	return (text_arr);
 }
