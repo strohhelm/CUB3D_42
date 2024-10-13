@@ -51,7 +51,7 @@ BFILES = 	main_bonus.c \
 			utils_bonus.c \
 			player_bonus.c \
 			grid_bonus.c \
-			textures_bonus \
+			textures_bonus.c \
 			render_bonus.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
@@ -73,7 +73,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -Werror -Ofast -Wunreachable-code
+CFLAGS = -Wall -Wextra -Werror -Ofast
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)

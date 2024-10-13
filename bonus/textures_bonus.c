@@ -12,14 +12,23 @@
 
 #include "../cub_bonus.h"
 
-void	fill_text(t_tex *t, mlx_texture_t **textures)
+void	fill_text(t_tex *t, mlx_texture_t **tex)
 {
 	int	i;
+	size_t	nb;
 
-	i = 0;
+	i = NORTH;
 	while (i < CEILING)
 	{
-		ft_memmove(&t->side[i], &textures[i], sizeof(mlx_texture_t));
+		// ft_memcpy(&t->side[i], &tex[i], sizeof(mlx_texture_t));
+		t->side[i].width = tex[i]->width;
+		t->side[i].height = tex[i]->height;
+		t->side[i].bytes_per_pixel = tex[i]->bytes_per_pixel;
+		nb = sizeof(uint8_t) * t->side[i].width * t->side[i].height * 4;
+		t->side[i].pixels = (uint8_t *)malloc(nb);
+		if (!t->side[i].pixels)
+			error_print("duuuude, get rekt malloc fucked up!");
+		ft_memmove(t->side[i].pixels, &tex[i]->pixels, nb);
 		i++;
 	}
 }
@@ -28,13 +37,13 @@ t_tex **allocate_textures(int height, int width, mlx_texture_t **tex)
 {
 	t_tex	**text_arr;
 	int				i;
-	int				x;
 
-	text_arr = (t_tex **)malloc(sizerof(t_tex *) * height * width);
+	text_arr = (t_tex **)malloc(sizeof(t_tex *) * height * width);
 	if (!text_arr)
 		error_print("bruuuh look at your shitty pc, cant even malloc!");
-	y = -1;
-	while (i < with * height)
+	i = -1;
+	printf("w: %d, h: %d\n", width, height);
+	while (++i < width * height)
 	{
 		text_arr[i] = (t_tex *)malloc(sizeof(t_tex));
 		if (!text_arr[i])

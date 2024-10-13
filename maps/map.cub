@@ -1,15 +1,14 @@
 
-WE ./include/textures/castle1.png
+WE ./include/textures/red.png
 
-EA ./include/textures/castle1.png
+EA ./include/textures/yellow.png
 
-NO ./include/textures/castle1.png
-SO ./include/textures/castle1.png
+NO ./include/textures/green.png
+SO ./include/textures/blue.png
 
 
-C 0,0,0
-F 0,0,0
-
+C 150,125,20
+F 15,15,60
 
 
            1111111111111111111111111

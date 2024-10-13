@@ -92,6 +92,7 @@ typedef struct s_map
 	int				start[3];
 	double			scale;
 	mlx_texture_t	*textures[6];
+	char			**tex_names;
 	t_tex			**indiv;
 }	t_map;
 
