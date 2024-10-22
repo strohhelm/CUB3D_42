@@ -147,7 +147,7 @@ void render(void *param)
 	double		time;
 	static int	i = 0;
 
-	time = 1.0 / 30.0;
+	time = 1.0 / 40.0;
 	game = (t_game *)param;
 	t = mlx_get_time();
 	if (i++ < 2)
@@ -162,7 +162,6 @@ void render(void *param)
 	minumap(game);
 	// backgroud(game);
 	raycasting(game);
-	// draw_circle(game->circle);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));

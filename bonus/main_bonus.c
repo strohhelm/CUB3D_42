@@ -66,7 +66,7 @@ void	second_init(t_game *game)
 	game->map.scale = scale;
 	game->player.pos.x += 0.5;
 	game->player.pos.y += 0.5;
-	game->map.indiv = allocate_textures(game->map.map_h, game->map.map_w, game->map.textures);
+	game->map.indiv = allocate_textures(game->map.map_h, game->map.map_w, game->map.textures, game->map.map);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->minimap = mlx_new_image(game->mlx, MINIMAP_W, MINIMAP_H);

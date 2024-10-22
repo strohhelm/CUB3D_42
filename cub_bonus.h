@@ -13,8 +13,8 @@
 #ifndef CUB_BONUS_H
 # define CUB_BONUS_H
 
-# define WIDTH 1600
-# define HEIGHT 800
+# define WIDTH 1920
+# define HEIGHT 1080
 # define MINIMAP_H HEIGHT / 3
 # define MINIMAP_W MINIMAP_H
 # define MINIMAP_P 10
@@ -104,6 +104,7 @@ typedef struct s_texture
 	uint8_t		*img_pos;
 	int			arr_pos;
 	int			pic_pos;
+	int			index;
 	uint32_t	test;
 }	t_texture;
 
@@ -147,7 +148,6 @@ typedef struct s_game
 	t_map		map;
 	t_rays		ray;
 	int			mouse;
-	long		color;
 	int			x;
 	int			y;
 }	t_game;
@@ -244,7 +244,8 @@ void	error_print(char *msg);
 void	check_error(int e);
 
 /*		textures			*/
-t_tex **allocate_textures(int height, int width, mlx_texture_t **tex);
+t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map);
+void	draw_on_tex(t_game *game, t_texture *tex, int dir);
 
 /*		utils.c				*/
 int		arr_len(char **arr);

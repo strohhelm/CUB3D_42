@@ -32,7 +32,6 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 {
 	int	i;
-	int	tex_index;
 
 	i = 0;
 	while (i < ray->lineheight)
@@ -43,11 +42,22 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 			tex->arr_pos = ((int)tex->tex.y
 					* game->map.textures[ray->dir]->width + (int)tex->tex.x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
-			tex_index = (int)ray->hitp.y * game->map.map_w + (int)ray->hitp.x;
-			tex->tex_pos = &game->map.indiv[tex_index]->side[ray->dir].pixels[tex->arr_pos];
+			if (ray->dir == EAST)
+				tex->index = (int)fmod(ray->hitp.y, 1.0) * game->map.map_w + (int)fmod(ray->hitp.x, 1.0) - 1;
+			else if (ray->dir == SOUTH)
+				tex->index = ((int)fmod(ray->hitp.y, 1.0) - 1) * game->map.map_w + (int)fmod(ray->hitp.x, 1.0);
+			else
+				tex->index = (int)fmod(ray->hitp.y, 1.0) * game->map.map_w + (int)fmod(ray->hitp.x, 1.0);
+
+			printf("index:%d, dir:%d, hitx:%f, hity:%f\n", tex->index, ray->dir, ray->hitp.x, ray->hitp.y);
+			tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos];
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
+			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && mlx_is_mouse_down(game->mlx, 0))
+			{
+				draw_on_tex(game, tex, ray->dir);
+			}
 			ft_memmove(&tex->test, tex->tex_pos,
 				game->map.textures[ray->dir]->bytes_per_pixel);
 			// tex->test = darken_colour(tex->test, ray->walldist * 40);
