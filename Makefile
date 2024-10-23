@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/07 16:06:30 by timschmi         ###   ########.fr        #
+#    Updated: 2024/10/23 17:28:10 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ BFILES = 	main_bonus.c \
 			player_bonus.c \
 			grid_bonus.c \
 			textures_bonus.c \
-			render_bonus.c
+			render_bonus.c \
+			alienpls.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC))

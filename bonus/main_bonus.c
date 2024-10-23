@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/23 15:42:38 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:58:04 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
 	put_crosshair(&game);
+	load_alien(&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(game.mlx, mouse, (void *)&game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);

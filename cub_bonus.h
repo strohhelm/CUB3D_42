@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/23 15:44:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:08:41 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MINIMAP_P 10
 # define CROSSHAIR 30
 # define EPSILON 1e-6
- #define FPS 40.0
+ #define FPS 30.0
 
 # include <math.h>
 # include <stdio.h>
@@ -29,6 +29,19 @@
 # include "include/libft/src/libft.h"
 # include "include/get_next_line/get_next_line.h"
 # include "include/MLX42/include/MLX42/MLX42.h"
+
+typedef struct s_coordinate {
+	double	x;
+	double	y;
+}	t_point;
+
+typedef struct s_enemy
+{
+	t_point pos;
+	mlx_texture_t *tex;
+	double dist;
+	struct s_enemy *next;
+} t_ai;
 
 enum e_colors
 {
@@ -64,10 +77,6 @@ enum e_error
 
 typedef unsigned long	u_l;
 
-typedef struct s_coordinate {
-	double	x;
-	double	y;
-}	t_point;
 
 typedef struct s_indiv_texture {
 	mlx_texture_t	side[4];
@@ -172,6 +181,10 @@ typedef struct s_algorythm {
 	t_point	p_b;
 	t_point	p_t;
 }	t_pixel_line;
+
+
+ /*		alien			*/
+void load_alien(t_game *game);
 
 /*		draw_line		*/
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
