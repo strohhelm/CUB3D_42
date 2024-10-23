@@ -1,0 +1,16 @@
+WE ./include/textures/red.png
+
+EA ./include/textures/green.png
+
+NO ./include/textures/blue.png
+SO ./include/textures/yellow.png
+F 255,255,0
+C  0,255,0
+
+11111111
+10100001
+1N000101
+10001001
+10010001
+10000001
+11111111

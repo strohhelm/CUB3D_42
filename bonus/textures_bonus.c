@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   textures_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@42.heilbronn.de>        #+#  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024-10-10 12:05:31 by pstrohal         ###   ########.fr       */
+/*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
+/*   Updated: 2024/10/23 09:50:13 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map)
 {
 	t_tex	**text_arr;
 	int		i;
-	int		fu;
+	// int		fu;
 	int		x;
 	int		y;
 
@@ -73,18 +73,21 @@ t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map)
 	{
 		y = i / width;
 		x = i - y * width;
+		if (x == 0)
+			printf("\n\n");
 		// printf("x:%d, y:%d\n", x, y);
 		text_arr[i] = (t_tex *)malloc(sizeof(t_tex));
 		if (!text_arr[i])
 			error_print("bruuuh look at your shitty pc, cant even malloc!");
-		printf("[%d", i);
-		if (map[y][x] == 0)
-		{
+		printf("[%03d", i);
+		// if (map[y][x] == 1)
+		// {
 			printf("X");
 			fill_text(text_arr[i], tex);
 				// printf("y:%d, x:%d\n", y,x);
-		}
-		printf("]");
+		// }
+		printf("] ");
+		fflush(stdout);
 	}
 	printf("\n");
 	return (text_arr);

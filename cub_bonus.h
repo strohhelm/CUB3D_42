@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 15:47:04 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:44:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define MINIMAP_W MINIMAP_H
 # define MINIMAP_P 10
 # define CROSSHAIR 30
+# define EPSILON 1e-6
+ #define FPS 40.0
 
 # include <math.h>
 # include <stdio.h>
@@ -60,13 +62,15 @@ enum e_error
 	MALLOC,
 };
 
+typedef unsigned long	u_l;
+
 typedef struct s_coordinate {
 	double	x;
 	double	y;
 }	t_point;
 
 typedef struct s_indiv_texture {
-	mlx_texture_t side[4];
+	mlx_texture_t	side[4];
 }	t_tex;
 
 typedef struct s_player
@@ -104,7 +108,7 @@ typedef struct s_texture
 	uint8_t		*img_pos;
 	int			arr_pos;
 	int			pic_pos;
-	int			index;
+	u_l			index;
 	uint32_t	test;
 }	t_texture;
 
