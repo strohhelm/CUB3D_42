@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/23 18:50:35 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:36:13 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void render(void *param)
 	double		t;
 	double		ft;
 	double		time;
+	static t_ai *e = NULL;
 	static int	i = 0;
 
 	time = 1.0 / FPS;
@@ -155,6 +156,8 @@ void render(void *param)
 		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
 		game->x = 0;
+		if (i == 1)
+			e = load_alien(game);
 		return ;
 	}
 	ft_hook(game);
@@ -162,6 +165,8 @@ void render(void *param)
 	minumap(game);
 	// backgroud(game);
 	raycasting(game);
+	enemy_dist(game, e);
+	// draw_sprites(game, e);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));

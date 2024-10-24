@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/23 19:08:41 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:22:23 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,6 @@ typedef struct s_game
 	int			y;
 }	t_game;
 
-
-
 //structure of values needed for putting pixels betwwen two points.
 typedef struct s_algorythm {
 	int		a;
@@ -182,9 +180,10 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
-
  /*		alien			*/
-void load_alien(t_game *game);
+t_ai *load_alien(t_game *game);
+void enemy_dist(t_game *game, t_ai *enemy);
+void draw_sprites(t_game *game, t_ai *enemy);
 
 /*		draw_line		*/
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
