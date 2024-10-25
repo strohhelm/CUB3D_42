@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:27 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:14:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	fill_array(t_map *map)
 				map->map[y][x] = -1;
 			else if (map->str_map[y][x] == '1')
 				map->map[y][x] = 1;
-			else if (map->str_map[y][x] == '0' || map->str_map[y][x] == 'D')
+			else if (map->str_map[y][x] == '0')
 				map->map[y][x] = 0;
+			else if (map->str_map[y][x] == 'D')
+				map->map[y][x] = 2;
 		}
 	}
 }
@@ -46,6 +48,53 @@ void	check_map_middle(int **p, int x, int y)
 		error_print("WTF! Map not valid! Get those \
 			spaces away from the zeros!");
 	return ;
+}
+
+t_door	*make_new_door(int dir, int x, int y)
+{
+	t_door	*dp;
+
+	dp = (t_door *)malloc(sizeof(t_door));
+	if (!dp)
+		error_print("thats too bad bro, malloc fucked up!");
+	dp->left.x = x;
+	dp->left.y = y + y + 0.5;
+	dp->right.x = x + 1;
+	dp->right.y = y + 0.5;
+	if (dir == NORTH)
+	{
+		dp->left.x = x + 0.5;
+		dp->left.y = y + 1;
+		dp->right.x = x + 0.5;
+		dp->right.y = y;
+	}
+	dp->status = CLOSED;
+	dp->progress = 0;
+	return (dp);
+}
+
+void	insert_door(t_doorstuff *d, int dir, int x, int y)
+{
+	t_door *tmp;
+	t_list	*new_node;
+	
+	tmp = make_new_door(dir, x, y);
+	new_node = ft_lstnew((void *) tmp);
+	if (!new_node)
+		error_print("fuckk off malloc stupid!");
+	ft_lstadd_back(&d->doors, new_node);
+	d->nb++;
+}
+void	check_door(t_doorstuff *d, int **p, int x, int y)
+{
+	if (p[y][x + 1] == 0 && p[y][x - 1] == 0
+		&& p[y - 1][x] == 1 && p[y + 1][x] == 1)
+		return (insert_door(d, NORTH, x, y));
+	else if (p[y][x + 1] == 1 && p[y][x - 1] == 1
+		&& p[y - 1][x] == 0 && p[y + 1][x] == 0)
+		return (insert_door(d, WEST, x, y));
+	else
+		error_print("Oh mah gaawhd that aint a fukin great place for a door there ,is it?");
 }
 
 void	validate_int_map(t_map *map)
@@ -69,6 +118,8 @@ void	validate_int_map(t_map *map)
 				if (y > 0 && x > 0 && y < map->map_h - 1 && x < map->map_w - 1)
 					check_map_middle(p, x, y);
 			}
+			if (p[y][x]== 2)
+				check_door(&map->dstuff, p, x, y);
 		}
 	}
 	return ;

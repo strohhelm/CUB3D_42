@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/23 15:43:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:04:39 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,26 +117,28 @@ void	screen_init(t_player *player)
 
 void	put_crosshair(t_game *game)
 {
-	// int	x;
-	// int	y;
-	
 	game->cross = mlx_new_image(game->mlx, CROSSHAIR, CROSSHAIR);
-	// x = CROSSHAIR / 2;
-	// y = 1;
-	// while (y < CROSSHAIR)
-	// 	mlx_put_pixel(game->cross, x, y++, 0xFF0000FF);
-	// y = CROSSHAIR / 2;
-	// x = 0;
-	// while (x < CROSSHAIR)
-	// 	mlx_put_pixel(game->cross, x++, y, 0xFF0000FF);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 6);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 5);
 	draw_circle(game->cross, 0xFFFF00FF, CROSSHAIR / 2 - 4);
 	draw_circle(game->cross, 0xFFFF00FF, CROSSHAIR / 2 - 3);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 2);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 1);
-	
 	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2 - game->cross->width/2, HEIGHT/2 - game->cross->height / 2);
+}
+
+int	mousecounter(t_game *game)
+{
+	static int	i = 0;
+	
+	if (i++ < 2)
+	{
+		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
+		game->x = 0;
+		return (0);
+	}
+	return (1);
 }
 
 void render(void *param)
@@ -145,24 +147,19 @@ void render(void *param)
 	double		t;
 	double		ft;
 	double		time;
-	static int	i = 0;
 
 	time = 1.0 / FPS;
 	game = (t_game *)param;
-	t = mlx_get_time();
-	if (i++ < 2)
-	{
-		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
-		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
-		game->x = 0;
+	if (!mousecounter(game))
 		return ;
-	}
+	t = mlx_get_time();
 	ft_hook(game);
 	blank(game);
 	minumap(game);
-	// backgroud(game);
 	raycasting(game);
+	draw_doors(game);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));
 }
+	// backgroud(game);

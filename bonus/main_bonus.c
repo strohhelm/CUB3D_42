@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/23 15:42:38 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:42:42 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	init_game(t_game *game)
 	game->player.pov = 0.66;
 	game->scale = 10;
 	game->map.str_map = NULL;
+	game->map.dstuff.nb = 0;
+	game->map.dstuff.doors = NULL;
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/red.png");
 	if (!game->map.textures[FLOOR])
 		error_print("Cannot load floor texture");
@@ -69,7 +71,7 @@ void	second_init(t_game *game)
 	// game->map.indiv = allocate_textures(game->map.map_h, game->map.map_w, game->map.textures, game->map.map);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->minimap = mlx_new_image(game->mlx, MINIMAP_W, MINIMAP_H);
+	game->minimap = mlx_new_image(game->mlx, MINIMAP_H, MINIMAP_H);
 }
 
 int	leaks(void)

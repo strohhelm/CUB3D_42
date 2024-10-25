@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/23 15:44:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:13:16 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MINIMAP_H HEIGHT / 3
-# define MINIMAP_W MINIMAP_H
 # define MINIMAP_P 10
 # define CROSSHAIR 30
 # define EPSILON 1e-6
- #define FPS 40.0
+ #define FPS 30.0
+ #define MAX_DOORS 20
 
 # include <math.h>
 # include <stdio.h>
@@ -29,6 +29,8 @@
 # include "include/libft/src/libft.h"
 # include "include/get_next_line/get_next_line.h"
 # include "include/MLX42/include/MLX42/MLX42.h"
+
+typedef unsigned long	u_l;
 
 enum e_colors
 {
@@ -52,6 +54,13 @@ enum e_action
 	GET,
 	SET,
 };
+enum e_status
+{
+	OPEN,
+	CLOSED,
+	CLOSING,
+	OPENING,
+};
 
 enum e_error
 {
@@ -62,7 +71,6 @@ enum e_error
 	MALLOC,
 };
 
-typedef unsigned long	u_l;
 
 typedef struct s_coordinate {
 	double	x;
@@ -85,6 +93,22 @@ typedef struct s_player
 	long	color;
 }	t_player;
 
+typedef struct s_door
+{
+	t_point			left;
+	t_point			right;
+	int				status;
+	float			progress;
+	// struct s_door	*next;
+}	t_door;
+
+typedef struct s_doorstuff
+{
+	t_list			*doors;
+	int				nb;
+	mlx_texture_t	*texture;
+}	t_doorstuff;
+
 typedef struct s_map
 {
 	int				**map;
@@ -98,6 +122,8 @@ typedef struct s_map
 	mlx_texture_t	*textures[6];
 	char			**tex_names;
 	t_tex			**indiv;
+	t_doorstuff		dstuff;
+	double			dist_buffer[WIDTH];
 }	t_map;
 
 typedef struct s_texture
@@ -158,7 +184,7 @@ typedef struct s_game
 
 
 
-//structure of values needed for putting pixels betwwen two points.
+//structure of values needed for putting pixels between two points.
 typedef struct s_algorythm {
 	int		a;
 	int		b;
@@ -173,17 +199,21 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
-/*		draw_line		*/
-void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
+/*		cast_textures.c		*/
+void	draw_tex(t_game *game, int x, t_rays *ray);
+void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
+int		return_orientation(int one, int two, int side);
+int		get_direction(t_point pos, t_point hit, int side);
+void	render_calc(t_game *game, t_rays *ray);
 
 /*		collision.c		*/
 void	collision(t_point new_pos, t_game *game);
 
-/*		render		*/
-void	render(void *param);
-void	screen_init(t_player *player);
-void	blank(t_game *game);
-void	put_crosshair(t_game *game);
+/*		doors.c			*/
+void	draw_doors(t_game *game);
+
+/*		draw_line		*/
+void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 
 /*		movement.c		*/
 void	mouse(mlx_key_data_t key, void* par);
@@ -211,12 +241,6 @@ void	step_and_dist(t_game *game, t_rays *ray);
 void	ray_overflow(t_game *game, t_rays *ray);
 void	hit_loop(t_game *game, t_rays *ray);
 
-/*		cast_textures.c		*/
-void	draw_tex(t_game *game, int x, t_rays *ray);
-void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
-int		return_orientation(int one, int two, int side);
-int		get_direction(t_point pos, t_point hit, int side);
-void	render_calc(t_game *game, t_rays *ray);
 
 /*		read_input.c		*/
 int		comp_ident(char *str, int *idents);
@@ -246,6 +270,12 @@ int		error(int e_action, int e_error);
 void	err_check(void *p, char *msg);
 void	error_print(char *msg);
 void	check_error(int e);
+
+/*		render		*/
+void	render(void *param);
+void	screen_init(t_player *player);
+void	blank(t_game *game);
+void	put_crosshair(t_game *game);
 
 /*		textures			*/
 t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map);

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/23 12:56:05 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:34:38 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ void	fill_outside_circle(mlx_image_t *img)
 
 void	minimap_init(t_game *game)
 {
-	game->circle = mlx_new_image(game->mlx, (uint32_t)MINIMAP_W, (uint32_t)MINIMAP_H);
+	game->circle = mlx_new_image(game->mlx, (uint32_t)MINIMAP_H, (uint32_t)MINIMAP_H);
 	if (!game->circle)
 		error_print("Oh shit circle img failed!");
 	draw_circle(game->circle, 0xFFFFFFFF, game->circle->width / 2 - 1);

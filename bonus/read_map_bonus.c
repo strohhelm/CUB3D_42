@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:24 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:46:04 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	check_char(char c)
 {
-	if (c == ' ' || c == '0' || c == '1')
+	if (c == ' ' || c == '0' || c == '1' || c == 'D')
 		return (true);
 	return (false);
 }
