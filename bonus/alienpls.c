@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 15:52:43 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:04:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ void draw_sprites(t_game *game, t_ai *enemy)
 	// double spritescrx;
 	t_texture tex;
 
+	while (e)
+	{
+		printf("Dist: %lf\n", e->dist);
+		e = e->next;
+	}
+
+	e = enemy;
+
 	while(e)
 	{
 		s.x = (e->pos.x - game->player.pos.x);
@@ -99,8 +107,8 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		
 		int swidth = abs((int)(WIDTH / proj.y));
 		int startx = (-swidth) / 2 + spritescrx;
-		if (startx < 0) 
-			startx = 0;
+		// if (startx < 0) 
+		// 	startx = 0;
 		int endx = swidth / 2 + spritescrx;
 		if (endx >= WIDTH)
 			endx = WIDTH - 1;
@@ -108,27 +116,30 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
 		
 		int line = startx;
+		if (startx < 0)
+			line = 0;
 		tex.step = 1.0 * e->tex->height / sheight;
+
 		while (line < endx)
 		{
-			tex.tex.x = e->tex->width * ((double)line / swidth);	
+			tex.tex.x = e->tex->width * ((double)(line - startx) / swidth);	
 			int y = starty;
 			
 			while(y < endy)
 			{
-				tex.tex.y = (y - starty) * tex.step;
+				tex.tex.y = (double)(y - starty) * tex.step;
 				tex.arr_pos = ((int)tex.tex.y * e->tex->width + (int)tex.tex.x) * 4;
 				tex.tex_pos = &e->tex->pixels[tex.arr_pos];
 				tex.pic_pos = (y * game->img->width + line) * 4;
 				tex.img_pos = &game->img->pixels[tex.pic_pos];
 				
-				// tex.test = *(u_int32_t *)tex.tex_pos;
-				// if (tex.test != 0)
-				// 	*(uint32_t *)tex.img_pos = tex.test;
+				tex.test = *(u_int32_t *)tex.tex_pos;
+				if (tex.test != 0)
+					*(uint32_t *)tex.img_pos = tex.test;
 
-				ft_memmove(&tex.test, tex.tex_pos, 4);
-				if (tex.test > 0)
-					ft_memmove(tex.img_pos, &tex.test, 4);
+				// ft_memmove(&tex.test, tex.tex_pos, 4);
+				// if (tex.test > 0)
+				// 	ft_memmove(tex.img_pos, &tex.test, 4);
 
 				y++;
 			}
@@ -138,9 +149,9 @@ void draw_sprites(t_game *game, t_ai *enemy)
 	}
 }
 
-void enemy_dist(t_game *game, t_ai *enemy)
+void enemy_dist(t_game *game, t_ai **enemy)
 {
-	t_ai *e = enemy;
+	t_ai *e = *enemy;
 
 	t_point p = game->player.pos;
 
@@ -156,21 +167,21 @@ void enemy_dist(t_game *game, t_ai *enemy)
 		e = e->next;
 	}
 
-	sort_ai(&enemy);
-	e = enemy;
-	printf("sorted:\n");
-	while (e)
-	{
-		printf("Dist: %lf\n", e->dist);
-		e = e->next;
-	}
-	draw_sprites(game, enemy);
+	sort_ai(enemy);
+	// e = enemy;
+	// printf("sorted:\n");
+	// // while (e)
+	// // {
+	// // 	printf("Dist: %lf\n", e->dist);
+	// // 	e = e->next;
+	// // }
+	draw_sprites(game, *enemy);
 
 }
 
 t_ai *load_alien(t_game *game)
 {
-	int count = 1;
+	int count = 3;
 	t_point pos;
 	t_ai *e = NULL;
 
@@ -183,7 +194,7 @@ t_ai *load_alien(t_game *game)
 	{
 		append_node(&e, pos);
 		pos.x += 2.0;
-		pos.y += 2.0;
+		pos.y += 0.0;
 		count--;
 		printf("load %d\n", count);
 	}

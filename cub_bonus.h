@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/24 16:22:23 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:03:50 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ typedef struct s_algorythm {
 
  /*		alien			*/
 t_ai *load_alien(t_game *game);
-void enemy_dist(t_game *game, t_ai *enemy);
+void enemy_dist(t_game *game, t_ai **enemy);
 void draw_sprites(t_game *game, t_ai *enemy);
 
 /*		draw_line		*/

@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/24 16:36:13 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:03:14 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ void render(void *param)
 	minumap(game);
 	// backgroud(game);
 	raycasting(game);
-	enemy_dist(game, e);
+	enemy_dist(game, &e);
 	// draw_sprites(game, e);
 	ft = mlx_get_time() - t;
 	if (ft < time)
