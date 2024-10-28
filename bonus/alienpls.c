@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/24 17:04:45 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:52:43 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,23 @@ void draw_sprites(t_game *game, t_ai *enemy)
 	t_point s;
 	t_point proj;
 	// double spritescrx;
-	t_texture *tex = NULL;
+	t_texture tex;
 
-	double invcam = 1.0 / (game->player.scr.x * game->player.dir.y - game->player.dir.x * game->player.scr.y);
 	while(e)
 	{
 		s.x = (e->pos.x - game->player.pos.x);
 		s.y = (e->pos.y - game->player.pos.y);
+		
+		double invcam = 1.0 / (game->player.scr.x * game->player.dir.y - game->player.dir.x * game->player.scr.y);
 
 		proj.x = invcam * (game->player.dir.y * s.x - game->player.dir.x * s.y);
 		proj.y = invcam * ((-game->player.scr.y) * s.x + game->player.scr.x * s.y);
 
+		if (proj.y < 0)
+		{
+			e = e->next;
+			continue;
+		}
 		int spritescrx = (int)((WIDTH / 2) * (1 + proj.x / proj.y));
 
 		int sheight = abs((int)(HEIGHT / proj.y));
@@ -91,7 +97,7 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		if (endy >= HEIGHT)
 			endy = HEIGHT - 1;
 		
-		int swidth = abs((int)(HEIGHT / proj.y));
+		int swidth = abs((int)(WIDTH / proj.y));
 		int startx = (-swidth) / 2 + spritescrx;
 		if (startx < 0) 
 			startx = 0;
@@ -99,31 +105,31 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		if (endx >= WIDTH)
 			endx = WIDTH - 1;
 		
+		printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
 		
 		int line = startx;
-
-		printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
+		tex.step = 1.0 * e->tex->height / sheight;
 		while (line < endx)
 		{
-			tex->step = 1.0 * e->tex->height / sheight;
-
-			tex->tex.x = e->tex->width * (line / 10);
-			
+			tex.tex.x = e->tex->width * ((double)line / swidth);	
 			int y = starty;
-
+			
 			while(y < endy)
 			{
-				tex->tex.y = y * tex->step;
-				tex->arr_pos = ((int)tex->tex.y * e->tex->width + (int)tex->tex.x) * 4;
-				tex->tex_pos = &e->tex->pixels[tex->arr_pos];
-				tex->pic_pos = ((starty + y) * game->img->width + line) * 4;
-				tex->img_pos = &game->img->pixels[tex->pic_pos];
+				tex.tex.y = (y - starty) * tex.step;
+				tex.arr_pos = ((int)tex.tex.y * e->tex->width + (int)tex.tex.x) * 4;
+				tex.tex_pos = &e->tex->pixels[tex.arr_pos];
+				tex.pic_pos = (y * game->img->width + line) * 4;
+				tex.img_pos = &game->img->pixels[tex.pic_pos];
 				
-				ft_memmove(&tex->test, tex->tex_pos, 4);
-				// tex->test = darken_colour(tex->test, ray->walldist * 40);
-				if (tex->test > 0)
-					ft_memmove(tex->img_pos, &tex->test, 4);
-				
+				// tex.test = *(u_int32_t *)tex.tex_pos;
+				// if (tex.test != 0)
+				// 	*(uint32_t *)tex.img_pos = tex.test;
+
+				ft_memmove(&tex.test, tex.tex_pos, 4);
+				if (tex.test > 0)
+					ft_memmove(tex.img_pos, &tex.test, 4);
+
 				y++;
 			}
 			line++;
@@ -140,46 +146,46 @@ void enemy_dist(t_game *game, t_ai *enemy)
 
 	t_point len;
 
-	printf("dist\n");
-
 	while(e)
 	{
 		len.x = fabs(e->pos.x - p.x);
 		len.y = fabs(e->pos.y - p.y);
 		
 		e->dist = sqrt(pow(len.x, 2.0) + pow(len.y, 2.0));
-		printf("Player: x:%lf, y:%lf\nDist: %lf\n", p.x, p.y, e->dist);
+		// printf("Player: x:%lf, y:%lf\nDist: %lf\n", p.x, p.y, e->dist);
 		e = e->next;
 	}
-	printf("sort\n");
 
 	sort_ai(&enemy);
-	// e = enemy;
-	// while (e)
-	// {
-	// 	printf("Dist: %lf\n", e->dist);
-	// 	e = e->next;
-	// }
+	e = enemy;
+	printf("sorted:\n");
+	while (e)
+	{
+		printf("Dist: %lf\n", e->dist);
+		e = e->next;
+	}
 	draw_sprites(game, enemy);
 
 }
 
 t_ai *load_alien(t_game *game)
 {
-	int count = 3;
+	int count = 1;
 	t_point pos;
 	t_ai *e = NULL;
 
-	pos.x = 2.5;
+	pos.x = 5.5;
 	pos.y = 1.5;
 
+
+	printf("load enemies:\n");
 	while(count)
 	{
 		append_node(&e, pos);
 		pos.x += 2.0;
 		pos.y += 2.0;
 		count--;
-		printf("loaded\n");
+		printf("load %d\n", count);
 	}
 
 	return (e);
