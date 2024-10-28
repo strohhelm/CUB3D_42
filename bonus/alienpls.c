@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:45:37 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:02:46 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void draw_sprites(t_game *game, t_ai *enemy)
 			tex.tex.x = e->tex->width * ((double)(line - startx) / swidth);	
 			int y = starty;
 			
-			while(y < endy)
+			while(y < endy && e->dist < game->dist_arr[line])
 			{
 				tex.tex.y = (double)(y - starty) * tex.step;
 				tex.arr_pos = ((int)tex.tex.y * e->tex->width + (int)tex.tex.x) * 4;

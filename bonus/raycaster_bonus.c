@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/06 17:19:35 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:57:15 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	raycasting(t_game *game)
 		draw_tex(game, x, &game->ray);
 		if (x % 50 == 0)
 			draw_minimap_rays(game, &game->ray);
+		game->dist_arr[x] = game->ray.walldist;
 		x++;
 	}
 	// exit (1);

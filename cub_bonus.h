@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/28 17:03:50 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:54:39 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ typedef struct s_game
 	int			mouse;
 	int			x;
 	int			y;
+	double		dist_arr[WIDTH];
 }	t_game;
 
 //structure of values needed for putting pixels betwwen two points.
