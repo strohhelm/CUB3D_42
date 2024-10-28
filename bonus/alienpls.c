@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:04:37 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:45:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		proj.x = invcam * (game->player.dir.y * s.x - game->player.dir.x * s.y);
 		proj.y = invcam * ((-game->player.scr.y) * s.x + game->player.scr.x * s.y);
 
+		int height_offset = (int)((1 - -1.0) / proj.y * HEIGHT);
+		printf("offset: %d\n", height_offset);
 		if (proj.y < 0)
 		{
 			e = e->next;
@@ -97,15 +99,15 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		}
 		int spritescrx = (int)((WIDTH / 2) * (1 + proj.x / proj.y));
 
-		int sheight = abs((int)(HEIGHT / proj.y));
-		int starty = (-sheight) / 2 + HEIGHT / 2;
+		int sheight = abs((int)(HEIGHT / proj.y)) * 7;
+		int starty = (-sheight) / 2 + HEIGHT / 2 + height_offset - game->y;
 		if (starty < 0)
 			starty = 0;
-		int endy = sheight / 2 + HEIGHT / 2;
+		int endy = sheight / 2 + HEIGHT / 2 + height_offset - game->y;
 		if (endy >= HEIGHT)
 			endy = HEIGHT - 1;
 		
-		int swidth = abs((int)(WIDTH / proj.y));
+		int swidth = abs((int)(HEIGHT / proj.y)) * 7;
 		int startx = (-swidth) / 2 + spritescrx;
 		// if (startx < 0) 
 		// 	startx = 0;
