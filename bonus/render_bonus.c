@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 17:03:14 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:57:51 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,26 @@ void	put_crosshair(t_game *game)
 	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2 - game->cross->width/2, HEIGHT/2 - game->cross->height / 2);
 }
 
+void update_enemy_pos(t_ai **enemy, t_game *game)
+{
+	t_ai *e = *enemy;
+
+	double dist;
+	t_point move;
+
+	while(e)
+	{
+		dist = sqrt(pow(game->player.pos.x - e->pos.x, 2.0) + pow(game->player.pos.y - e->pos.y, 2.0));
+		double len = 0.03 / dist;
+		move.x = e->pos.x + len * (game->player.pos.x - e->pos.x);
+		move.y = e->pos.y + len * (game->player.pos.y - e->pos.y); 
+
+		e->pos.x = move.x;
+		e->pos.y = move.y;
+		e = e->next;
+	}
+}
+
 void render(void *param)
 {
 	t_game		*game;
@@ -165,8 +185,8 @@ void render(void *param)
 	minumap(game);
 	// backgroud(game);
 	raycasting(game);
+	update_enemy_pos(&e, game);
 	enemy_dist(game, &e);
-	// draw_sprites(game, e);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));

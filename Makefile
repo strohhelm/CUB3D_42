@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/24 12:00:02 by timschmi         ###   ########.fr        #
+#    Updated: 2024/10/29 15:45:38 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -fsanitize=address #-Ofast
+CFLAGS = -Wall -Wextra -Ofast #-fsanitize=address 
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)

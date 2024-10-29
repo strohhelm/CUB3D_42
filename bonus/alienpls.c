@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 18:02:46 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:25:28 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void draw_sprites(t_game *game, t_ai *enemy)
 	// double spritescrx;
 	t_texture tex;
 
-	while (e)
-	{
-		printf("Dist: %lf\n", e->dist);
-		e = e->next;
-	}
+	// while (e)
+	// {
+	// 	printf("Dist: %lf\n", e->dist);
+	// 	e = e->next;
+	// }
 
 	e = enemy;
 
@@ -85,49 +85,48 @@ void draw_sprites(t_game *game, t_ai *enemy)
 		s.x = (e->pos.x - game->player.pos.x);
 		s.y = (e->pos.y - game->player.pos.y);
 		
-		double invcam = 1.0 / (game->player.scr.x * game->player.dir.y - game->player.dir.x * game->player.scr.y);
+		double invcam = 1.0 / ((game->player.scr.x * 10) * (game->player.dir.y * 10) - (game->player.dir.x * 10) * (game->player.scr.y * 10));
 
-		proj.x = invcam * (game->player.dir.y * s.x - game->player.dir.x * s.y);
-		proj.y = invcam * ((-game->player.scr.y) * s.x + game->player.scr.x * s.y);
+		proj.x = invcam * ((game->player.dir.y * 10) * s.x - (game->player.dir.x * 10) * s.y);
+		proj.y = invcam * ((-game->player.scr.y * 10) * s.x + (game->player.scr.x * 10) * s.y);
 
-		int height_offset = (int)((1 - -1.0) / proj.y * HEIGHT);
-		printf("offset: %d\n", height_offset);
-		if (proj.y < 0)
-		{
-			e = e->next;
-			continue;
-		}
+		int height_offset = (int)((0.1 - 0) / proj.y * HEIGHT);
+		// printf("offset: %d\n", height_offset);
+
 		int spritescrx = (int)((WIDTH / 2) * (1 + proj.x / proj.y));
 
-		int sheight = abs((int)(HEIGHT / proj.y)) * 7;
+		int sheight = abs((int)(HEIGHT / proj.y));
 		int starty = (-sheight) / 2 + HEIGHT / 2 + height_offset - game->y;
-		if (starty < 0)
-			starty = 0;
+		// if (starty < 0)
+		// 	starty = 0;
 		int endy = sheight / 2 + HEIGHT / 2 + height_offset - game->y;
 		if (endy >= HEIGHT)
-			endy = HEIGHT - 1;
+			endy = HEIGHT;
 		
-		int swidth = abs((int)(HEIGHT / proj.y)) * 7;
+		int swidth = abs((int)(HEIGHT / proj.y));
 		int startx = (-swidth) / 2 + spritescrx;
 		// if (startx < 0) 
 		// 	startx = 0;
 		int endx = swidth / 2 + spritescrx;
 		if (endx >= WIDTH)
-			endx = WIDTH - 1;
+			endx = WIDTH;
 		
-		printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
+		// printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
 		
 		int line = startx;
 		if (startx < 0)
 			line = 0;
 		tex.step = 1.0 * e->tex->height / sheight;
 
-		while (line < endx)
+		while (line < endx && proj.y > 0)
 		{
 			tex.tex.x = e->tex->width * ((double)(line - startx) / swidth);	
-			int y = starty;
 			
-			while(y < endy && e->dist < game->dist_arr[line])
+			int y = starty;
+			if (y < 0)
+				y = 0;
+				
+			while(y < endy && proj.y < game->dist_arr[line])
 			{
 				tex.tex.y = (double)(y - starty) * tex.step;
 				tex.arr_pos = ((int)tex.tex.y * e->tex->width + (int)tex.tex.x) * 4;
@@ -183,22 +182,22 @@ void enemy_dist(t_game *game, t_ai **enemy)
 
 t_ai *load_alien(t_game *game)
 {
-	int count = 3;
+	int count = 1;
 	t_point pos;
 	t_ai *e = NULL;
 
-	pos.x = 5.5;
+	pos.x = 12.5;
 	pos.y = 1.5;
 
 
-	printf("load enemies:\n");
+	// printf("load enemies:\n");
 	while(count)
 	{
 		append_node(&e, pos);
 		pos.x += 2.0;
 		pos.y += 0.0;
 		count--;
-		printf("load %d\n", count);
+		// printf("load %d\n", count);
 	}
 
 	return (e);
