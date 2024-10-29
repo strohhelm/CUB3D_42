@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/28 15:14:06 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:01:56 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ t_door	*make_new_door(int dir, int x, int y)
 	dp = (t_door *)malloc(sizeof(t_door));
 	if (!dp)
 		error_print("thats too bad bro, malloc fucked up!");
-	dp->left.x = x;
-	dp->left.y = y + y + 0.5;
-	dp->right.x = x + 1;
-	dp->right.y = y + 0.5;
+	dp->p1.x = x;
+	dp->p1.y = y + y + 0.5;
+	dp->p2.x = x + 1;
+	dp->p2.y = y + 0.5;
 	if (dir == NORTH)
 	{
-		dp->left.x = x + 0.5;
-		dp->left.y = y + 1;
-		dp->right.x = x + 0.5;
-		dp->right.y = y;
+		dp->p1.x = x + 0.5;
+		dp->p1.y = y + 1;
+		dp->p2.x = x + 0.5;
+		dp->p2.y = y;
 	}
 	dp->status = CLOSED;
 	dp->progress = 0;
