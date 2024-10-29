@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/23 09:50:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:23:34 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,23 @@ t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map)
 	printf("loading w: %d, h:%d\n", width, height);
 	while (++i < width * height)
 	{
-		y = i / width;
-		x = i - y * width;
-		if (x == 0)
-			printf("\n\n");
+		// y = i / width;
+		// x = i - y * width;
+		// if (x == 0)
+			// printf("\n\n");
 		// printf("x:%d, y:%d\n", x, y);
 		text_arr[i] = (t_tex *)malloc(sizeof(t_tex));
 		if (!text_arr[i])
 			error_print("bruuuh look at your shitty pc, cant even malloc!");
-		printf("[%03d", i);
+		// printf("[%03d", i);
 		// if (map[y][x] == 1)
 		// {
-			printf("X");
+			// printf("X");
 			fill_text(text_arr[i], tex);
 				// printf("y:%d, x:%d\n", y,x);
 		// }
-		printf("] ");
-		fflush(stdout);
+		// printf("] ");
+		// fflush(stdout);
 	}
 	printf("\n");
 	return (text_arr);

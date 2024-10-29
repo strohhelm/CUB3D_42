@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/25 10:14:00 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:14:06 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ t_door	*make_new_door(int dir, int x, int y)
 	}
 	dp->status = CLOSED;
 	dp->progress = 0;
+	dp->texture = mlx_load_png("./include/textures/door.png");
+	if (!dp->texture)
+		error_print("not a valid path to door texture you idiot!");
 	return (dp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/25 12:13:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:32:01 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,21 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 			tex->arr_pos = ((int)tex->tex.y
 					* game->map.textures[ray->dir]->width + (int)tex->tex.x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
-			// tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos]; for individual textures
-			tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];
+			tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos]; //for individual textures
+			// tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
-			//for drawing on texture
-			// if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && mlx_is_mouse_down(game->mlx, 0))
-			// {
-			// 	printf("index:%lu, dir:%d, w:%lu, hitx:%lf, y:%lu hity:%lf\n", tex->index, ray->dir, w, fmod(ray->hitp.x, 1.0), y, ray->hitp.y - fmod(ray->hitp.y, 1.0));
-			// 	draw_on_tex(game, tex, ray->dir);
-			// }
+			// for drawing on texture
+			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && mlx_is_mouse_down(game->mlx, 0))
+			{
+				// printf("index:%lu, dir:%d, w:%lu, hitx:%lf, y:%lu hity:%lf\n", tex->index, ray->dir, w, fmod(ray->hitp.x, 1.0), y, ray->hitp.y - fmod(ray->hitp.y, 1.0));
+				draw_on_tex(game, tex, ray->dir);
+			}
 			
 			ft_memmove(&tex->test, tex->tex_pos,
 				game->map.textures[ray->dir]->bytes_per_pixel);
-			// tex->test = darken_colour(tex->test, ray->walldist * 40);
+			// tex->test = darken_colour(tex->test, ray->walldist * 60);
 			if (tex->test > 0)
 				ft_memmove(tex->img_pos, &tex->test,
 					game->map.textures[ray->dir]->bytes_per_pixel);

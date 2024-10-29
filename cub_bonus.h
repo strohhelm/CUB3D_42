@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/25 11:13:16 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:02:25 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,36 @@ typedef struct s_player
 	long	color;
 }	t_player;
 
+typedef struct s_doorhelp
+{
+	int		px_len;
+	t_point	left_intersect;
+	t_point	right_intersect;
+	t_point	door_intersect;
+	t_point sl;
+	t_point sr;
+	t_point screenvector;
+	double screenwidth;
+	double	doorwidth;
+	double step;
+	int left;
+	int right;
+	int	lineheight;
+}	t_doorhelp;
+
 typedef struct s_door
 {
 	t_point			left;
 	t_point			right;
 	int				status;
 	float			progress;
-	// struct s_door	*next;
+	mlx_texture_t	*texture;
 }	t_door;
 
 typedef struct s_doorstuff
 {
 	t_list			*doors;
 	int				nb;
-	mlx_texture_t	*texture;
 }	t_doorstuff;
 
 typedef struct s_map
