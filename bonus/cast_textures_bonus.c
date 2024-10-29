@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_textures_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/23 15:42:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/29 18:26:36 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 			
 			ft_memmove(&tex->test, tex->tex_pos,
 				game->map.textures[ray->dir]->bytes_per_pixel);
-			// tex->test = darken_colour(tex->test, ray->walldist * 40);
+			tex->test = darken_colour(tex->test, ray->walldist * 15);
 			if (tex->test > 0)
 				ft_memmove(tex->img_pos, &tex->test,
 					game->map.textures[ray->dir]->bytes_per_pixel);

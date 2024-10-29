@@ -1,22 +1,22 @@
 
-WE ./include/textures/red.png
+WE ./include/textures/castle2.png
 
 
-EA ./include/textures/green.png
+EA ./include/textures/castle2.png
 
-NO ./include/textures/blue.png
-SO ./include/textures/green.png
+NO ./include/textures/castle2.png
+SO ./include/textures/castle2.png
 
 
-C 180,92,68
-F 85,96,32
+C 0,0,0
+F 0,0,0
 
 
 
 1111111111111111
 1E00000010000001
 1000000010000001
-1000000010000001
+1000000000000001
 1000000000000001
 1000000000000001
 1111111111111111
