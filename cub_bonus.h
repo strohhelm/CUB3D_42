@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/28 17:54:39 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:28:10 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,19 @@ typedef struct s_coordinate {
 	double	y;
 }	t_point;
 
+typedef struct s_sprites
+{
+	mlx_texture_t *tex;
+	struct s_sprites *next;
+} t_sprites;
+
 typedef struct s_enemy
 {
 	t_point pos;
-	mlx_texture_t *tex;
+	mlx_texture_t **tex;
 	double dist;
 	struct s_enemy *next;
+	int hp;
 } t_ai;
 
 enum e_colors
@@ -92,6 +99,7 @@ typedef struct s_player
 	double	pov;
 	int		start;
 	long	color;
+	int		attack;
 }	t_player;
 
 typedef struct s_map
@@ -183,8 +191,8 @@ typedef struct s_algorythm {
 
  /*		alien			*/
 t_ai *load_alien(t_game *game);
-void enemy_dist(t_game *game, t_ai **enemy);
-void draw_sprites(t_game *game, t_ai *enemy);
+void enemy_dist(t_game *game, t_ai **enemy, int frame);
+void draw_sprites(t_game *game, t_ai *enemy, int frame);
 
 /*		draw_line		*/
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);

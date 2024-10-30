@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/29 18:24:33 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:54:19 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,12 @@ void render(void *param)
 	double		t;
 	double		ft;
 	double		time;
+	static int	frame = 1;
 	static t_ai *e = NULL;
 	static int	i = 0;
 
+	if (frame == 30)
+		frame = 1;
 	time = 1.0 / FPS;
 	game = (t_game *)param;
 	t = mlx_get_time();
@@ -231,8 +234,9 @@ void render(void *param)
 	// backgroud(game);
 	raycasting(game);
 	update_enemy_pos(&e, game);
-	enemy_dist(game, &e);
+	enemy_dist(game, &e, frame);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));
+	frame++;
 }

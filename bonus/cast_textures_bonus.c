@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/29 18:26:36 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:15:43 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,17 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 			// 	draw_on_tex(game, tex, ray->dir);
 			// }
 			
-			ft_memmove(&tex->test, tex->tex_pos,
-				game->map.textures[ray->dir]->bytes_per_pixel);
+			tex->test = *(u_int32_t *)tex->tex_pos;
 			tex->test = darken_colour(tex->test, ray->walldist * 15);
-			if (tex->test > 0)
-				ft_memmove(tex->img_pos, &tex->test,
-					game->map.textures[ray->dir]->bytes_per_pixel);
+			if (tex->test != 0)
+				*(uint32_t *)tex->img_pos = tex->test;
+			
+			// ft_memmove(&tex->test, tex->tex_pos,
+			// 	game->map.textures[ray->dir]->bytes_per_pixel);
+			// tex->test = darken_colour(tex->test, ray->walldist * 15);
+			// if (tex->test > 0)
+			// 	ft_memmove(tex->img_pos, &tex->test,
+			// 		game->map.textures[ray->dir]->bytes_per_pixel);
 		}
 		i++;
 	}
