@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/29 19:55:33 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:50:30 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ typedef struct s_doorhelp
 	t_point	p1_intersect;
 	t_point	p2_intersect;
 	t_point	door_intersect;
+	t_point	door_start;
+	t_point	doorstepvector;
 	t_point sl;
 	t_point sr;
 	t_point screenvector;
@@ -110,6 +112,7 @@ typedef struct s_doorhelp
 	int left;
 	int right;
 	int lineheight;
+	t_point pos;
 }	t_doorhelp;
 
 typedef struct s_door

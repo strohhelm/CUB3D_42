@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/29 18:01:56 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:57:12 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_door	*make_new_door(int dir, int x, int y)
 	if (!dp)
 		error_print("thats too bad bro, malloc fucked up!");
 	dp->p1.x = x;
-	dp->p1.y = y + y + 0.5;
+	dp->p1.y = y + 0.5;
 	dp->p2.x = x + 1;
 	dp->p2.y = y + 0.5;
 	if (dir == NORTH)
