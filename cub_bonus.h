@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/30 16:28:10 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:27:50 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,22 @@ typedef struct s_sprites
 	struct s_sprites *next;
 } t_sprites;
 
+enum e_state
+{
+	ALIVE,
+	DYING,
+	DEAD,
+};
+
 typedef struct s_enemy
 {
 	t_point pos;
-	mlx_texture_t **tex;
+	mlx_texture_t **tex[2];
 	double dist;
 	struct s_enemy *next;
+	int state;
 	int hp;
+	int i;
 } t_ai;
 
 enum e_colors

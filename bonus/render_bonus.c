@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/30 15:54:19 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:59:06 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,11 @@ void update_enemy_pos(t_ai **enemy, t_game *game)
 
 	while(e)
 	{
+		if (e->state == DYING || e->state == DEAD)
+		{
+			e = e->next;
+			continue;
+		}
 		dist = sqrt(pow(game->player.pos.x - e->pos.x, 2.0) + pow(game->player.pos.y - e->pos.y, 2.0));
 		double len = 0.03 / dist;
 		move.x = e->pos.x + len * (game->player.pos.x - e->pos.x);

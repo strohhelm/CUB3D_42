@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/24 16:13:07 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:36:40 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_game(t_game *game)
 	game->player.width = WIDTH;
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.66;
+	game->player.attack = 0;
 	game->scale = 10;
 	game->map.str_map = NULL;
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/red.png");

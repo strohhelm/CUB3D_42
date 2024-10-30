@@ -6,23 +6,26 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/30 16:33:24 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:38:14 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-void append_node(t_ai **e, t_point pos, mlx_texture_t **tex)
+void append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying)
 {
 	t_ai *new_node = NULL;
 	t_ai *temp = *e;
 
 	new_node = (t_ai *)malloc(sizeof(t_ai));
 
-	new_node->tex = tex;
+	new_node->tex[0] = idle;
+	new_node->tex[1] = dying;
 	new_node->pos = pos;
 	new_node->next = NULL;
 	new_node->hp = 100;
+	new_node->state = ALIVE;
+	new_node->i = 0;
 	
 	if (!*e)
 	{
@@ -70,8 +73,8 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 	t_point s;
 	t_point proj;
 	t_texture tex;
-	int i;
-	i = frame / 6;
+	static int i;
+
 	// while (e)
 	// {
 	// 	printf("Dist: %lf\n", e->dist);
@@ -79,9 +82,21 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 	// }
 
 	e = enemy;
-
+	int k = 1;
 	while(e)
 	{
+		if (e->state == DEAD)
+		{
+			e = e->next;
+			continue;
+		}
+		else if (e->state == ALIVE)
+			e->i = frame / 6;
+		else if (frame % 29 == 0 && e->i < 7 && k)
+		{
+			e->i += 1;
+		}
+		
 		// if (e->hp <= 0)
 		// {
 		// 	e = e->next;
@@ -115,22 +130,27 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		int endx = swidth / 2 + spritescrx;
 		if (endx >= WIDTH)
 			endx = WIDTH;
-		// if ((WIDTH/2 >= startx && WIDTH/2 <= endx) && (HEIGHT/2 >= starty && HEIGHT/2 <= endy) && game->player.attack)
-		// {
-		// 	e->hp -= 2;
-		// 	game->player.attack = 0;
-		// }
+		if ((WIDTH/2 >= startx && WIDTH/2 <= endx) && (HEIGHT/2 >= starty && HEIGHT/2 <= endy) && game->player.attack)
+		{
+			e->hp -= 100;
+			if (e->hp <= 0)
+			{
+				e->state = DYING;
+				e->i = 0;
+			}
+			game->player.attack = 0;
+		}
 		
 		// printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
 		
 		int line = startx;
 		if (startx < 0)
 			line = 0;
-		tex.step = 1.0 * e->tex[i]->height / sheight;
+		tex.step = 1.0 * e->tex[e->state][e->i]->height / sheight;
 
 		while (line < endx && proj.y > 0)
 		{
-			tex.tex.x = e->tex[i]->width * ((double)(line - startx) / swidth);	
+			tex.tex.x = e->tex[e->state][e->i]->width * ((double)(line - startx) / swidth);	
 			
 			int y = starty;
 			if (y < 0)
@@ -139,8 +159,8 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 			while(y < endy && proj.y < game->dist_arr[line])
 			{
 				tex.tex.y = (double)(y - starty) * tex.step;
-				tex.arr_pos = ((int)tex.tex.y * e->tex[i]->width + (int)tex.tex.x) * 4;
-				tex.tex_pos = &e->tex[i]->pixels[tex.arr_pos];
+				tex.arr_pos = ((int)tex.tex.y * e->tex[e->state][e->i]->width + (int)tex.tex.x) * 4;
+				tex.tex_pos = &e->tex[e->state][e->i]->pixels[tex.arr_pos];
 				tex.pic_pos = (y * game->img->width + line) * 4;
 				tex.img_pos = &game->img->pixels[tex.pic_pos];
 				
@@ -153,6 +173,8 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 			}
 			line++;
 		}
+		// if (i == 7)
+		// 	e->state = DEAD;
 		e = e->next;
 	}
 }
@@ -189,28 +211,40 @@ void enemy_dist(t_game *game, t_ai **enemy, int frame)
 
 t_ai *load_alien(t_game *game)
 {
-	int count = 1;
+	int count = 2;
 	t_point pos;
 	t_ai *e = NULL;
 
-	pos.x = 12.5;
+	pos.x = 8.5;
 	pos.y = 1.5;
 
 	mlx_texture_t **idle;
 
 	idle = (mlx_texture_t **)malloc(sizeof(mlx_texture_t*) * 6);
-	idle[0] = mlx_load_png("./include/textures/sprites/tile000.png");
-	idle[1] = mlx_load_png("./include/textures/sprites/tile001.png");
-	idle[2] = mlx_load_png("./include/textures/sprites/tile002.png");
-	idle[3] = mlx_load_png("./include/textures/sprites/tile003.png");
-	idle[4] = mlx_load_png("./include/textures/sprites/tile004.png");
-	idle[5] = mlx_load_png("./include/textures/sprites/tile005.png");
+	idle[0] = mlx_load_png("./include/textures/sprites/idle/tile000.png");
+	idle[1] = mlx_load_png("./include/textures/sprites/idle/tile001.png");
+	idle[2] = mlx_load_png("./include/textures/sprites/idle/tile002.png");
+	idle[3] = mlx_load_png("./include/textures/sprites/idle/tile003.png");
+	idle[4] = mlx_load_png("./include/textures/sprites/idle/tile004.png");
+	idle[5] = mlx_load_png("./include/textures/sprites/idle/tile005.png");
+
+	mlx_texture_t **dying;
+
+	dying = (mlx_texture_t **)malloc(sizeof(mlx_texture_t*) * 8);
+	dying[0] = mlx_load_png("./include/textures/sprites/dying/dying1.png");
+	dying[1] = mlx_load_png("./include/textures/sprites/dying/dying2.png");
+	dying[2] = mlx_load_png("./include/textures/sprites/dying/dying3.png");
+	dying[3] = mlx_load_png("./include/textures/sprites/dying/dying4.png");
+	dying[4] = mlx_load_png("./include/textures/sprites/dying/dying5.png");
+	dying[5] = mlx_load_png("./include/textures/sprites/dying/dying6.png");
+	dying[6] = mlx_load_png("./include/textures/sprites/dying/dying7.png");
+	dying[7] = mlx_load_png("./include/textures/sprites/dying/dying8.png");
 
 
 	// printf("load enemies:\n");
 	while(count)
 	{
-		append_node(&e, pos, idle);
+		append_node(&e, pos, idle, dying);
 		pos.x += 2.0;
 		pos.y += 0.0;
 		count--;
