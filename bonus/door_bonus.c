@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doors_bonus.c                                      :+:      :+:    :+:   */
+/*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/01 19:52:08 by pstrohal         ###   ########.fr       */
+/*   Created: 2024/11/01 18:41:16 by pstrohal          #+#    #+#             */
+/*   Updated: 2024/11/01 19:06:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void get_screen(t_player *player, t_doorhelp *hlp)
 	hlp->sl.y = player->pos.y - player->scr.y + player->dir.y;
 	hlp->sr.x = player->pos.x + player->scr.x + player->dir.x;
 	hlp->sr.y = player->pos.y + player->scr.y + player->dir.y;
-	hlp->pos.x = player->pos.x;
-	hlp->pos.y = player->pos.y;
+	hlp->pos.x = player->pos.x ;
+	hlp->pos.y = player->pos.y ;
 }
 int	get_screen_x_coord(t_doorhelp *hlp, t_point intersect)
 {
@@ -155,6 +155,10 @@ void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 		if (hlp->left + i >= 0 && hlp->left + i <= WIDTH)
 		{
 			hlp->door_intersect = get_point_plus_x_times_vector(hlp->door_start, i, hlp->doorstepvector);
+			hlp->sl.x -= game->player.dir.x;
+			hlp->sl.y -= game->player.dir.y;
+			hlp->sr.x -= game->player.dir.x;
+			hlp->sr.y -= game->player.dir.y;
 			dist = normalize_distance(hlp->sl, hlp->sr, hlp->door_intersect);
 			hlp->lineheight = (int)((double)HEIGHT / dist);
 			
@@ -228,7 +232,7 @@ void	handle_outside_screen_intersections(t_game *game, t_doorhelp *hlp, t_door *
 	
 	return ;
 }
-double angle_between_vectors(t_point a, t_point b)
+angle_between_vectors(t_point a, t_point b)
 {
 	double	scalar_product;
 	double	magnitude_a;
@@ -239,7 +243,7 @@ double angle_between_vectors(t_point a, t_point b)
 	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
 	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
 	angle = acos(scalar_product / (magnitude_a * magnitude_b));
-	return (angle);
+	
 }
 
 //sl = screen left, sr = screen right, si = screen intersection
@@ -251,6 +255,7 @@ void	draw_door(t_game *game, t_door *d)
 	t_point		p2vector;
 	t_point		slvector;
 	t_point		srvector;
+
 	hlp = &d->hlp;
 	get_screen(&game->player, hlp);
 	hlp->doorwidth = dist_between_two_points(d->p1, d->p2);
@@ -259,16 +264,16 @@ void	draw_door(t_game *game, t_door *d)
 	hlp->screenstep = hlp->screenwidth / (double)WIDTH;
 	hlp->stepvector.x = hlp->screenvector.x * hlp->screenstep;
 	hlp->stepvector.y = hlp->screenvector.y * hlp->screenstep;
-	dirvector = game->player.dir;
+	dirvector = vector_between_two_points(game->player.pos, game->player.dir);
 	p1vector = vector_between_two_points(game->player.pos, d->p1);
 	p2vector = vector_between_two_points(game->player.pos, d->p2);
 	slvector = vector_between_two_points(game->player.pos, d->hlp.sl);
 	srvector = vector_between_two_points(game->player.pos, d->hlp.sr);
-	printf ("dir-left: %f, dir-right: %f, sl-sr: %f p1-p2: %f\n",
-	angle_between_vectors(dirvector, p2vector) * 180.0 / PI,
-	angle_between_vectors(dirvector, p1vector) * 180.0 / PI,
-	angle_between_vectors(slvector, srvector) * 180.0 / PI, 
-	angle_between_vectors(p1vector, p2vector) * 180.0 / PI);
+	printf ("dir-p1:%f, dir-p2:%f, sl-sr:%f p1-p2%f\n",
+	angle_between_vectors(dirvector, p1vector)*DEG,
+	angle_between_vectors(dirvector, p2vector)*DEG,
+	angle_between_vectors(slvector, srvector)*DEG, 
+	angle_between_vectors(p1vector, p2vector)*DEG);
 	hlp->p1_intersect = intersection(hlp->pos, d->p1, hlp->sl, hlp->sr);
 	hlp->p2_intersect = intersection(hlp->pos, d->p2, hlp->sl, hlp->sr);
 	// printf("p1:%f | %f, p2:%f | %f\n", hlp->p1_intersect.x, hlp->p1_intersect.y, hlp->p2_intersect.x, hlp->p2_intersect.y);

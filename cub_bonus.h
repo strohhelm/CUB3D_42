@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/30 16:50:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/01 19:10:56 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # define MINIMAP_P 10
 # define CROSSHAIR 30
 # define EPSILON 1e-6
- #define FPS 30.0
- #define MAX_DOORS 20
+# define FPS 30.0
+# define MAX_DOORS 20
+# define PI 3.14159265358979323846
+# define DEG 180.0 / PI
 
 # include <math.h>
 # include <stdio.h>
