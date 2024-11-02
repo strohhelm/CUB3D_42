@@ -6,7 +6,7 @@
 /*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/02 17:17:58 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/02 17:46:16 by h4ns             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct s_game
 	double		scale;
 	mlx_image_t	*circle;
 	mlx_image_t	*cross;
+	mlx_image_t	*hp;
 	t_player	player;
 	t_map		map;
 	t_rays		ray;

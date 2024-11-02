@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/30 16:59:06 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:46:42 by h4ns             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,13 +224,17 @@ void render(void *param)
 	time = 1.0 / FPS;
 	game = (t_game *)param;
 	t = mlx_get_time();
+	if (i == 0)
+	{
+		e = load_alien(game);
+		game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+		mlx_image_to_window(game->mlx, game->hp, 0, 0);
+	}
 	if (i++ < 2)
 	{
 		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
 		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
 		game->x = 0;
-		if (i == 1)
-			e = load_alien(game);
 		return ;
 	}
 	ft_hook(game);
@@ -240,6 +244,7 @@ void render(void *param)
 	raycasting(game);
 	update_enemy_pos(&e, game);
 	enemy_dist(game, &e, frame);
+	health_bar(game);
 	ft = mlx_get_time() - t;
 	if (ft < time)
 		usleep((int)((time - ft) * 1000000));

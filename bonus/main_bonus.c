@@ -6,7 +6,7 @@
 /*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/02 17:18:14 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/02 17:36:18 by h4ns             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
 	put_crosshair(&game);
-	health_bar(&game);
+
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(game.mlx, mouse, (void *)&game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);

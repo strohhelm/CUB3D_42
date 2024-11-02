@@ -6,7 +6,7 @@
 /*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/02 17:01:28 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/02 18:00:59 by h4ns             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,14 @@ void enemy_dist(t_game *game, t_ai **enemy, int frame)
 		len.y = fabs(e->pos.y - p.y);
 		
 		e->dist = sqrt(pow(len.x, 2.0) + pow(len.y, 2.0));
+		if (e->dist <= 0.5 && game->player.hp > 0)
+		{
+			game->player.hp -= 5;
+			if (game->player.hp <= 0)
+			{
+				free_game_end(game);
+			}
+		}
 		// printf("Player: x:%lf, y:%lf\nDist: %lf\n", p.x, p.y, e->dist);
 		e = e->next;
 	}
@@ -210,7 +218,7 @@ void enemy_dist(t_game *game, t_ai **enemy, int frame)
 
 t_ai *load_alien(t_game *game)
 {
-	int count = 2;
+	int count = 1;
 	t_point pos;
 	t_ai *e = NULL;
 
