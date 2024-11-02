@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/10/30 16:09:27 by timschmi         ###   ########.fr        #
+#    Updated: 2024/11/02 17:18:47 by h4ns             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ BFILES = 	main_bonus.c \
 			grid_bonus.c \
 			textures_bonus.c \
 			render_bonus.c \
-			alienpls.c
+			alienpls.c \
+			ui.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC))
@@ -74,7 +75,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -Ofast#-fsanitize=address # # 
+CFLAGS = -Wall -Wextra -Ofast #-fsanitize=address # # 
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)

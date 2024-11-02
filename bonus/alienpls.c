@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alienpls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/30 17:38:14 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:01:28 by h4ns             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,33 +75,22 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 	t_texture tex;
 	static int i;
 
-	// while (e)
-	// {
-	// 	printf("Dist: %lf\n", e->dist);
-	// 	e = e->next;
-	// }
-
 	e = enemy;
 	int k = 1;
 	while(e)
 	{
-		if (e->state == DEAD)
-		{
-			e = e->next;
-			continue;
-		}
-		else if (e->state == ALIVE)
-			e->i = frame / 6;
-		else if (frame % 29 == 0 && e->i < 7 && k)
-		{
-			e->i += 1;
-		}
-		
-		// if (e->hp <= 0)
+		// if (e->state == DEAD)
 		// {
 		// 	e = e->next;
 		// 	continue;
 		// }
+		if (e->state == ALIVE)
+			e->i = frame / 6;
+		else if (frame % 7 == 0 && e->i < 7 && k)
+		{
+			e->i += 1;
+		}
+		
 		s.x = (e->pos.x - game->player.pos.x);
 		s.y = (e->pos.y - game->player.pos.y);
 		
@@ -130,15 +119,18 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		int endx = swidth / 2 + spritescrx;
 		if (endx >= WIDTH)
 			endx = WIDTH;
+		
+		
 		if ((WIDTH/2 >= startx && WIDTH/2 <= endx) && (HEIGHT/2 >= starty && HEIGHT/2 <= endy) && game->player.attack)
 		{
 			e->hp -= 100;
+			
 			if (e->hp <= 0)
 			{
 				e->state = DYING;
 				e->i = 0;
 			}
-			game->player.attack = 0;
+			// game->player.attack = 0;
 		}
 		
 		// printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
@@ -167,14 +159,21 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 				tex.test = *(u_int32_t *)tex.tex_pos;
 				tex.test = darken_colour(tex.test, proj.y * 15);
 				if (tex.test != 0)
-					*(uint32_t *)tex.img_pos = tex.test;
+				{
+					if (game->player.attack)
+						*(uint32_t *)tex.img_pos = 0xFF0000FF;
+					else
+						*(uint32_t *)tex.img_pos = tex.test;
+				}
 
 				y++;
 			}
 			line++;
 		}
-		// if (i == 7)
+		// if (e->i == 7)
 		// 	e->state = DEAD;
+		if (game->player.attack)	
+			game->player.attack = 0;
 		e = e->next;
 	}
 }
