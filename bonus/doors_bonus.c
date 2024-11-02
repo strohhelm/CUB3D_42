@@ -6,71 +6,11 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/01 19:52:08 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:29:48 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub_bonus.h"
-
-t_point	intersection(t_point a, t_point b, t_point c, t_point d)
-{
-	t_point	s;
-	double t;
-	double	denominator;
-
-	s.x = 0.0;
-	s.y = 0.0;
-	denominator = ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
-	if (!denominator)
-		return(s);
-	else
-	{
-		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denominator;
-	}
-	if (t > 0)
-	{
-		s.x = a.x + t * (b.x - a.x);
-		s.y = a.y + t * (b.y - a.y);
-	}
-	return (s);
-}
-
-
-t_point	vector_between_two_points(t_point a, t_point b)
-{
-	t_point vector;
-
-	vector.x = b.x - a.x;
-	vector.y = b.y - a.y;
-	return (vector);
-}
-
-double	dist_between_two_points(t_point a, t_point b)
-{
-	double	dist;
-	t_point	vector;
-	
-	vector = vector_between_two_points(a, b);
-	dist = sqrt(vector.x * vector.x + vector.y * vector.y);
-	return (dist);
-}
-
-
-t_point	get_new_point(t_point p, t_point vector)
-{
-	t_point result;
-
-	result.x = p.x + vector.x;
-	result.y = p.y + vector.y;
-	return (result);
-}
-
-t_point	get_point_plus_x_times_vector(t_point p, double x, t_point v)
-{
-	p.x = p.x + x * v.x;
-	p.y = p.y + x * v.y;
-	return(p);
-}
 
 void get_screen(t_player *player, t_doorhelp *hlp)
 {
@@ -81,21 +21,6 @@ void get_screen(t_player *player, t_doorhelp *hlp)
 	hlp->pos.x = player->pos.x;
 	hlp->pos.y = player->pos.y;
 }
-int	get_screen_x_coord(t_doorhelp *hlp, t_point intersect)
-{
-	int	x_pixel_value;
-	double	x_on_screen_plane;
-	t_point	vector;
-
-	vector = vector_between_two_points(hlp->sl, intersect);
-	x_on_screen_plane = dist_between_two_points(hlp->sl, intersect);
-	if (hlp->screenvector.x * vector.x + hlp->screenvector.y * vector.y < 0)
-		x_on_screen_plane *= -1;
-	x_pixel_value = (int)(x_on_screen_plane / hlp->screenstep);
-	// printf("%f\n", x_on_screen_plane);
-	return (x_pixel_value);
-}
-
 
 void	draw_doorline(t_game *game, t_doorhelp *hlp, t_door *d, int x)
 {
@@ -129,19 +54,6 @@ void	draw_doorline(t_game *game, t_doorhelp *hlp, t_door *d, int x)
 	}
 }
 
-// distance from line through a and b to point c;
-double normalize_distance(t_point a, t_point b, t_point c)
-{
-	double result;
-	double	denominator;
-	double numerator;
-	
-	denominator = sqrt(pow(b.y - a.y, 2) + pow(b.x - a.x, 2));
-	numerator = (b.y - a.y) * c.x - (b.x - a.x) * c.y + b.x * a.y - b.y * a.x;
-	result = fabs(numerator) / denominator;
-	return (result);
-}
-
 
 void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 {
@@ -155,7 +67,7 @@ void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 		if (hlp->left + i >= 0 && hlp->left + i <= WIDTH)
 		{
 			hlp->door_intersect = get_point_plus_x_times_vector(hlp->door_start, i, hlp->doorstepvector);
-			dist = normalize_distance(hlp->sl, hlp->sr, hlp->door_intersect);
+			dist = orth_distance(hlp->sl, hlp->sr, hlp->door_intersect);
 			hlp->lineheight = (int)((double)HEIGHT / dist);
 			
 			if (dist <= game->map.dist_buffer[hlp->left + i])
@@ -172,85 +84,82 @@ void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 	}
 }
 
-
-void	set_doorvectors(t_doorhelp *hlp, t_point a, t_point b)
+void	set_doorvectors(t_doorhelp *hlp)
 {
 	t_point	doorvector;
-
-	doorvector = vector_between_two_points(a, b);
-	hlp->doorstepvector.x = doorvector.x / (double)hlp->px_len;
-	hlp->doorstepvector.y = doorvector.y / (double)hlp->px_len;
-	hlp->door_start = a;
+	double	divider;
+	
+	divider = hlp->p1p2_angle / hlp->px_angle;
+	doorvector = vector_between_two_points(hlp->left_d_point, hlp->right_d_point);
+	hlp->doorstepvector.x = doorvector.x / divider;
+	hlp->doorstepvector.y = doorvector.y / divider;
+	hlp->door_start = get_point_plus_x_times_vector(hlp->left_d_point, hlp->left, hlp->doorstepvector);
 }
 
-void	handle_left_right_situation(t_door *d)
+int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p)
 {
-	u_int32_t		tmp;
-	t_point			t;
-	
+	t_point	screenvector;
+	t_point	p_orth_vector;
+	double	dot_product;
+	double	mag_scr;
+	double	mag_orth;
+	t_point	p_intersect;
+	t_point	p_scr;
+	t_point	p_dir;
+	t_point	dir_point;
 
-	d->hlp.left = get_screen_x_coord(&d->hlp, d->hlp.p1_intersect);
-	d->hlp.right = get_screen_x_coord(&d->hlp, d->hlp.p2_intersect);
-	if (d->hlp.left > d->hlp.right)
+	screenvector = game->player.scr;
+	p_scr = vector_between_two_points(p, get_new_point(p, screenvector));
+	p_dir = get_new_point(p, p_scr);
+	dir_point = get_new_point(hlp->pos, hlp->dirvector);
+	p_intersect = intersection(p, p_dir, hlp->pos, dir_point);
+	printf("%f | %f\n", p_intersect.x, p_intersect.y);
+	p_orth_vector = vector_between_two_points(p, p_intersect);
+	dot_product = dot_prod(screenvector, p_orth_vector);
+	mag_scr = magn(screenvector);
+	mag_orth = magn(p_orth_vector);
+	if (dot_product == mag_scr * mag_orth)
+		return (RIGHT);
+	else if (dot_product == -1 * mag_scr * mag_orth)
+		return (LEFT);
+	else
+		return (OOPS);
+}
+
+void set_px_len(t_doorhelp *hlp)
+{
+	if (hlp->left_angle <= hlp->pov_angle / 2)
 	{
-		tmp = d->hlp.left;
-		t = d->hlp.p1_intersect;
-		d->hlp.left = d->hlp.right;
-		d->hlp.p1_intersect = d->hlp.p2_intersect;
-		d->hlp.right = tmp;
-		d->hlp.p2_intersect = t;
-		d->hlp.door_intersect = d->p1;
-		set_doorvectors(&d->hlp, d->p2, d->p1);
+			hlp->left = (int)((hlp->pov_angle / 2 - hlp->left_angle) / hlp->px_angle);
+		if (hlp->left == RIGHT)
+			hlp->left += WIDTH / 2;
 	}
 	else
-		set_doorvectors(&d->hlp, d->p1, d->p2);
-}
-void	handle_outside_screen_intersections(t_game *game, t_doorhelp *hlp, t_door *d)
-{
-	handle_left_right_situation(d);
-	// printf("left:%d, right:%d\n", hlp->left, hlp->right);
-	if ((hlp->left < 0 && hlp->right < 0) || (hlp->left > WIDTH && hlp->right > WIDTH))
 	{
-		hlp->px_len = 0;
-		return ;
+			hlp->left = 0;
+		if (hlp->left_dir == RIGHT)
+			hlp->left = WIDTH;
 	}
-	else if ((hlp->left < 0 && hlp->right > WIDTH))
+	if (hlp->right_angle <= hlp->pov_angle / 2)
 	{
-		hlp->px_len = WIDTH;
-		// hlp->left = 0;
-		// hlp->right = WIDTH;
+		hlp->right = (int)((hlp->right_angle - hlp->pov_angle / 2) / hlp->px_angle);
+		if (hlp->right_dir == RIGHT)
+			hlp->right += WIDTH / 2;
 	}
-	// if (hlp->left < 0)
-	// 	hlp->left = 0;
-	// if (hlp->right > WIDTH)
-	// 	hlp->right = WIDTH;
+	else
+	{
+		hlp->right = WIDTH;
+		if (hlp->right_dir == LEFT)
+			hlp->right = 0;
+	}
 	hlp->px_len = hlp->right - hlp->left;
-	
-	return ;
-}
-double angle_between_vectors(t_point a, t_point b)
-{
-	double	scalar_product;
-	double	magnitude_a;
-	double	magnitude_b;
-	double	angle;
-
-	scalar_product = a.x * b.x + a.y * b.y;
-	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
-	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
-	angle = acos(scalar_product / (magnitude_a * magnitude_b));
-	return (angle);
 }
 
 //sl = screen left, sr = screen right, si = screen intersection
 void	draw_door(t_game *game, t_door *d)
 {
 	t_doorhelp	*hlp;
-	t_point		dirvector;
-	t_point		p1vector;
-	t_point		p2vector;
-	t_point		slvector;
-	t_point		srvector;
+	
 	hlp = &d->hlp;
 	get_screen(&game->player, hlp);
 	hlp->doorwidth = dist_between_two_points(d->p1, d->p2);
@@ -259,21 +168,19 @@ void	draw_door(t_game *game, t_door *d)
 	hlp->screenstep = hlp->screenwidth / (double)WIDTH;
 	hlp->stepvector.x = hlp->screenvector.x * hlp->screenstep;
 	hlp->stepvector.y = hlp->screenvector.y * hlp->screenstep;
-	dirvector = game->player.dir;
-	p1vector = vector_between_two_points(game->player.pos, d->p1);
-	p2vector = vector_between_two_points(game->player.pos, d->p2);
-	slvector = vector_between_two_points(game->player.pos, d->hlp.sl);
-	srvector = vector_between_two_points(game->player.pos, d->hlp.sr);
-	printf ("dir-left: %f, dir-right: %f, sl-sr: %f p1-p2: %f\n",
-	angle_between_vectors(dirvector, p2vector) * 180.0 / PI,
-	angle_between_vectors(dirvector, p1vector) * 180.0 / PI,
-	angle_between_vectors(slvector, srvector) * 180.0 / PI, 
-	angle_between_vectors(p1vector, p2vector) * 180.0 / PI);
-	hlp->p1_intersect = intersection(hlp->pos, d->p1, hlp->sl, hlp->sr);
-	hlp->p2_intersect = intersection(hlp->pos, d->p2, hlp->sl, hlp->sr);
-	// printf("p1:%f | %f, p2:%f | %f\n", hlp->p1_intersect.x, hlp->p1_intersect.y, hlp->p2_intersect.x, hlp->p2_intersect.y);
-
-	handle_outside_screen_intersections(game, hlp, d);
+	hlp->dirvector = game->player.dir;
+	hlp->p1vector = vector_between_two_points(game->player.pos, d->p1);
+	hlp->p2vector = vector_between_two_points(game->player.pos, d->p2);
+	hlp->slvector = vector_between_two_points(game->player.pos, d->hlp.sl);
+	hlp->srvector = vector_between_two_points(game->player.pos, d->hlp.sr);
+	hlp->p1_angle = angle_between_vectors(hlp->dirvector, hlp->p1vector) * 180.0 / PI;
+	hlp->p2_angle = angle_between_vectors(hlp->dirvector, hlp->p2vector) * 180.0 / PI;
+	hlp->pov_angle = angle_between_vectors(hlp->slvector, hlp->srvector) * 180.0 / PI;
+	hlp->p1p2_angle = angle_between_vectors(hlp->p1vector, hlp->p2vector) * 180.0 / PI;
+	hlp->px_angle = hlp->pov_angle / (double)WIDTH;
+	set_left_right_vectors(game, hlp, d);
+	set_px_len(hlp);
+	set_doorvectors(hlp);
 	if (hlp->px_len > 0)
 		calc_doorlines(game, &d->hlp, d);
 }

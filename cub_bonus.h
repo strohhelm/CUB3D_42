@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/01 19:10:56 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:08:46 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ enum e_error
 	MALLOC,
 };
 
+enum e_direction
+{
+	LEFT,
+	RIGHT,
+	OOPS,
+};
 
 typedef struct s_coordinate {
 	double	x;
@@ -97,24 +103,46 @@ typedef struct s_player
 
 typedef struct s_doorhelp
 {
-	int	px_len;
+	int		px_len;
 	t_point	p1_intersect;
 	t_point	p2_intersect;
 	t_point	door_intersect;
 	t_point	door_start;
 	t_point	doorstepvector;
-	t_point sl;
-	t_point sr;
-	t_point screenvector;
-	double screenwidth;
-	t_point stepvector;
-	double screenstep;
+	t_point	sl;
+	t_point	sr;
+	t_point	dirvector;
+	t_point	p1vector;
+	t_point	p2vector;
+	t_point	slvector;
+	t_point	srvector;
+	t_point	left_vector;
+	t_point	right_vector;
+	t_point	left_d_point;
+	t_point	right_d_point;
+	double	left_angle;
+	double	right_angle;
+	double	p1_angle;
+	double	p2_angle;
+	double	pov_angle;
+	double	p1p2_angle;
+	t_point	screenvector;
+	double	screenwidth;
+	t_point	stepvector;
+	double	screenstep;
 	double	doorwidth;
 	double	doorstep;
-	int left;
-	int right;
-	int lineheight;
-	t_point pos;
+	double	px_angle;
+	int		left;
+	int		right;
+	int		lineheight;
+	int		left_dir;
+	int		right_dir;
+	int		p1_dir;
+	int		p2_dir;
+	double	p1_dist;
+	double	p2_dist;
+	t_point	pos;
 }	t_doorhelp;
 
 typedef struct s_door
@@ -235,6 +263,22 @@ void	collision(t_point new_pos, t_game *game);
 
 /*		doors.c			*/
 void	draw_doors(t_game *game);
+int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p);
+
+/*		doors_utils		*/
+t_point	intersection(t_point a, t_point b, t_point c, t_point d);
+t_point	vector_between_two_points(t_point a, t_point b);
+double	dist_between_two_points(t_point a, t_point b);
+t_point	get_new_point(t_point p, t_point vector);
+t_point	get_point_plus_x_times_vector(t_point p, double x, t_point v);
+
+/*		doors_utils_2	*/
+double	orth_distance(t_point a, t_point b, t_point c);
+double	dot_prod(t_point a, t_point b);
+double	magn(t_point a);
+double	angle_between_vectors(t_point a, t_point b);
+void	set_left_right_vectors(t_game *game, t_doorhelp *hlp, t_door *d);
+
 
 /*		draw_line		*/
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
