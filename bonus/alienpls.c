@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alienpls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/02 18:08:47 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/03 14:40:44 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dy
 	new_node->hp = 100;
 	new_node->state = ALIVE;
 	new_node->i = 0;
+	new_node->hit = 0;
 	
 	if (!*e)
 	{
@@ -86,7 +87,7 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		// }
 		if (e->state == ALIVE)
 			e->i = frame / 6;
-		else if (frame % 7 == 0 && e->i < 7 && k)
+		else if (frame % 6 == 0 && e->i < 7 && k)
 		{
 			e->i += 1;
 		}
@@ -124,13 +125,13 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		if ((WIDTH/2 >= startx && WIDTH/2 <= endx) && (HEIGHT/2 >= starty && HEIGHT/2 <= endy) && game->player.attack)
 		{
 			e->hp -= 100;
-			
+			e->hit = 1;
 			if (e->hp <= 0)
 			{
 				e->state = DYING;
 				e->i = 0;
 			}
-			// game->player.attack = 0;
+			game->player.attack = 0;
 		}
 		
 		// printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
@@ -160,7 +161,7 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 				tex.test = darken_colour(tex.test, proj.y * 15);
 				if (tex.test != 0)
 				{
-					if (game->player.attack)
+					if (e->hit)
 						*(uint32_t *)tex.img_pos = 0xFF0000FF;
 					else
 						*(uint32_t *)tex.img_pos = tex.test;
@@ -172,8 +173,9 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		}
 		// if (e->i == 7)
 		// 	e->state = DEAD;
-		if (game->player.attack)	
+		// if (game->player.attack)	
 			game->player.attack = 0;
+		e->hit = 0;
 		e = e->next;
 	}
 }
@@ -195,11 +197,16 @@ void enemy_dist(t_game *game, t_ai **enemy, int frame)
 		if (e->dist <= 0.5 && game->player.hp > 0)
 		{
 			game->player.hp -= 5;
+			health_bar(game);
 			if (game->player.hp <= 0)
 			{
-				game->img = mlx_texture_to_image(game->mlx, mlx_load_png("./include/textures/include/textures/GAME_OVER.png"));
-				sleep(2);
-				free_game_end(game);
+				mlx_texture_t *end = mlx_load_png("./include/textures/GAME_OVER.png");
+				mlx_image_t *go = mlx_texture_to_image(game->mlx, end);
+				blank(game);
+				mlx_image_to_window(game->mlx, go, 180, 100);
+				game->over = 1;
+				// sleep(2);
+				// free_game_end(game);
 			}
 		}
 		// printf("Player: x:%lf, y:%lf\nDist: %lf\n", p.x, p.y, e->dist);

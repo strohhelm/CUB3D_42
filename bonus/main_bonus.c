@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/02 17:36:18 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/03 14:15:53 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
 	put_crosshair(&game);
-
+	load_gun(&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(game.mlx, mouse, (void *)&game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
@@ -46,6 +46,7 @@ void	init_game(t_game *game)
 	game->player.width = WIDTH;
 	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.66;
+	game->over = 0;
 	game->player.attack = 0;
 	game->player.hp = 100;
 	game->scale = 10;

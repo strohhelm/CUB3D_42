@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/02 17:46:16 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/03 14:37:56 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_enemy
 	mlx_texture_t **tex[2];
 	double dist;
 	struct s_enemy *next;
+	int hit;
 	int state;
 	int hp;
 	int i;
@@ -105,6 +106,8 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point	scr;
+	mlx_image_t *gun_img;
+	mlx_texture_t **gun;
 	double	pov;
 	int		start;
 	long	color;
@@ -179,6 +182,7 @@ typedef struct s_game
 	t_player	player;
 	t_map		map;
 	t_rays		ray;
+	int			over;
 	int			mouse;
 	int			x;
 	int			y;
@@ -204,6 +208,7 @@ typedef struct s_algorythm {
 
 /*		UI		*/
 void health_bar(t_game *game);
+void load_gun(t_game *game);
 
 /*		alien			*/
 t_ai *load_alien(t_game *game);

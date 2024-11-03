@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/02 17:46:42 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/03 14:40:02 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,16 +219,20 @@ void render(void *param)
 	static t_ai *e = NULL;
 	static int	i = 0;
 
+	t = mlx_get_time();
 	if (frame == 30)
 		frame = 1;
 	time = 1.0 / FPS;
 	game = (t_game *)param;
-	t = mlx_get_time();
 	if (i == 0)
 	{
 		e = load_alien(game);
 		game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 		mlx_image_to_window(game->mlx, game->hp, 0, 0);
+		health_bar(game);
+		// mlx_texture_t *end = mlx_load_png("./include/textures/GAME_OVER.png");
+		// mlx_image_t *go = mlx_texture_to_image(game->mlx, end);
+		// mlx_image_to_window(game->mlx, go, 0, 0);
 	}
 	if (i++ < 2)
 	{
@@ -238,15 +242,19 @@ void render(void *param)
 		return ;
 	}
 	ft_hook(game);
-	blank(game);
-	minumap(game);
-	// backgroud(game);
-	raycasting(game);
-	update_enemy_pos(&e, game);
-	enemy_dist(game, &e, frame);
-	health_bar(game);
-	ft = mlx_get_time() - t;
-	if (ft < time)
-		usleep((int)((time - ft) * 1000000));
-	frame++;
+	if (!game->over)
+	{
+		blank(game);
+		minumap(game);
+		// backgroud(game);
+		raycasting(game);
+		// if(game->player.attack)
+		// 	gun_anim(game);
+		update_enemy_pos(&e, game);
+		enemy_dist(game, &e, frame);
+		ft = mlx_get_time() - t;
+		if (ft < time)
+			usleep((int)((time - ft) * 1000000));
+		frame++;
+	}
 }
