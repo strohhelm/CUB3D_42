@@ -6,7 +6,7 @@
 /*   By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/02 18:00:59 by h4ns             ###   ########.fr       */
+/*   Updated: 2024/11/02 18:08:47 by h4ns             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,8 @@ void enemy_dist(t_game *game, t_ai **enemy, int frame)
 			game->player.hp -= 5;
 			if (game->player.hp <= 0)
 			{
+				game->img = mlx_texture_to_image(game->mlx, mlx_load_png("./include/textures/include/textures/GAME_OVER.png"));
+				sleep(2);
 				free_game_end(game);
 			}
 		}
