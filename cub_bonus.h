@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/03 14:37:56 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:48:59 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ typedef struct s_algorythm {
 /*		UI		*/
 void health_bar(t_game *game);
 void load_gun(t_game *game);
+void gun_anim(t_game *game, int frame);
 
 /*		alien			*/
 t_ai *load_alien(t_game *game);

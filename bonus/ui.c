@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/03 14:38:53 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:04:17 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void health_bar(t_game *game)
 
 void load_gun(t_game *game)
 {
-    mlx_texture_t *gun[4];
+    mlx_texture_t **gun;
     mlx_image_t *gun_img;
+	gun = (mlx_texture_t **)malloc(sizeof(mlx_texture_t*) * 4);
     gun[0] = mlx_load_png("include/textures/gunsprites/1.png");
     gun[1] = mlx_load_png("include/textures/gunsprites/2.png");
     gun[2] = mlx_load_png("include/textures/gunsprites/3.png");
@@ -53,7 +54,24 @@ void load_gun(t_game *game)
     mlx_image_to_window(game->mlx, gun_img, WIDTH - 600, HEIGHT - 400);
 }
 
-// void gun_anim(t_game *game)
-// {
+void gun_anim(t_game *game, int frame)
+{
+    static int i = 0;
+    if(!game->player.attack)
+        return;
+    if (frame % 4 == 0)
+        i++;
+    printf("Gun ani %d\n", i);
+    mlx_delete_image(game->mlx, game->player.gun_img);
+    game->player.gun_img = mlx_texture_to_image(game->mlx, game->player.gun[i]);
+    mlx_image_to_window(game->mlx, game->player.gun_img, WIDTH - 600, HEIGHT - 400);
 
-// }
+    if (i >= 3)
+    {
+        mlx_delete_image(game->mlx, game->player.gun_img);
+        game->player.gun_img = mlx_texture_to_image(game->mlx, game->player.gun[0]);
+        mlx_image_to_window(game->mlx, game->player.gun_img, WIDTH - 600, HEIGHT - 400);
+        i = 0;
+    	game->player.attack = 0;
+    }
+}

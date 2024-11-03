@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/03 14:40:44 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/03 14:58:36 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 				e->state = DYING;
 				e->i = 0;
 			}
-			game->player.attack = 0;
 		}
 		
 		// printf("Y: s: %d e: %d || X: s: %d e: %d\n", starty, endy, startx, endx);
@@ -173,8 +172,6 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		}
 		// if (e->i == 7)
 		// 	e->state = DEAD;
-		// if (game->player.attack)	
-			game->player.attack = 0;
 		e->hit = 0;
 		e = e->next;
 	}

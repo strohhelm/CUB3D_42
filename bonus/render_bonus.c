@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/03 14:40:02 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/03 15:03:16 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,8 +248,7 @@ void render(void *param)
 		minumap(game);
 		// backgroud(game);
 		raycasting(game);
-		// if(game->player.attack)
-		// 	gun_anim(game);
+		gun_anim(game, frame);
 		update_enemy_pos(&e, game);
 		enemy_dist(game, &e, frame);
 		ft = mlx_get_time() - t;
