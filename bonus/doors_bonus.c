@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 14:25:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:49:26 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 			
 			if (dist <= game->map.dist_buffer[hlp->left + i])
 				draw_doorline(game, hlp, d, hlp->left + i);
-			if (i == 0 || i == hlp->px_len)
+			if (i == 0 || hlp->left + i == hlp->right)
 			{
 				for(int k = 0; k < HEIGHT; k++)
 				{
@@ -93,33 +93,36 @@ void	set_doorvectors(t_doorhelp *hlp)
 	doorvector = vector_between_two_points(hlp->left_d_point, hlp->right_d_point);
 	hlp->doorstepvector.x = doorvector.x / divider;
 	hlp->doorstepvector.y = doorvector.y / divider;
-	hlp->door_start = get_point_plus_x_times_vector(hlp->left_d_point, hlp->left, hlp->doorstepvector);
 }
 
 void set_px_len(t_doorhelp *hlp)
 {
 	double	half_pov;
+	double	delta;
 
 	half_pov = hlp->pov_angle / 2.0;
-	if (hlp->left_angle <= hlp->pov_angle / 2.0)
+	if (hlp->left_angle < half_pov)
 	{
 		if (hlp->left_dir == LEFT)
-			hlp->left = (int)((hlp->pov_angle / 2.0 - hlp->left_angle) / hlp->px_angle + EPSILON);
+			hlp->left = (int)round((half_pov - hlp->left_angle) / hlp->px_angle);
 		else
-			hlp->left = (int)((hlp->pov_angle / 2.0 + hlp->left_angle) / hlp->px_angle + EPSILON);
+			hlp->left = (int)round((half_pov + hlp->left_angle) / hlp->px_angle);
+		hlp->door_start = hlp->left_d_point;
 	}
 	else
 	{
 		hlp->left = 0;
 		if (hlp->left_dir == RIGHT)
 			hlp->left = WIDTH;
+		delta = (hlp->left_angle - half_pov) / hlp->px_angle;
+		hlp->door_start = get_point_plus_x_times_vector(hlp->left_d_point, delta, hlp->doorstepvector);
 	}
-	if (hlp->right_angle < hlp->pov_angle / 2.0)
+	if (hlp->right_angle < half_pov)
 	{
 		if (hlp->right_dir == LEFT)
-			hlp->right = (int)((hlp->pov_angle / 2.0 - hlp->right_angle) / hlp->px_angle + EPSILON);
+			hlp->right = (int)round((half_pov - hlp->right_angle) / hlp->px_angle);
 		else
-			hlp->right = (int)((hlp->pov_angle / 2.0 + hlp->right_angle) / hlp->px_angle + EPSILON);
+			hlp->right = (int)round((half_pov + hlp->right_angle) / hlp->px_angle);
 	}
 	else
 	{
@@ -128,6 +131,8 @@ void set_px_len(t_doorhelp *hlp)
 			hlp->right = 0;
 	}
 	hlp->px_len = hlp->right - hlp->left;
+	if (hlp->left_angle > 90.0 && hlp->right_angle > 90.0)
+		hlp->px_len = 0;
 	printf("left_angle: %f, right_angle: %f\n", hlp->left_angle, hlp->right_angle);
 	printf("left: %d, right %d\n", hlp->left, hlp->right);
 	printf("\n");
@@ -151,16 +156,16 @@ void	draw_door(t_game *game, t_door *d)
 	hlp->dirvector = game->player.dir;
 	hlp->p1vector = vector_between_two_points(game->player.pos, d->p1);
 	hlp->p2vector = vector_between_two_points(game->player.pos, d->p2);
-	hlp->slvector = vector_between_two_points(game->player.pos, d->hlp.sl);
-	hlp->srvector = vector_between_two_points(game->player.pos, d->hlp.sr);
-	hlp->p1_angle = angle_between_vectors(hlp->dirvector, hlp->p1vector);
-	hlp->p2_angle = angle_between_vectors(hlp->dirvector, hlp->p2vector);
-	hlp->pov_angle = angle_between_vectors(hlp->slvector, hlp->srvector);
-	hlp->p1p2_angle = angle_between_vectors(hlp->p1vector, hlp->p2vector);
+	hlp->slvector = vector_between_two_points(game->player.pos, hlp->sl);
+	hlp->srvector = vector_between_two_points(game->player.pos, hlp->sr);
+	hlp->p1_angle = angle_between_vectors(hlp->dirvector, hlp->p1vector) * 180 / PI;
+	hlp->p2_angle = angle_between_vectors(hlp->dirvector, hlp->p2vector) * 180 / PI;
+	hlp->pov_angle = angle_between_vectors(hlp->slvector, hlp->srvector) * 180 / PI;
+	hlp->p1p2_angle = angle_between_vectors(hlp->p1vector, hlp->p2vector) * 180 / PI;
 	hlp->px_angle = hlp->pov_angle / (double)WIDTH;
 	set_left_right_vectors(game, hlp, d);
-	set_px_len(hlp);
 	set_doorvectors(hlp);
+	set_px_len(hlp);
 	if (hlp->px_len > 0)
 		calc_doorlines(game, &d->hlp, d);
 }

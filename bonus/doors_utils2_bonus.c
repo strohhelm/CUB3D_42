@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:27:42 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 13:54:23 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:34:33 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ double orth_distance(t_point a, t_point b, t_point c)
 	double numerator;
 	
 	denominator = sqrt(pow(b.y - a.y, 2) + pow(b.x - a.x, 2));
-	numerator = (b.y - a.y) * c.x - (b.x - a.x) * c.y + b.x * a.y - b.y * a.x;
+	numerator = (b.y - a.y) * c.x - (b.x - a.x) * c.y + (b.x * a.y - b.y * a.x);
 	result = fabs(numerator) / denominator;
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/02 17:08:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:27:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ typedef struct s_player
 typedef struct s_doorhelp
 {
 	int		px_len;
-	t_point	p1_intersect;
-	t_point	p2_intersect;
+	t_point	left_intersect;
+	t_point	right_intersect;
 	t_point	door_intersect;
 	t_point	door_start;
 	t_point	doorstepvector;
