@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:27:42 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 15:34:33 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 21:25:53 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ double angle_between_vectors(t_point a, t_point b)
 
 void	set_p1_left_p2_right(t_doorhelp *hlp, t_door *d)
 {
-	printf("left: p1, right p2\n");
+	// printf("left: p1, right p2\n");
 		hlp->left_vector = hlp->p1vector;
 		hlp->left_d_point = d->p1;
 		hlp->right_vector = hlp->p2vector;
@@ -71,7 +71,7 @@ void	set_p1_left_p2_right(t_doorhelp *hlp, t_door *d)
 }
 void	set_p2_left_p1_right(t_doorhelp *hlp, t_door *d)
 {
-		printf("left: p2, right p1\n");
+		// printf("left: p2, right p1\n");
 		hlp->left_vector = hlp->p2vector;
 		hlp->left_d_point = d->p2;
 		hlp->right_vector = hlp->p1vector;
@@ -86,15 +86,15 @@ void	set_left_right_vectors(t_game *game, t_doorhelp *hlp, t_door *d)
 {
 	hlp->p1_dir = left_or_right(game, hlp, d->p1);
 	hlp->p2_dir = left_or_right(game, hlp, d->p2);
-	if (hlp->p1_dir == LEFT)
-		printf("p1: LEFT ");
-	else if (hlp->p1_dir == RIGHT)
-		printf("p1: RIGHT ");
-	if (hlp->p2_dir == LEFT)
-		printf("p2: LEFT ");
-	else if (hlp->p2_dir == RIGHT)
-		printf("p2: RIGHT ");
-	printf("\n");
+	// if (hlp->p1_dir == LEFT)
+	// 	printf("p1: LEFT ");
+	// else if (hlp->p1_dir == RIGHT)
+	// 	printf("p1: RIGHT ");
+	// if (hlp->p2_dir == LEFT)
+	// 	printf("p2: LEFT ");
+	// else if (hlp->p2_dir == RIGHT)
+	// 	printf("p2: RIGHT ");
+	// printf("\n");
 	
 	hlp->p1_dist = orth_distance(hlp->pos,
 			get_new_point(hlp->pos, hlp->dirvector), d->p1);

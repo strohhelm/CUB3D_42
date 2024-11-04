@@ -4,8 +4,8 @@ EA ./include/textures/castle1.png
 
 NO ./include/textures/castle1.png
 SO ./include/textures/castle1.png
-F 0,0,0
-C  0,0,0
+F 50,160,81
+C  190,240,220
 
 1111111111111
 100000S000001

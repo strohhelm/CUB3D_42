@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 14:27:57 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 21:27:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define MAX_DOORS 20
 # define PI 3.14159265358979323846
 # define DEG 180.0 / PI
+# define NINETY PI / 2.0
 
 # include <math.h>
 # include <stdio.h>
@@ -39,7 +40,7 @@ enum e_colors
 	NO = 0x9B5DE5FF,
 	WE = 0xFF6F61FF,
 	SO = 0xDFFF00FF,
-	EA = 0x3E00FFFF,
+	EA = 0xFF0D0FFF,
 };
 enum e_identifyers
 {

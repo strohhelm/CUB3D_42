@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 14:29:38 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:01:29 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	{
 		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denominator;
 	}
-	if (t < 0)
-	{
-		s.x = a.x + t * (b.x - a.x);
-		s.y = a.y + t * (b.y - a.y);
-	}
+	s.x = a.x + t * (b.x - a.x);
+	s.y = a.y + t * (b.y - a.y);
 	return (s);
 }
 
