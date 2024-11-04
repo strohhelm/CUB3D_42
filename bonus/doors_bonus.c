@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/02 17:29:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:25:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 {
 	int		i;
 	double	dist;
-
+	
 
 	i = -1;
 	while (++i <= hlp->px_len)
@@ -96,55 +96,30 @@ void	set_doorvectors(t_doorhelp *hlp)
 	hlp->door_start = get_point_plus_x_times_vector(hlp->left_d_point, hlp->left, hlp->doorstepvector);
 }
 
-int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p)
-{
-	t_point	screenvector;
-	t_point	p_orth_vector;
-	double	dot_product;
-	double	mag_scr;
-	double	mag_orth;
-	t_point	p_intersect;
-	t_point	p_scr;
-	t_point	p_dir;
-	t_point	dir_point;
-
-	screenvector = game->player.scr;
-	p_scr = vector_between_two_points(p, get_new_point(p, screenvector));
-	p_dir = get_new_point(p, p_scr);
-	dir_point = get_new_point(hlp->pos, hlp->dirvector);
-	p_intersect = intersection(p, p_dir, hlp->pos, dir_point);
-	printf("%f | %f\n", p_intersect.x, p_intersect.y);
-	p_orth_vector = vector_between_two_points(p, p_intersect);
-	dot_product = dot_prod(screenvector, p_orth_vector);
-	mag_scr = magn(screenvector);
-	mag_orth = magn(p_orth_vector);
-	if (dot_product == mag_scr * mag_orth)
-		return (RIGHT);
-	else if (dot_product == -1 * mag_scr * mag_orth)
-		return (LEFT);
-	else
-		return (OOPS);
-}
-
 void set_px_len(t_doorhelp *hlp)
 {
-	if (hlp->left_angle <= hlp->pov_angle / 2)
+	double	half_pov;
+
+	half_pov = hlp->pov_angle / 2.0;
+	if (hlp->left_angle <= hlp->pov_angle / 2.0)
 	{
-			hlp->left = (int)((hlp->pov_angle / 2 - hlp->left_angle) / hlp->px_angle);
-		if (hlp->left == RIGHT)
-			hlp->left += WIDTH / 2;
+		if (hlp->left_dir == LEFT)
+			hlp->left = (int)((hlp->pov_angle / 2.0 - hlp->left_angle) / hlp->px_angle + EPSILON);
+		else
+			hlp->left = (int)((hlp->pov_angle / 2.0 + hlp->left_angle) / hlp->px_angle + EPSILON);
 	}
 	else
 	{
-			hlp->left = 0;
+		hlp->left = 0;
 		if (hlp->left_dir == RIGHT)
 			hlp->left = WIDTH;
 	}
-	if (hlp->right_angle <= hlp->pov_angle / 2)
+	if (hlp->right_angle < hlp->pov_angle / 2.0)
 	{
-		hlp->right = (int)((hlp->right_angle - hlp->pov_angle / 2) / hlp->px_angle);
-		if (hlp->right_dir == RIGHT)
-			hlp->right += WIDTH / 2;
+		if (hlp->right_dir == LEFT)
+			hlp->right = (int)((hlp->pov_angle / 2.0 - hlp->right_angle) / hlp->px_angle + EPSILON);
+		else
+			hlp->right = (int)((hlp->pov_angle / 2.0 + hlp->right_angle) / hlp->px_angle + EPSILON);
 	}
 	else
 	{
@@ -153,6 +128,11 @@ void set_px_len(t_doorhelp *hlp)
 			hlp->right = 0;
 	}
 	hlp->px_len = hlp->right - hlp->left;
+	printf("left_angle: %f, right_angle: %f\n", hlp->left_angle, hlp->right_angle);
+	printf("left: %d, right %d\n", hlp->left, hlp->right);
+	printf("\n");
+	fflush(stdout);
+
 }
 
 //sl = screen left, sr = screen right, si = screen intersection
@@ -173,10 +153,10 @@ void	draw_door(t_game *game, t_door *d)
 	hlp->p2vector = vector_between_two_points(game->player.pos, d->p2);
 	hlp->slvector = vector_between_two_points(game->player.pos, d->hlp.sl);
 	hlp->srvector = vector_between_two_points(game->player.pos, d->hlp.sr);
-	hlp->p1_angle = angle_between_vectors(hlp->dirvector, hlp->p1vector) * 180.0 / PI;
-	hlp->p2_angle = angle_between_vectors(hlp->dirvector, hlp->p2vector) * 180.0 / PI;
-	hlp->pov_angle = angle_between_vectors(hlp->slvector, hlp->srvector) * 180.0 / PI;
-	hlp->p1p2_angle = angle_between_vectors(hlp->p1vector, hlp->p2vector) * 180.0 / PI;
+	hlp->p1_angle = angle_between_vectors(hlp->dirvector, hlp->p1vector);
+	hlp->p2_angle = angle_between_vectors(hlp->dirvector, hlp->p2vector);
+	hlp->pov_angle = angle_between_vectors(hlp->slvector, hlp->srvector);
+	hlp->p1p2_angle = angle_between_vectors(hlp->p1vector, hlp->p2vector);
 	hlp->px_angle = hlp->pov_angle / (double)WIDTH;
 	set_left_right_vectors(game, hlp, d);
 	set_px_len(hlp);
