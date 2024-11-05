@@ -1,19 +1,19 @@
-WE ./include/textures/castle1.png
+WE ./include/textures/green.png
 
-EA ./include/textures/castle1.png
+EA ./include/textures/red.png
 
-NO ./include/textures/castle1.png
-SO ./include/textures/castle1.png
+NO ./include/textures/yellow.png
+SO ./include/textures/blue.png
 F 50,160,81
 C  190,240,220
 
 1111111111111
-100000S000001
-1000000000001
-1000000000001
-1000000000001
-1000000000001
-100001D100001
+1010000000001
+1D10100000001
+1N00D00000001
+1000100000001
+1000D00000001
+100011D100001
 1000000000001
 1000000000001
 1000000000001

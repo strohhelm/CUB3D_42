@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:41:16 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/01 19:06:57 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:11:16 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,110 +177,18 @@ void	calc_doorlines(t_game *game, t_doorhelp *hlp, t_door *d)
 }
 
 
-void	set_doorvectors(t_doorhelp *hlp, t_point a, t_point b)
-{
-	t_point	doorvector;
-
-	doorvector = vector_between_two_points(a, b);
-	hlp->doorstepvector.x = doorvector.x / (double)hlp->px_len;
-	hlp->doorstepvector.y = doorvector.y / (double)hlp->px_len;
-	hlp->door_start = a;
-}
-
-void	handle_left_right_situation(t_door *d)
-{
-	u_int32_t		tmp;
-	t_point			t;
-	
-
-	d->hlp.left = get_screen_x_coord(&d->hlp, d->hlp.p1_intersect);
-	d->hlp.right = get_screen_x_coord(&d->hlp, d->hlp.p2_intersect);
-	if (d->hlp.left > d->hlp.right)
-	{
-		tmp = d->hlp.left;
-		t = d->hlp.p1_intersect;
-		d->hlp.left = d->hlp.right;
-		d->hlp.p1_intersect = d->hlp.p2_intersect;
-		d->hlp.right = tmp;
-		d->hlp.p2_intersect = t;
-		d->hlp.door_intersect = d->p1;
-		set_doorvectors(&d->hlp, d->p2, d->p1);
-	}
-	else
-		set_doorvectors(&d->hlp, d->p1, d->p2);
-}
-void	handle_outside_screen_intersections(t_game *game, t_doorhelp *hlp, t_door *d)
-{
-	handle_left_right_situation(d);
-	// printf("left:%d, right:%d\n", hlp->left, hlp->right);
-	if ((hlp->left < 0 && hlp->right < 0) || (hlp->left > WIDTH && hlp->right > WIDTH))
-	{
-		hlp->px_len = 0;
-		return ;
-	}
-	else if ((hlp->left < 0 && hlp->right > WIDTH))
-	{
-		hlp->px_len = WIDTH;
-		// hlp->left = 0;
-		// hlp->right = WIDTH;
-	}
-	// if (hlp->left < 0)
-	// 	hlp->left = 0;
-	// if (hlp->right > WIDTH)
-	// 	hlp->right = WIDTH;
-	hlp->px_len = hlp->right - hlp->left;
-	
-	return ;
-}
-angle_between_vectors(t_point a, t_point b)
-{
-	double	scalar_product;
-	double	magnitude_a;
-	double	magnitude_b;
-	double	angle;
-
-	scalar_product = a.x * b.x + a.y * b.y;
-	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
-	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
-	angle = acos(scalar_product / (magnitude_a * magnitude_b));
-	
-}
 
 //sl = screen left, sr = screen right, si = screen intersection
 void	draw_door(t_game *game, t_door *d)
 {
 	t_doorhelp	*hlp;
-	t_point		dirvector;
-	t_point		p1vector;
-	t_point		p2vector;
-	t_point		slvector;
-	t_point		srvector;
+	int i;
 
-	hlp = &d->hlp;
-	get_screen(&game->player, hlp);
-	hlp->doorwidth = dist_between_two_points(d->p1, d->p2);
-	hlp->screenwidth = dist_between_two_points(hlp->sl, hlp->sr);
-	hlp->screenvector = vector_between_two_points(hlp->sl, hlp->sr);
-	hlp->screenstep = hlp->screenwidth / (double)WIDTH;
-	hlp->stepvector.x = hlp->screenvector.x * hlp->screenstep;
-	hlp->stepvector.y = hlp->screenvector.y * hlp->screenstep;
-	dirvector = vector_between_two_points(game->player.pos, game->player.dir);
-	p1vector = vector_between_two_points(game->player.pos, d->p1);
-	p2vector = vector_between_two_points(game->player.pos, d->p2);
-	slvector = vector_between_two_points(game->player.pos, d->hlp.sl);
-	srvector = vector_between_two_points(game->player.pos, d->hlp.sr);
-	printf ("dir-p1:%f, dir-p2:%f, sl-sr:%f p1-p2%f\n",
-	angle_between_vectors(dirvector, p1vector)*DEG,
-	angle_between_vectors(dirvector, p2vector)*DEG,
-	angle_between_vectors(slvector, srvector)*DEG, 
-	angle_between_vectors(p1vector, p2vector)*DEG);
-	hlp->p1_intersect = intersection(hlp->pos, d->p1, hlp->sl, hlp->sr);
-	hlp->p2_intersect = intersection(hlp->pos, d->p2, hlp->sl, hlp->sr);
-	// printf("p1:%f | %f, p2:%f | %f\n", hlp->p1_intersect.x, hlp->p1_intersect.y, hlp->p2_intersect.x, hlp->p2_intersect.y);
-
-	handle_outside_screen_intersections(game, hlp, d);
-	if (hlp->px_len > 0)
-		calc_doorlines(game, &d->hlp, d);
+	i = -1;
+	while (i <= WIDTH)
+	{
+		
+	}
 }
 
 void	draw_doors(t_game *game)

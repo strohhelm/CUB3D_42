@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:27:42 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 21:25:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:34:06 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ double magn(t_point a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y));
 }
+t_point	normalize(t_point p)
+{
+	double	m;
+
+	m = magn(p);
+	p.x /= m;
+	p.y /= m;
+	return (p);
+}
 
 int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p)
 {
@@ -43,19 +52,7 @@ int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p)
 		return (RIGHT);
 }
 
-double angle_between_vectors(t_point a, t_point b)
-{
-	double	scalar_product;
-	double	magnitude_a;
-	double	magnitude_b;
-	double	angle;
 
-	scalar_product = a.x * b.x + a.y * b.y;
-	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
-	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
-	angle = acos(scalar_product / (magnitude_a * magnitude_b));
-	return (angle);
-}
 
 void	set_p1_left_p2_right(t_doorhelp *hlp, t_door *d)
 {

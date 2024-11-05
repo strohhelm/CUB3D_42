@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/30 15:57:12 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/05 20:59:46 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ t_door	*make_new_door(int dir, int x, int y)
 	dp = (t_door *)malloc(sizeof(t_door));
 	if (!dp)
 		error_print("thats too bad bro, malloc fucked up!");
+	if (dir == NORTH)
+		printf("NORTH\n");
+	else
+		printf("WEST\n");
+	printf("before x: %d | y: %d\n",x, y);
 	dp->p1.x = x;
 	dp->p1.y = y + 0.5;
 	dp->p2.x = x + 1;
@@ -68,6 +73,7 @@ t_door	*make_new_door(int dir, int x, int y)
 		dp->p2.x = x + 0.5;
 		dp->p2.y = y;
 	}
+	printf("after:\np1x: %f\np1y:%f\np2x:%f\np2y:%f\n",dp->p1.x, dp->p1.y, dp->p2.x, dp->p2.y);
 	dp->status = CLOSED;
 	dp->progress = 0;
 	dp->texture = mlx_load_png("./include/textures/door.png");
@@ -97,7 +103,7 @@ void	check_door(t_doorstuff *d, int **p, int x, int y)
 		&& p[y - 1][x] == 0 && p[y + 1][x] == 0)
 		return (insert_door(d, WEST, x, y));
 	else
-		error_print("Oh mah gaawhd that aint a fukin great place for a door there ,is it?");
+		error_print("Oh my god that aint a fukin great place for a door there, is it?");
 }
 
 void	validate_int_map(t_map *map)

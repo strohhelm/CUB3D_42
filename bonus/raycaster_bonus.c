@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 14:39:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:27:40 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	raycasting(t_game *game)
 
 void	init_rays(t_game *game, t_rays *ray, int x)
 {
-	ray->camx = 2 * x / (double)(WIDTH)-1;
+	ray->camx = 2 * x / (double)(WIDTH) - 1;
 	ray->ray_dir_x = game->player.dir.x + game->player.scr.x * ray->camx;
 	ray->ray_dir_y = game->player.dir.y + game->player.scr.y * ray->camx;
 	ray->mx = (int)(game->player.pos.x);

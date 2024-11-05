@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 21:27:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/05 18:58:05 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,10 @@ typedef struct s_doorhelp
 	int		p2_dir;
 	double	p1_dist;
 	double	p2_dist;
+	double dist_left;
+	double dist_right;
 	t_point	pos;
+	t_point	scr;
 }	t_doorhelp;
 
 typedef struct s_door
@@ -264,7 +267,7 @@ void	collision(t_point new_pos, t_game *game);
 
 /*		doors.c			*/
 void	draw_doors(t_game *game);
-int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p);
+int		left_or_right(t_game *game, t_doorhelp *hlp, t_point p);
 
 /*		doors_utils		*/
 t_point	intersection(t_point a, t_point b, t_point c, t_point d);
@@ -279,6 +282,7 @@ double	dot_prod(t_point a, t_point b);
 double	magn(t_point a);
 double	angle_between_vectors(t_point a, t_point b);
 void	set_left_right_vectors(t_game *game, t_doorhelp *hlp, t_door *d);
+t_point	normalize(t_point p);
 
 
 /*		draw_line		*/

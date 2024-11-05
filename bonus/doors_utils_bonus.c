@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/04 16:01:29 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:08:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 {
 	t_point	s;
-	double t;
+	double	t;
+	double	u;
 	double	denominator;
 
 	s.x = 0.0;
@@ -26,9 +27,16 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	else
 	{
 		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denominator;
+		
+
+		
+		u = - ((a.x - b.x) * (a.y - c.y) - (a.y - b.y) * (a.x - c.x)) / denominator;
 	}
-	s.x = a.x + t * (b.x - a.x);
-	s.y = a.y + t * (b.y - a.y);
+	if (t > 0 && u > 0 && u < 1)
+	{
+		s.x = a.x + t * (b.x - a.x);
+		s.y = a.y + t * (b.y - a.y);
+	}
 	return (s);
 }
 
@@ -67,4 +75,17 @@ t_point	get_point_plus_x_times_vector(t_point p, double x, t_point v)
 	p.x = p.x + x * v.x;
 	p.y = p.y + x * v.y;
 	return(p);
+}
+double	angle_between_vectors(t_point a, t_point b)
+{
+	double	scalar_product;
+	double	magnitude_a;
+	double	magnitude_b;
+	double	angle;
+
+	scalar_product = a.x * b.x + a.y * b.y;
+	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
+	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
+	angle = acos(scalar_product / (magnitude_a * magnitude_b));
+	return (angle);
 }
