@@ -1,19 +1,19 @@
-WE ./include/textures/green.png
+WE ./include/textures/Untitled.png
 
-EA ./include/textures/red.png
+EA ./include/textures/Untitled.png
 
-NO ./include/textures/yellow.png
-SO ./include/textures/blue.png
+NO ./include/textures/Untitled.png
+SO ./include/textures/Untitled.png
 F 50,160,81
 C  190,240,220
 
 1111111111111
-1010000000001
-1D10100000001
-1N00D00000001
-1000100000001
-1000D00000001
-100011D100001
+1000000000001
+100000S000001
+1000000000001
+1000000000001
+1000000000001
+100001D100001
 1000000000001
 1000000000001
 1000000000001

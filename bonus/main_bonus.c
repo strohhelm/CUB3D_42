@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/28 12:22:05 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:54:54 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_game(t_game *game)
 	game->map.str_map = NULL;
 	game->map.dstuff.nb = 0;
 	game->map.dstuff.doors = NULL;
+	game->map.dstuff.current = NULL;
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/red.png");
 	if (!game->map.textures[FLOOR])
 		error_print("Cannot load floor texture");

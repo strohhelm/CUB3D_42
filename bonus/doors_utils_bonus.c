@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/05 21:08:23 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/06 13:56:05 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,17 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	t_point	s;
 	double	t;
 	double	u;
-	double	denominator;
+	double	denom;
 
 	s.x = 0.0;
 	s.y = 0.0;
-	denominator = ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
-	if (!denominator)
+	denom = ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
+	if (!denom)
 		return(s);
 	else
 	{
-		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denominator;
-		
-
-		
-		u = - ((a.x - b.x) * (a.y - c.y) - (a.y - b.y) * (a.x - c.x)) / denominator;
+		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denom;
+		u = -((a.x - b.x) * (a.y - c.y) - (a.y - b.y) * (a.x - c.x)) / denom;
 	}
 	if (t > 0 && u > 0 && u < 1)
 	{
@@ -40,8 +37,8 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	return (s);
 }
 
-
-t_point	vector_between_two_points(t_point a, t_point b)
+//returns the vector between point a and point b
+t_point	vector(t_point a, t_point b)
 {
 	t_point vector;
 
@@ -50,33 +47,27 @@ t_point	vector_between_two_points(t_point a, t_point b)
 	return (vector);
 }
 
-double	dist_between_two_points(t_point a, t_point b)
+//returns the distance bewteen point a and point b
+double	dist_points(t_point a, t_point b)
 {
 	double	dist;
-	t_point	vector;
+	t_point	v;
 	
-	vector = vector_between_two_points(a, b);
-	dist = sqrt(vector.x * vector.x + vector.y * vector.y);
+	v = vector(a, b);
+	dist = sqrt(v.x * v.x + v.y * v.y);
 	return (dist);
 }
 
-
-t_point	get_new_point(t_point p, t_point vector)
-{
-	t_point result;
-
-	result.x = p.x + vector.x;
-	result.y = p.y + vector.y;
-	return (result);
-}
-
-t_point	get_point_plus_x_times_vector(t_point p, double x, t_point v)
+//returns the point p multiplied by x times vector v
+t_point	point_x_vector(t_point p, double x, t_point v)
 {
 	p.x = p.x + x * v.x;
 	p.y = p.y + x * v.y;
 	return(p);
 }
-double	angle_between_vectors(t_point a, t_point b)
+// returns the angle between vector a and vector b.
+// a and b dont need to be normalized.
+double	vector_angle(t_point a, t_point b)
 {
 	double	scalar_product;
 	double	magnitude_a;
@@ -89,3 +80,4 @@ double	angle_between_vectors(t_point a, t_point b)
 	angle = acos(scalar_product / (magnitude_a * magnitude_b));
 	return (angle);
 }
+

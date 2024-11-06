@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/04 16:06:43 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/06 16:06:22 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ BFILES = 	main_bonus.c \
 			cast_textures_bonus.c \
 			collision_bonus.c \
 			doors_bonus.c \
+			door_mechanics_bonus.c \
 			doors_utils_bonus.c \
-			doors_utils2_bonus.c \
 			draw_line_bonus.c \
 			error_bonus.c \
 			minimap_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/05 18:58:05 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:49:13 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define PI 3.14159265358979323846
 # define DEG 180.0 / PI
 # define NINETY PI / 2.0
-
+# define ROTATE_AMOUNT NINETY / FPS
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -60,9 +60,9 @@ enum e_action
 enum e_status
 {
 	OPEN,
+	OPENING,
 	CLOSED,
 	CLOSING,
-	OPENING,
 };
 
 enum e_error
@@ -102,67 +102,46 @@ typedef struct s_player
 	long	color;
 }	t_player;
 
-typedef struct s_doorhelp
-{
-	int		px_len;
-	t_point	left_intersect;
-	t_point	right_intersect;
-	t_point	door_intersect;
-	t_point	door_start;
-	t_point	doorstepvector;
-	t_point	sl;
-	t_point	sr;
-	t_point	dirvector;
-	t_point	p1vector;
-	t_point	p2vector;
-	t_point	slvector;
-	t_point	srvector;
-	t_point	left_vector;
-	t_point	right_vector;
-	t_point	left_d_point;
-	t_point	right_d_point;
-	double	left_angle;
-	double	right_angle;
-	double	p1_angle;
-	double	p2_angle;
-	double	pov_angle;
-	double	p1p2_angle;
-	t_point	screenvector;
-	double	screenwidth;
-	t_point	stepvector;
-	double	screenstep;
-	double	doorwidth;
-	double	doorstep;
-	double	px_angle;
-	int		left;
-	int		right;
-	int		lineheight;
-	int		left_dir;
-	int		right_dir;
-	int		p1_dir;
-	int		p2_dir;
-	double	p1_dist;
-	double	p2_dist;
-	double dist_left;
-	double dist_right;
-	t_point	pos;
-	t_point	scr;
-}	t_doorhelp;
-
 typedef struct s_door
 {
 	t_point			p1;
 	t_point			p2;
 	int				status;
-	float			progress;
+	double			progress;
 	mlx_texture_t	*texture;
-	t_doorhelp		hlp;
 }	t_door;
+typedef struct s_doorhelp
+{
+	t_point	door_intersect;
+	t_point	sl;
+	t_point	sr;
+	t_point	dirvector;
+	t_point	screenvector;
+	t_point	screen_x;
+	double	screenwidth;
+	t_point	stepvector;
+	double	doorwidth;
+	t_point	pos;
+	int		lineheight;
+	int		start;
+	int		end;
+	t_point	tex_coords;
+	double	door_x;
+	uint8_t	*tex_pos;
+	uint8_t	*img_pos;
+	double	tex_step;
+	double	dist;
+	double	tmpdist;
+	double	buffdist;
+	double	angle;
+	t_door	*d;
+}	t_doorhelp;
 
 typedef struct s_doorstuff
 {
-	t_list			*doors;
-	int				nb;
+	t_list	*doors;
+	int		nb;
+	t_door	*current;
 }	t_doorstuff;
 
 typedef struct s_map
@@ -267,23 +246,18 @@ void	collision(t_point new_pos, t_game *game);
 
 /*		doors.c			*/
 void	draw_doors(t_game *game);
-int		left_or_right(t_game *game, t_doorhelp *hlp, t_point p);
+
+/*		door_mechanics_bonus.c	*/
+void	door_move(t_door *d);
+void	rotate_door(t_door *d);
+void	doors(t_game *game);
 
 /*		doors_utils		*/
 t_point	intersection(t_point a, t_point b, t_point c, t_point d);
-t_point	vector_between_two_points(t_point a, t_point b);
-double	dist_between_two_points(t_point a, t_point b);
-t_point	get_new_point(t_point p, t_point vector);
-t_point	get_point_plus_x_times_vector(t_point p, double x, t_point v);
-
-/*		doors_utils_2	*/
-double	orth_distance(t_point a, t_point b, t_point c);
-double	dot_prod(t_point a, t_point b);
-double	magn(t_point a);
-double	angle_between_vectors(t_point a, t_point b);
-void	set_left_right_vectors(t_game *game, t_doorhelp *hlp, t_door *d);
-t_point	normalize(t_point p);
-
+t_point	vector(t_point a, t_point b);
+double	dist_points(t_point a, t_point b);
+t_point	point_x_vector(t_point p, double x, t_point v);
+double	vector_angle(t_point a, t_point b);
 
 /*		draw_line		*/
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
