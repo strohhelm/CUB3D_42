@@ -1,9 +1,9 @@
-WE ./include/textures/Untitled.png
+WE ./include/textures/castle1+.png
 
-EA ./include/textures/Untitled.png
+EA ./include/textures/castle1+.png
 
-NO ./include/textures/Untitled.png
-SO ./include/textures/Untitled.png
+NO ./include/textures/castle1+.png
+SO ./include/textures/castle1+.png
 F 50,160,81
 C  190,240,220
 
@@ -11,8 +11,8 @@ C  190,240,220
 1000000000001
 100000S000001
 1000000000001
-1000000000001
-1000000000001
+1D100000001D1
+101D100000001
 100001D100001
 1000000000001
 1000000000001

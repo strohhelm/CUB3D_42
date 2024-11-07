@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/06 17:49:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/07 23:02:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define PI 3.14159265358979323846
 # define DEG 180.0 / PI
 # define NINETY PI / 2.0
-# define ROTATE_AMOUNT NINETY / FPS
+# define ROTATE_AMOUNT NINETY * 0.9 / FPS
+
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -106,8 +107,12 @@ typedef struct s_door
 {
 	t_point			p1;
 	t_point			p2;
+	int				map_x;
+	int				map_y;
+	int				id;
 	int				status;
 	double			progress;
+	int				dir;
 	mlx_texture_t	*texture;
 }	t_door;
 typedef struct s_doorhelp
@@ -129,6 +134,7 @@ typedef struct s_doorhelp
 	double	door_x;
 	uint8_t	*tex_pos;
 	uint8_t	*img_pos;
+	uint	test;
 	double	tex_step;
 	double	dist;
 	double	tmpdist;
@@ -136,6 +142,14 @@ typedef struct s_doorhelp
 	double	angle;
 	t_door	*d;
 }	t_doorhelp;
+
+typedef struct s_dooralloc
+{
+	int	dir;
+	int	x;
+	int	y;
+	int	id;
+}	t_da;
 
 typedef struct s_doorstuff
 {
@@ -248,7 +262,7 @@ void	collision(t_point new_pos, t_game *game);
 void	draw_doors(t_game *game);
 
 /*		door_mechanics_bonus.c	*/
-void	door_move(t_door *d);
+void	door_move(t_game *game, t_door *d);
 void	rotate_door(t_door *d);
 void	doors(t_game *game);
 
@@ -335,6 +349,7 @@ int		mv_arr(char **src, char **dest);
 void	free_game_end(t_game *game);
 void	free_int_array(int **arr, int h);
 void	free_string_array(char **str);
+int	left_or_right(t_point a, t_point b, t_point p);
 
 #endif
 

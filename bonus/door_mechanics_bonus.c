@@ -6,23 +6,47 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:27:28 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/06 18:02:26 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/07 23:05:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-void	door_move(t_door *d)
+
+
+void	door_move(t_game *game, t_door *d)
 {
+	t_list	*doors;
+	t_door	*p;
+	int		i;
+	int		dir;
+
 	if (d)
 	{
-		if (d->status == CLOSED || d->status == CLOSING)
+		dir = left_or_right(d->p1, d->p2, game->player.pos);
+		doors = game->map.dstuff.doors;
+		i = d->id - 1;
+		if (d->id % 2 == 0)
+			i = d->id + 1;
+		while (i-- > 0 && doors)
+			doors = doors->next;
+		p = doors->content;
+		if (d->status == CLOSED)
 		{
+			d->dir = -1.0;
+			p->dir = 1.0;
+			if (!dir)
+			{
+				d->dir = 1.0;
+				p->dir = -1.0;
+			}
 			d->status = OPENING;
+			p->status = OPENING;
 		}
-		else if (d->status == OPEN || d->status == OPENING)
+		else if (d->status == OPEN)
 		{
 			d->status = CLOSING;
+			p->status = CLOSING;
 		}
 	}
 }
@@ -32,13 +56,13 @@ void	rotate_door(t_door *d)
 	t_point	v;
 	t_point	rot;
 	double l_r;
-
-	l_r = 1;
+	
+	l_r = d->dir;
 	v = vector(d->p1, d->p2);
 	if (d->status == CLOSING)
 	{
 		d->progress -= 1.0 / FPS;
-		l_r = -1;
+		l_r = d->dir * -1.0;
 		if (d->progress <= 0.0 + 1 / FPS)
 		{
 			d->status = CLOSED;
@@ -69,7 +93,9 @@ void	doors(t_game *game)
 	{
 		d = (t_door *)doors->content;
 		if (d->status == CLOSING || d->status == OPENING)
+		{
 			rotate_door(d);
+		}
 		doors = doors->next;
 	}
 }

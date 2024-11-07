@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 15:53:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/07 23:02:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,18 @@ void	free_string_array(char **str)
 		i++;
 	}
 	free(str);
+}
+int	left_or_right(t_point a, t_point b, t_point p)
+{
+	double	cross_product;
+	t_point	b_vector;
+	t_point	p_vector;
+
+	b_vector = vector(a, b);
+	p_vector = vector(a, p);
+	cross_product = b_vector.x * p_vector.y - b_vector.y * p_vector.x;
+	if (cross_product < 0 )
+		return (LEFT);
+	else
+		return (RIGHT);
 }

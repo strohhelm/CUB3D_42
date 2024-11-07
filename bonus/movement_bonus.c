@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/06 17:57:00 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:13:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mouse(mlx_key_data_t key, void* par)
 		}
 	}
 	if (key.key == MLX_KEY_SPACE && key.action == MLX_PRESS)
-		door_move(game->map.dstuff.current);
+		door_move(game, game->map.dstuff.current);
 }
 
 void	rotation_extra_keys(t_game *game)

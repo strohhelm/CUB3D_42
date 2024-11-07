@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:41:16 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/06 13:48:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:56:26 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,19 +219,6 @@ double orth_distance(t_point a, t_point b, t_point c)
 double magn(t_point a)
 {
 	return (sqrt(a.x * a.x + a.y * a.y));
-}
-
-int	left_or_right(t_game *game, t_doorhelp *hlp, t_point p)
-{
-	double	cross_product;
-	t_point	p_vector;
-
-	p_vector = vector_between_two_points(hlp->pos, p);
-	cross_product = hlp->dirvector.x * p_vector.y - hlp->dirvector.y * p_vector.x;
-	if (cross_product < 0 )
-		return (LEFT);
-	else
-		return (RIGHT);
 }
 
 void	set_p1_left_p2_right(t_doorhelp *hlp, t_door *d)

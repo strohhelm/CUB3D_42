@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/06 18:02:20 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:56:25 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	draw_doorline(t_game *game, t_doorhelp *hlp, int x)
 			hlp->tex_pos = &hlp->d->texture->pixels[tex_index];
 			hlp->img_pos = &game->img->pixels[(((hlp->start + i)
 					* game->img->width) + x) * 4];
-			ft_memcpy(hlp->img_pos, hlp->tex_pos, 4);
+			ft_memmove(&hlp->test, hlp->tex_pos, 4);
+			if (hlp->test)
+				ft_memmove(hlp->img_pos, hlp->tex_pos, 4);
 		}
 		hlp->tex_coords.y += hlp->tex_step;
 		i++;
@@ -72,7 +74,8 @@ void	check_intersect(t_doorhelp *hlp, t_doorstuff *dstuff)
 		{
 			hlp->tmpdist = dist_points(hlp->pos, tmp);
 			hlp->angle = vector_angle(hlp->dirvector, vector(hlp->pos, hlp->screen_x));
-			hlp->tmpdist *= cos(hlp->angle);
+			if (hlp->angle != 0.0)
+				hlp->tmpdist *= cos(hlp->angle);
 			if (hlp->tmpdist < hlp->buffdist)
 			{
 				hlp->dist = hlp->tmpdist;
@@ -84,7 +87,6 @@ void	check_intersect(t_doorhelp *hlp, t_doorstuff *dstuff)
 	}
 }
 
-//sl = screen left, sr = screen right, si = screen intersection
 void	draw_doors(t_game *game)
 {
 	t_doorhelp	hlp;
@@ -99,13 +101,12 @@ void	draw_doors(t_game *game)
 		hlp.screen_x = point_x_vector(hlp.sl, (double)i, hlp.stepvector);
 		hlp.buffdist = game->map.dist_buffer[i];
 		check_intersect(&hlp, &game->map.dstuff);
-		hlp.lineheight = (int)((double)HEIGHT / hlp.dist);
+		hlp.lineheight = (int)round((double)HEIGHT / hlp.dist);
 		if (hlp.dist < (game->map.dist_buffer[i]))
 		{
 			draw_doorline(game, &hlp, i);
 			if (i == WIDTH / 2)
 				game->map.dstuff.current = hlp.d;
-			// game->map.dist_buffer[i] = hlp.dist;
 		}
 		else if (i == WIDTH / 2)
 			game->map.dstuff.current = NULL;
