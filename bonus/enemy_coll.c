@@ -1,0 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_coll.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:16:49 by timschmi          #+#    #+#             */
+/*   Updated: 2024/11/08 13:20:04 by timschmi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub_bonus.h"
+
+void set_e_index(t_point new_pos, t_ai *e, int *ix, int *iy)
+{
+	double radius;
+
+	radius = 0.5;
+	*ix = new_pos.x;
+	*iy = new_pos.y;
+
+	if ((new_pos.x - e->pos.x) < 0)
+		*ix = new_pos.x - radius;
+	else if ((new_pos.x - e->pos.x) > 0)
+		*ix = new_pos.x + radius;
+	if ((new_pos.y - e->pos.y) < 0)
+		*iy = new_pos.y - radius;
+	else if ((new_pos.y - e->pos.y) > 0)
+		*iy = new_pos.y + radius;
+}
+
+void	e_collision(t_point new_pos, t_game *game, t_ai *e)
+{
+	int	ix;
+	int	iy;
+
+	set_e_index(new_pos, e, &ix, &iy);
+	if (iy <= game->map.map_h && ix <= game->map.map_w
+		&& game->map.map[iy][ix] == 0 && (game->map.map[iy][(int)e->pos.x] == 0
+			&& game->map.map[(int)e->pos.y][ix] == 0))
+	{
+			e->pos = new_pos;
+	}
+	else if (iy <= game->map.map_h
+		&& game->map.map[iy][(int)e->pos.x] == 0)
+	{
+		new_pos.x = e->pos.x;
+		e->pos = new_pos;
+
+	}
+	else if (ix <= game->map.map_w
+		&& game->map.map[(int)e->pos.y][ix] == 0)
+	{
+		new_pos.y = e->pos.y;
+		e->pos = new_pos;
+
+	}
+}
+
+void update_enemy_pos(t_ai **enemy, t_game *game)
+{
+	t_ai *e = *enemy;
+
+	double dist;
+	t_point move;
+
+	while(e)
+	{
+		if (e->state == DYING || e->state == DEAD)
+		{
+			e = e->next;
+			continue;
+		}
+		dist = sqrt(pow(game->player.pos.x - e->pos.x, 2.0) + pow(game->player.pos.y - e->pos.y, 2.0));
+		double len = 0.03 / dist;
+		move.x = e->pos.x + len * (game->player.pos.x - e->pos.x);
+		move.y = e->pos.y + len * (game->player.pos.y - e->pos.y); 
+
+		e_collision(move, game, e);
+		e = e->next;
+	}
+}

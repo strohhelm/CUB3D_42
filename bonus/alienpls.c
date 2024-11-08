@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 12:47:10 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:46:35 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,17 @@ void render_sprite(t_game *game, t_enemy_var i, t_ai *e)
 	while (i.line < i.endx && i.proj.y > 0)
 	{
 		i.tex.tex.x = e->tex[e->state][e->i]->width * ((double)(i.line - i.startx) / i.swidth);	
-		
-		int y = i.starty;
-		if (y < 0)
-			y = 0;
-			
-		while(y < i.endy && i.proj.y < game->dist_arr[i.line])
+		i.y = i.starty;
+		if (i.y < 0)
+			i.y = 0;
+		while(i.y < i.endy && i.proj.y < game->dist_arr[i.line])
 		{
-			i.tex.tex.y = (double)(y - i.starty) * i.tex.step;
+			i.tex.tex.y = (double)(i.y - i.starty) * i.tex.step;
 			i.tex.arr_pos = ((int)i.tex.tex.y * e->tex[e->state][e->i]->width + (int)i.tex.tex.x) * 4;
 			i.tex.tex_pos = &e->tex[e->state][e->i]->pixels[i.tex.arr_pos];
-			i.tex.pic_pos = (y * game->img->width + i.line) * 4;
+			i.tex.pic_pos = (i.y * game->img->width + i.line) * 4;
 			i.tex.img_pos = &game->img->pixels[i.tex.pic_pos];
-			i.tex.test = *(u_int32_t *)i.tex.tex_pos;
-			i.tex.test = darken_colour(i.tex.test, i.proj.y * 15);
+			i.tex.test = darken_colour(*(u_int32_t *)i.tex.tex_pos, i.proj.y * 15);
 			if (i.tex.test != 0)
 			{
 				if (e->hit)
@@ -66,8 +63,7 @@ void render_sprite(t_game *game, t_enemy_var i, t_ai *e)
 				else
 					*(uint32_t *)i.tex.img_pos = i.tex.test;
 			}
-
-			y++;
+			i.y++;
 		}
 		i.line++;
 	}
@@ -102,9 +98,9 @@ void enemy_calc(t_game *game, t_enemy_var *i, t_ai *e)
 
 void hit_check(t_game *game, t_enemy_var i, t_ai *e)
 {
-	if (e->state == ALIVE && (WIDTH/2 >= i.startx && WIDTH/2 <= i.endx) && (HEIGHT/2 >= i.starty && HEIGHT/2 <= i.endy) && game->player.attack && i.proj.y > 0.0)
+	if (e->state == ALIVE && (WIDTH/2 >= i.startx && WIDTH/2 <= i.endx) && (HEIGHT/2 >= i.starty && HEIGHT/2 <= i.endy) && game->player.attack == 1 && i.proj.y > 0.0)
 	{
-		e->hp -= 100; // actual damage dealt
+		e->hp -= 50; // actual damage dealt
 		e->hit = 1;
 		if (e->hp <= 0)
 		{
@@ -142,24 +138,39 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 
 void game_over_check(t_game *game)
 {
+	int x; 
+	int y;
+
+	x = 0;
 	if (game->player.hp > 0)
 		return;
 	
 	mlx_texture_t *end = mlx_load_png("./include/textures/GAME_OVER.png");
 	mlx_image_t *go = mlx_texture_to_image(game->mlx, end);
-	blank(game);
+	mlx_image_t *black = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			mlx_put_pixel(black, x, y, 0x000000FF);
+			y++;
+		}
+		x++;
+	} 
+	mlx_image_to_window(game->mlx, black, 0, 0);
 	mlx_image_to_window(game->mlx, go, 180, 100);
 	game->over = 1;
 }
 
 void enemy_dist(t_game *game, t_ai **enemy, int frame)
 {
-	t_ai *e = *enemy;
-
-	t_point p = game->player.pos;
-
+	t_ai *e;
+	t_point p;
 	t_point len;
 
+	e = *enemy;
+	p = game->player.pos;
 	while(e)
 	{
 		len.x = fabs(e->pos.x - p.x);

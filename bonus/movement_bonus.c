@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/03 15:06:10 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:36:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	ft_hook(t_game *game)
 		set_new_pos(game, &new_pos, 'a', mod);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		set_new_pos(game, &new_pos, 'd', mod);
-	if (mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT))
+	if (mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT) && !game->player.attack)
 		game->player.attack = 1;
 	rotation_extra_keys(game);
 	if (game->mouse > 0)

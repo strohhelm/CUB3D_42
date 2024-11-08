@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 12:12:22 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:35:29 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void load_gun(t_game *game)
 void gun_anim(t_game *game, int frame)
 {
     static int i = 0;
-    if(!game->player.attack)
+    if (game->player.attack)
+        game->player.attack = 2;
+    else if(!game->player.attack)
         return;
-    if (frame % 4 == 0)
+    if (frame % 4 == 0 && i < 3)
         i++;
     // printf("Gun ani %d\n", i);
     mlx_delete_image(game->mlx, game->player.gun_img);

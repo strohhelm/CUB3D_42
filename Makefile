@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/08 11:58:59 by timschmi         ###   ########.fr        #
+#    Updated: 2024/11/08 13:21:00 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,9 @@ BFILES = 	main_bonus.c \
 			render_bonus.c \
 			alienpls.c \
 			ui.c \
-			init_enemies.c
+			init_enemies.c \
+			enemy_coll.c \
+
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC))
