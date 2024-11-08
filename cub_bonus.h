@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/08 13:22:58 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:16:48 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,11 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
+
+/*		enemy_dist_sort.c		*/
+void enemy_dist(t_game *game, t_ai **enemy, int frame);
+void sort_ai(t_ai **enemy);
+void	swap(t_ai **head);
 
 /*		ememy_coll.c		*/
 void update_enemy_pos(t_ai **enemy, t_game *game);

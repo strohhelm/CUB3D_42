@@ -6,45 +6,17 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 13:46:35 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:23:39 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-void	swap(t_ai **head)
-{
-	t_ai	*first;
-	t_ai	*second;
-
-	first = *head;
-	second = (*head)->next;
-	first->next = second->next;
-	second->next = first;
-	*head = second;
-}
-
-void sort_ai(t_ai **enemy)
-{
-	t_ai **temp = enemy;
-
-	while((*temp)->next)
-	{
-		if ((*temp)->next->dist > (*temp)->dist)
-		{
-			swap(temp);
-			temp = enemy;
-		}
-		else
-			temp = &(*temp)->next;
-	}
-}
-
 void render_sprite(t_game *game, t_enemy_var i, t_ai *e)
 {
 	while (i.line < i.endx && i.proj.y > 0)
 	{
-		i.tex.tex.x = e->tex[e->state][e->i]->width * ((double)(i.line - i.startx) / i.swidth);	
+		i.tex.tex.x = e->tex[e->state][e->i]->width * ((double)(i.line - i.startx) / i.swidth);
 		i.y = i.starty;
 		if (i.y < 0)
 			i.y = 0;
@@ -98,10 +70,22 @@ void enemy_calc(t_game *game, t_enemy_var *i, t_ai *e)
 
 void hit_check(t_game *game, t_enemy_var i, t_ai *e)
 {
+	t_ai *temp_e;
+
+	temp_e = e;
 	if (e->state == ALIVE && (WIDTH/2 >= i.startx && WIDTH/2 <= i.endx) && (HEIGHT/2 >= i.starty && HEIGHT/2 <= i.endy) && game->player.attack == 1 && i.proj.y > 0.0)
+		e->hit = 1;
+	temp_e = temp_e->next;
+	while (e->hit && temp_e)
+	{
+		enemy_calc(game, &i, temp_e);
+		if (temp_e->state == ALIVE && (WIDTH/2 >= i.startx && WIDTH/2 <= i.endx) && (HEIGHT/2 >= i.starty && HEIGHT/2 <= i.endy) && game->player.attack == 1 && i.proj.y > 0.0)
+			e->hit = 0;
+		temp_e = temp_e->next;
+	}
+	if (e->hit)
 	{
 		e->hp -= 50; // actual damage dealt
-		e->hit = 1;
 		if (e->hp <= 0)
 		{
 			e->state = DYING;
@@ -161,30 +145,4 @@ void game_over_check(t_game *game)
 	mlx_image_to_window(game->mlx, black, 0, 0);
 	mlx_image_to_window(game->mlx, go, 180, 100);
 	game->over = 1;
-}
-
-void enemy_dist(t_game *game, t_ai **enemy, int frame)
-{
-	t_ai *e;
-	t_point p;
-	t_point len;
-
-	e = *enemy;
-	p = game->player.pos;
-	while(e)
-	{
-		len.x = fabs(e->pos.x - p.x);
-		len.y = fabs(e->pos.y - p.y);
-		
-		e->dist = sqrt(pow(len.x, 2.0) + pow(len.y, 2.0));
-		if (e->state == ALIVE && e->dist <= 0.5 && game->player.hp > 0)
-		{
-			game->player.hp -= 5;
-			health_bar(game);
-			game_over_check(game);
-		}
-		e = e->next;
-	}
-	sort_ai(enemy);
-	draw_sprites(game, *enemy, frame);
 }

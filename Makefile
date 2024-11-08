@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/08 13:21:00 by timschmi         ###   ########.fr        #
+#    Updated: 2024/11/08 16:17:14 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ BFILES = 	main_bonus.c \
 			ui.c \
 			init_enemies.c \
 			enemy_coll.c \
+			enemy_dist_sort.c
 
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
