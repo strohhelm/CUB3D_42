@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: h4ns <h4ns@student.42.fr>                  +#+  +:+       +#+         #
+#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/02 17:18:47 by h4ns             ###   ########.fr        #
+#    Updated: 2024/11/08 11:58:59 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,8 @@ BFILES = 	main_bonus.c \
 			textures_bonus.c \
 			render_bonus.c \
 			alienpls.c \
-			ui.c
+			ui.c \
+			init_enemies.c
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC))

@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/03 14:48:59 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:30:15 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_enemy
 	int hp;
 	int i;
 } t_ai;
+
 
 enum e_colors
 {
@@ -170,6 +171,24 @@ typedef struct s_rays
 	t_texture	tex;
 }	t_rays;
 
+typedef struct s_enemy_var
+{
+	t_point s;
+	t_point proj;
+	t_texture tex;
+	double invcam;
+	int height_offset;
+	int spritescrx;
+	int sheight;
+	int starty;
+	int endy;
+	int swidth;
+	int startx;
+	int endx;
+	int line;
+	int y;
+} t_enemy_var;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
@@ -205,6 +224,11 @@ typedef struct s_algorythm {
 }	t_pixel_line;
 
 
+/*		init_enemies.c		*/
+t_ai *load_alien(t_game *game);
+mlx_texture_t **allocate_textures_dying(void);
+mlx_texture_t **allocate_textures_idle(void);
+void append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		UI		*/
 void health_bar(t_game *game);
