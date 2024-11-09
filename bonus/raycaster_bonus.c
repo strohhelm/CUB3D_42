@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/05 16:27:40 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:53:33 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,25 @@ void	draw_minimap_rays(t_game *game, t_rays *ray)
 	double	sc;
 
 	sc = MINIMAP_H / game->scale;
-	r = game->circle->width / 2 - 4;
+	r = game->circle->width / 2 - 3;
 	a.x = game->minimap->height / 2.0;
 	a.y = game->minimap->height / 2.0;
-	
-	b.x = (a.x + ray->minimap_hit.x * sc);
-	b.y = (a.y + ray->minimap_hit.y * sc);
-	dist = sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
+	minimap_door_hit(game, ray->wallhit, &b);
+	b = vector(game->player.pos, b);
+	if (b.x != ray->minimap_hit.x && b.y != ray->minimap_hit.y)
+		ray->minimap_hit = b;
+	b = point_x_vector(a, sc, ray->minimap_hit);
+	dist = dist_points(a, b);
 	if (dist > r)
 	{
 		scale = r / dist;
 		b.x = a.x + (b.x - a.x) * scale ;
 		b.y = a.y + (b.y - a.y) * scale ;
 	}
-	draw_line(&a, &b, game->minimap, SO);
+	uint32_t col;
+	col = game->map.ceiling;
+	invert_colour((uint8_t *)&col);
+	draw_line(&a, &b, game->minimap, col);
 }
 void	raycasting(t_game *game)
 {

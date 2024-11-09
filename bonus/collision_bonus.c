@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:51:18 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/04 17:36:28 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:07:15 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	collision(t_point new_pos, t_game *game)
 			update_pos(game, new_pos);
 	}
 	else if (iy <= game->map.map_h
-		&& game->map.map[iy][(int)game->player.pos.x] == 0)
+		&& game->map.map[iy][(int)game->player.pos.x] != 1)
 	{
 		new_pos.x = game->player.pos.x;
 		update_pos(game, new_pos);
 	}
 	else if (ix <= game->map.map_w
-		&& game->map.map[(int)game->player.pos.y][ix] == 0)
+		&& game->map.map[(int)game->player.pos.y][ix] != 1)
 	{
 		new_pos.y = game->player.pos.y;
 		update_pos(game, new_pos);

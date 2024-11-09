@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/06 13:56:05 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:52:46 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,31 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 		u = -((a.x - b.x) * (a.y - c.y) - (a.y - b.y) * (a.x - c.x)) / denom;
 	}
 	if (t > 0 && u > 0 && u < 1)
+	{
+		s.x = a.x + t * (b.x - a.x);
+		s.y = a.y + t * (b.y - a.y);
+	}
+	return (s);
+}
+
+t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d)
+{
+	t_point	s;
+	double	t;
+	double	u;
+	double	denom;
+
+	s.x = 0.0;
+	s.y = 0.0;
+	denom = ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
+	if (!denom)
+		return(s);
+	else
+	{
+		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denom;
+		u = -((a.x - b.x) * (a.y - c.y) - (a.y - b.y) * (a.x - c.x)) / denom;
+	}
+	if (t > 0 && t <= 1 && u > 0 && u <= 1)
 	{
 		s.x = a.x + t * (b.x - a.x);
 		s.y = a.y + t * (b.y - a.y);

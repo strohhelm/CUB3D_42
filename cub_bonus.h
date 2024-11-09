@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/07 23:02:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:39:05 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include "include/MLX42/include/MLX42/MLX42.h"
 
 typedef unsigned long	u_l;
-
+typedef	double db;
 enum e_colors
 {
 	NO = 0x9B5DE5FF,
@@ -164,8 +164,8 @@ typedef struct s_map
 	char			**str_map;
 	int				map_h;
 	int				map_w;
-	unsigned int	ceiling;
-	unsigned int	floor;
+	uint			ceiling;
+	uint			floor;
 	int				start[3];
 	double			scale;
 	mlx_texture_t	*textures[6];
@@ -265,6 +265,10 @@ void	draw_doors(t_game *game);
 void	door_move(t_game *game, t_door *d);
 void	rotate_door(t_door *d);
 void	doors(t_game *game);
+int		intersection_with_door(t_game *game, t_point p);
+void	minimap_door_hit(t_game *game, t_point hit, t_point *intersect);
+void	draw_minimap_doors(t_game *game, uint32_t colour);
+
 
 /*		doors_utils		*/
 t_point	intersection(t_point a, t_point b, t_point c, t_point d);
@@ -272,6 +276,7 @@ t_point	vector(t_point a, t_point b);
 double	dist_points(t_point a, t_point b);
 t_point	point_x_vector(t_point p, double x, t_point v);
 double	vector_angle(t_point a, t_point b);
+t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d);
 
 /*		draw_line		*/
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
@@ -289,6 +294,8 @@ void	minumap(t_game * game);
 void	minimap_init(t_game *game);
 uint32_t	darken_colour(uint32_t col, int amount);
 void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius);
+uint	invert_colour(uint8_t *col);
+void	cut_minimap(t_game *game);
 
 /*		main.c				*/
 void	init_game(t_game *game);

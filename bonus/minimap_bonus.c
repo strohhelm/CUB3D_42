@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/24 16:34:38 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 16:20:16 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,32 +205,6 @@ void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 	}
 }
 
-// {
-// 	int	x;
-// 	int	y;
-// 	int	xcenter;
-// 	int	ycenter;
-// 	int r2;
-// 	int r;
-
-// 	xcenter = MINIMAP_H / 2;
-// 	ycenter = MINIMAP_H / 2;
-// 	r = MINIMAP_H / 2;
-// 	r2 = r * r;
-// 	x = 1;
-// 	mlx_put_pixel(game->minimap, xcenter, ycenter + r, 0xFFFFFFFF);
-// 	mlx_put_pixel(game->minimap, xcenter, ycenter - r, 0xFFFFFFFF);
-// 	while (x <= r)
-// 	{
-// 		y = (int)(sqrt(r2 - x * x) + 0.5);
-// 		mlx_put_pixel(game->minimap, xcenter + x, ycenter + y, 0xFFFFFFFF);
-// 		mlx_put_pixel(game->minimap, xcenter + x, ycenter - y, 0xFFFFFFFF);
-// 		mlx_put_pixel(game->minimap, xcenter - x, ycenter + y, 0xFFFFFFFF);
-// 		mlx_put_pixel(game->minimap, xcenter - x, ycenter - y, 0xFFFFFFFF);
-// 		x++;
-// 	}	
-// }
-	
 void	minumap(t_game * game)
 {
 	int				w;
@@ -239,8 +213,8 @@ void	minumap(t_game * game)
 	double			x = 0.0;
 	double			y = 0.0;
 	double			step;
-	unsigned int	wall = 0;
-	unsigned int	floor = 0;
+	uint			wall = 0;
+	uint			floor = 0;
 	double			min;
 	double			max;
 	t_point			pos;
@@ -264,28 +238,59 @@ void	minumap(t_game * game)
 				x = w * step;
 				pos.y = game->player.pos.y - game->scale/2 + y;
 				pos.x = game->player.pos.x - game->scale/2 + x;
-			if (!colour(&game->circle->pixels[(((h) * game->circle->width) + w) * 4]))
-			{
-				mlx_put_pixel(game->minimap, w, h, 0x00000000);
-				// mlx_put_pixel(game->minimap, w, h, colour(&game->img->pixels[(((h + MINIMAP_P) * game->img->width) + w + MINIMAP_P) * 4]));
-				// if (colour(&game->img->pixels[(((h + MINIMAP_P) * game->img->width) + w + MINIMAP_P) * 4]) == SO)
-				// 	mlx_put_pixel(game->minimap, w, h, SO);
-				 if ((int)pos.x < game->map.map_w && (int)pos.y < game->map.map_h
+				mlx_put_pixel(game->minimap, w, h, wall);
+				if ((int)pos.x < game->map.map_w && (int)pos.y < game->map.map_h
 					&& (int)pos.x >= 0 && (int)pos.y >= 0)
 				{
 					if (w > min && w < max && h > min && h < max)
 						mlx_put_pixel(game->minimap, w, h, game->map.ceiling);
 					else if (game->map.map[(int)pos.y][(int)pos.x] == 1)
 						mlx_put_pixel(game->minimap, w, h, wall);
-					else if (game->map.map[(int)pos.y][(int)pos.x] == 0)
+					else if (game->map.map[(int)pos.y][(int)pos.x] != 1)
 						mlx_put_pixel(game->minimap, w, h, floor);
 				}
-			}
+			w++;
+		}
+		h++;
+	}
+	draw_minimap_doors(game, wall);
+	cut_minimap(game);
+}
+
+void	cut_minimap(t_game *game)
+{
+	int				w;
+	int				h;
+	int				printh;
+	double			x = 0.0;
+	double			y = 0.0;
+	double			step;
+	double			min;
+	double			max;
+	t_point			pos;
+	
+	h = 0;
+	printh = MINIMAP_H;
+	step = game->scale / (double)printh;
+	min = MINIMAP_H/2.0 - 5.0;
+	max = MINIMAP_H/2.0 + 5.0;
+	while (h < printh)
+	{
+		y = h * step;
+		w = 0;
+		while (w < printh)
+		{
+				x = w * step;
+				pos.y = game->player.pos.y - game->scale/2 + y;
+				pos.x = game->player.pos.x - game->scale/2 + x;
+			if (colour(&game->circle->pixels[(((h) * game->circle->width) + w) * 4]))
+				mlx_put_pixel(game->minimap, w, h, 0x00000000);
 			w++;
 		}
 		h++;
 	}
 }
+
 void	fill_outside_circle(mlx_image_t *img)
 {
 	u_int32_t		x;

@@ -6,107 +6,109 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/07 20:56:25 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 17:38:59 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub_bonus.h"
 
-void get_screen(t_player *player, t_doorhelp *hlp)
+//initializing the helpstruct
+void get_screen(t_player *player, t_doorhelp *h)
 {
-	hlp->sl.x = player->pos.x - player->scr.x + player->dir.x;
-	hlp->sl.y = player->pos.y - player->scr.y + player->dir.y;
-	hlp->sr.x = player->pos.x + player->scr.x + player->dir.x;
-	hlp->sr.y = player->pos.y + player->scr.y + player->dir.y;
-	hlp->pos = player->pos;
-	hlp->screenvector = vector(hlp->sl, hlp->sr);
-	hlp->stepvector.x = hlp->screenvector.x / (double)WIDTH;
-	hlp->stepvector.y = hlp->screenvector.y / (double)WIDTH;
-	hlp->dirvector = player->dir;
+	h->sl.x = player->pos.x - player->scr.x + player->dir.x;
+	h->sl.y = player->pos.y - player->scr.y + player->dir.y;
+	h->sr.x = player->pos.x + player->scr.x + player->dir.x;
+	h->sr.y = player->pos.y + player->scr.y + player->dir.y;
+	h->pos = player->pos;
+	h->screenvector = vector(h->sl, h->sr);
+	h->stepvector.x = h->screenvector.x / (db)WIDTH;
+	h->stepvector.y = h->screenvector.y / (db)WIDTH;
+	h->dirvector = player->dir;
 }
-
-void	draw_doorline(t_game *game, t_doorhelp *hlp, int x)
+//drwaing the texture of the door on the main image on the screen.
+//depending on distance and intersection finding the correct texture values.
+void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 {
 	int		i;
-	
-	i = 0;
-	hlp->doorwidth = dist_points(hlp->d->p1, hlp->d->p2);
-	hlp->start = -hlp->lineheight / 2 + HEIGHT / 2 - game->y;
-	hlp->end = hlp->lineheight / 2 + HEIGHT / 2;
-	hlp->tex_step = 1.0 * hlp->d->texture->height / hlp->lineheight;
-	hlp->door_x = dist_points(hlp->d->p1, hlp->door_intersect);
-	hlp->tex_coords.x = (double)hlp->d->texture->width
-					/ (hlp->doorwidth / hlp->door_x);
-	hlp->tex_coords.y = 0;
-	while (i <= hlp->lineheight)
+	int tex_index;
+	i = -1;
+	h->doorwidth = dist_points(h->d->p1, h->d->p2);
+	h->start = -h->lineheight / 2 + HEIGHT / 2 - game->y;
+	h->end = h->lineheight / 2 + HEIGHT / 2;
+	h->tex_step = (db)h->d->texture->height / (db)h->lineheight;
+	h->door_x = dist_points(h->d->p1, h->door_intersect);
+	h->tex_coords.x = (db)h->d->texture->width / (h->doorwidth / h->door_x);
+	h->tex_coords.y = 0;
+	while (++i < h->lineheight)
 	{
-		if (hlp->start + i >= 0 && hlp->start + i <= HEIGHT)
+		if (h->start + i >= 0 && h->start + i <= HEIGHT)
 		{
-			uint32_t tex_index = (((int)round(hlp->tex_coords.y)
-					* hlp->d->texture->width) + (int)round(hlp->tex_coords.x) ) * 4;
-			hlp->tex_pos = &hlp->d->texture->pixels[tex_index];
-			hlp->img_pos = &game->img->pixels[(((hlp->start + i)
+			tex_index = (((int)(h->tex_coords.y)
+					* h->d->texture->width) + (int)(h->tex_coords.x) ) * 4;
+			h->tex_pos = &h->d->texture->pixels[tex_index];
+			h->img_pos = &game->img->pixels[(((h->start + i)
 					* game->img->width) + x) * 4];
-			ft_memmove(&hlp->test, hlp->tex_pos, 4);
-			if (hlp->test)
-				ft_memmove(hlp->img_pos, hlp->tex_pos, 4);
+			ft_memmove(&h->test, h->tex_pos, 4);
+			if (h->test)
+				ft_memmove(h->img_pos, h->tex_pos, 4);
 		}
-		hlp->tex_coords.y += hlp->tex_step;
-		i++;
+		h->tex_coords.y += h->tex_step;
 	}
 }
 
-void	check_intersect(t_doorhelp *hlp, t_doorstuff *dstuff)
+//looping through each doorstruct to see if on ray direction is an
+//intersection with a doorline, and if so returning the closest one.
+void	check_intersect(t_doorhelp *h, t_list *doors)
 {
 	t_door	*d;
 	t_point	tmp;
-	t_list	*doors;
-	int		i;
 	
-	doors = dstuff->doors;
-	hlp->dist = hlp->buffdist + 2.0;
-	i = -1;
+	h->dist = h->buffdist + 2.0;
 	while (doors)
 	{
 		d = (t_door *)doors->content;
-		tmp = intersection(hlp->pos, hlp->screen_x, d->p1, d->p2);
+		tmp = intersection(h->pos, h->screen_x, d->p1, d->p2);
 		if (tmp.x && tmp.y)
 		{
-			hlp->tmpdist = dist_points(hlp->pos, tmp);
-			hlp->angle = vector_angle(hlp->dirvector, vector(hlp->pos, hlp->screen_x));
-			if (hlp->angle != 0.0)
-				hlp->tmpdist *= cos(hlp->angle);
-			if (hlp->tmpdist < hlp->buffdist)
+			h->tmpdist = dist_points(h->pos, tmp);
+			h->angle = vector_angle(h->dirvector, vector(h->pos,
+				h->screen_x));
+			if (h->angle != 0.0)
+				h->tmpdist *= cos(h->angle);
+			if (h->tmpdist < h->dist)
 			{
-				hlp->dist = hlp->tmpdist;
-				hlp->door_intersect = tmp;
-				hlp->d = d;
+				h->dist = h->tmpdist;
+				h->door_intersect = tmp;
+				h->d = d;
 			}
 		}
 		doors = doors->next;
 	}
 }
-
+//looping through all screen x values and drwaing a vertical line
+// of the door texture if there is one visible on screen.
 void	draw_doors(t_game *game)
 {
-	t_doorhelp	hlp;
+	t_doorhelp	h;
 	int i;
 
-	get_screen(&game->player, &hlp);
+	get_screen(&game->player, &h);
 	i = - 1;
-	hlp.door_intersect.x = 0.0;
-	hlp.door_intersect.y = 0.0;
+	h.door_intersect.x = 0.0;
+	h.door_intersect.y = 0.0;
 	while (++i < WIDTH && game->map.dstuff.nb > 0)
 	{
-		hlp.screen_x = point_x_vector(hlp.sl, (double)i, hlp.stepvector);
-		hlp.buffdist = game->map.dist_buffer[i];
-		check_intersect(&hlp, &game->map.dstuff);
-		hlp.lineheight = (int)round((double)HEIGHT / hlp.dist);
-		if (hlp.dist < (game->map.dist_buffer[i]))
+		h.screen_x = point_x_vector(h.sl, (db)i, h.stepvector);
+		h.buffdist = game->map.dist_buffer[i];
+		check_intersect(&h, game->map.dstuff.doors);
+		h.lineheight = (int)round((db)HEIGHT / h.dist);
+		if (h.dist < (game->map.dist_buffer[i]))
 		{
-			draw_doorline(game, &hlp, i);
-			if (i == WIDTH / 2)
-				game->map.dstuff.current = hlp.d;
+			draw_doorline(game, &h, i);
+			if (i == WIDTH / 2 && h.dist <= 2.0)
+				game->map.dstuff.current = h.d;
+			else if (i == WIDTH / 2)
+			game->map.dstuff.current = NULL;
 		}
 		else if (i == WIDTH / 2)
 			game->map.dstuff.current = NULL;
