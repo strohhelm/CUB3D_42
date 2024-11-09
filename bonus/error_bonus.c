@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:54:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:16:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	error(int e_action, int e_error)
 	return (NOUGHT);
 }
 
+// malloc protection wrapper
 void	err_check(void *p, char *msg)
 {
 	if (!p)
@@ -33,12 +34,14 @@ void	err_check(void *p, char *msg)
 		return ;
 }
 
+// fatal error exit wrapper.
 void	error_print(char *msg)
 {
 	printf("Error\n%s\n", msg);
 	exit(1);
 }
 
+// error check for map parser specifically.
 void	check_error(int e)
 {
 	if (e == DOUBLEIDENT)

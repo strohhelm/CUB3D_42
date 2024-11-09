@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/09 15:46:15 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/09 21:34:46 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,15 +35,18 @@ FILES =	main.c \
 			render.c \
 			free.c 
 
-BFILES = 	main_bonus.c \
+BFILES =	main_bonus.c \
 			cast_textures_bonus.c \
 			collision_bonus.c \
+			color_stuff_bonus.c \
 			doors_bonus.c \
 			door_mechanics_bonus.c \
+			door_mechanics_utils_bonus.c \
 			doors_utils_bonus.c \
 			draw_line_bonus.c \
 			error_bonus.c \
 			minimap_bonus.c \
+			minimap_allocation_bonus.c \
 			movement_bonus.c \
 			raycaster_bonus.c \
 			read_input_utils_bonus.c \
@@ -53,7 +56,6 @@ BFILES = 	main_bonus.c \
 			read_settings_bonus.c \
 			utils_bonus.c \
 			player_bonus.c \
-			grid_bonus.c \
 			textures_bonus.c \
 			render_bonus.c
 

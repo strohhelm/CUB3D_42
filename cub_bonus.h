@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 17:39:05 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:29:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,16 @@ typedef struct s_indiv_texture {
 	mlx_texture_t	side[4];
 }	t_tex;
 
+typedef struct s_circlehelp
+{
+	int	x;
+	int	y;
+	int	xcenter;
+	int	ycenter;
+	int r;
+	int p;
+}	t_circle_help;
+
 typedef struct s_player
 {
 	int		height;
@@ -157,6 +167,21 @@ typedef struct s_doorstuff
 	int		nb;
 	t_door	*current;
 }	t_doorstuff;
+
+typedef struct	s_minimap
+{
+	int				w;
+	int				h;
+	int				printh;
+	double			x;
+	double			y;
+	double			step;
+	unsigned int	wall;
+	unsigned int	floor;
+	double			min;
+	double			max;
+	t_point			pos;
+}	t_minimap;
 
 typedef struct s_map
 {
@@ -248,115 +273,130 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
-/*		cast_textures.c		*/
-void	draw_tex(t_game *game, int x, t_rays *ray);
-void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
-int		return_orientation(int one, int two, int side);
-int		get_direction(t_point pos, t_point hit, int side);
-void	render_calc(t_game *game, t_rays *ray);
+/*		cast_textures		*/
+void		draw_tex(t_game *game, int x, t_rays *ray);
+void		tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
+int			return_orientation(int one, int two, int side);
+int			get_direction(t_point pos, t_point hit, int side);
+void		render_calc(t_game *game, t_rays *ray);
 
 /*		collision.c		*/
-void	collision(t_point new_pos, t_game *game);
+void		collision(t_point new_pos, t_game *game);
+void		set_index(t_point new_pos, t_game *game, int *ix, int *iy);
 
-/*		doors.c			*/
-void	draw_doors(t_game *game);
+/*		colour_stuff	*/
+uint32_t	invert_colour(uint8_t *col);
+uint32_t	colour(uint8_t *col);
+void		change_colour(uint32_t col, unsigned int *wall, unsigned int *floor);
+uint32_t	darken_colour(uint32_t col, int amount);
 
-/*		door_mechanics_bonus.c	*/
-void	door_move(t_game *game, t_door *d);
-void	rotate_door(t_door *d);
-void	doors(t_game *game);
-int		intersection_with_door(t_game *game, t_point p);
-void	minimap_door_hit(t_game *game, t_point hit, t_point *intersect);
-void	draw_minimap_doors(t_game *game, uint32_t colour);
+/*		doors			*/
+void		draw_doors(t_game *game);
+
+/*		door_mechanics	*/
+void		door_move(t_game *game, t_door *d);
+void		rotate_door(t_door *d);
+void		doors(t_game *game);
+void		minimap_door_hit(t_game *game, t_point hit, t_point *intersect);
+void		draw_minimap_doors(t_game *game, uint32_t colour);
+
+/*		door_mechanics_utils	*/
+void		set_dir(t_door *d, t_door *p, db i, db j);
+void		set_status(t_door *d, t_door *p, int i);
+void		set_status_progress(t_door *d, int status, db progress);
+int			intersection_with_door(t_game *game, t_point p);
 
 
 /*		doors_utils		*/
-t_point	intersection(t_point a, t_point b, t_point c, t_point d);
-t_point	vector(t_point a, t_point b);
-double	dist_points(t_point a, t_point b);
-t_point	point_x_vector(t_point p, double x, t_point v);
-double	vector_angle(t_point a, t_point b);
-t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d);
+t_point		intersection(t_point a, t_point b, t_point c, t_point d);
+t_point		vector(t_point a, t_point b);
+double		dist_points(t_point a, t_point b);
+t_point		point_x_vector(t_point p, double x, t_point v);
+double		vector_angle(t_point a, t_point b);
+t_point		segment_intersection(t_point a, t_point b, t_point c, t_point d);
 
 /*		draw_line		*/
-void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
+void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 
-/*		movement.c		*/
-void	mouse(mlx_key_data_t key, void* par);
-void	ft_hook(t_game *game);
-void	rotate_dir_plane(t_point *dir, t_point *plane, \
-		double speed, double l_r);
-void	update_pos(t_game *game, t_point new_pos);
+/*		movement		*/
+void		mouse(mlx_key_data_t key, void* par);
+void		ft_hook(t_game *game);
+void		rotate_dir_plane(t_point *dir, t_point *plane, \
+			double speed, double l_r);
+void		update_pos(t_game *game, t_point new_pos);
 
-/*		minimap.c			*/
-void	minimap(t_game * game);
-void	minumap(t_game * game);
-void	minimap_init(t_game *game);
-uint32_t	darken_colour(uint32_t col, int amount);
-void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius);
-uint	invert_colour(uint8_t *col);
-void	cut_minimap(t_game *game);
+/*		main				*/
+void		init_game(t_game *game);
+void		second_init(t_game *game);
+void		screen_init(t_player *player);
+int			leaks(void);
 
-/*		main.c				*/
-void	init_game(t_game *game);
-void	second_init(t_game *game);
-int		leaks(void);
+/*		minimap				*/
+void		minimap(t_game * game);
+void		cut_minimap(t_game *game, t_minimap *m);
 
-/*		raycaster.c			*/
-void	raycasting(t_game *game);
-void	init_rays(t_game *game, t_rays *ray, int x);
-void	step_and_dist(t_game *game, t_rays *ray);
-void	ray_overflow(t_game *game, t_rays *ray);
-void	hit_loop(t_game *game, t_rays *ray);
+/*		minimap_allocation	*/
+void		circlePoints(t_circle_help *c, mlx_image_t *img, uint32_t col);
+void		draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius);
+void		fill_outside_circle(mlx_image_t *img);
+void		minimap_init(t_game *game);
+
+
+/*		raycaster			*/
+void		raycasting(t_game *game);
+void		init_rays(t_game *game, t_rays *ray, int x);
+void		step_and_dist(t_game *game, t_rays *ray);
+void		ray_overflow(t_game *game, t_rays *ray);
+void		hit_loop(t_game *game, t_rays *ray);
 
 
 /*		read_input.c		*/
-int		comp_ident(char *str, int *idents);
-int		check_identifyer(char *line, int *map_flag);
-void	insert_map(t_map *map, char **str);
-void	get_info(int fd, t_map *map);
-void	read_input(char **argv, t_player *player, t_map *map);
+int			comp_ident(char *str, int *idents);
+int			check_identifyer(char *line, int *map_flag);
+void		insert_map(t_map *map, char **str);
+void		get_info(int fd, t_map *map);
+void		read_input(char **argv, t_player *player, t_map *map);
 
 /*		read_input_utils.c	*/
-void	get_start_pos(t_map *map, t_player *player);
-int		comp_ident(char *str, int *idents);
-int		check_identifyer(char *line, int *map_flag);
+void		get_start_pos(t_map *map, t_player *player);
+int			comp_ident(char *str, int *idents);
+int			check_identifyer(char *line, int *map_flag);
 
 /*		read_map_utils.c	*/
-int		**alloc_int_arr(int x, int y);
+int			**alloc_int_arr(int x, int y);
 
-/*		read_map.c			*/
-int		check_line(t_map *map, int i);
-int		max_width(char **arr, int *y);
-void	validate_map(t_map *map);
+/*			read_map.c			*/
+int			check_line(t_map *map, int i);
+int			max_width(char **arr, int *y);
+void		validate_map(t_map *map);
 
 /*		read_settigns.c		*/
-void	insert_info(t_map *map, char **str);
+void		insert_info(t_map *map, char **str);
 
 /*		error.c				*/
-int		error(int e_action, int e_error);
-void	err_check(void *p, char *msg);
-void	error_print(char *msg);
-void	check_error(int e);
+int			error(int e_action, int e_error);
+void		err_check(void *p, char *msg);
+void		error_print(char *msg);
+void		check_error(int e);
 
 /*		render		*/
-void	render(void *param);
-void	screen_init(t_player *player);
-void	blank(t_game *game);
-void	put_crosshair(t_game *game);
+void		render(void *param);
+void		screen_init(t_player *player);
+void		blank(t_game *game);
+void		put_crosshair(t_game *game);
 
 /*		textures			*/
-t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map);
-void	draw_on_tex(t_game *game, t_texture *tex, int dir);
+t_tex		**allocate_textures(int height, int width, mlx_texture_t **tex, int **map);
+void		draw_on_tex(t_game *game, t_texture *tex, int dir);
 
 /*		utils.c				*/
-int		arr_len(char **arr);
-t_game	*game_pointer(int i, void *game);
-int		mv_arr(char **src, char **dest);
-void	free_game_end(t_game *game);
-void	free_int_array(int **arr, int h);
-void	free_string_array(char **str);
-int	left_or_right(t_point a, t_point b, t_point p);
+int			arr_len(char **arr);
+t_game		*game_pointer(int i, void *game);
+int			mv_arr(char **src, char **dest);
+void		free_game_end(t_game *game);
+void		free_int_array(int **arr, int h);
+void		free_string_array(char **str);
+int			left_or_right(t_point a, t_point b, t_point p);
 
 #endif
 

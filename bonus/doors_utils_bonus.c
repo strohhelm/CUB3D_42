@@ -6,12 +6,15 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/08 13:52:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:08:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
+// returns the point of intersection between ray from a through b
+// and line segment CD.
+//If there is none, returns point (0.0 | 0.0)
 t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 {
 	t_point	s;
@@ -36,7 +39,9 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	}
 	return (s);
 }
-
+// returns the point of intersection between line segment AB
+// and line segment CD.
+// If there is none, returns point (0.0 | 0.0)
 t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d)
 {
 	t_point	s;
@@ -62,7 +67,7 @@ t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d)
 	return (s);
 }
 
-//returns the vector between point a and point b
+// returns the vector between point a and point b
 t_point	vector(t_point a, t_point b)
 {
 	t_point vector;
@@ -72,7 +77,7 @@ t_point	vector(t_point a, t_point b)
 	return (vector);
 }
 
-//returns the distance bewteen point a and point b
+// returns the distance bewteen point a and point b
 double	dist_points(t_point a, t_point b)
 {
 	double	dist;
@@ -83,7 +88,7 @@ double	dist_points(t_point a, t_point b)
 	return (dist);
 }
 
-//returns the point p multiplied by x times vector v
+// returns the point p multiplied by x times vector v
 t_point	point_x_vector(t_point p, double x, t_point v)
 {
 	p.x = p.x + x * v.x;

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/06 17:54:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:29:05 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,26 @@ void	second_init(t_game *game)
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->minimap = mlx_new_image(game->mlx, MINIMAP_H, MINIMAP_H);
+}
+void	screen_init(t_player *player)
+{
+	t_point	dir;
+	t_point	scr;
+
+	dir = player->dir;
+	player->dir.x /= 10;
+	player->dir.y /= 10;
+	scr.x = 0;
+	scr.y = 0;
+	if (dir.y > 0)
+		scr.x = (-player->pov) / 10;
+	else if (dir.y < 0)
+		scr.x = player->pov / 10;
+	else if (dir.x > 0)
+		scr.y = player->pov / 10;
+	else if (dir.x < 0)
+		scr.y = -player->pov / 10;
+	player->scr = scr;
 }
 
 int	leaks(void)

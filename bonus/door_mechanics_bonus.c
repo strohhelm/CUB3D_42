@@ -6,22 +6,11 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:27:28 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 17:47:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:05:22 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
-
-void	set_dir(t_door *d, t_door *p, db i, db j)
-{
-	d->dir = i;
-	p->dir = j;
-}
-void	set_status(t_door *d, t_door *p, int i)
-{
-	d->status = i;
-	p->status = i;
-}
 
 void	door_move(t_game *game, t_door *d)
 {
@@ -51,11 +40,7 @@ void	door_move(t_game *game, t_door *d)
 			set_status(d, p, CLOSING);
 	}
 }
-void set_status_progress(t_door *d, int status, db progress)
-{
-	d->status = status;
-	d->progress = progress;
-}
+
 void	rotate_door(t_door *d)
 {
 	t_point	v;
@@ -98,25 +83,6 @@ void	doors(t_game *game)
 		doors = doors->next;
 	}
 }
-int	intersection_with_door(t_game *game, t_point p)
-{
-	t_door	*d;
-	t_point	tmp;
-	t_list	*doors;
-	
-	doors = game->map.dstuff.doors;
-	tmp = vector(game->player.pos, p);
-	p = point_x_vector(game->player.pos, 3, tmp);
-	while (doors)
-	{
-		d = (t_door *)doors->content;
-		tmp = segment_intersection(game->player.pos, p, d->p1, d->p2);
-		if (tmp.x && tmp.y)
-			return (1);
-		doors = doors->next;
-	}
-	return (0);
-}
 
 void	minimap_door_hit(t_game *game, t_point hit, t_point *intersect)
 {
@@ -134,9 +100,7 @@ void	minimap_door_hit(t_game *game, t_point hit, t_point *intersect)
 		{
 			if (dist_points(game->player.pos, tmp)
 				< dist_points(game->player.pos, *intersect))
-			{
 				*intersect = tmp;
-			}
 		}
 		doors = doors->next;
 	}
@@ -148,8 +112,6 @@ void	draw_minimap_doors(t_game *game, uint32_t colour)
 	t_point	x;
 	t_point	a;
 	t_point	b;
-	t_point	mapa;
-	t_point	mapb;
 	t_list	*doors;
 	
 	doors = game->map.dstuff.doors;
@@ -160,13 +122,13 @@ void	draw_minimap_doors(t_game *game, uint32_t colour)
 		d = (t_door *)doors->content;
 		a = vector(game->player.pos, d->p1);
 		b = vector(game->player.pos, d->p2);
-		mapa = point_x_vector(x, MINIMAP_H / game->scale, a);
-		mapb = point_x_vector(x, MINIMAP_H / game->scale, b);
-		if (mapa.x <= game->minimap->width && mapa.x >= 0 
-			&&	mapb.x <= game->minimap->width && mapb.x >= 0
-			&& mapa.y <= game->minimap->height && mapa.y >= 0
-			&& mapb.y <= game->minimap->height && mapb.y >= 0)
-			draw_line(&mapa, &mapb, game->minimap, colour);
+		a = point_x_vector(x, MINIMAP_H / game->scale, a);
+		b = point_x_vector(x, MINIMAP_H / game->scale, b);
+		if (a.x <= game->minimap->width && a.x >= 0 
+			&&	b.x <= game->minimap->width && b.x >= 0
+			&& a.y <= game->minimap->height && a.y >= 0
+			&& b.y <= game->minimap->height && b.y >= 0)
+			draw_line(&a, &b, game->minimap, colour);
 		doors = doors->next;
 	}
 }

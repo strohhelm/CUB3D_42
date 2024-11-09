@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/04 14:52:20 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:14:36 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	draw_line_y(mlx_image_t *img, t_pixel_line z, int w, int h)
 	}
 }
 
+// returns the absolute value of the difference between a and b.
 int	ft_absolute(int a, int b)
 {
 	int	nb;
@@ -74,7 +75,8 @@ int	ft_absolute(int a, int b)
 	return ((nb >= 0) * nb + (nb < 0) * -1 * nb);
 }
 
-// needs mlx_img pointer and colour input;
+// needs mlx_img pointer and colour input.
+//draws line in berensham's line algorithm.
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *img, int color)
 {
 	t_pixel_line	z;

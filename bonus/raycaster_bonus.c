@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/09 16:53:33 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:26:08 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	draw_minimap_rays(t_game *game, t_rays *ray)
 		b.x = a.x + (b.x - a.x) * scale ;
 		b.y = a.y + (b.y - a.y) * scale ;
 	}
-	uint32_t col;
-	col = game->map.ceiling;
-	invert_colour((uint8_t *)&col);
-	draw_line(&a, &b, game->minimap, col);
+	draw_line(&a, &b, game->minimap, game->map.ceiling);
 }
 void	raycasting(t_game *game)
 {
