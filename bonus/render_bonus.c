@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 13:44:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:02:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ void render(void *param)
 	static t_ai *e = NULL;
 	static int	i = 0;
 
+	game = (t_game *)param;
+	if (!mousecounter(game))
+		return ;
 	t = mlx_get_time();
 	if (frame == 30)
 		frame = 1;
 	time = 1.0 / FPS;
-	game = (t_game *)param;
 	if (i == 0)
 	{
 		e = load_alien(game);
@@ -87,19 +89,11 @@ void render(void *param)
 		mlx_image_to_window(game->mlx, game->hp, 0, 0);
 		health_bar(game);
 	}
-	if (i++ < 2)
-	{
-		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
-		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
-		game->x = 0;
-		return ;
-	}
 	ft_hook(game);
 	if (!game->over)
 	{
 		blank(game);
-		minumap(game);
-		// backgroud(game);
+		minimap(game);
 		raycasting(game);
 		update_enemy_pos(&e, game);
 		enemy_dist(game, &e, frame);

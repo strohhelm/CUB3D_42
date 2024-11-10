@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/10 13:46:24 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:00:50 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,6 @@ typedef struct s_map
 	char			**tex_names;
 	t_tex			**indiv;
 	t_doorstuff		dstuff;
-	double			dist_buffer[WIDTH];
 }	t_map;
 
 typedef struct s_texture
@@ -326,6 +325,12 @@ typedef struct s_algorythm {
 	t_point	p_t;
 }	t_pixel_line;
 
+/*		alienpls			*/
+t_ai		*load_alien(t_game *game);
+void		enemy_dist(t_game *game, t_ai **enemy, int frame);
+void		draw_sprites(t_game *game, t_ai *enemy, int frame);
+void		game_over_check(t_game *game);
+
 /*		cast_textures		*/
 void		draw_tex(t_game *game, int x, t_rays *ray);
 void		tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
@@ -333,34 +338,26 @@ int			return_orientation(int one, int two, int side);
 int			get_direction(t_point pos, t_point hit, int side);
 void		render_calc(t_game *game, t_rays *ray);
 
-/*		enemy_dist_sort.c		*/
-void enemy_dist(t_game *game, t_ai **enemy, int frame);
-void sort_ai(t_ai **enemy);
-void	swap(t_ai **head);
 
-/*		ememy_coll.c		*/
-void update_enemy_pos(t_ai **enemy, t_game *game);
-void	e_collision(t_point new_pos, t_game *game, t_ai *e);
-void set_e_index(t_point new_pos, t_ai *e, int *ix, int *iy);
-
-/*		init_enemies.c		*/
-t_ai *load_alien(t_game *game);
-mlx_texture_t **allocate_textures_dying(void);
-mlx_texture_t **allocate_textures_idle(void);
-void append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		UI		*/
-void health_bar(t_game *game);
-void load_gun(t_game *game);
-void gun_anim(t_game *game, int frame);
+void		health_bar(t_game *game);
+void		load_gun(t_game *game);
+void		gun_anim(t_game *game, int frame);
 
-/*		alien			*/
-t_ai *load_alien(t_game *game);
-void enemy_dist(t_game *game, t_ai **enemy, int frame);
-void draw_sprites(t_game *game, t_ai *enemy, int frame);
 
 /*		draw_line		*/
-void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
+void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
+
+/*		enemy_dist_sort.c		*/
+void		enemy_dist(t_game *game, t_ai **enemy, int frame);
+void		sort_ai(t_ai **enemy);
+void		swap(t_ai **head);
+
+/*		ememy_coll.c		*/
+void		update_enemy_pos(t_ai **enemy, t_game *game);
+void		e_collision(t_point new_pos, t_game *game, t_ai *e);
+void		set_e_index(t_point new_pos, t_ai *e, int *ix, int *iy);
 
 /*		collision.c		*/
 void		collision(t_point new_pos, t_game *game);
@@ -406,6 +403,12 @@ void		ft_hook(t_game *game);
 void		rotate_dir_plane(t_point *dir, t_point *plane, \
 			double speed, double l_r);
 void		update_pos(t_game *game, t_point new_pos);
+
+/*		init_enemies.c		*/
+t_ai		*load_alien(t_game *game);
+mlx_texture_t	**allocate_textures_dying(void);
+mlx_texture_t	**allocate_textures_idle(void);
+void		append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		main				*/
 void		init_game(t_game *game);

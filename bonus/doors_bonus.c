@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 17:38:59 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:52:27 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ void	draw_doors(t_game *game)
 	while (++i < WIDTH && game->map.dstuff.nb > 0)
 	{
 		h.screen_x = point_x_vector(h.sl, (db)i, h.stepvector);
-		h.buffdist = game->map.dist_buffer[i];
+		h.buffdist = game->dist_arr[i];
 		check_intersect(&h, game->map.dstuff.doors);
 		h.lineheight = (int)round((db)HEIGHT / h.dist);
-		if (h.dist < (game->map.dist_buffer[i]))
+		if (h.dist < (game->dist_arr[i]))
 		{
 			draw_doorline(game, &h, i);
 			if (i == WIDTH / 2 && h.dist <= 2.0)

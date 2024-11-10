@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 13:40:42 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:08:30 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	// atexit((void *)leaks);
+	atexit((void *)leaks);
 	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
