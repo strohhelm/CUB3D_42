@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:29:23 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:46:24 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,38 @@
 
 typedef unsigned long	u_l;
 typedef	double db;
+
+typedef struct s_coordinate {
+	double	x;
+	double	y;
+}	t_point;
+
+typedef struct s_sprites
+{
+	mlx_texture_t *tex;
+	struct s_sprites *next;
+} t_sprites;
+
+enum e_state
+{
+	ALIVE,
+	DYING,
+	DEAD,
+};
+
+typedef struct s_enemy
+{
+	t_point pos;
+	mlx_texture_t **tex[2];
+	double dist;
+	struct s_enemy *next;
+	int hit;
+	int state;
+	int hp;
+	int i;
+} t_ai;
+
+
 enum e_colors
 {
 	NO = 0x9B5DE5FF,
@@ -82,10 +114,6 @@ enum e_direction
 	OOPS,
 };
 
-typedef struct s_coordinate {
-	double	x;
-	double	y;
-}	t_point;
 
 typedef struct s_indiv_texture {
 	mlx_texture_t	side[4];
@@ -108,9 +136,13 @@ typedef struct s_player
 	t_point	pos;
 	t_point	dir;
 	t_point	scr;
+	mlx_image_t *gun_img;
+	mlx_texture_t **gun;
 	double	pov;
 	int		start;
 	long	color;
+	int		attack;
+	int		hp;
 }	t_player;
 
 typedef struct s_door
@@ -240,6 +272,24 @@ typedef struct s_rays
 	t_texture	tex;
 }	t_rays;
 
+typedef struct s_enemy_var
+{
+	t_point s;
+	t_point proj;
+	t_texture tex;
+	double invcam;
+	int height_offset;
+	int spritescrx;
+	int sheight;
+	int starty;
+	int endy;
+	int swidth;
+	int startx;
+	int endx;
+	int line;
+	int y;
+} t_enemy_var;
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
@@ -248,12 +298,15 @@ typedef struct s_game
 	double		scale;
 	mlx_image_t	*circle;
 	mlx_image_t	*cross;
+	mlx_image_t	*hp;
 	t_player	player;
 	t_map		map;
 	t_rays		ray;
+	int			over;
 	int			mouse;
 	int			x;
 	int			y;
+	double		dist_arr[WIDTH];
 }	t_game;
 
 
@@ -279,6 +332,35 @@ void		tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x);
 int			return_orientation(int one, int two, int side);
 int			get_direction(t_point pos, t_point hit, int side);
 void		render_calc(t_game *game, t_rays *ray);
+
+/*		enemy_dist_sort.c		*/
+void enemy_dist(t_game *game, t_ai **enemy, int frame);
+void sort_ai(t_ai **enemy);
+void	swap(t_ai **head);
+
+/*		ememy_coll.c		*/
+void update_enemy_pos(t_ai **enemy, t_game *game);
+void	e_collision(t_point new_pos, t_game *game, t_ai *e);
+void set_e_index(t_point new_pos, t_ai *e, int *ix, int *iy);
+
+/*		init_enemies.c		*/
+t_ai *load_alien(t_game *game);
+mlx_texture_t **allocate_textures_dying(void);
+mlx_texture_t **allocate_textures_idle(void);
+void append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
+
+/*		UI		*/
+void health_bar(t_game *game);
+void load_gun(t_game *game);
+void gun_anim(t_game *game, int frame);
+
+/*		alien			*/
+t_ai *load_alien(t_game *game);
+void enemy_dist(t_game *game, t_ai **enemy, int frame);
+void draw_sprites(t_game *game, t_ai *enemy, int frame);
+
+/*		draw_line		*/
+void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 
 /*		collision.c		*/
 void		collision(t_point new_pos, t_game *game);

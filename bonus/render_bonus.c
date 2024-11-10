@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/09 21:33:12 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:44:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,83 +71,42 @@ void render(void *param)
 	double		t;
 	double		ft;
 	double		time;
+	static int	frame = 1;
+	static t_ai *e = NULL;
+	static int	i = 0;
 
+	t = mlx_get_time();
+	if (frame == 30)
+		frame = 1;
 	time = 1.0 / FPS;
 	game = (t_game *)param;
-	if (!mousecounter(game))
+	if (i == 0)
+	{
+		e = load_alien(game);
+		game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+		mlx_image_to_window(game->mlx, game->hp, 0, 0);
+		health_bar(game);
+	}
+	if (i++ < 2)
+	{
+		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
+		mlx_get_mouse_pos(game->mlx, &game->x, &game->x);
+		game->x = 0;
 		return ;
-	t = mlx_get_time();
+	}
 	ft_hook(game);
-	blank(game);
-	minimap(game);
-	raycasting(game);
-	draw_doors(game);
-	ft = mlx_get_time() - t;
-	doors(game);
-	if (ft < time)
-		usleep((int)((time - ft) * 1000000));
+	if (!game->over)
+	{
+		blank(game);
+		minumap(game);
+		// backgroud(game);
+		raycasting(game);
+		update_enemy_pos(&e, game);
+		enemy_dist(game, &e, frame);
+		gun_anim(game, frame);
+		ft = mlx_get_time() - t;
+		if (ft < time)
+			usleep((int)((time - ft) * 1000000));
+		frame++;
+	}
 }
-
-//draws background textures, only works for movement input without vertical alteration
-// void	backgroud(t_game *game)
-// {
-// 	mlx_texture_t	*floortex;
-// 	mlx_texture_t	*ceilingtex;
-	
-// 	float	raydirx0;
-// 	float	raydiry0;
-// 	float	raydirx1;
-// 	float	raydiry1;
-// 	float	floorstepX;
-// 	float	floorstepY;
-// 	float	floorX;
-// 	float	floorY;
-// 	static double t = 0;
-	
-// 	int		y;
-// 	int		x;
-// 	int		p;
-// 	float	posZ;
-// 	float	rowdist;
-	
-// 	floortex = game->map.textures[FLOOR];
-// 	ceilingtex = game->map.textures[CEILING];
-	
-// 	y = HEIGHT / 2 - 1 - game->y;
-// 	if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-// 		t += 0.01;
-// 	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-// 		t -= 0.01;
-// 	while (y <= HEIGHT)
-// 	{
-// 		raydirx0 = (game->player.dir.x - game->player.scr.x) * 10;
-// 		raydiry0 = (game->player.dir.y - game->player.scr.y) * 10;
-// 		raydirx1 = (game->player.dir.x + game->player.scr.x) * 10;
-// 		raydiry1 = (game->player.dir.y + game->player.scr.y) * 10;
-// 		p = y - HEIGHT / 2;
-// 		posZ = HEIGHT / 2;
-// 		rowdist = posZ / p ;
-// 		floorstepX = rowdist * ((raydirx1 - raydirx0) / (WIDTH));
-// 		floorstepY = rowdist * ((raydiry1 - raydiry0) / (WIDTH));
-// 		floorX = (game->player.pos.x) + rowdist * raydirx0;
-// 		floorY = (game->player.pos.y) + rowdist * raydiry0;
-// 		x = 0; 
-// 		while (x < WIDTH)
-// 		{
-// 			uint32_t texX = (int)(floortex->width * fabs(fmod(floorX, 1.0))) % floortex->width;
-// 			uint32_t texY = (int)(floortex->height * fabs(fmod(floorY, 1.0))) % floortex->height;
-// 			uint8_t *tex_pos = &floortex->pixels[(floortex->width * texY + texX) * 4];
-// 			uint8_t *img_pos = &game->img->pixels[(WIDTH * (y - 1 - game->y) + x) * 4];
-// 			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
-// 			texX = (int)((ceilingtex->width) * floorX ) % ceilingtex->width;
-// 			texY = (int)((ceilingtex->height) * floorY) % ceilingtex->height;
-// 			tex_pos = &ceilingtex->pixels[(ceilingtex->width * texY + texX) * 4];
-// 			img_pos = &game->img->pixels[(WIDTH * (HEIGHT - y + game->y) + x) * 4];
-// 			ft_memmove(img_pos, tex_pos, sizeof(uint32_t));
-// 			floorX += floorstepX;
-// 			floorY += floorstepY;
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }

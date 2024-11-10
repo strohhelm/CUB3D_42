@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/09 21:34:46 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/10 13:46:59 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,13 @@ BFILES =	main_bonus.c \
 			utils_bonus.c \
 			player_bonus.c \
 			textures_bonus.c \
-			render_bonus.c
+			render_bonus.c \
+			alienpls.c \
+			ui.c \
+			init_enemies.c \
+			enemy_coll.c \
+			enemy_dist_sort.c
+
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
 OBJS := $(patsubst $(SRC_PATH)/%.c, $(OBJ_PATH)/%.o, $(SRC))

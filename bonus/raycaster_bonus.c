@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/09 21:26:08 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 13:47:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	raycasting(t_game *game)
 		draw_tex(game, x, &game->ray);
 		if (x % 50 == 0)
 			draw_minimap_rays(game, &game->ray);
-		game->map.dist_buffer[x] = game->ray.walldist;
+		game->dist_arr[x] = game->ray.walldist;
 		x++;
 	}
 }
