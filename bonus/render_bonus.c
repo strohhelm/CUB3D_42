@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 14:02:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:22:43 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void render(void *param)
 	if (frame == 30)
 		frame = 1;
 	time = 1.0 / FPS;
-	if (i == 0)
+	if (i++ == 0)
 	{
 		e = load_alien(game);
 		game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
@@ -98,6 +98,8 @@ void render(void *param)
 		update_enemy_pos(&e, game);
 		enemy_dist(game, &e, frame);
 		gun_anim(game, frame);
+		draw_doors(game);
+		doors(game);
 		ft = mlx_get_time() - t;
 		if (ft < time)
 			usleep((int)((time - ft) * 1000000));

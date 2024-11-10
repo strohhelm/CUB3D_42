@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 13:40:59 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:57:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	rotation_extra_keys(t_game *game)
 
 void	update_pos(t_game *game, t_point new_pos)
 {
-	if (!intersection_with_door(game, new_pos))
+	if (!intersection_with_door(game, game->player.pos, new_pos))
 	{
 		game->player.pos.x = new_pos.x;
 		game->player.pos.y = new_pos.y;

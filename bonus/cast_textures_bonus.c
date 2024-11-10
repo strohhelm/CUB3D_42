@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 13:40:28 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:20:54 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,13 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
 			// for drawing on texture
-			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && mlx_is_mouse_down(game->mlx, 0))
-			{
-				// printf("index:%lu, dir:%d, w:%lu, hitx:%lf, y:%lu hity:%lf\n", tex->index, ray->dir, w, fmod(ray->hitp.x, 1.0), y, ray->hitp.y - fmod(ray->hitp.y, 1.0));
+			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
 				draw_on_tex(game, tex, ray->dir);
-			}
 			
 			tex->test = *(u_int32_t *)tex->tex_pos;
 			tex->test = darken_colour(tex->test, ray->walldist * 15);
 			if (tex->test != 0)
 				*(uint32_t *)tex->img_pos = tex->test;
-			
-			// ft_memmove(&tex->test, tex->tex_pos,
-			// 	game->map.textures[ray->dir]->bytes_per_pixel);
-			// tex->test = darken_colour(tex->test, ray->walldist * 15);
-			// if (tex->test > 0)
-			// 	ft_memmove(tex->img_pos, &tex->test,
-			// 		game->map.textures[ray->dir]->bytes_per_pixel);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/10 14:04:50 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/10 15:12:56 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ FILES =	main.c \
 			render.c \
 			free.c 
 
-BFILES =	main_bonus.c \
+BFILES =	alienpls_bonus.c \
 			cast_textures_bonus.c \
 			collision_bonus.c \
 			color_stuff_bonus.c \
@@ -44,25 +44,24 @@ BFILES =	main_bonus.c \
 			door_mechanics_utils_bonus.c \
 			doors_utils_bonus.c \
 			draw_line_bonus.c \
+			enemy_coll_bonus.c \
+			enemy_dist_sort_bonus.c\
 			error_bonus.c \
-			minimap_bonus.c \
+			init_enemies_bonus.c \
+			main_bonus.c \
 			minimap_allocation_bonus.c \
+			minimap_bonus.c \
 			movement_bonus.c \
 			raycaster_bonus.c \
-			read_input_utils_bonus.c \
 			read_input_bonus.c \
-			read_map_utils_bonus.c \
+			read_input_utils_bonus.c \
 			read_map_bonus.c \
+			read_map_utils_bonus.c \
 			read_settings_bonus.c \
-			utils_bonus.c \
-			player_bonus.c \
-			textures_bonus.c \
 			render_bonus.c \
-			alienpls.c \
-			ui.c \
-			init_enemies.c \
-			enemy_coll.c \
-			enemy_dist_sort.c
+			textures_bonus.c \
+			ui_bonus.c \
+			utils_bonus.c \
 
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))

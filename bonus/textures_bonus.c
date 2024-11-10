@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/28 12:23:34 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:00:13 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 void	draw_on_tex(t_game *game, t_texture * tex, int dir)
 {
-	int x;
-	int y;
-	uint32_t color;
+	uint x;
+	uint y;
+	uint8_t *new_tex_pos;
 	mlx_texture_t *current;
+	mlx_texture_t *new;
 	uint8_t *pos;
 
 	current = &game->map.indiv[tex->index]->side[dir];
-	color = 0xFF000000;
+	new = game->map.textures[BULLET];
 	y = -0;
-	pos = tex->tex_pos - 10 * 4 * current->width - 10 * 4;
-	while (++y < 20)
+	pos = tex->tex_pos - new->height / 2 * 4 * current->width - new->width / 2 * 4;
+	while (++y < new->height)
 	{
 		x = -1;
-		while (++x < 20)
+		while (++x < new->width)
 		{
-			ft_memcpy(pos + y * 4 * current->width + x * 4, &color, 4);
+			new_tex_pos = &new->pixels[y * new->width * 4 + x * 4];
+			if (*((uint32_t *)new_tex_pos))
+				ft_memcpy(pos + y * 4 * current->width + x * 4, new_tex_pos, 4);
 		}
 	}
 }

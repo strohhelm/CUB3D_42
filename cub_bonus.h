@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/10 14:00:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:56:37 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ enum e_identifyers
 	WEST,
 	CEILING,
 	FLOOR,
+	BULLET,
 };
 
 enum e_action
@@ -225,7 +226,7 @@ typedef struct s_map
 	uint			floor;
 	int				start[3];
 	double			scale;
-	mlx_texture_t	*textures[6];
+	mlx_texture_t	*textures[7];
 	char			**tex_names;
 	t_tex			**indiv;
 	t_doorstuff		dstuff;
@@ -383,7 +384,7 @@ void		draw_minimap_doors(t_game *game, uint32_t colour);
 void		set_dir(t_door *d, t_door *p, db i, db j);
 void		set_status(t_door *d, t_door *p, int i);
 void		set_status_progress(t_door *d, int status, db progress);
-int			intersection_with_door(t_game *game, t_point p);
+int	intersection_with_door(t_game *game, t_point pos, t_point p);
 
 
 /*		doors_utils		*/

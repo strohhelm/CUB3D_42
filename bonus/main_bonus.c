@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 14:08:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:59:07 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	init_game(t_game *game)
 	game->map.dstuff.doors = NULL;
 	game->map.dstuff.current = NULL;
 	game->map.textures[FLOOR] = mlx_load_png("./include/textures/red.png");
-	if (!game->map.textures[FLOOR])
-		error_print("Cannot load floor texture");
+	err_check(game->map.textures[FLOOR],"Cannot load floor texture");
 	game->map.textures[CEILING] = mlx_load_png("./include/textures/clouds.png");
-	if (!game->map.textures[CEILING])
-		error_print("Cannot load ceiling texture");
+	err_check(game->map.textures[CEILING], "Cannot load ceiling texture");
+	game->map.textures[BULLET] = mlx_load_png("./include/textures/bullet.png");
+	err_check(game->map.textures[BULLET], "Cannot load bullet texture");
 }
 
 void	second_init(t_game *game)
