@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 14:24:23 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:28:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,26 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 		if (!(ray->start + i < 0 || ray->start + i >= HEIGHT))
 		{
 			tex->tex.y = (double)i * tex->step;
-			tex->arr_pos = ((uint)tex->tex.y
+			tex->arr_pos = ((long)tex->tex.y
 					* game->map.textures[ray->dir]->width + (uint)tex->tex.x) * 4;
-			tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos]; //for individual textures
+			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
+			{
+				draw_on_tex(game, tex, ray->dir);
+			}
+			if (game->map.indiv[tex->index] && game->map.indiv[tex->index]->arr[ray->dir] == 1)
+				tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos];
+			else
+				tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
-			
-			// if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
-			// 	draw_on_tex(game, tex, ray->dir);
-				
-			tex->test = *(u_int32_t *)tex->tex_pos;
-			tex->test = darken_colour(tex->test, ray->walldist * 15);
+			if (tex->tex_pos)
+				tex->test = *(u_int32_t *)tex->tex_pos;
 			if (tex->test)
+			{
+				tex->test = darken_colour(tex->test, ray->walldist * 15);
 				*(uint32_t *)tex->img_pos = tex->test;
+			}
 		}
 		i++;
 	}

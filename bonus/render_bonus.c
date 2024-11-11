@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 13:40:59 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:43:50 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,21 @@ void render(void *param)
 	if (frame == 30)
 		frame = 1;
 	time = 1.0 / FPS;
-	// if (i++ == 0)
-	// {
-	// 	e = load_alien(game);
-	// 	game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	// 	mlx_image_to_window(game->mlx, game->hp, 0, 0);
-	// 	health_bar(game);
-	// }
+	if (i++ == 0)
+	{
+		e = load_alien(game);
+		game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+		mlx_image_to_window(game->mlx, game->hp, 0, 0);
+		health_bar(game);
+	}
 	ft_hook(game);
 	if (!game->over)
 	{
 		blank(game);
 		minimap(game);
 		raycasting(game);
-		// update_enemy_pos(&e, game);
-		// enemy_dist(game, &e, frame);
+		update_enemy_pos(&e, game);
+		enemy_dist(game, &e, frame);
 		gun_anim(game, frame);
 		draw_doors(game);
 		doors(game);

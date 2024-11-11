@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 13:18:41 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:41:10 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	gun_anim(t_game *game, int frame)
 	if (game->player.attack)
 	{
 		if (game->player.attack == 1)
-			draw_line(&a, &b, game->img, EA);
+			draw_line(&a, &b, game->img, 0x727985F0);
 		game->player.attack = 2;
 	}
 	else if (!game->player.attack)

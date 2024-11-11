@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 14:20:15 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:25:53 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,6 @@
 typedef unsigned long	u_l;
 typedef	double db;
 
-typedef struct s_coordinate {
-	double	x;
-	double	y;
-}	t_point;
-
-typedef struct s_sprites
-{
-	mlx_texture_t *tex;
-	struct s_sprites *next;
-} t_sprites;
 
 enum e_state
 {
@@ -55,17 +45,6 @@ enum e_state
 	DEAD,
 };
 
-typedef struct s_enemy
-{
-	t_point pos;
-	mlx_texture_t **tex[2];
-	double dist;
-	struct s_enemy *next;
-	int hit;
-	int state;
-	int hp;
-	int i;
-} t_ai;
 
 
 enum e_colors
@@ -115,9 +94,32 @@ enum e_direction
 	OOPS,
 };
 
+typedef struct s_coordinate {
+	double	x;
+	double	y;
+}	t_point;
+
+typedef struct s_sprites
+{
+	mlx_texture_t *tex;
+	struct s_sprites *next;
+} t_sprites;
+
+typedef struct s_enemy
+{
+	t_point pos;
+	mlx_texture_t **tex[2];
+	double dist;
+	struct s_enemy *next;
+	int hit;
+	int state;
+	int hp;
+	int i;
+} t_ai;
 
 typedef struct s_indiv_texture {
 	mlx_texture_t	side[4];
+	int				arr[4];
 }	t_tex;
 
 typedef struct s_circlehelp
@@ -238,7 +240,7 @@ typedef struct s_texture
 	t_point		tex;
 	uint8_t		*tex_pos;
 	uint8_t		*img_pos;
-	uint		arr_pos;
+	long		arr_pos;
 	uint		pic_pos;
 	uint		index;
 	uint32_t	test;
@@ -472,8 +474,11 @@ void		blank(t_game *game);
 void		put_crosshair(t_game *game);
 
 /*		textures			*/
-t_tex		**allocate_textures(int height, int width, mlx_texture_t **tex, int **map);
+t_tex		**allocate_textures(t_map *map);
 void		draw_on_tex(t_game *game, t_texture *tex, int dir);
+void		fill_text(t_tex *t, mlx_texture_t **tex, int (*arr)[4]);
+void		fill_arr(t_map *map, int x, int y, int (*arr)[4]);
+void		make_indi_tex(t_game *game, t_tex **t, t_texture *tex);
 
 /*		utils.c				*/
 int			arr_len(char **arr);
