@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/07 23:02:02 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:50:21 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,25 @@ t_game	*game_pointer(int i, void *game)
 		return (def_not_global);
 }
 
+void free_sprites(t_game *game)
+{
+	int i;
+
+	i = -1;
+	mlx_delete_image(game->mlx, game->emg);
+	mlx_delete_image(game->mlx, game->cmg);
+	mlx_delete_image(game->mlx, game->player.gun_img);
+	mlx_delete_image(game->mlx, game->hp);
+	while(++i < 6)
+		mlx_delete_texture(game->e->tex[ALIVE][i]);
+	i = -1;
+	while (++i < 8)
+		mlx_delete_texture(game->e->tex[DYING][i]);
+	i = -1;
+	while (++i < 4)
+		mlx_delete_texture(game->player.gun[i]);
+}
+
 void	free_game_end(t_game *game)
 {
 	int	i;
@@ -64,6 +83,7 @@ void	free_game_end(t_game *game)
 	mlx_delete_image(game->mlx, game->img);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	mlx_terminate(game->mlx);
+	free_sprites(game);
 	i = 0;
 	while (i < 6)
 	{
