@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enemy_dist_sort.c                                  :+:      :+:    :+:   */
+/*   enemy_dist_sort_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:15:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 16:15:49 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:44:18 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void enemy_dist(t_game *game, t_ai **enemy, int frame)
 	{
 		len.x = fabs(e->pos.x - p.x);
 		len.y = fabs(e->pos.y - p.y);
-		
 		e->dist = sqrt(pow(len.x, 2.0) + pow(len.y, 2.0));
 		if (e->state == ALIVE && e->dist <= 0.5 && game->player.hp > 0)
 		{

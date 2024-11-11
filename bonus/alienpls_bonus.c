@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alienpls.c                                         :+:      :+:    :+:   */
+/*   alienpls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 16:23:39 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:56:04 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void render_sprite(t_game *game, t_enemy_var i, t_ai *e)
 			i.tex.tex.y = (double)(i.y - i.starty) * i.tex.step;
 			i.tex.arr_pos = ((int)i.tex.tex.y * e->tex[e->state][e->i]->width + (int)i.tex.tex.x) * 4;
 			i.tex.tex_pos = &e->tex[e->state][e->i]->pixels[i.tex.arr_pos];
-			i.tex.pic_pos = (i.y * game->img->width + i.line) * 4;
-			i.tex.img_pos = &game->img->pixels[i.tex.pic_pos];
+			i.tex.pic_pos = (i.y * game->emg->width + i.line) * 4;
+			i.tex.img_pos = &game->emg->pixels[i.tex.pic_pos];
 			i.tex.test = darken_colour(*(u_int32_t *)i.tex.tex_pos, i.proj.y * 15);
 			if (i.tex.test != 0)
 			{
@@ -94,22 +94,46 @@ void hit_check(t_game *game, t_enemy_var i, t_ai *e)
 	}
 }
 
+void clear_img(t_game *game)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			mlx_put_pixel(game->emg, x, y, 0);
+			y++;
+		}
+		x++;
+	}
+}
+
 void draw_sprites(t_game *game, t_ai *enemy, int frame)
 {
 	t_ai *e = enemy;
 	t_enemy_var i;
+
+	clear_img(game);
 
 	e = enemy;
 	while(e)
 	{
 		if (e->state == ALIVE)
 			e->i = frame / 6;
-		else if (frame % 5 == 0 && e->i < 7)
+		else if (e->state == DYING && frame % 3 == 0 && e->i < 7)
 			e->i += 1;
-		
+		else if (e->state == DYING && e->i == 7 && !e->dead)
+		{
+			e->dead = 1;
+			display_enemycount(game);
+		}
+			
 		enemy_calc(game, &i, e);
 		hit_check(game, i, e);
-
 		i.line = i.startx;
 		if (i.startx < 0)
 			i.line = 0;
@@ -120,29 +144,4 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 	}
 }
 
-void game_over_check(t_game *game)
-{
-	int x; 
-	int y;
 
-	x = 0;
-	if (game->player.hp > 0)
-		return;
-	
-	mlx_texture_t *end = mlx_load_png("./include/textures/GAME_OVER.png");
-	mlx_image_t *go = mlx_texture_to_image(game->mlx, end);
-	mlx_image_t *black = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT)
-		{
-			mlx_put_pixel(black, x, y, 0x000000FF);
-			y++;
-		}
-		x++;
-	} 
-	mlx_image_to_window(game->mlx, black, 0, 0);
-	mlx_image_to_window(game->mlx, go, 180, 100);
-	game->over = 1;
-}

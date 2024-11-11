@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_enemies.c                                     :+:      :+:    :+:   */
+/*   init_enemies_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 16:14:38 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:55:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 	new_node->state = ALIVE;
 	new_node->i = 0;
 	new_node->hit = 0;
+	new_node->dead = 0;
 	if (!*e)
 	{
 		*e = new_node;
@@ -81,6 +82,7 @@ t_ai	*load_alien(t_game *game)
 	e = NULL;
 	pos.x = 4.5;
 	pos.y = 1.5;
+	game->emg = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	idle = allocate_textures_idle(); // these two need to be freed somewhere!!!
 	dying = allocate_textures_dying();
 	while (count)

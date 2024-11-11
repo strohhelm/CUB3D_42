@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/10 15:56:37 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:11:39 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_enemy
 	struct s_enemy *next;
 	int hit;
 	int state;
+	int dead;
 	int hp;
 	int i;
 } t_ai;
@@ -158,6 +159,7 @@ typedef struct s_door
 	int				dir;
 	mlx_texture_t	*texture;
 }	t_door;
+
 typedef struct s_doorhelp
 {
 	t_point	door_intersect;
@@ -307,6 +309,9 @@ typedef struct s_game
 	int			x;
 	int			y;
 	double		dist_arr[WIDTH];
+	t_ai		*e;
+	mlx_image_t *emg;
+	mlx_image_t *cmg;
 }	t_game;
 
 
@@ -330,7 +335,6 @@ typedef struct s_algorythm {
 t_ai		*load_alien(t_game *game);
 void		enemy_dist(t_game *game, t_ai **enemy, int frame);
 void		draw_sprites(t_game *game, t_ai *enemy, int frame);
-void		game_over_check(t_game *game);
 
 /*		cast_textures		*/
 void		draw_tex(t_game *game, int x, t_rays *ray);
@@ -339,13 +343,14 @@ int			return_orientation(int one, int two, int side);
 int			get_direction(t_point pos, t_point hit, int side);
 void		render_calc(t_game *game, t_rays *ray);
 
-
-
-/*		UI		*/
-void		health_bar(t_game *game);
+/*		gun.c		*/
 void		load_gun(t_game *game);
 void		gun_anim(t_game *game, int frame);
 
+/*		UI		*/
+void		health_bar(t_game *game);
+void		display_enemycount(t_game *game);
+void		game_over_check(t_game *game);
 
 /*		draw_line		*/
 void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);

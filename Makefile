@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/10 15:12:56 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/11 15:14:34 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ BFILES =	alienpls_bonus.c \
 			textures_bonus.c \
 			ui_bonus.c \
 			utils_bonus.c \
+			gun.c
 
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
