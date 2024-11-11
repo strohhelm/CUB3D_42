@@ -6,25 +6,12 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/10 13:52:27 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:32:56 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub_bonus.h"
 
-//initializing the helpstruct
-void get_screen(t_player *player, t_doorhelp *h)
-{
-	h->sl.x = player->pos.x - player->scr.x + player->dir.x;
-	h->sl.y = player->pos.y - player->scr.y + player->dir.y;
-	h->sr.x = player->pos.x + player->scr.x + player->dir.x;
-	h->sr.y = player->pos.y + player->scr.y + player->dir.y;
-	h->pos = player->pos;
-	h->screenvector = vector(h->sl, h->sr);
-	h->stepvector.x = h->screenvector.x / (db)WIDTH;
-	h->stepvector.y = h->screenvector.y / (db)WIDTH;
-	h->dirvector = player->dir;
-}
 //drwaing the texture of the door on the main image on the screen.
 //depending on distance and intersection finding the correct texture values.
 void	draw_doorline(t_game *game, t_doorhelp *h, int x)
@@ -41,7 +28,7 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 	h->tex_coords.y = 0;
 	while (++i < h->lineheight)
 	{
-		if (h->start + i >= 0 && h->start + i <= HEIGHT)
+		if (h->start + i > 0 && h->start + i < HEIGHT)
 		{
 			tex_index = (((int)(h->tex_coords.y)
 					* h->d->texture->width) + (int)(h->tex_coords.x) ) * 4;
@@ -85,6 +72,21 @@ void	check_intersect(t_doorhelp *h, t_list *doors)
 		doors = doors->next;
 	}
 }
+
+//initializing the helpstruct
+void get_screen(t_player *player, t_doorhelp *h)
+{
+	h->sl.x = player->pos.x - player->scr.x + player->dir.x;
+	h->sl.y = player->pos.y - player->scr.y + player->dir.y;
+	h->sr.x = player->pos.x + player->scr.x + player->dir.x;
+	h->sr.y = player->pos.y + player->scr.y + player->dir.y;
+	h->pos = player->pos;
+	h->screenvector = vector(h->sl, h->sr);
+	h->stepvector.x = h->screenvector.x / (db)WIDTH;
+	h->stepvector.y = h->screenvector.y / (db)WIDTH;
+	h->dirvector = player->dir;
+}
+
 //looping through all screen x values and drwaing a vertical line
 // of the door texture if there is one visible on screen.
 void	draw_doors(t_game *game)
@@ -114,3 +116,4 @@ void	draw_doors(t_game *game)
 			game->map.dstuff.current = NULL;
 	}
 }
+ 

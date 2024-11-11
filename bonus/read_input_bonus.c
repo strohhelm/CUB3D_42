@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:16 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:21:21 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,43 @@ void	insert_map(t_map *map, char **str)
 	return ;
 }
 
+int	check_str(char **next_line, int *map_flag)
+{
+	if (!*next_line)
+			return (0);
+	if (**next_line == '\n')
+	{
+		free(*next_line);
+		if (*map_flag)
+			*map_flag = 2;
+		return (-1);
+	}
+	return (1);
+}
+
 void	get_info(int fd, t_map *map)
 {
 	char	*next_line;
 	int		map_flag;
+	int		status;
 
 	map_flag = 0;
 	while (!error(GET, NOUGHT))
 	{
 		next_line = get_next_line(fd);
-		if (!next_line)
-			break ;
-		if (*next_line == '\n' && !map_flag)
-		{
-			free(next_line);
+		status = check_str(&next_line, &map_flag);
+		if (!status)
+			break;
+		else if (status < 0)
 			continue ;
-		}
 		if (next_line[ft_strlen(next_line) - 1] == '\n')
 			next_line[ft_strlen(next_line) - 1] = '\0';
 		if (!map_flag && check_identifyer(next_line, &map_flag) >= 0)
 			insert_info(map, &next_line);
-		else if (map_flag)
+		else if (map_flag == 1)
 			insert_map(map, &next_line);
+		else if (map_flag == 2)
+			error_print("What is this map here? you are tying to be funny aye?");
 	}
 	check_error(error(GET, NOUGHT));
 	validate_map(map);

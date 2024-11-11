@@ -5,7 +5,7 @@ EA ./include/textures/castle1+.png
 NO ./include/textures/castle1+.png
 SO ./include/textures/castle1+.png
 C  123,50,210
-F  0,0,0
+F 0,0,0
 
 1111111111
 1N10101001

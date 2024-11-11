@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 21:43:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:17:32 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,36 +25,37 @@ void	make_indi_tex(t_game *game, t_tex **t, t_texture *tex)
 	fill_arr(&game->map, x, y, &arr);
 	fill_text(*t, game->map.textures, &arr);
 }
+
+void	init_texhelp(t_game *game, t_texture *tex, int dir, t_texhelp *t)
+{
+	t->current = &game->map.indiv[tex->index]->side[dir];
+	t->new = game->map.textures[BULLET];
+	t->start_index = (tex->arr_pos - (long)t->new->height / 2 * 4
+			* (long)t->current->width - (long)t->new->width / 2 * 4);
+	t->max_index = (long)(t->current->width * t->current->height * 4);
+}
 void	draw_on_tex(t_game *game, t_texture *tex, int dir)
 {
-	uint x;
-	uint y;
-	uint8_t *new_tex_pos;
-	mlx_texture_t *current;
-	mlx_texture_t *new;
-	long	start_index;
-	long	arr_index;
-	long	max_index;
+	uint		x;
+	uint		y;
+	t_texhelp	t;
 
-	if (!game->map.indiv[tex->index]){
+	if (!game->map.indiv[tex->index])
 		make_indi_tex(game, &game->map.indiv[tex->index], tex);
-	}
-	current = &game->map.indiv[tex->index]->side[dir];
-	new = game->map.textures[BULLET];
+	init_texhelp(game, tex, dir, &t);
 	y = 0;
-	start_index = (tex->arr_pos - (long)new->height / 2 * 4 * (long)current->width - (long)new->width / 2 * 4);
-	max_index = (long)(current->width * current->height * 4);
-	while (++y < new->height)
+	while (++y < t.new->height)
 	{
 		x = -1;
-		while (++x < new->width)
+		while (++x < t.new->width)
 		{
-			arr_index = start_index +( y * current->width + x) * 4;
-			new_tex_pos = &new->pixels[y * new->width * 4 + x * 4];
-			if (arr_index > 0 && arr_index < max_index)
+			t.arr_index = t.start_index +( y * t.current->width + x) * 4;
+			t.new_tex_pos = &t.new->pixels[y * t.new->width * 4 + x * 4];
+			if (t.arr_index > 0 && t.arr_index < t.max_index)
 			{
-				if (*((uint32_t *)new_tex_pos))
-					*((uint32_t *)(&current->pixels[arr_index])) = *((uint32_t *)new_tex_pos);
+				if (*((uint32_t *)t.new_tex_pos))
+					*((uint32_t *)(&t.current->pixels[t.arr_index]))
+					= *((uint32_t *)t.new_tex_pos);
 			}
 		}
 	}
@@ -66,12 +67,10 @@ void	fill_text(t_tex *t, mlx_texture_t **tex, int (*arr)[4])
 	size_t	nb;
 
 	i = 0;
-	printf("arr:[");
 	while (i < CEILING)
 	{
 		if ((*arr)[i])
 		{
-		printf("1,");
 			t->side[i].width = tex[i]->width;
 			t->side[i].height = tex[i]->height;
 			t->side[i].bytes_per_pixel = tex[i]->bytes_per_pixel;
@@ -82,15 +81,10 @@ void	fill_text(t_tex *t, mlx_texture_t **tex, int (*arr)[4])
 			ft_memmove(t->side[i].pixels, tex[i]->pixels, nb);
 		}
 		else
-		{
-			printf("0,");
 			t->side[i].pixels = NULL;
-		}
 		ft_memmove(&t->arr, arr, sizeof(int) * 4);
 		i++;
 	}
-			printf("]\n");
-
 }
 
 void	fill_arr(t_map *map, int x, int y, int (*arr)[4])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 18:17:05 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 00:02:58 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,62 @@ void free_sprites(t_game *game)
 		mlx_delete_texture(game->player.gun[i]);
 }
 
-void	free_game_end(t_game *game)
+void	free_indiv(t_tex *t)
 {
 	int	i;
 
+	i = 0;
+	while (i < 4)
+	{
+		if (t->arr[i])
+			mlx_delete_texture(&t->side[i]);
+	}
+}
+
+void	free_textures(t_game *game)
+{
+	long	i;
+
+	i = 0;
+	while (i < TEX_COUNT)
+	{
+		mlx_delete_texture(game->map.textures[i]);
+		game->map.textures[i] = NULL;
+		i++;
+	}
+	i = game->map.map_h * game->map.map_w;
+	while (--i > 0)
+	{
+		if (game->map.indiv[i])
+		{
+			free_indiv(game->map.indiv[i]);
+			free(game->map.indiv[i]);
+		}
+		i--;
+	}
+	// free(game->map.indiv);
+
+}
+
+void	free_door(void *d)
+{
+	t_door *p;
+	p = (t_door *)d;
+	mlx_delete_texture(p->texture);
+	free(p);
+}
+
+
+void	free_game_end(t_game *game)
+{
 	free_int_array(game->map.map, game->map.map_h);
 	free_string_array(game->map.str_map);
 	mlx_delete_image(game->mlx, game->img);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	mlx_terminate(game->mlx);
 	free_sprites(game);
-	i = 0;
-	while (i < 6)
-	{
-		mlx_delete_texture(game->map.textures[i]);
-		i++;
-	}
+	free_textures(game);
+	ft_lstclear(&game->map.dstuff.doors, &free_door);
 }
 
 void	free_int_array(int **arr, int h)

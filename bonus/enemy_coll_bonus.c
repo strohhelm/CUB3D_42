@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_coll_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:16:49 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 13:23:36 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:24:11 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,20 @@ void	e_collision(t_point new_pos, t_game *game, t_ai *e)
 
 	set_e_index(new_pos, e, &ix, &iy);
 	if (iy <= game->map.map_h && ix <= game->map.map_w
-		&& game->map.map[iy][ix] == 0 && (game->map.map[iy][(int)e->pos.x] != 1
-			&& game->map.map[(int)e->pos.y][ix] != 1))
+		&& game->map.map[iy][ix] == 0 && (game->map.map[iy][(int)e->pos.x] == 0
+			&& game->map.map[(int)e->pos.y][ix] == 0))
 	{
-		if (!intersection_with_door(game, e->pos, new_pos))
+
 			e->pos = new_pos;
 	}
-	else if (iy <= game->map.map_h && game->map.map[iy][(int)e->pos.x] != 1)
+	else if (iy <= game->map.map_h && game->map.map[iy][(int)e->pos.x] == 0)
 	{
 		new_pos.x = e->pos.x;
-		if (!intersection_with_door(game, e->pos, new_pos))
 			e->pos = new_pos;
 	}
-	else if (ix <= game->map.map_w && game->map.map[(int)e->pos.y][ix] != 1)
+	else if (ix <= game->map.map_w && game->map.map[(int)e->pos.y][ix] == 0)
 	{
 		new_pos.y = e->pos.y;
-		if (!intersection_with_door(game, e->pos, new_pos))
 			e->pos = new_pos;
 	}
 }

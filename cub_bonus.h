@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 21:56:00 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:37:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define CROSSHAIR 30
 # define EPSILON 1e-6
 # define FPS 30.0
-# define MAX_DOORS 20
+# define TEX_COUNT 7
 # define PI 3.14159265358979323846
 # define DEG 180.0 / PI
 # define NINETY PI / 2.0
@@ -44,20 +44,6 @@ enum e_state
 	DYING,
 	DEAD,
 };
-
-typedef struct s_enemy
-{
-	t_point pos;
-	mlx_texture_t **tex[2];
-	double dist;
-	struct s_enemy *next;
-	int hit;
-	int state;
-	int dead;
-	int hp;
-	int i;
-} t_ai;
-
 
 enum e_colors
 {
@@ -117,22 +103,7 @@ typedef struct s_sprites
 	struct s_sprites *next;
 } t_sprites;
 
-// typedef struct s_enemy
-// {
-// 	t_point pos;
-// 	mlx_texture_t **tex[2];
-// 	double dist;
-// 	struct s_enemy *next;
-// 	int hit;
-// 	int state;
-// 	int hp;
-// 	int i;
-// } t_ai;
 
-typedef struct s_indiv_texture {
-	mlx_texture_t	side[4];
-	int				arr[4];
-}	t_tex;
 
 typedef struct s_circlehelp
 {
@@ -231,6 +202,11 @@ typedef struct	s_minimap
 	t_point			pos;
 }	t_minimap;
 
+typedef struct s_indiv_texture {
+	mlx_texture_t	side[4];
+	int				arr[4];
+}	t_tex;
+
 typedef struct s_map
 {
 	int				**map;
@@ -241,7 +217,7 @@ typedef struct s_map
 	uint			floor;
 	int				start[3];
 	double			scale;
-	mlx_texture_t	*textures[7];
+	mlx_texture_t	*textures[TEX_COUNT];
 	char			**tex_names;
 	t_tex			**indiv;
 	t_doorstuff		dstuff;
@@ -258,6 +234,17 @@ typedef struct s_texture
 	uint		index;
 	uint32_t	test;
 }	t_texture;
+
+typedef struct	s_texhelp
+{
+	uint8_t *new_tex_pos;
+	mlx_texture_t *current;
+	mlx_texture_t *new;
+	long	start_index;
+	long	arr_index;
+	long	max_index;
+
+}	t_texhelp;
 
 //structure of values needed raycasting.
 typedef struct s_rays
@@ -287,6 +274,19 @@ typedef struct s_rays
 	t_texture	tex;
 }	t_rays;
 
+typedef struct s_enemy
+{
+	t_point pos;
+	mlx_texture_t **tex[2];
+	double dist;
+	struct s_enemy *next;
+	int hit;
+	int state;
+	int dead;
+	int hp;
+	int i;
+}	t_ai;
+
 typedef struct s_enemy_var
 {
 	t_point s;
@@ -303,7 +303,7 @@ typedef struct s_enemy_var
 	int endx;
 	int line;
 	int y;
-} t_enemy_var;
+}	t_enemy_var;
 
 typedef struct s_game
 {

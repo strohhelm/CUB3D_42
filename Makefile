@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/11 21:56:10 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/12 00:04:11 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ BFILES =	alienpls_bonus.c \
 			enemy_coll_bonus.c \
 			enemy_dist_sort_bonus.c\
 			error_bonus.c \
+			gun_bonus.c \
 			init_enemies_bonus.c \
 			main_bonus.c \
 			minimap_allocation_bonus.c \
@@ -61,8 +62,7 @@ BFILES =	alienpls_bonus.c \
 			render_bonus.c \
 			textures_bonus.c \
 			ui_bonus.c \
-			utils_bonus.c \
-			gun.c
+			utils_bonus.c
 
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
@@ -84,7 +84,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -fsanitize=address -Ofast
+CFLAGS = -Wall -Wextra  -Ofast #-fsanitize=address
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)
