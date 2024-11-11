@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 14:59:46 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:24:24 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ void	second_init(t_game *game)
 	game->player.pos.y += 0.5;
 	game->map.indiv = allocate_textures(game->map.map_h, game->map.map_w, game->map.textures, game->map.map);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	mlx_set_window_limit(game->mlx, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->minimap = mlx_new_image(game->mlx, MINIMAP_H, MINIMAP_H);
 	game->e = load_alien(game);
 	game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-
 }
+
 void	screen_init(t_player *player)
 {
 	t_point	dir;

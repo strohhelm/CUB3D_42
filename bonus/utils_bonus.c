@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 16:50:21 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:17:05 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void free_sprites(t_game *game)
 	mlx_delete_image(game->mlx, game->cmg);
 	mlx_delete_image(game->mlx, game->player.gun_img);
 	mlx_delete_image(game->mlx, game->hp);
+	mlx_delete_image(game->mlx, game->w_img);
+	mlx_delete_image(game->mlx, game->l_img);
 	while(++i < 6)
 		mlx_delete_texture(game->e->tex[ALIVE][i]);
 	i = -1;
@@ -117,6 +119,7 @@ void	free_string_array(char **str)
 	}
 	free(str);
 }
+
 int	left_or_right(t_point a, t_point b, t_point p)
 {
 	double	cross_product;

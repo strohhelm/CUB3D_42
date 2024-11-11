@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 16:02:23 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:54:41 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,8 @@ typedef struct s_game
 	t_ai		*e;
 	mlx_image_t *emg;
 	mlx_image_t *cmg;
+	mlx_image_t *l_img;
+	mlx_image_t *w_img;
 }	t_game;
 
 

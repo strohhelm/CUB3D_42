@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:07:07 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:28:00 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:30:20 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	gun_anim(t_game *game, int frame)
 {
 	static int	i = 0;
 
+	if(game->over)
+		return;
 	if (game->player.attack)
 		game->player.attack = 2;
 	else if (!game->player.attack)

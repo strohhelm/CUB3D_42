@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:36:46 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:57:20 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	epic_w(t_game *game)
 {
 	mlx_texture_t	*tw;
-	mlx_image_t		*w;
 
 	tw = mlx_load_png("./include/textures/w.png");
 	err_check(tw, "w texture error\n");
-	w = mlx_texture_to_image(game->mlx, tw);
-	mlx_image_to_window(game->mlx, w, 0, 0);
+	game->w_img = mlx_texture_to_image(game->mlx, tw);
+	mlx_image_to_window(game->mlx, game->w_img, 0, 0);
+	mlx_delete_texture(tw);
 	game->over = 1;
 }
 
@@ -81,14 +81,14 @@ void	health_bar(t_game *game)
 void	game_over_check(t_game *game)
 {
 	mlx_texture_t	*end;
-	mlx_image_t		*go;
 
 	if (game->player.hp > 0)
 		return ;
 	end = mlx_load_png("./include/textures/GAME_OVER.png");
 	err_check(end, "game over texture error\n");
-	go = mlx_texture_to_image(game->mlx, end);
-	mlx_image_to_window(game->mlx, go, 0, 0);
+	game->l_img = mlx_texture_to_image(game->mlx, end);
+	mlx_image_to_window(game->mlx, game->l_img, 0, 0);
+	mlx_delete_texture(end);
 	game->over = 1;
 }
 
