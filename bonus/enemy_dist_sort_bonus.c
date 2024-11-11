@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:15:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 14:44:18 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:29:43 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	swap(t_ai **head)
 	*head = second;
 }
 
-void sort_ai(t_ai **enemy)
+void	sort_ai(t_ai **enemy)
 {
-	t_ai **temp = enemy;
+	t_ai	**temp;
 
-	while((*temp)->next)
+	temp = enemy;
+	while ((*temp)->next)
 	{
 		if ((*temp)->next->dist > (*temp)->dist)
 		{
@@ -40,15 +41,15 @@ void sort_ai(t_ai **enemy)
 	}
 }
 
-void enemy_dist(t_game *game, t_ai **enemy, int frame)
+void	enemy_dist(t_game *game, t_ai **enemy, int frame)
 {
-	t_ai *e;
-	t_point p;
-	t_point len;
+	t_ai	*e;
+	t_point	p;
+	t_point	len;
 
 	e = *enemy;
 	p = game->player.pos;
-	while(e)
+	while (e)
 	{
 		len.x = fabs(e->pos.x - p.x);
 		len.y = fabs(e->pos.y - p.y);

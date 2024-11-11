@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 15:57:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:29:58 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
-void	mouse(mlx_key_data_t key, void* par)
+void	mouse(mlx_key_data_t key, void *par)
 {
 	t_game		*game;
 	static int	m = 1;
@@ -88,9 +88,9 @@ void	set_new_pos(t_game *game, t_point *new_pos, char key, int mod)
 
 void	mouse_hook(t_game *game)
 {
-	int		x;
-	int		y;
-	int		delta_y;
+	int	x;
+	int	y;
+	int	delta_y;
 
 	if (game->mouse > 0)
 	{
@@ -127,7 +127,8 @@ void	ft_hook(t_game *game)
 		set_new_pos(game, &new_pos, 'a', mod);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		set_new_pos(game, &new_pos, 'd', mod);
-	if (mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT) && !game->player.attack)
+	if (mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT)
+		&& !game->player.attack)
 		game->player.attack = 1;
 	rotation_extra_keys(game);
 	if (game->mouse > 0)

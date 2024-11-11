@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 14:55:37 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:28:14 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 mlx_texture_t	**allocate_textures_idle(void)
 {
 	mlx_texture_t	**idle;
+	int				i;
 
+	i = 0;
 	idle = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * 6);
 	idle[0] = mlx_load_png("./include/textures/sprites/idle/tile000.png");
 	idle[1] = mlx_load_png("./include/textures/sprites/idle/tile001.png");
@@ -51,13 +53,20 @@ mlx_texture_t	**allocate_textures_idle(void)
 	idle[3] = mlx_load_png("./include/textures/sprites/idle/tile003.png");
 	idle[4] = mlx_load_png("./include/textures/sprites/idle/tile004.png");
 	idle[5] = mlx_load_png("./include/textures/sprites/idle/tile005.png");
+	while (i < 6)
+	{
+		err_check(idle[i], "idle texture error\n");
+		i++;
+	}
 	return (idle);
 }
 
 mlx_texture_t	**allocate_textures_dying(void)
 {
 	mlx_texture_t	**dying;
+	int				i;
 
+	i = 0;
 	dying = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * 8);
 	dying[0] = mlx_load_png("./include/textures/sprites/dying/dying1.png");
 	dying[1] = mlx_load_png("./include/textures/sprites/dying/dying2.png");
@@ -67,6 +76,11 @@ mlx_texture_t	**allocate_textures_dying(void)
 	dying[5] = mlx_load_png("./include/textures/sprites/dying/dying6.png");
 	dying[6] = mlx_load_png("./include/textures/sprites/dying/dying7.png");
 	dying[7] = mlx_load_png("./include/textures/sprites/dying/dying8.png");
+	while (i < 8)
+	{
+		err_check(dying[i], "dying texture error\n");
+		i++;
+	}
 	return (dying);
 }
 
@@ -83,7 +97,7 @@ t_ai	*load_alien(t_game *game)
 	pos.x = 4.5;
 	pos.y = 1.5;
 	game->emg = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	idle = allocate_textures_idle(); // these two need to be freed somewhere!!!
+	idle = allocate_textures_idle();
 	dying = allocate_textures_dying();
 	while (count)
 	{

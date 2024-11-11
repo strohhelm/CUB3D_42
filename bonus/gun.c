@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:07:07 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 15:07:32 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:28:00 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,19 @@ void	load_gun(t_game *game)
 {
 	mlx_texture_t	**gun;
 	mlx_image_t		*gun_img;
+	int				i;
 
+	i = 0;
 	gun = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * 4);
 	gun[0] = mlx_load_png("include/textures/gunsprites/1.png");
 	gun[1] = mlx_load_png("include/textures/gunsprites/2.png");
 	gun[2] = mlx_load_png("include/textures/gunsprites/3.png");
 	gun[3] = mlx_load_png("include/textures/gunsprites/4.png");
+	while (i < 4)
+	{
+		err_check(gun[i], "gun texture error\n");
+		i++;
+	}
 	gun_img = mlx_texture_to_image(game->mlx, gun[0]);
 	game->player.gun = gun;
 	game->player.gun_img = gun_img;

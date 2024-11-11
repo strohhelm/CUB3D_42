@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_stuff_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:39:20 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:12:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:29:30 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ uint32_t	invert_colour(uint8_t *col)
 	red = 255 - red + var;
 	green = green + var;
 	blue = 255 - blue;
-	return(red << 24 | green << 16 | blue << 8 | 255);
+	return (red << 24 | green << 16 | blue << 8 | 255);
 }
 // returns the uint32_t value of the pixel described by the 4 uint8_t
 // pointed to by argument.
-uint32_t colour(uint8_t *col)
+uint32_t	colour(uint8_t *col)
 {
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-	uint8_t a;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
 
 	r = *col;
 	g = *(col + 1);
@@ -59,14 +59,14 @@ void	change_colour(uint32_t col, unsigned int *wall, unsigned int *floor)
 	red = 255 - red;
 	green = 255 - green;
 	blue = 255 - blue;
-
 	*floor = (red << 24 | green << 16 | blue << 8 | 255);
-	*wall = (red - 10 )/4 << 24 | (green-10)/4 << 16 | (blue-10)/4 << 8 | 255;
+	*wall = (red - 10) / 4 << 24 | (green - 10) / 4 << 16 | (blue - 10)
+		/ 4 << 8 | 255;
 }
 
 // darkens the colour by a specified amount by substraction it from all colour
 // values except alpha
-uint32_t darken_colour(uint32_t col, int amount)
+uint32_t	darken_colour(uint32_t col, int amount)
 {
 	uint8_t	red;
 	uint8_t	green;
@@ -89,5 +89,5 @@ uint32_t darken_colour(uint32_t col, int amount)
 		blue = 0;
 	else
 		blue -= amount;
-	return(red << 24 | green << 16 | blue << 8 | a);
+	return (red << 24 | green << 16 | blue << 8 | a);
 }

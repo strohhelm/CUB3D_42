@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 15:11:39 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:02:23 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,6 +351,8 @@ void		gun_anim(t_game *game, int frame);
 void		health_bar(t_game *game);
 void		display_enemycount(t_game *game);
 void		game_over_check(t_game *game);
+void		epic_w(t_game *game);
+void		clear_img(t_game *game);
 
 /*		draw_line		*/
 void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
@@ -389,7 +391,7 @@ void		draw_minimap_doors(t_game *game, uint32_t colour);
 void		set_dir(t_door *d, t_door *p, db i, db j);
 void		set_status(t_door *d, t_door *p, int i);
 void		set_status_progress(t_door *d, int status, db progress);
-int	intersection_with_door(t_game *game, t_point pos, t_point p);
+int			intersection_with_door(t_game *game, t_point pos, t_point p);
 
 
 /*		doors_utils		*/
@@ -411,10 +413,10 @@ void		rotate_dir_plane(t_point *dir, t_point *plane, \
 void		update_pos(t_game *game, t_point new_pos);
 
 /*		init_enemies.c		*/
-t_ai		*load_alien(t_game *game);
+t_ai			*load_alien(t_game *game);
 mlx_texture_t	**allocate_textures_dying(void);
 mlx_texture_t	**allocate_textures_idle(void);
-void		append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
+void			append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		main				*/
 void		init_game(t_game *game);
@@ -475,6 +477,8 @@ void		render(void *param);
 void		screen_init(t_player *player);
 void		blank(t_game *game);
 void		put_crosshair(t_game *game);
+void		call_drawing_functions(t_game *game, int frame);
+
 
 /*		textures			*/
 t_tex		**allocate_textures(int height, int width, mlx_texture_t **tex, int **map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_textures_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 15:20:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:29:18 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 	w = (int)(ray->hitp.x + EPSILON);
 	y = (int)(ray->hitp.y + EPSILON);
 	tex->index = y * game->map.map_w + w;
-
 	while (i < ray->lineheight)
 	{
 		if (!(ray->start + i < 0 || ray->start + i >= HEIGHT))
@@ -48,15 +47,16 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 			tex->arr_pos = ((int)tex->tex.y
 					* game->map.textures[ray->dir]->width + (int)tex->tex.x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
-			tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos]; //for individual textures
+			tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos];
+				// for individual textures
 			// tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
 			// for drawing on texture
-			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
+			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2)
+				&& game->player.attack == 1)
 				draw_on_tex(game, tex, ray->dir);
-			
 			tex->test = *(u_int32_t *)tex->tex_pos;
 			tex->test = darken_colour(tex->test, ray->walldist * 15);
 			if (tex->test != 0)
@@ -95,7 +95,7 @@ void	render_calc(t_game *game, t_rays *ray)
 	else
 		ray->walldist = (ray->sdisty - ray->deldisty) / 10;
 	ray->wallhit.x = game->player.pos.x + ray->walldist * 10 * ray->ray_dir_x;
-	ray->wallhit.y = game->player.pos.y + ray->walldist * 10 * ray->ray_dir_y;	
+	ray->wallhit.y = game->player.pos.y + ray->walldist * 10 * ray->ray_dir_y;
 	ray->minimap_hit.x = ray->walldist * 10 * ray->ray_dir_x;
 	ray->minimap_hit.y = ray->walldist * 10 * ray->ray_dir_y;
 	ray->hitp.x = (game->player.pos.x + ray->walldist * 10 * ray->ray_dir_x);
