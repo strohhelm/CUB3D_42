@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui.c                                               :+:      :+:    :+:   */
+/*   ui_bonus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 16:07:58 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:18:41 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,21 @@ void	load_gun(t_game *game)
 void	gun_anim(t_game *game, int frame)
 {
 	static int	i = 0;
-
+	t_point a;
+	t_point b;
+	a.x = WIDTH / 2.0;
+	a.y = HEIGHT / 2.0;
+	b.x = 1450.0;
+	b.y = 780.0;
 	if (game->player.attack)
+	{
+		if (game->player.attack == 1)
+			draw_line(&a, &b, game->img, EA);
 		game->player.attack = 2;
+	}
 	else if (!game->player.attack)
 		return ;
-	if (frame % 4 == 0 && i < 4)
+	if (frame % 2 == 0 && i < 4)
 		i++;
 	if (i <= 3)
 	{

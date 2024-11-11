@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/10 15:56:37 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:20:15 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,9 +238,9 @@ typedef struct s_texture
 	t_point		tex;
 	uint8_t		*tex_pos;
 	uint8_t		*img_pos;
-	int			arr_pos;
-	int			pic_pos;
-	u_l			index;
+	uint		arr_pos;
+	uint		pic_pos;
+	uint		index;
 	uint32_t	test;
 }	t_texture;
 

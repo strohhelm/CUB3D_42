@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alienpls.c                                         :+:      :+:    :+:   */
+/*   alienpls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/08 16:23:39 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/10 16:40:38 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 	e = enemy;
 	while(e)
 	{
-		if (e->state == ALIVE)
-			e->i = frame / 6;
-		else if (frame % 5 == 0 && e->i < 7)
+		if (e->state == ALIVE && frame % 4 == 0 && e->i < 5)
+			e->i += 1;
+		else if (e->state == DYING && frame % 5 == 0 && e->i < 7)
 			e->i += 1;
 		
 		enemy_calc(game, &i, e);
@@ -116,6 +116,8 @@ void draw_sprites(t_game *game, t_ai *enemy, int frame)
 		i.tex.step = 1.0 * e->tex[e->state][e->i]->height / i.sheight;
 		render_sprite(game, i, e);
 		e->hit = 0;
+		if (e->state == ALIVE && e->i == 5)
+			e->i = 0;
 		e = e->next;
 	}
 }

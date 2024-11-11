@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 15:20:54 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:24:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,36 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 {
 	int	i;
-	u_l	w;
-	u_l	y;
+	uint w;
+	uint y;
 
 	i = 0;
-	w = (int)(ray->hitp.x + EPSILON);
-	y = (int)(ray->hitp.y + EPSILON);
-	tex->index = y * game->map.map_w + w;
-
+	w = (uint)(ray->hitp.x + EPSILON);
+	y = (uint)(ray->hitp.y + EPSILON);
+	if (ray->dir == NORTH)
+		tex->index = (y - 1) * (uint)game->map.map_w + w;
+	else if (ray->dir == WEST)
+		tex->index = y * game->map.map_w + (w - 1);
+	else
+		tex->index = y * game->map.map_w + w;
 	while (i < ray->lineheight)
 	{
 		if (!(ray->start + i < 0 || ray->start + i >= HEIGHT))
 		{
-			tex->tex.y = i * tex->step;
-			tex->arr_pos = ((int)tex->tex.y
-					* game->map.textures[ray->dir]->width + (int)tex->tex.x)
-				* game->map.textures[ray->dir]->bytes_per_pixel;
+			tex->tex.y = (double)i * tex->step;
+			tex->arr_pos = ((uint)tex->tex.y
+					* game->map.textures[ray->dir]->width + (uint)tex->tex.x) * 4;
 			tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos]; //for individual textures
-			// tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
-			// for drawing on texture
-			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
-				draw_on_tex(game, tex, ray->dir);
 			
+			// if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
+			// 	draw_on_tex(game, tex, ray->dir);
+				
 			tex->test = *(u_int32_t *)tex->tex_pos;
 			tex->test = darken_colour(tex->test, ray->walldist * 15);
-			if (tex->test != 0)
+			if (tex->test)
 				*(uint32_t *)tex->img_pos = tex->test;
 		}
 		i++;

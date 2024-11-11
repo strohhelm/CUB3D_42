@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/10 15:00:13 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:15:26 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	draw_on_tex(t_game *game, t_texture * tex, int dir)
 	mlx_texture_t *new;
 	uint8_t *pos;
 
+	printf("index: %u\n", tex->index);
 	current = &game->map.indiv[tex->index]->side[dir];
 	new = game->map.textures[BULLET];
-	y = -0;
+	y = 0;
 	pos = tex->tex_pos - new->height / 2 * 4 * current->width - new->width / 2 * 4;
 	while (++y < new->height)
 	{
@@ -74,23 +75,12 @@ t_tex **allocate_textures(int height, int width, mlx_texture_t **tex, int **map)
 	printf("loading w: %d, h:%d\n", width, height);
 	while (++i < width * height)
 	{
-		// y = i / width;
-		// x = i - y * width;
-		// if (x == 0)
-			// printf("\n\n");
-		// printf("x:%d, y:%d\n", x, y);
+		y = i / width;
+		x = i - y * width;
 		text_arr[i] = (t_tex *)malloc(sizeof(t_tex));
-		if (!text_arr[i])
-			error_print("bruuuh look at your shitty pc, cant even malloc!");
-		// printf("[%03d", i);
-		// if (map[y][x] == 1)
-		// {
-			// printf("X");
+		err_check(text_arr[i], "bruuuh look at your shitty pc, cant even malloc!");
+		if (map[y][x] == 1)
 			fill_text(text_arr[i], tex);
-				// printf("y:%d, x:%d\n", y,x);
-		// }
-		// printf("] ");
-		// fflush(stdout);
 	}
 	printf("\n");
 	return (text_arr);
