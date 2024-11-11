@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 21:28:10 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:56:37 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	render_calc(t_game *game, t_rays *ray)
 	else
 		ray->walldist = (ray->sdisty - ray->deldisty) / 10;
 	ray->wallhit.x = game->player.pos.x + ray->walldist * 10 * ray->ray_dir_x;
-	ray->wallhit.y = game->player.pos.y + ray->walldist * 10 * ray->ray_dir_y;	
+	ray->wallhit.y = game->player.pos.y + ray->walldist * 10 * ray->ray_dir_y;
 	ray->minimap_hit.x = ray->walldist * 10 * ray->ray_dir_x;
 	ray->minimap_hit.y = ray->walldist * 10 * ray->ray_dir_y;
 	ray->hitp.x = (game->player.pos.x + ray->walldist * 10 * ray->ray_dir_x);

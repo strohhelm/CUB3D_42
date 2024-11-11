@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/11 19:25:36 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/11 21:56:10 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ BFILES =	alienpls_bonus.c \
 			textures_bonus.c \
 			ui_bonus.c \
 			utils_bonus.c \
+			gun.c
 
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 13:47:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 16:33:28 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	draw_minimap_rays(t_game *game, t_rays *ray)
 {
-	t_point	a, b;
-	double	scale = 0.0;
+	double	scale;
 	double	dist;
 	double	r;
 	double	sc;
+	t_point a;
+	t_point b;
 
+	scale = 0.0;
 	sc = MINIMAP_H / game->scale;
 	r = game->circle->width / 2 - 3;
 	a.x = game->minimap->height / 2.0;
@@ -33,17 +35,17 @@ void	draw_minimap_rays(t_game *game, t_rays *ray)
 	if (dist > r)
 	{
 		scale = r / dist;
-		b.x = a.x + (b.x - a.x) * scale ;
-		b.y = a.y + (b.y - a.y) * scale ;
+		b.x = a.x + (b.x - a.x) * scale;
+		b.y = a.y + (b.y - a.y) * scale;
 	}
 	draw_line(&a, &b, game->minimap, game->map.ceiling);
 }
+
 void	raycasting(t_game *game)
 {
-	int		x;
+	int	x;
 
 	x = 0;
-
 	while (x < WIDTH)
 	{
 		init_rays(game, &game->ray, x);
@@ -61,7 +63,7 @@ void	raycasting(t_game *game)
 
 void	init_rays(t_game *game, t_rays *ray, int x)
 {
-	ray->camx = 2 * x / (double)(WIDTH) - 1;
+	ray->camx = 2 * x / (double)(WIDTH)-1;
 	ray->ray_dir_x = game->player.dir.x + game->player.scr.x * ray->camx;
 	ray->ray_dir_y = game->player.dir.y + game->player.scr.y * ray->camx;
 	ray->mx = (int)(game->player.pos.x);

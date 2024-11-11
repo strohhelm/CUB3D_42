@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 15:21:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:56:43 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@ int	main(int argc, char **argv)
 	second_init(&game);
 	minimap_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
-	put_crosshair(&game);
 	load_gun(&game);
+	mlx_image_to_window(game.mlx, game.emg, 0, 0);
+	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
+	mlx_image_to_window(game.mlx, game.hp, 0, 0);
+	health_bar(&game);
+	put_crosshair(&game);
+	display_enemycount(&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_key_hook(game.mlx, mouse, (void *)&game);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
@@ -75,9 +79,13 @@ void	second_init(t_game *game)
 	game->player.pos.y += 0.5;
 	game->map.indiv = allocate_textures(&game->map);
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	mlx_set_window_limit(game->mlx, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->minimap = mlx_new_image(game->mlx, MINIMAP_H, MINIMAP_H);
+	game->e = load_alien(game);
+	game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 }
+
 void	screen_init(t_player *player)
 {
 	t_point	dir;

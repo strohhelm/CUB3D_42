@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_coll_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:16:49 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/10 15:59:33 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:23:36 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 21:25:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:56:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ enum e_state
 	DEAD,
 };
 
+typedef struct s_enemy
+{
+	t_point pos;
+	mlx_texture_t **tex[2];
+	double dist;
+	struct s_enemy *next;
+	int hit;
+	int state;
+	int dead;
+	int hp;
+	int i;
+} t_ai;
 
 
 enum e_colors
@@ -105,17 +117,17 @@ typedef struct s_sprites
 	struct s_sprites *next;
 } t_sprites;
 
-typedef struct s_enemy
-{
-	t_point pos;
-	mlx_texture_t **tex[2];
-	double dist;
-	struct s_enemy *next;
-	int hit;
-	int state;
-	int hp;
-	int i;
-} t_ai;
+// typedef struct s_enemy
+// {
+// 	t_point pos;
+// 	mlx_texture_t **tex[2];
+// 	double dist;
+// 	struct s_enemy *next;
+// 	int hit;
+// 	int state;
+// 	int hp;
+// 	int i;
+// } t_ai;
 
 typedef struct s_indiv_texture {
 	mlx_texture_t	side[4];
@@ -160,6 +172,7 @@ typedef struct s_door
 	int				dir;
 	mlx_texture_t	*texture;
 }	t_door;
+
 typedef struct s_doorhelp
 {
 	t_point	door_intersect;
@@ -309,6 +322,11 @@ typedef struct s_game
 	int			x;
 	int			y;
 	double		dist_arr[WIDTH];
+	t_ai		*e;
+	mlx_image_t *emg;
+	mlx_image_t *cmg;
+	mlx_image_t *l_img;
+	mlx_image_t *w_img;
 }	t_game;
 
 
@@ -332,7 +350,6 @@ typedef struct s_algorythm {
 t_ai		*load_alien(t_game *game);
 void		enemy_dist(t_game *game, t_ai **enemy, int frame);
 void		draw_sprites(t_game *game, t_ai *enemy, int frame);
-void		game_over_check(t_game *game);
 
 /*		cast_textures		*/
 void		draw_tex(t_game *game, int x, t_rays *ray);
@@ -341,13 +358,16 @@ int			return_orientation(int one, int two, int side);
 int			get_direction(t_point pos, t_point hit, int side);
 void		render_calc(t_game *game, t_rays *ray);
 
-
-
-/*		UI		*/
-void		health_bar(t_game *game);
+/*		gun.c		*/
 void		load_gun(t_game *game);
 void		gun_anim(t_game *game, int frame);
 
+/*		UI		*/
+void		health_bar(t_game *game);
+void		display_enemycount(t_game *game);
+void		game_over_check(t_game *game);
+void		epic_w(t_game *game);
+void		clear_img(t_game *game);
 
 /*		draw_line		*/
 void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
@@ -386,7 +406,7 @@ void		draw_minimap_doors(t_game *game, uint32_t colour);
 void		set_dir(t_door *d, t_door *p, db i, db j);
 void		set_status(t_door *d, t_door *p, int i);
 void		set_status_progress(t_door *d, int status, db progress);
-int	intersection_with_door(t_game *game, t_point pos, t_point p);
+int			intersection_with_door(t_game *game, t_point pos, t_point p);
 
 
 /*		doors_utils		*/
@@ -408,10 +428,10 @@ void		rotate_dir_plane(t_point *dir, t_point *plane, \
 void		update_pos(t_game *game, t_point new_pos);
 
 /*		init_enemies.c		*/
-t_ai		*load_alien(t_game *game);
+t_ai			*load_alien(t_game *game);
 mlx_texture_t	**allocate_textures_dying(void);
 mlx_texture_t	**allocate_textures_idle(void);
-void		append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
+void			append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		main				*/
 void		init_game(t_game *game);
@@ -472,6 +492,8 @@ void		render(void *param);
 void		screen_init(t_player *player);
 void		blank(t_game *game);
 void		put_crosshair(t_game *game);
+void		call_drawing_functions(t_game *game, int frame);
+
 
 /*		textures			*/
 t_tex		**allocate_textures(t_map *map);

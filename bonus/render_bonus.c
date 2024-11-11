@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 21:43:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:57:37 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ void	put_crosshair(t_game *game)
 	draw_circle(game->cross, 0xFFFF00FF, CROSSHAIR / 2 - 3);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 2);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 1);
-	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2
-		- game->cross->width/2, HEIGHT/2
-		- game->cross->height / 2);
+	mlx_image_to_window(game->mlx, game->cross, WIDTH / 2 - game->cross->width
+		/ 2, HEIGHT / 2 - game->cross->height / 2);
 }
 
 // wierd initializing fuction. to keep mlx from returning wrong values
@@ -58,7 +57,7 @@ void	put_crosshair(t_game *game)
 int	mousecounter(t_game *game)
 {
 	static int	i = 0;
-	
+
 	if (i++ < 2)
 	{
 		mlx_set_mouse_pos(game->mlx, WIDTH / 2, HEIGHT / 2);
@@ -69,42 +68,39 @@ int	mousecounter(t_game *game)
 	return (1);
 }
 
-//main render loop
-void render(void *param)
+void	call_drawing_functions(t_game *game, int frame)
+{
+	blank(game);
+	minimap(game);
+	raycasting(game);
+	update_enemy_pos(&game->e, game);
+	clear_img(game);
+	enemy_dist(game, &game->e, frame);
+	gun_anim(game, frame);
+	draw_doors(game);
+	doors(game);
+}
+
+// main render loop
+void	render(void *param)
 {
 	t_game		*game;
 	double		t;
 	double		ft;
 	double		time;
 	static int	frame = 1;
-	static t_ai *e = NULL;
-	static int	i = 0;
 
 	game = (t_game *)param;
+	t = mlx_get_time();
 	if (!mousecounter(game))
 		return ;
-	t = mlx_get_time();
 	if (frame == 30)
 		frame = 1;
 	time = 1.0 / FPS;
-	if (i++ == 0)
-	{
-		e = load_alien(game);
-		game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-		mlx_image_to_window(game->mlx, game->hp, 0, 0);
-		health_bar(game);
-	}
 	ft_hook(game);
 	if (!game->over)
 	{
-		blank(game);
-		minimap(game);
-		raycasting(game);
-		update_enemy_pos(&e, game);
-		enemy_dist(game, &e, frame);
-		gun_anim(game, frame);
-		draw_doors(game);
-		doors(game);
+		call_drawing_functions(game, frame);
 		ft = mlx_get_time() - t;
 		if (ft < time)
 			usleep((int)((time - ft) * 1000000));
