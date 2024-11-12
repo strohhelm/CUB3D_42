@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:11:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:16:52 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdlib.h> 
 # include "include/libft/src/libft.h"
 # include "include/get_next_line/get_next_line.h"
 # include "include/MLX42/include/MLX42/MLX42.h"
@@ -328,8 +329,8 @@ typedef struct s_game
 	int			y;
 	double		dist_arr[WIDTH];
 	double		e_dist_arr[WIDTH];
-	t_ai		*e;
 	int			enemy_count;
+	t_ai		*e;
 	mlx_image_t *emg;
 	mlx_image_t *cmg;
 	mlx_image_t *l_img;

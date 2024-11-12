@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:09:24 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:33:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 			h->img_pos = &game->img->pixels[h->img_index];
 			check_emg(game, h);
 			if (h->test)
-				*((uint32_t *)h->img_pos) = h->tex_pos;
+				*((uint32_t *)h->img_pos) = *((uint32_t *)h->tex_pos);
 		}
 		h->tex_coords.y += h->tex_step;
 	}
@@ -123,7 +123,6 @@ void	draw_doors(t_game *game)
 		h.lineheight = (int)round((db)HEIGHT / h.dist);
 		if (h.dist < (game->dist_arr[i]))
 		{
-			if (h.dist < game->e_dist_arr[i]) 
 			draw_doorline(game, &h, i);
 			if (i == WIDTH / 2 && h.dist <= 2.0)
 				game->map.dstuff.current = h.d;

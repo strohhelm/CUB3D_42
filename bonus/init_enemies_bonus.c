@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 12:46:09 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:14:13 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,50 @@ t_ai	*load_alien(t_game *game)
 	mlx_texture_t	**idle;
 	mlx_texture_t	**dying;
 
-	count = 3;
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+
+	count = (game->map.map_h * game->map.map_w) / 30;
+	game->enemy_count = count;
 	e = NULL;
-	pos.x = 4.5;
-	pos.y = 1.5;
 	game->emg = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	idle = allocate_textures_idle();
 	dying = allocate_textures_dying();
-	while (count)
+
+	while(y < game->map.map_h && count)
 	{
-		append_node(&e, pos, idle, dying);
-		pos.x += 2.0;
-		pos.y += 0.0;
-		count--;
+		if (x >= game->map.map_w)
+		{
+			x = 0;
+			y++;
+		}
+		if (y >= game->map.map_h)
+		{
+			y = 0;
+		}
+		if(game->map.map[y][x] != 0)
+		{
+			x++;
+			continue;
+		}
+		pos.x = x + 0.5;
+		pos.y = y + 0.5;
+		if (sqrt(pow(pos.x - game->player.pos.x, 2.0) + pow(pos.y - game->player.pos.y, 2.0)) > 5.0)
+		{
+			// printf("%lf\n", mlx_get_time());
+			if (rand() % 2 && rand() % 2)
+			{
+				append_node(&e, pos, idle, dying);
+				count--;
+				// x += rand() / 2;
+				y++;
+			}
+		}
+		x++;
 	}
+
 	return (e);
 }
