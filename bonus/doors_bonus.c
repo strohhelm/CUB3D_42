@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:33:57 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:48:08 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 					* h->d->texture->width) + (int)(h->tex_coords.x) ) * 4;
 			h->tex_pos = &h->d->texture->pixels[h->tex_index];
 			h->img_index = (((h->start + i) * game->img->width) + x) * 4;
+			if (h->start + i == HEIGHT / 2 && x == WIDTH / 2)
+				printf("%u\n", *((uint32_t *)&game->emg[h->img_index]))
 			h->img_pos = &game->img->pixels[h->img_index];
 			check_emg(game, h);
 			if (h->test)

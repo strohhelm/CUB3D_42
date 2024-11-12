@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:16:52 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:37:41 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,6 +333,7 @@ typedef struct s_game
 	t_ai		*e;
 	mlx_image_t *emg;
 	mlx_image_t *cmg;
+	mlx_image_t *tmg;
 	mlx_image_t *l_img;
 	mlx_image_t *w_img;
 }	t_game;
