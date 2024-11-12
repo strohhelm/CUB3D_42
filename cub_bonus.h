@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 12:43:52 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:49:38 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,7 @@ typedef struct s_enemy
 	int dead;
 	int hp;
 	int i;
+	int id;
 }	t_ai;
 
 typedef struct s_enemy_var
@@ -293,6 +294,7 @@ typedef struct s_enemy_var
 	t_point s;
 	t_point proj;
 	t_texture tex;
+	t_texture textwo;
 	double invcam;
 	int height_offset;
 	int spritescrx;
@@ -378,6 +380,8 @@ void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 void		enemy_dist(t_game *game, t_ai **enemy, int frame);
 void		sort_ai(t_ai **enemy);
 void		swap(t_ai **head);
+void		clear_e_arr(t_game *game);
+
 
 /*		ememy_coll.c		*/
 void		update_enemy_pos(t_ai **enemy, t_game *game);

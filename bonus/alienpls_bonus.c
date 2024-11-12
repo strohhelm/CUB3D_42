@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alienpls_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 21:56:17 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:44:15 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ void	render_sprite_loop(t_game *game, t_enemy_var *i, t_ai *e)
 	i->tex.tex_pos = &e->tex[e->state][e->i]->pixels[i->tex.arr_pos];
 	i->tex.pic_pos = (i->y * game->emg->width + i->line) * 4;
 	i->tex.img_pos = &game->emg->pixels[i->tex.pic_pos];
+	i->textwo.img_pos = &game->img->pixels[i->tex.pic_pos];
 	i->tex.test = darken_colour(*(u_int32_t *)i->tex.tex_pos, i->proj.y * 15);
 	if (i->tex.test != 0)
 	{
 		if (e->hit)
-			*(uint32_t *)i->tex.img_pos = 0xFF0000FF;
+			*(uint32_t *)i->textwo.img_pos = 0xFF0000FF;
 		else
-			*(uint32_t *)i->tex.img_pos = i->tex.test;
+			*(uint32_t *)i->textwo.img_pos = i->tex.test;
+		*(uint32_t *)i->tex.img_pos = (uint32_t)e->id;	
 	}
 	i->y++;
 }
@@ -41,7 +43,10 @@ void	render_sprite(t_game *game, t_enemy_var i, t_ai *e)
 		if (i.y < 0)
 			i.y = 0;
 		while (i.y < i.endy && i.proj.y < game->dist_arr[i.line])
+		{
+			game->e_dist_arr[i.line] = e->id;	
 			render_sprite_loop(game, &i, e);
+		}
 		i.line++;
 	}
 }
@@ -123,8 +128,6 @@ void	draw_sprites(t_game *game, t_ai *enemy, int frame)
 		i.tex.step = 1.0 * e->tex[e->state][e->i]->height / i.sheight;
 		render_sprite(game, i, e);
 		e->hit = 0;
-		if (e->state == ALIVE && e->i == 5)
-			e->i = 0;
 		e = e->next;
 	}
 }

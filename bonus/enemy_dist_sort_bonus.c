@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:15:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:29:43 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:46:40 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,16 @@ void	enemy_dist(t_game *game, t_ai **enemy, int frame)
 	}
 	sort_ai(enemy);
 	draw_sprites(game, *enemy, frame);
+}
+
+void clear_e_arr(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		game->e_dist_arr[i] = 0;
+		i++;
+	}
 }
