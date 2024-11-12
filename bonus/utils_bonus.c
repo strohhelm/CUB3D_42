@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 11:33:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:35:07 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ t_game	*game_pointer(int i, void *game)
 		return (def_not_global);
 }
 
+void free_e_list(t_game *game)
+{
+	t_ai *e = game->e;
+
+	while(game->e)
+	{
+		e = game->e->next;
+		free(game->e);
+		game->e = e;
+	}
+}
+
 void free_sprites(t_game *game)
 {
 	int i;
@@ -65,7 +77,10 @@ void free_sprites(t_game *game)
 	mlx_delete_image(game->mlx, game->player.gun_img);
 	mlx_delete_image(game->mlx, game->hp);
 	if(game->w_img)
+	{
 		mlx_delete_image(game->mlx, game->w_img);
+		mlx_delete_image(game->mlx, game->tmg);
+	}
 	if (game->l_img)
 		mlx_delete_image(game->mlx, game->l_img);
 	while(++i < 6)
@@ -76,6 +91,7 @@ void free_sprites(t_game *game)
 	i = -1;
 	while (++i < 4)
 		mlx_delete_texture(game->player.gun[i]);
+	free_e_list(game);
 }
 
 void	free_indiv(t_tex *t)
