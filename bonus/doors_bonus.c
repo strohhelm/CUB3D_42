@@ -6,19 +6,14 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 12:33:15 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:43:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cub_bonus.h"
 
-//drwaing the texture of the door on the main image on the screen.
-//depending on distance and intersection finding the correct texture values.
-void	draw_doorline(t_game *game, t_doorhelp *h, int x)
+void	init_for_draw_doorline(t_game *game, t_doorhelp *h)
 {
-	int		i;
-	int tex_index;
-	i = -1;
 	h->doorwidth = dist_points(h->d->p1, h->d->p2);
 	h->start = -h->lineheight / 2 + HEIGHT / 2 - game->y;
 	h->end = h->lineheight / 2 + HEIGHT / 2;
@@ -26,18 +21,67 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 	h->door_x = dist_points(h->d->p1, h->door_intersect);
 	h->tex_coords.x = (db)h->d->texture->width / (h->doorwidth / h->door_x);
 	h->tex_coords.y = 0;
+}
+
+void	check_enemy_dist(t_game *game, t_doorhelp *h, uint id)
+{
+	t_ai	*enemy;
+
+	enemy = game->e;
+	while (enemy)
+	{
+		if (enemy->id == id)
+		{
+			if (intersection_with_door(game, game->player.pos, enemy->pos))
+				h->enemy_flags[id] = -1;
+			else
+				h->enemy_flags[id] = -1;
+			return ;
+		}
+		enemy = enemy->next;
+	}
+}
+
+void	check_emg(t_game *game, t_doorhelp *h)
+{
+	uint32_t	id;
+
+	id = *((uint32_t *)&game->emg[h->img_index]);
+	id -= 1;
+	if (id)
+	{
+		if (h->enemy_flags[id] > 0)
+			h->test = 0;
+		else if (h->enemy_flags[id] < 0)
+			h->test = *((uint32_t *)h->tex_pos);
+		else if (h->enemy_flags[id] == 0)
+			check_enemy_dist(game, h, id);
+	}
+	else
+		h->test = *((uint32_t *)h->tex_pos);
+	return ;
+}
+
+//drwaing the texture of the door on the main image on the screen.
+//depending on distance and intersection finding the correct texture values.
+void	draw_doorline(t_game *game, t_doorhelp *h, int x)
+{
+	int		i;
+	i = -1;
+
+	init_for_draw_doorline(game, h);
 	while (++i < h->lineheight)
 	{
 		if (h->start + i > 0 && h->start + i < HEIGHT)
 		{
-			tex_index = (((int)(h->tex_coords.y)
+			h->tex_index = (((int)(h->tex_coords.y)
 					* h->d->texture->width) + (int)(h->tex_coords.x) ) * 4;
-			h->tex_pos = &h->d->texture->pixels[tex_index];
-			h->img_pos = &game->img->pixels[(((h->start + i)
-					* game->img->width) + x) * 4];
-			ft_memmove(&h->test, h->tex_pos, 4);
+			h->tex_pos = &h->d->texture->pixels[h->tex_index];
+			h->img_index = (((h->start + i) * game->img->width) + x) * 4;
+			h->img_pos = &game->img->pixels[h->img_index];
+			check_emg(game, h);
 			if (h->test)
-				ft_memmove(h->img_pos, h->tex_pos, 4);
+				*((uint32_t *)h->img_pos) = h->tex_pos;
 		}
 		h->tex_coords.y += h->tex_step;
 	}
@@ -74,8 +118,10 @@ void	check_intersect(t_game *game, t_doorhelp *h, t_list *doors, int i)
 }
 
 //initializing the helpstruct
-void get_screen(t_player *player, t_doorhelp *h)
+void get_screen(t_game *game, t_player *player, t_doorhelp *h)
 {
+	int	i;
+
 	h->sl.x = player->pos.x - player->scr.x + player->dir.x;
 	h->sl.y = player->pos.y - player->scr.y + player->dir.y;
 	h->sr.x = player->pos.x + player->scr.x + player->dir.x;
@@ -85,6 +131,13 @@ void get_screen(t_player *player, t_doorhelp *h)
 	h->stepvector.x = h->screenvector.x / (db)WIDTH;
 	h->stepvector.y = h->screenvector.y / (db)WIDTH;
 	h->dirvector = player->dir;
+	h->door_intersect.x = 0.0;
+	h->door_intersect.y = 0.0;
+	h->enemy_flags = (int *)malloc(sizeof(int) * game->enemy_count);
+	err_check(h->enemy_flags, "malloc fucked the scene");
+	i = 0;
+	while (++i < game->enemy_count)
+		h->enemy_flags[i] = 0;
 }
 
 //looping through all screen x values and drwaing a vertical line
@@ -94,15 +147,13 @@ void	draw_doors(t_game *game)
 	t_doorhelp	h;
 	int i;
 
-	get_screen(&game->player, &h);
+	get_screen(game, &game->player, &h);
 	i = - 1;
-	h.door_intersect.x = 0.0;
-	h.door_intersect.y = 0.0;
+
 	while (++i < WIDTH && game->map.dstuff.nb > 0)
 	{
 		h.screen_x = point_x_vector(h.sl, (db)i, h.stepvector);
 		check_intersect(game, &h, game->map.dstuff.doors, i);
-		
 		h.lineheight = (int)round((db)HEIGHT / h.dist);
 		if (h.dist < (game->dist_arr[i]))
 		{

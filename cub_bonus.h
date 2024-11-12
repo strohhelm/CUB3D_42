@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 12:49:38 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:09:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,16 +160,18 @@ typedef struct s_doorhelp
 	int		lineheight;
 	int		start;
 	int		end;
+	int		tex_index;
 	t_point	tex_coords;
 	double	door_x;
 	uint8_t	*tex_pos;
 	uint8_t	*img_pos;
+	long	img_index;
 	uint	test;
 	double	tex_step;
 	double	dist;
 	double	tmpdist;
 	double	angle;
-	bool	enemy_flag; 
+	int		*enemy_flags; 
 	t_door	*d;
 }	t_doorhelp;
 
@@ -327,6 +329,7 @@ typedef struct s_game
 	double		dist_arr[WIDTH];
 	double		e_dist_arr[WIDTH];
 	t_ai		*e;
+	int			enemy_count;
 	mlx_image_t *emg;
 	mlx_image_t *cmg;
 	mlx_image_t *l_img;
