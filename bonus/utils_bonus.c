@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 00:02:58 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:33:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ void free_sprites(t_game *game)
 	mlx_delete_image(game->mlx, game->cmg);
 	mlx_delete_image(game->mlx, game->player.gun_img);
 	mlx_delete_image(game->mlx, game->hp);
-	mlx_delete_image(game->mlx, game->w_img);
-	mlx_delete_image(game->mlx, game->l_img);
+	if(game->w_img)
+		mlx_delete_image(game->mlx, game->w_img);
+	if (game->l_img)
+		mlx_delete_image(game->mlx, game->l_img);
 	while(++i < 6)
 		mlx_delete_texture(game->e->tex[ALIVE][i]);
 	i = -1;
@@ -80,8 +82,8 @@ void	free_indiv(t_tex *t)
 {
 	int	i;
 
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 4)
 	{
 		if (t->arr[i])
 			mlx_delete_texture(&t->side[i]);
@@ -107,10 +109,8 @@ void	free_textures(t_game *game)
 			free_indiv(game->map.indiv[i]);
 			free(game->map.indiv[i]);
 		}
-		i--;
 	}
 	// free(game->map.indiv);
-
 }
 
 void	free_door(void *d)

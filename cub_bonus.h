@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 23:37:02 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:54:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 typedef unsigned long	u_l;
 typedef	double db;
-
+typedef	unsigned int	uint;
 
 enum e_state
 {
@@ -78,11 +78,12 @@ enum e_status
 
 enum e_error
 {
+	NOINFO = -4,
 	FALSEIDENT = -3,
 	DOUBLEIDENT = -2,
 	EMPTYLINE = -1,
 	NOUGHT,
-	MALLOC,
+	ALLIDENT = 6,
 };
 
 enum e_direction

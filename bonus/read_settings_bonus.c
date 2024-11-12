@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:18:39 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	set_colour(int type, t_map *map, char *str)
 
 	fill_col_arr(&col, str);
 	if (arr_len(col) != 3 || ft_strlen(col[0]) == 0 || ft_strlen(col[1]) == 0
-		|| ft_strlen(col[2]) == 0)
+		|| ft_strlen(col[2]) == 0 || ft_strlen(col[0]) > 3 || ft_strlen(col[1]) > 3
+		|| ft_strlen(col[2]) > 3)
 		error_print("Aha what do you want me to do? imagine colours?");
 	rgb[0] = ft_atoi(col[0]);
 	rgb[1] = ft_atoi(col[1]);

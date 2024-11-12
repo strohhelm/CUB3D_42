@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/29 15:15:55 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:08:11 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	get_start_pos(t_map *map, t_player *player)
 		dir_x = 1;
 	else if (map->start[2] == 87)
 		dir_x = -1;
-	player->dir.x = dir_x;
-	player->dir.y = dir_y;
+	player->dir.x = (double)dir_x;
+	player->dir.y = (double)dir_y;
 }
 int	comp_ident(char *str, int *idents)
 {
@@ -60,7 +60,7 @@ int	comp_ident(char *str, int *idents)
 		if (i == 3)
 			len = 1;
 	}
-	return (error(SET, FALSEIDENT), FALSEIDENT);
+	return (FALSEIDENT);
 }
 
 int	check_identifyer(char *line, int *map_flag)
@@ -77,14 +77,16 @@ int	check_identifyer(char *line, int *map_flag)
 		return (EMPTYLINE);
 	current = comp_ident(&line[i], idents);
 	if (current >= 0)
+	{
 		idents[current] = 1;
+		error(SET, error(GET, NOUGHT) + 1);
+	}
 	else if (current == FALSEIDENT)
 	{
 		if (line[i] == '1')
-		{
-			error(SET, NOUGHT);
 			*map_flag = 1;
-		}
+		else
+			error(SET, FALSEIDENT);
 	}
 	return (current);
 }

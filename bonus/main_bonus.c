@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 00:04:32 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:32:01 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	second_init(t_game *game)
 	game->minimap = mlx_new_image(game->mlx, MINIMAP_H, MINIMAP_H);
 	game->e = load_alien(game);
 	game->hp = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->l_img = NULL;
+	game->w_img = NULL;
 }
 
 void	screen_init(t_player *player)

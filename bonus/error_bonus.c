@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:16:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:23:24 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error(int e_action, int e_error)
 {
-	static int	error_status;
+	static int	error_status = 0;
 
 	if (e_action == GET)
 		return (error_status);
@@ -46,8 +46,11 @@ void	check_error(int e)
 {
 	if (e == DOUBLEIDENT)
 		error_print("Woah hey there! There is a twice set identifier!");
-	else if (e)
+	else if (e == FALSEIDENT)
 		error_print("Woah hey there! Thats not a valid identifier!");
-	else
+	else if (e == NOINFO)
+		error_print("Woah hey there! There is nothing!");
+	else if (e != ALLIDENT)
+		error_print("Woah hey htere! There are identifyers missing!");
 		return ;
 }

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 23:21:21 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:23:14 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_str(char **next_line, int *map_flag)
 {
 	if (!*next_line)
 			return (0);
-	if (**next_line == '\n')
+	if (**next_line == '\n' || **next_line == '\0')
 	{
 		free(*next_line);
 		if (*map_flag)
@@ -51,7 +51,7 @@ void	get_info(int fd, t_map *map)
 	int		status;
 
 	map_flag = 0;
-	while (!error(GET, NOUGHT))
+	while (error(GET, NOUGHT) >= 0)
 	{
 		next_line = get_next_line(fd);
 		status = check_str(&next_line, &map_flag);
