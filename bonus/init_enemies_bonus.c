@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:28:14 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:46:09 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 {
 	t_ai	*new_node;
 	t_ai	*temp;
+	static int	id = 1;
 
 	new_node = NULL;
 	temp = *e;
@@ -30,6 +31,7 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 	new_node->i = 0;
 	new_node->hit = 0;
 	new_node->dead = 0;
+	new_node->id = id++;
 	if (!*e)
 	{
 		*e = new_node;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 11:32:01 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:00:47 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	minimap_init(&game);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	load_gun(&game);
-	mlx_image_to_window(game.mlx, game.emg, 0, 0);
+	// mlx_image_to_window(game.mlx, game.emg, 0, 0);
 	mlx_image_to_window(game.mlx, game.minimap, MINIMAP_P, MINIMAP_P);
 	mlx_image_to_window(game.mlx, game.hp, 0, 0);
 	health_bar(&game);
