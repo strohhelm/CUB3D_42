@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 13:43:02 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:09:24 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,45 +21,6 @@ void	init_for_draw_doorline(t_game *game, t_doorhelp *h)
 	h->door_x = dist_points(h->d->p1, h->door_intersect);
 	h->tex_coords.x = (db)h->d->texture->width / (h->doorwidth / h->door_x);
 	h->tex_coords.y = 0;
-}
-
-void	check_enemy_dist(t_game *game, t_doorhelp *h, uint id)
-{
-	t_ai	*enemy;
-
-	enemy = game->e;
-	while (enemy)
-	{
-		if (enemy->id == id)
-		{
-			if (intersection_with_door(game, game->player.pos, enemy->pos))
-				h->enemy_flags[id] = -1;
-			else
-				h->enemy_flags[id] = -1;
-			return ;
-		}
-		enemy = enemy->next;
-	}
-}
-
-void	check_emg(t_game *game, t_doorhelp *h)
-{
-	uint32_t	id;
-
-	id = *((uint32_t *)&game->emg[h->img_index]);
-	id -= 1;
-	if (id)
-	{
-		if (h->enemy_flags[id] > 0)
-			h->test = 0;
-		else if (h->enemy_flags[id] < 0)
-			h->test = *((uint32_t *)h->tex_pos);
-		else if (h->enemy_flags[id] == 0)
-			check_enemy_dist(game, h, id);
-	}
-	else
-		h->test = *((uint32_t *)h->tex_pos);
-	return ;
 }
 
 //drwaing the texture of the door on the main image on the screen.
@@ -133,11 +94,16 @@ void get_screen(t_game *game, t_player *player, t_doorhelp *h)
 	h->dirvector = player->dir;
 	h->door_intersect.x = 0.0;
 	h->door_intersect.y = 0.0;
-	h->enemy_flags = (int *)malloc(sizeof(int) * game->enemy_count);
-	err_check(h->enemy_flags, "malloc fucked the scene");
-	i = 0;
-	while (++i < game->enemy_count)
-		h->enemy_flags[i] = 0;
+	if ( game->enemy_count < 0)
+	{
+		h->enemy_flags = (int *)malloc(sizeof(int) * game->enemy_count);
+		err_check(h->enemy_flags, "malloc fucked the scene");
+		i = 0;
+		while (++i < game->enemy_count)
+			h->enemy_flags[i] = 0;
+	}
+	else
+		h->enemy_flags = NULL;
 }
 
 //looping through all screen x values and drwaing a vertical line
@@ -167,5 +133,7 @@ void	draw_doors(t_game *game)
 		else if (i == WIDTH / 2)
 			game->map.dstuff.current = NULL;
 	}
+	if (h.enemy_flags)
+	free(h.enemy_flags);
 }
  

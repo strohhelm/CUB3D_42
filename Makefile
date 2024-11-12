@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/12 11:11:38 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/12 15:13:56 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ BFILES =	alienpls_bonus.c \
 			collision_bonus.c \
 			color_stuff_bonus.c \
 			doors_bonus.c \
+			doors_enemy_check_bonus.c \
 			door_mechanics_bonus.c \
 			door_mechanics_utils_bonus.c \
 			doors_utils_bonus.c \

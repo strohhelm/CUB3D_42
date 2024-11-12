@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 13:09:57 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:11:46 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,8 +401,6 @@ uint32_t	colour(uint8_t *col);
 void		change_colour(uint32_t col, unsigned int *wall, unsigned int *floor);
 uint32_t	darken_colour(uint32_t col, int amount);
 
-/*		doors			*/
-void		draw_doors(t_game *game);
 
 /*		door_mechanics	*/
 void		door_move(t_game *game, t_door *d);
@@ -416,6 +414,18 @@ void		set_dir(t_door *d, t_door *p, db i, db j);
 void		set_status(t_door *d, t_door *p, int i);
 void		set_status_progress(t_door *d, int status, db progress);
 int			intersection_with_door(t_game *game, t_point pos, t_point p);
+
+/*		doors			*/
+void		get_screen(t_game *game, t_player *player, t_doorhelp *h);
+void		check_intersect(t_game *game, t_doorhelp *h, t_list *doors, int i);
+void		draw_doorline(t_game *game, t_doorhelp *h, int x);
+void		init_for_draw_doorline(t_game *game, t_doorhelp *h);
+
+void		draw_doors(t_game *game);
+
+/*		doors_enemy_check_bonus	*/
+void	check_enemy_dist(t_game *game, t_doorhelp *h, uint id);
+void	check_emg(t_game *game, t_doorhelp *h);
 
 
 /*		doors_utils		*/
