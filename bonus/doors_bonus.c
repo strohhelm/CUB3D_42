@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 23:32:56 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:33:15 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 
 //looping through each doorstruct to see if on ray direction is an
 //intersection with a doorline, and if so returning the closest one.
-void	check_intersect(t_doorhelp *h, t_list *doors)
+void	check_intersect(t_game *game, t_doorhelp *h, t_list *doors, int i)
 {
 	t_door	*d;
 	t_point	tmp;
 	
-	h->dist = h->buffdist + 2.0;
+	h->dist = game->dist_arr[i] + 2.0;
 	while (doors)
 	{
 		d = (t_door *)doors->content;
@@ -101,11 +101,12 @@ void	draw_doors(t_game *game)
 	while (++i < WIDTH && game->map.dstuff.nb > 0)
 	{
 		h.screen_x = point_x_vector(h.sl, (db)i, h.stepvector);
-		h.buffdist = game->dist_arr[i];
-		check_intersect(&h, game->map.dstuff.doors);
+		check_intersect(game, &h, game->map.dstuff.doors, i);
+		
 		h.lineheight = (int)round((db)HEIGHT / h.dist);
 		if (h.dist < (game->dist_arr[i]))
 		{
+			if (h.dist < game->e_dist_arr[i]) 
 			draw_doorline(game, &h, i);
 			if (i == WIDTH / 2 && h.dist <= 2.0)
 				game->map.dstuff.current = h.d;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 11:56:37 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:43:52 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ typedef struct s_doorhelp
 	double	tex_step;
 	double	dist;
 	double	tmpdist;
-	double	buffdist;
 	double	angle;
+	bool	enemy_flag; 
 	t_door	*d;
 }	t_doorhelp;
 
