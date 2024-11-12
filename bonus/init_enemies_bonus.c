@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 15:36:18 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:42:50 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_ai	*load_alien(t_game *game)
 	count = (game->map.map_h * game->map.map_w) / 30;
 	game->enemy_count = 0;
 	e = NULL;
-	game->emg = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	idle = allocate_textures_idle();
 	dying = allocate_textures_dying();
 	while(y < game->map.map_h && count)
@@ -111,10 +110,6 @@ t_ai	*load_alien(t_game *game)
 		{
 			x = 0;
 			y++;
-		}
-		if (y >= game->map.map_h)
-		{
-			y = 0;
 		}
 		if(game->map.map[y][x] != 0)
 		{

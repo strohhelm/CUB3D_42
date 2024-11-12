@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 12:33:03 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:45:09 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	call_drawing_functions(t_game *game, int frame)
 	raycasting(game);
 	update_enemy_pos(&game->e, game);
 	clear_img(game);
-	clear_e_arr(game);
+	clear_e_img(game);
 	enemy_dist(game, &game->e, frame);
 	gun_anim(game, frame);
 	draw_doors(game);
