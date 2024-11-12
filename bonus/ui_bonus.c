@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_bonus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 21:58:10 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:56:02 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	display_enemycount(t_game *game)
 	char	*nstr;
 	int		count;
 	t_ai	*e;
+
 
 	e = game->e;
 	count = 0;

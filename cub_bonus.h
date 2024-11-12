@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 10:54:00 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:56:37 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,7 @@ typedef struct s_game
 	int			x;
 	int			y;
 	double		dist_arr[WIDTH];
+	double		e_dist_arr[WIDTH];
 	t_ai		*e;
 	mlx_image_t *emg;
 	mlx_image_t *cmg;
