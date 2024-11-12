@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:37:41 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:49:06 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -385,8 +385,7 @@ void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 void		enemy_dist(t_game *game, t_ai **enemy, int frame);
 void		sort_ai(t_ai **enemy);
 void		swap(t_ai **head);
-void		clear_e_arr(t_game *game);
-
+void		clear_e_img(t_game *game);
 
 /*		ememy_coll.c		*/
 void		update_enemy_pos(t_ai **enemy, t_game *game);

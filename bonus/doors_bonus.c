@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:48:08 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:24:17 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,10 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 					* h->d->texture->width) + (int)(h->tex_coords.x) ) * 4;
 			h->tex_pos = &h->d->texture->pixels[h->tex_index];
 			h->img_index = (((h->start + i) * game->img->width) + x) * 4;
-			if (h->start + i == HEIGHT / 2 && x == WIDTH / 2)
-				printf("%u\n", *((uint32_t *)&game->emg[h->img_index]))
 			h->img_pos = &game->img->pixels[h->img_index];
 			check_emg(game, h);
 			if (h->test)
-				*((uint32_t *)h->img_pos) = *((uint32_t *)h->tex_pos);
+				*((uint *)h->img_pos) = *((uint *)h->tex_pos);
 		}
 		h->tex_coords.y += h->tex_step;
 	}
@@ -96,7 +94,7 @@ void get_screen(t_game *game, t_player *player, t_doorhelp *h)
 	h->dirvector = player->dir;
 	h->door_intersect.x = 0.0;
 	h->door_intersect.y = 0.0;
-	if ( game->enemy_count < 0)
+	if ( game->enemy_count > 0)
 	{
 		h->enemy_flags = (int *)malloc(sizeof(int) * game->enemy_count);
 		err_check(h->enemy_flags, "malloc fucked the scene");
@@ -133,8 +131,13 @@ void	draw_doors(t_game *game)
 		}
 		else if (i == WIDTH / 2)
 			game->map.dstuff.current = NULL;
+		int y = -1;
+		while (++y < game->enemy_count)
+			h.enemy_flags[y] = 0;
 	}
 	if (h.enemy_flags)
-	free(h.enemy_flags);
+	{
+		free(h.enemy_flags);
+	}
 }
  

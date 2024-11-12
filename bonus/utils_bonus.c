@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:35:07 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:46:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,14 @@ void	free_indiv(t_tex *t)
 	while (++i < 4)
 	{
 		if (t->arr[i])
-			mlx_delete_texture(&t->side[i]);
+			mlx_delete_texture(&(t->side[i]));
 	}
 }
 
 void	free_textures(t_game *game)
 {
 	long	i;
+	long	j;
 
 	i = 0;
 	while (i < TEX_COUNT)
@@ -117,13 +118,13 @@ void	free_textures(t_game *game)
 		game->map.textures[i] = NULL;
 		i++;
 	}
-	i = game->map.map_h * game->map.map_w;
-	while (--i > 0)
+	j = game->map.map_h * game->map.map_w;
+	i = -1;
+	while (++i < j)
 	{
 		if (game->map.indiv[i])
 		{
 			free_indiv(game->map.indiv[i]);
-			free(game->map.indiv[i]);
 		}
 	}
 	// free(game->map.indiv);
@@ -144,10 +145,10 @@ void	free_game_end(t_game *game)
 	free_string_array(game->map.str_map);
 	mlx_delete_image(game->mlx, game->img);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
-	mlx_terminate(game->mlx);
 	free_sprites(game);
 	free_textures(game);
 	ft_lstclear(&game->map.dstuff.doors, &free_door);
+	mlx_terminate(game->mlx);
 }
 
 void	free_int_array(int **arr, int h)
