@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 15:55:40 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:14:50 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 	temp->next = new_node;
 }
 
-mlx_texture_t	**allocate_textures_idle(void)
+void	**allocate_textures_idle(mlx_texture_t **idle)
 {
 	mlx_texture_t	**idle;
 	int				i;
@@ -60,16 +60,13 @@ mlx_texture_t	**allocate_textures_idle(void)
 		err_check(idle[i], "idle texture error\n");
 		i++;
 	}
-	return (idle);
 }
 
-mlx_texture_t	**allocate_textures_dying(void)
+void	**allocate_textures_dying(mlx_texture_t **dying)
 {
-	mlx_texture_t	**dying;
-	int				i;
+	int	i;
 
 	i = 0;
-	dying = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * 8);
 	dying[0] = mlx_load_png("./include/textures/sprites/dying/dying1.png");
 	dying[1] = mlx_load_png("./include/textures/sprites/dying/dying2.png");
 	dying[2] = mlx_load_png("./include/textures/sprites/dying/dying3.png");
@@ -83,7 +80,6 @@ mlx_texture_t	**allocate_textures_dying(void)
 		err_check(dying[i], "dying texture error\n");
 		i++;
 	}
-	return (dying);
 }
 
 t_ai	*load_alien(t_game *game)
@@ -91,8 +87,6 @@ t_ai	*load_alien(t_game *game)
 	int				count;
 	t_point			pos;
 	t_ai			*e;
-	mlx_texture_t	**idle;
-	mlx_texture_t	**dying;
 	int x;
 	int y;
 
@@ -102,8 +96,8 @@ t_ai	*load_alien(t_game *game)
 	count = (game->map.map_h * game->map.map_w) / 30;
 	game->enemy_count = 0;
 	e = NULL;
-	idle = allocate_textures_idle();
-	dying = allocate_textures_dying();
+	allocate_textures_idle(game->e_idle);
+	allocate_textures_dying(game->e_dying);
 	while(y < game->map.map_h && count)
 	{
 		if (x >= game->map.map_w)
@@ -124,7 +118,7 @@ t_ai	*load_alien(t_game *game)
 		{
 			if (rand() % 2 && rand() % 2)
 			{
-				append_node(&e, pos, idle, dying);
+				append_node(&e, pos, game->e_idle, game->e_dying);
 				game->enemy_count += 1;
 				count--;
 				x += 2;

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:49:06 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:14:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,9 +328,10 @@ typedef struct s_game
 	int			x;
 	int			y;
 	double		dist_arr[WIDTH];
-	double		e_dist_arr[WIDTH];
 	int			enemy_count;
 	t_ai		*e;
+	mlx_texture_t	*e_idle[6];
+	mlx_texture_t	*e_dying[8];
 	mlx_image_t *emg;
 	mlx_image_t *cmg;
 	mlx_image_t *tmg;

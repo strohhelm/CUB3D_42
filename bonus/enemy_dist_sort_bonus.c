@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_dist_sort_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:15:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 15:47:11 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:58:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	enemy_dist(t_game *game, t_ai **enemy, int frame)
 }
 
 
-void clear_e_img(t_game *game)
+void	clear_e_img(t_game *game)
 {
 	unsigned int i;
 

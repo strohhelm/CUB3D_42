@@ -43,7 +43,6 @@ void	rotation_extra_keys(t_game *game)
 		1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
-		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 		free_game_end(game);
 		exit(0);
 	}

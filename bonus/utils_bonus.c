@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 18:46:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/12 19:01:34 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,11 @@ void	free_game_end(t_game *game)
 {
 	free_int_array(game->map.map, game->map.map_h);
 	free_string_array(game->map.str_map);
-	mlx_delete_image(game->mlx, game->img);
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	free_sprites(game);
 	free_textures(game);
 	ft_lstclear(&game->map.dstuff.doors, &free_door);
+	mlx_delete_image(game->mlx, game->img);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	mlx_terminate(game->mlx);
 }
 
