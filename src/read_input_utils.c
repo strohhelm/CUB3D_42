@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 16:36:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:36:17 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

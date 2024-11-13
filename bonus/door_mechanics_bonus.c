@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_mechanics_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:27:28 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:05:22 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:39:30 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	rotate_door(t_door *d)
 {
 	t_point	v;
 	t_point	rot;
-	double l_r;
-	
+	double	l_r;
+
 	l_r = d->dir;
 	v = vector(d->p1, d->p2);
 	if (d->status == CLOSING)
@@ -89,7 +89,7 @@ void	minimap_door_hit(t_game *game, t_point hit, t_point *intersect)
 	t_door	*d;
 	t_point	tmp;
 	t_list	*doors;
-	
+
 	doors = game->map.dstuff.doors;
 	*intersect = hit;
 	while (doors)
@@ -98,8 +98,8 @@ void	minimap_door_hit(t_game *game, t_point hit, t_point *intersect)
 		tmp = segment_intersection(game->player.pos, hit, d->p1, d->p2);
 		if (tmp.x != 0 && tmp.y != 0)
 		{
-			if (dist_points(game->player.pos, tmp)
-				< dist_points(game->player.pos, *intersect))
+			if (dist_points(game->player.pos,
+					tmp) < dist_points(game->player.pos, *intersect))
 				*intersect = tmp;
 		}
 		doors = doors->next;
@@ -113,7 +113,7 @@ void	draw_minimap_doors(t_game *game, uint32_t colour)
 	t_point	a;
 	t_point	b;
 	t_list	*doors;
-	
+
 	doors = game->map.dstuff.doors;
 	x.x = game->minimap->height / 2.0;
 	x.y = game->minimap->height / 2.0;
@@ -124,8 +124,8 @@ void	draw_minimap_doors(t_game *game, uint32_t colour)
 		b = vector(game->player.pos, d->p2);
 		a = point_x_vector(x, MINIMAP_H / game->scale, a);
 		b = point_x_vector(x, MINIMAP_H / game->scale, b);
-		if (a.x <= game->minimap->width && a.x >= 0 
-			&&	b.x <= game->minimap->width && b.x >= 0
+		if (a.x <= game->minimap->width && a.x >= 0
+			&& b.x <= game->minimap->width && b.x >= 0
 			&& a.y <= game->minimap->height && a.y >= 0
 			&& b.y <= game->minimap->height && b.y >= 0)
 			draw_line(&a, &b, game->minimap, colour);

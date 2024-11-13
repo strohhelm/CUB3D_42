@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_allocation_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:37:30 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:21:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:13 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	circlePoints(t_circle_help *c, mlx_image_t *img, uint32_t col)
 void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 {
 	t_circle_help	c;
-	
+
 	c.xcenter = img->height / 2;
 	c.ycenter = img->width / 2;
 	if (radius <= img->width / 2 - 1)
@@ -69,25 +69,25 @@ void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 			c.y--;
 			c.p += 2 * (c.x - c.y) + 1;
 		}
-	circlePoints(&c, img, col);
+		circlePoints(&c, img, col);
 	}
 }
 // fils the outside of the img with a circle drawn on with all full rgba(white).
 void	fill_outside_circle(mlx_image_t *img)
 {
-	u_int32_t		x;
-	u_int32_t		y;
+	u_int32_t	x;
+	u_int32_t	y;
 
 	y = -1;
 	while (++y < img->height)
 	{
 		x = -1;
 		while (++x < img->width / 2 && colour(&img->pixels[((y * img->width)
-				+ x) * 4]) != 0xFFFFFFFF)
+					+ x) * 4]) != 0xFFFFFFFF)
 			mlx_put_pixel(img, x, y, 0xFFFFFFFF);
 		x = img->width;
 		while (--x > img->width / 2 && colour(&img->pixels[((y * img->width)
-				+ x) * 4]) != 0xFFFFFFFF)
+					+ x) * 4]) != 0xFFFFFFFF)
 			mlx_put_pixel(img, x, y, 0xFFFFFFFF);
 	}
 }
@@ -95,7 +95,7 @@ void	fill_outside_circle(mlx_image_t *img)
 void	minimap_init(t_game *game)
 {
 	game->circle = mlx_new_image(game->mlx, (uint32_t)MINIMAP_H,
-				(uint32_t)MINIMAP_H);
+			(uint32_t)MINIMAP_H);
 	if (!game->circle)
 		error_print("Oh shit circle img failed!");
 	draw_circle(game->circle, 0xFFFFFFFF, game->circle->width / 2 - 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 14:05:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:36:45 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	left_or_right(t_point a, t_point b, t_point p)
 	b_vector = vector(a, b);
 	p_vector = vector(a, p);
 	cross_product = b_vector.x * p_vector.y - b_vector.y * p_vector.x;
-	if (cross_product < 0 )
+	if (cross_product < 0)
 		return (LEFT);
 	else
 		return (RIGHT);

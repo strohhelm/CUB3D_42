@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 15:32:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:14:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:55 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_absolute(int a, int b)
 }
 
 // needs mlx_img pointer and colour input.
-//draws line in berensham's line algorithm.
+// draws line in berensham's line algorithm.
 void	draw_line(t_point *p_a, t_point *p_b, mlx_image_t *img, int color)
 {
 	t_pixel_line	z;

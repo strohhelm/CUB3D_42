@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors_enemy_check_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:08:38 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 18:29:46 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:39:09 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

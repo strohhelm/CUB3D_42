@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_enemies_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 19:14:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:02:57 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 		mlx_texture_t **dying)
 {
-	t_ai	*new_node;
-	t_ai	*temp;
+	t_ai		*new_node;
+	t_ai		*temp;
 	static int	id = 1;
 
 	new_node = NULL;
@@ -44,7 +44,7 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 
 void	allocate_textures_idle(mlx_texture_t **idle)
 {
-	int				i;
+	int	i;
 
 	i = 0;
 	idle[0] = mlx_load_png("./include/textures/sprites/idle/tile000.png");
@@ -80,52 +80,49 @@ void	allocate_textures_dying(mlx_texture_t **dying)
 	}
 }
 
+void	load_alien_loop(t_game *game, t_load_ai *ai)
+{
+	ai->pos.x = ai->x + 0.5;
+	ai->pos.y = ai->y + 0.5;
+	if (sqrt(pow(ai->pos.x - game->player.pos.x, 2.0) + pow(ai->pos.y
+				- game->player.pos.y, 2.0)) > 5.0)
+	{
+		if (rand() % 2 && rand() % 2)
+		{
+			append_node(&ai->e, ai->pos, game->e_idle, game->e_dying);
+			game->enemy_count += 1;
+			ai->count--;
+			ai->x += 2;
+			if (rand() % 2)
+				ai->y++;
+		}
+	}
+	ai->x++;
+}
+
 t_ai	*load_alien(t_game *game)
 {
-	int				count;
-	t_point			pos;
-	t_ai			*e;
-	int x;
-	int y;
+	t_load_ai	ai;
 
-	x = 0;
-	y = 0;
-
-	count = (game->map.map_h * game->map.map_w) / 30;
-	game->enemy_count = 0;
-	e = NULL;
-	allocate_textures_idle(game->e_idle);
-	allocate_textures_dying(game->e_dying);
-	while(y < game->map.map_h && count)
+	ai.x = 0;
+	ai.y = 0;
+	ai.e = NULL;
+	ai.count = (game->map.map_h * game->map.map_w) / 30;
+	while (ai.y < game->map.map_h && ai.count)
 	{
-		if (x >= game->map.map_w)
+		if (ai.x >= game->map.map_w)
 		{
-			x = 0;
-			y++;
-			if (y == game->map.map_h)
+			ai.x = 0;
+			ai.y++;
+			if (ai.y == game->map.map_h)
 				break ;
 		}
-		if(game->map.map[y][x] != 0)
+		if (game->map.map[ai.y][ai.x] != 0)
 		{
-			x++;
-			continue;
+			ai.x++;
+			continue ;
 		}
-		pos.x = x + 0.5;
-		pos.y = y + 0.5;
-		if (sqrt(pow(pos.x - game->player.pos.x, 2.0) + pow(pos.y - game->player.pos.y, 2.0)) > 5.0)
-		{
-			if (rand() % 2 && rand() % 2)
-			{
-				append_node(&e, pos, game->e_idle, game->e_dying);
-				game->enemy_count += 1;
-				count--;
-				x += 2;
-				if(rand() % 2)
-					y++;
-			}
-		}
-		x++;
+		load_alien_loop(game, &ai);
 	}
-
-	return (e);
+	return (ai.e);
 }

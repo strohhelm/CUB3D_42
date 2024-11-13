@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 19:39:25 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:35:41 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	fill_array(t_map *map)
 
 void	check_map_middle(int **p, int x, int y)
 {
-	if (p[y][x + 1] == 0 || p[y][x - 1] == 0
-		|| p[y + 1][x] == 0 || p[y - 1][x] == 0)
+	if (p[y][x + 1] == 0 || p[y][x - 1] == 0 || p[y + 1][x] == 0 || p[y
+		- 1][x] == 0)
 		error_print("WTF! Map not valid! Get those \
 			spaces away from the zeros!");
 	return ;

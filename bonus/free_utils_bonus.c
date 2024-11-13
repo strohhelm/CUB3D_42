@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:00:42 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 14:03:04 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:29 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	free_door(void *d)
 {
-	t_door *p;
+	t_door	*p;
+
 	p = (t_door *)d;
 	mlx_delete_texture(p->texture);
 	free(p);
@@ -22,7 +23,6 @@ void	free_door(void *d)
 
 void	free_int_array(int **arr, int h)
 {
-
 	if (arr)
 	{
 		while (--h >= 0)
@@ -47,7 +47,7 @@ void	free_string_array(char **str)
 }
 void	free_indiv(t_tex *t)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (++i < 4)

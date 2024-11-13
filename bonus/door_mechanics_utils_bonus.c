@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_mechanics_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:59:43 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 23:26:49 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:39:24 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@ void	set_status(t_door *d, t_door *p, int i)
 	p->status = i;
 }
 
-void set_status_progress(t_door *d, int status, db progress)
+void	set_status_progress(t_door *d, int status, db progress)
 {
 	d->status = status;
 	d->progress = progress;
 }
+
 int	intersection_with_door(t_game *game, t_point pos, t_point p)
 {
 	t_door	*d;
 	t_point	tmp;
 	t_list	*doors;
-	
+
 	doors = game->map.dstuff.doors;
 	tmp = vector(pos, p);
 	p = point_x_vector(pos, 3, tmp);

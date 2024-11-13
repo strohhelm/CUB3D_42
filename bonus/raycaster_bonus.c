@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 16:33:28 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:37:57 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	draw_minimap_rays(t_game *game, t_rays *ray)
 	double	dist;
 	double	r;
 	double	sc;
-	t_point a;
-	t_point b;
+	t_point	a;
+	t_point	b;
 
 	scale = 0.0;
 	sc = MINIMAP_H / game->scale;

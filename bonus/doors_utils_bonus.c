@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:08:35 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:39:03 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // returns the point of intersection between ray from a through b
 // and line segment CD.
-//If there is none, returns point (0.0 | 0.0)
+// If there is none, returns point (0.0 | 0.0)
 t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 {
 	t_point	s;
@@ -26,7 +26,7 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	s.y = 0.0;
 	denom = ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
 	if (!denom)
-		return(s);
+		return (s);
 	else
 	{
 		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denom;
@@ -53,7 +53,7 @@ t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d)
 	s.y = 0.0;
 	denom = ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x));
 	if (!denom)
-		return(s);
+		return (s);
 	else
 	{
 		t = ((a.x - c.x) * (c.y - d.y) - (a.y - c.y) * (c.x - d.x)) / denom;
@@ -70,7 +70,7 @@ t_point	segment_intersection(t_point a, t_point b, t_point c, t_point d)
 // returns the vector between point a and point b
 t_point	vector(t_point a, t_point b)
 {
-	t_point vector;
+	t_point	vector;
 
 	vector.x = b.x - a.x;
 	vector.y = b.y - a.y;
@@ -82,7 +82,7 @@ double	dist_points(t_point a, t_point b)
 {
 	double	dist;
 	t_point	v;
-	
+
 	v = vector(a, b);
 	dist = sqrt(v.x * v.x + v.y * v.y);
 	return (dist);
@@ -93,7 +93,7 @@ t_point	point_x_vector(t_point p, double x, t_point v)
 {
 	p.x = p.x + x * v.x;
 	p.y = p.y + x * v.y;
-	return(p);
+	return (p);
 }
 // returns the angle between vector a and vector b.
 // a and b dont need to be normalized.
@@ -110,4 +110,3 @@ double	vector_angle(t_point a, t_point b)
 	angle = acos(scalar_product / (magnitude_a * magnitude_b));
 	return (angle);
 }
-
