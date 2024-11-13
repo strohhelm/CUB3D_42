@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 15:45:09 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:35:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ void	blank(t_game *game)
 	}
 }
 
-// initializes the crosshai img that will be rendered on top of the main img
+// initializes the crosshair img that will be rendered on top of the main img
 void	put_crosshair(t_game *game)
 {
-	game->cross = mlx_new_image(game->mlx, CROSSHAIR, CROSSHAIR);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 6);
 	draw_circle(game->cross, 0X000000FF, CROSSHAIR / 2 - 5);
 	draw_circle(game->cross, 0xFFFF00FF, CROSSHAIR / 2 - 4);

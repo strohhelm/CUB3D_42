@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 19:01:34 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 13:45:04 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ void	free_textures(t_game *game)
 	i = 0;
 	while (i < TEX_COUNT)
 	{
-		mlx_delete_texture(game->map.textures[i]);
+		if (game->map.textures[i])
+			mlx_delete_texture(game->map.textures[i]);
 		game->map.textures[i] = NULL;
 		i++;
 	}
@@ -123,9 +124,7 @@ void	free_textures(t_game *game)
 	while (++i < j)
 	{
 		if (game->map.indiv[i])
-		{
 			free_indiv(game->map.indiv[i]);
-		}
 	}
 	// free(game->map.indiv);
 }
