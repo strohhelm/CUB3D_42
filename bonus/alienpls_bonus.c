@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 18:04:00 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:30:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	render_sprite(t_game *game, t_enemy_var i, t_ai *e)
 		i.y = i.starty;
 		if (i.y < 0)
 			i.y = 0;
-		while (i.y < i.endy && i.proj.y < game->dist_arr[i.line])	
+		while (i.y < i.endy && i.proj.y < game->dist_arr[i.line])
 			render_sprite_loop(game, &i, e);
 		i.line++;
 	}
