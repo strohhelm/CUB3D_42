@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:00:58 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 16:39:43 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:29:33 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ void	free_game_end(t_game *game)
 	mlx_delete_image(game->mlx, game->img);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
 	mlx_terminate(game->mlx);
+	exit(0);
 }

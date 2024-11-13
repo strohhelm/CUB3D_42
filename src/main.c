@@ -6,40 +6,43 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/07 11:23:48 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:22:39 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
+// atexit((void *)leaks);
+
+// int	leaks(void)
+// {
+// 	return (system("leaks cub3d"));
+// }
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
+	game_pointer(1, &game);
 	init_game(&game);
 	read_input(argv, &game.player, &game.map);
 	screen_init(&game.player);
 	second_init(&game);
-	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_loop_hook(game.mlx, render, (void *)&game);
 	mlx_mouse_hook(game.mlx, mouse, (void *)&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
-	return (0);
+	free_game_end(&game);
+	exit (0);
 }
 
 void	init_game(t_game *game)
 {
 	game->x = 0;
 	game->y = 0;
-	game->mouse = 1;
-	game->player.height = HEIGHT;
-	game->player.width = WIDTH;
-	game->player.color = 0x6cf542ff;
+	game->mouse = -1;
 	game->player.pov = 0.66;
 	game->map.str_map = NULL;
 }
@@ -56,10 +59,8 @@ void	second_init(t_game *game)
 	game->player.pos.x += 0.5;
 	game->player.pos.y += 0.5;
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	mlx_set_window_limit(game->mlx, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
 
-int	leaks(void)
-{
-	return (system("leaks cub3d"));
-}

@@ -6,12 +6,12 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/13 16:43:30 by timschmi         ###   ########.fr        #
+#    Updated: 2024/11/13 17:29:55 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
-BNAME = bcub3d
+NAME = cub3D
+BNAME = cub3D_bonus
 SRC_PATH = src
 OBJ_PATH = obj
 BON_PATH = bonus
@@ -87,7 +87,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -O0 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Ofast #-fsanitize=address
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)

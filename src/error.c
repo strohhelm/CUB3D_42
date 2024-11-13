@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 16:05:54 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:41:40 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ void	check_error(int e)
 {
 	if (e == DOUBLEIDENT)
 		error_print("Woah hey there! There is a twice set identifier!");
-	else if (e)
+	else if (e == FALSEIDENT)
 		error_print("Woah hey there! Thats not a valid identifier!");
-	else
-		return ;
+	else if (e == NOINFO)
+		error_print("Woah hey there! There is nothing!");
+	else if (e != ALLIDENT)
+		error_print("Woah hey there! There are identifiers missing!");
+	return ;
 }

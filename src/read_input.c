@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/01 20:23:01 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:50:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,43 @@ void	insert_map(t_map *map, char **str)
 	map->str_map = tmp;
 	return ;
 }
+int	check_str(char **next_line, int *map_flag)
+{
+	if (!*next_line)
+			return (0);
+	if (**next_line == '\n' || **next_line == '\0')
+	{
+		free(*next_line);
+		if (*map_flag)
+			*map_flag = 2;
+		return (-1);
+	}
+	return (1);
+}
 
 void	get_info(int fd, t_map *map)
 {
 	char	*next_line;
 	int		map_flag;
+	int		status;
 
 	map_flag = 0;
-	while (!error(GET, NOUGHT))
+	while (error(GET, NOUGHT) >= 0)
 	{
 		next_line = get_next_line(fd);
-		if (!next_line)
-			break ;
-		if (*next_line == '\n' && !map_flag)
-		{
-			free(next_line);
+		status = check_str(&next_line, &map_flag);
+		if (!status)
+			break;
+		else if (status < 0)
 			continue ;
-		}
 		if (next_line[ft_strlen(next_line) - 1] == '\n')
 			next_line[ft_strlen(next_line) - 1] = '\0';
 		if (!map_flag && check_identifyer(next_line, &map_flag) >= 0)
 			insert_info(map, &next_line);
-		else if (map_flag)
+		else if (map_flag == 1)
 			insert_map(map, &next_line);
+		else if (map_flag == 2)
+			error_print("What is this map here? you are tying to be funny aye?");
 	}
 	check_error(error(GET, NOUGHT));
 	validate_map(map);
@@ -67,7 +81,7 @@ void	read_input(char **argv, t_player *player, t_map *map)
 		error_print("Woah hey there! Thats not a '.cub' file!");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		error_print("Woah hey there! Thats not a valid file!");
+		error_print("File doesn't exist or doesn't have permissions!");
 	get_info(fd, map);
 	get_start_pos(map, player);
 	close(fd);

@@ -1,18 +1,22 @@
 
-WE ./include/textures/castle1.png
+WE ./include/textures/red.png
 
 
-EA ./include/textures/castle2.png
+NO ./include/textures/green.png
+EA ./include/textures/yellow.png
 
-NO ./include/textures/castle2.png
-SO ./include/textures/castle2.png
-
-
-C 0,0,0
-F 0,0,0
+SO ./include/textures/blue.png
 
 
+C 45,120,190
+F 90,89,53
 
-1111
-1E01
-1111
+
+
+      1111
+      1E01
+      1111
+      1
+      111
+      101
+      111
