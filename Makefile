@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/12 18:46:03 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/13 14:28:24 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ BFILES =	alienpls_bonus.c \
 			enemy_coll_bonus.c \
 			enemy_dist_sort_bonus.c\
 			error_bonus.c \
+			free_bonus.c \
+			free_utils_bonus.c \
 			gun_bonus.c \
 			init_enemies_bonus.c \
 			main_bonus.c \

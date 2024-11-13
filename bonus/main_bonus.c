@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 13:52:39 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:27:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	allocate_images(t_game *game)
 	err_check(&game->hp, "fucking malloc");
 	game->cross = mlx_new_image(game->mlx, CROSSHAIR, CROSSHAIR);
 	err_check(&game->cross, "fucking malloc");
-	put_crosshair(game);
 	game->e = load_alien(game);
 	game->l_img = NULL;
 	game->w_img = NULL;
@@ -100,6 +99,7 @@ void	second_init(t_game *game)
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	mlx_image_to_window(game->mlx, game->minimap, MINIMAP_P, MINIMAP_P);
 	mlx_image_to_window(game->mlx, game->hp, 0, 0);
+	put_crosshair(game);
 }
 
 void	screen_init(t_player *player)

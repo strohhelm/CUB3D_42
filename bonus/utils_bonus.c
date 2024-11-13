@@ -6,12 +6,13 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 13:45:04 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:05:48 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
+// returns the length od a string array
 int	arr_len(char **arr)
 {
 	int	i;
@@ -25,6 +26,7 @@ int	arr_len(char **arr)
 	return (i);
 }
 
+// copies an array of strings from src to dest
 int	mv_arr(char **src, char **dest)
 {
 	int	i;
@@ -42,6 +44,7 @@ int	mv_arr(char **src, char **dest)
 	return (i);
 }
 
+// returns the game pointer if hard to access
 t_game	*game_pointer(int i, void *game)
 {
 	static t_game	*def_not_global;
@@ -55,127 +58,7 @@ t_game	*game_pointer(int i, void *game)
 		return (def_not_global);
 }
 
-void free_e_list(t_game *game)
-{
-	t_ai *e = game->e;
-
-	while(game->e)
-	{
-		e = game->e->next;
-		free(game->e);
-		game->e = e;
-	}
-}
-
-void free_sprites(t_game *game)
-{
-	int i;
-
-	i = -1;
-	mlx_delete_image(game->mlx, game->emg);
-	mlx_delete_image(game->mlx, game->cmg);
-	mlx_delete_image(game->mlx, game->player.gun_img);
-	mlx_delete_image(game->mlx, game->hp);
-	if(game->w_img)
-	{
-		mlx_delete_image(game->mlx, game->w_img);
-		mlx_delete_image(game->mlx, game->tmg);
-	}
-	if (game->l_img)
-		mlx_delete_image(game->mlx, game->l_img);
-	while(++i < 6)
-		mlx_delete_texture(game->e->tex[ALIVE][i]);
-	i = -1;
-	while (++i < 8)
-		mlx_delete_texture(game->e->tex[DYING][i]);
-	i = -1;
-	while (++i < 4)
-		mlx_delete_texture(game->player.gun[i]);
-	free_e_list(game);
-}
-
-void	free_indiv(t_tex *t)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-	{
-		if (t->arr[i])
-			mlx_delete_texture(&(t->side[i]));
-	}
-}
-
-void	free_textures(t_game *game)
-{
-	long	i;
-	long	j;
-
-	i = 0;
-	while (i < TEX_COUNT)
-	{
-		if (game->map.textures[i])
-			mlx_delete_texture(game->map.textures[i]);
-		game->map.textures[i] = NULL;
-		i++;
-	}
-	j = game->map.map_h * game->map.map_w;
-	i = -1;
-	while (++i < j)
-	{
-		if (game->map.indiv[i])
-			free_indiv(game->map.indiv[i]);
-	}
-	// free(game->map.indiv);
-}
-
-void	free_door(void *d)
-{
-	t_door *p;
-	p = (t_door *)d;
-	mlx_delete_texture(p->texture);
-	free(p);
-}
-
-
-void	free_game_end(t_game *game)
-{
-	free_int_array(game->map.map, game->map.map_h);
-	free_string_array(game->map.str_map);
-	free_sprites(game);
-	free_textures(game);
-	ft_lstclear(&game->map.dstuff.doors, &free_door);
-	mlx_delete_image(game->mlx, game->img);
-	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
-	mlx_terminate(game->mlx);
-}
-
-void	free_int_array(int **arr, int h)
-{
-
-	if (arr)
-	{
-		while (--h >= 0)
-		{
-			free(arr[h]);
-		}
-		free(arr);
-	}
-}
-void	free_string_array(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i])
-			free(str[i]);
-		i++;
-	}
-	free(str);
-}
-
+// checks which side the point p is on when you look from a to b
 int	left_or_right(t_point a, t_point b, t_point p)
 {
 	double	cross_product;

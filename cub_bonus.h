@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 19:14:35 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:22:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,11 +332,11 @@ typedef struct s_game
 	t_ai		*e;
 	mlx_texture_t	*e_idle[6];
 	mlx_texture_t	*e_dying[8];
-	mlx_image_t *emg;
-	mlx_image_t *cmg;
-	mlx_image_t *tmg;
-	mlx_image_t *l_img;
-	mlx_image_t *w_img;
+	mlx_image_t	*emg;
+	mlx_image_t	*cmg;
+	mlx_image_t	*tmg;
+	mlx_image_t	*l_img;
+	mlx_image_t	*w_img;
 }	t_game;
 
 
@@ -368,30 +368,8 @@ int			return_orientation(int one, int two, int side);
 int			get_direction(t_point pos, t_point hit, int side);
 void		render_calc(t_game *game, t_rays *ray);
 
-/*		gun.c		*/
-void		load_gun(t_game *game);
-void		gun_anim(t_game *game, int frame);
-
-/*		UI		*/
-void		health_bar(t_game *game);
-void		display_enemycount(t_game *game);
-void		game_over_check(t_game *game);
-void		epic_w(t_game *game);
-void		clear_img(t_game *game);
-
 /*		draw_line		*/
 void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
-
-/*		enemy_dist_sort.c		*/
-void		enemy_dist(t_game *game, t_ai **enemy, int frame);
-void		sort_ai(t_ai **enemy);
-void		swap(t_ai **head);
-void		clear_e_img(t_game *game);
-
-/*		ememy_coll.c		*/
-void		update_enemy_pos(t_ai **enemy, t_game *game);
-void		e_collision(t_point new_pos, t_game *game, t_ai *e);
-void		set_e_index(t_point new_pos, t_ai *e, int *ix, int *iy);
 
 /*		collision.c		*/
 void		collision(t_point new_pos, t_game *game);
@@ -402,7 +380,6 @@ uint32_t	invert_colour(uint8_t *col);
 uint32_t	colour(uint8_t *col);
 void		change_colour(uint32_t col, unsigned int *wall, unsigned int *floor);
 uint32_t	darken_colour(uint32_t col, int amount);
-
 
 /*		door_mechanics	*/
 void		door_move(t_game *game, t_door *d);
@@ -422,12 +399,11 @@ void		get_screen(t_game *game, t_player *player, t_doorhelp *h);
 void		check_intersect(t_game *game, t_doorhelp *h, t_list *doors, int i);
 void		draw_doorline(t_game *game, t_doorhelp *h, int x);
 void		init_for_draw_doorline(t_game *game, t_doorhelp *h);
-
 void		draw_doors(t_game *game);
 
 /*		doors_enemy_check_bonus	*/
-void	check_enemy_dist(t_game *game, t_doorhelp *h, uint id);
-void	check_emg(t_game *game, t_doorhelp *h);
+void		check_enemy_dist(t_game *game, t_doorhelp *h, uint id);
+void		check_emg(t_game *game, t_doorhelp *h);
 
 
 /*		doors_utils		*/
@@ -441,18 +417,44 @@ t_point		segment_intersection(t_point a, t_point b, t_point c, t_point d);
 /*		draw_line		*/
 void		draw_line(t_point *p_a, t_point *p_b, mlx_image_t *MLX_INVIMG, int color);
 
-/*		movement		*/
-void		mouse(mlx_key_data_t key, void* par);
-void		ft_hook(t_game *game);
-void		rotate_dir_plane(t_point *dir, t_point *plane, \
-			double speed, double l_r);
-void		update_pos(t_game *game, t_point new_pos);
+/*		ememy_coll.c		*/
+void		update_enemy_pos(t_ai **enemy, t_game *game);
+void		e_collision(t_point new_pos, t_game *game, t_ai *e);
+void		set_e_index(t_point new_pos, t_ai *e, int *ix, int *iy);
+
+/*		enemy_dist_sort.c		*/
+void		enemy_dist(t_game *game, t_ai **enemy, int frame);
+void		sort_ai(t_ai **enemy);
+void		swap(t_ai **head);
+void		clear_e_img(t_game *game);
+
+/*		error.c				*/
+int			error(int e_action, int e_error);
+void		err_check(void *p, char *msg);
+void		error_print(char *msg);
+void		check_error(int e);
+
+/*		free				*/
+void		free_e_list(t_game *game);
+void		free_sprites(t_game *game);
+void		free_textures(t_game *game);
+void		free_game_end(t_game *game);
+
+/*		free_utils			*/
+void		free_door(void *d);
+void		free_int_array(int **arr, int h);
+void		free_string_array(char **str);
+void		free_indiv(t_tex *t);
+
+/*		gun.c				*/
+void		load_gun(t_game *game);
+void		gun_anim(t_game *game, int frame);
 
 /*		init_enemies.c		*/
-t_ai			*load_alien(t_game *game);
+t_ai		*load_alien(t_game *game);
 void		allocate_textures_dying(mlx_texture_t **dying);
 void		allocate_textures_idle(mlx_texture_t **idle);
-void			append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
+void		append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		main				*/
 void		init_game(t_game *game);
@@ -470,6 +472,12 @@ void		draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius);
 void		fill_outside_circle(mlx_image_t *img);
 void		minimap_init(t_game *game);
 
+/*		movement		*/
+void		mouse(mlx_key_data_t key, void* par);
+void		ft_hook(t_game *game);
+void		rotate_dir_plane(t_point *dir, t_point *plane, \
+			double speed, double l_r);
+void		update_pos(t_game *game, t_point new_pos);
 
 /*		raycaster			*/
 void		raycasting(t_game *game);
@@ -477,7 +485,6 @@ void		init_rays(t_game *game, t_rays *ray, int x);
 void		step_and_dist(t_game *game, t_rays *ray);
 void		ray_overflow(t_game *game, t_rays *ray);
 void		hit_loop(t_game *game, t_rays *ray);
-
 
 /*		read_input.c		*/
 int			comp_ident(char *str, int *idents);
@@ -494,19 +501,13 @@ int			check_identifyer(char *line, int *map_flag);
 /*		read_map_utils.c	*/
 int			**alloc_int_arr(int x, int y);
 
-/*			read_map.c			*/
+/*		read_map.c			*/
 int			check_line(t_map *map, int i);
 int			max_width(char **arr, int *y);
 void		validate_map(t_map *map);
 
 /*		read_settigns.c		*/
 void		insert_info(t_map *map, char **str);
-
-/*		error.c				*/
-int			error(int e_action, int e_error);
-void		err_check(void *p, char *msg);
-void		error_print(char *msg);
-void		check_error(int e);
 
 /*		render		*/
 void		render(void *param);
@@ -515,13 +516,19 @@ void		blank(t_game *game);
 void		put_crosshair(t_game *game);
 void		call_drawing_functions(t_game *game, int frame);
 
-
 /*		textures			*/
 t_tex		**allocate_textures(t_map *map);
 void		draw_on_tex(t_game *game, t_texture *tex, int dir);
 void		fill_text(t_tex *t, mlx_texture_t **tex, int (*arr)[4]);
 void		fill_arr(t_map *map, int x, int y, int (*arr)[4]);
 void		make_indi_tex(t_game *game, t_tex **t, t_texture *tex);
+
+/*		UI		*/
+void		health_bar(t_game *game);
+void		display_enemycount(t_game *game);
+void		game_over_check(t_game *game);
+void		epic_w(t_game *game);
+void		clear_img(t_game *game);
 
 /*		utils.c				*/
 int			arr_len(char **arr);
