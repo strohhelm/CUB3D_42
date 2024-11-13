@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:00:42 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:38:29 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:51:09 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	free_int_array(int **arr, int h)
 		free(arr);
 	}
 }
+
 void	free_string_array(char **str)
 {
 	int	i;
@@ -45,9 +46,10 @@ void	free_string_array(char **str)
 	}
 	free(str);
 }
+
 void	free_indiv(t_tex *t)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)

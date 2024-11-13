@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 14:52:15 by timschmi          #+#    #+#             */
-/*    Updated: 2024/11/11 21:56:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:50:05 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,11 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/11/13 17:24:39 by pstrohal         ###   ########.fr       */
-=======
-/*   Updated: 2024/11/13 17:38:17 by timschmi         ###   ########.fr       */
->>>>>>> 68d42b6525b867533add8b6a2f71e0df85e6b771
+/*   Updated: 2024/11/13 17:48:46 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +22,6 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-<<<<<<< HEAD
-=======
-	// atexit((void *)leaks);
->>>>>>> 68d42b6525b867533add8b6a2f71e0df85e6b771
 	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
