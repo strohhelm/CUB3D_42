@@ -18,7 +18,7 @@ void	epic_w(t_game *game)
 	char str[50];
 	char *time;
 
-	tw = mlx_load_png("./include/textures/w.png");
+	tw = mlx_load_png("./include/textures/W.png");
 	err_check(tw, "w texture error\n");
 	game->w_img = mlx_texture_to_image(game->mlx, tw);
 	mlx_image_to_window(game->mlx, game->w_img, 0, 0);

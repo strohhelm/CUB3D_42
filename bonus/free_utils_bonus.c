@@ -53,6 +53,7 @@ void	free_indiv(t_tex *t)
 	while (++i < 4)
 	{
 		if (t->arr[i])
-			mlx_delete_texture(&(t->side[i]));
+			free(t->side[i].pixels);
 	}
+	free(t);
 }
