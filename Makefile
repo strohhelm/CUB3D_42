@@ -6,12 +6,12 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/13 17:02:21 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/13 17:09:21 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
-BNAME = bcub3d
+NAME = cub3D
+BNAME = cub3D_bonus
 SRC_PATH = src
 OBJ_PATH = obj
 BON_PATH = bonus
