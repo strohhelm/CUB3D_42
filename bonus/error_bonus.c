@@ -52,5 +52,5 @@ void	check_error(int e)
 		error_print("Woah hey there! There is nothing!");
 	else if (e != ALLIDENT)
 		error_print("Woah hey htere! There are identifyers missing!");
-		return ;
+	return ;
 }

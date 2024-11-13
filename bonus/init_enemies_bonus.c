@@ -42,13 +42,11 @@ void	append_node(t_ai **e, t_point pos, mlx_texture_t **idle,
 	temp->next = new_node;
 }
 
-void	**allocate_textures_idle(mlx_texture_t **idle)
+void	allocate_textures_idle(mlx_texture_t **idle)
 {
-	mlx_texture_t	**idle;
 	int				i;
 
 	i = 0;
-	idle = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * 6);
 	idle[0] = mlx_load_png("./include/textures/sprites/idle/tile000.png");
 	idle[1] = mlx_load_png("./include/textures/sprites/idle/tile001.png");
 	idle[2] = mlx_load_png("./include/textures/sprites/idle/tile002.png");
@@ -62,7 +60,7 @@ void	**allocate_textures_idle(mlx_texture_t **idle)
 	}
 }
 
-void	**allocate_textures_dying(mlx_texture_t **dying)
+void	allocate_textures_dying(mlx_texture_t **dying)
 {
 	int	i;
 

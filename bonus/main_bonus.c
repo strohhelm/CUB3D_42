@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	atexit((void *)leaks); 
+	// atexit((void *)leaks); 
 	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);

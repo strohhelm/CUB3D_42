@@ -450,8 +450,8 @@ void		update_pos(t_game *game, t_point new_pos);
 
 /*		init_enemies.c		*/
 t_ai			*load_alien(t_game *game);
-mlx_texture_t	**allocate_textures_dying(void);
-mlx_texture_t	**allocate_textures_idle(void);
+void		allocate_textures_dying(mlx_texture_t **dying);
+void		allocate_textures_idle(mlx_texture_t **idle);
 void			append_node(t_ai **e, t_point pos, mlx_texture_t **idle, mlx_texture_t **dying);
 
 /*		main				*/
