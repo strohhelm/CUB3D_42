@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:00:58 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 14:19:28 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:39:43 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	free_sprites(t_game *game)
 	if (game->l_img)
 		mlx_delete_image(game->mlx, game->l_img);
 	while(++i < 6)
-		mlx_delete_texture(game->e->tex[ALIVE][i]);
+		mlx_delete_texture(game->e_idle[i]);
 	i = -1;
 	while (++i < 8)
-		mlx_delete_texture(game->e->tex[DYING][i]);
+		mlx_delete_texture(game->e_dying[i]);
 	i = -1;
 	while (++i < 4)
 		mlx_delete_texture(game->player.gun[i]);

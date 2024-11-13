@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 14:27:23 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:51:41 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	init_game(t_game *game)
 	game->cmg = NULL;
 	
 }
+
 void	allocate_images(t_game *game)
 {
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
@@ -67,10 +68,14 @@ void	allocate_images(t_game *game)
 	err_check(&game->hp, "fucking malloc");
 	game->cross = mlx_new_image(game->mlx, CROSSHAIR, CROSSHAIR);
 	err_check(&game->cross, "fucking malloc");
+	allocate_textures_idle(game->e_idle);
+	allocate_textures_dying(game->e_dying);
+	game->enemy_count = 0;
 	game->e = load_alien(game);
 	game->l_img = NULL;
 	game->w_img = NULL;
 }
+
 void	allocate_all_textures(t_game *game)
 {
 	game->map.indiv = allocate_textures(&game->map);

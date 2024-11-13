@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 14:22:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:58:13 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,14 @@ typedef struct s_game
 	mlx_image_t	*w_img;
 }	t_game;
 
+typedef struct s_load_ai
+{
+	int		x;
+	int		y;
+	int		count;
+	t_point	pos;
+	t_ai	*e;
+}	t_load_ai;
 
 
 //structure of values needed for putting pixels between two points.

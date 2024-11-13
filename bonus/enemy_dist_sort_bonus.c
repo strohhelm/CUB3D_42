@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_dist_sort_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:15:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 18:58:51 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:36:14 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	sort_ai(t_ai **enemy)
 {
 	t_ai	**temp;
 
+	if (!*enemy)
+		return;
 	temp = enemy;
 	while ((*temp)->next)
 	{

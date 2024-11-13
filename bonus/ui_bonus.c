@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_bonus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/12 18:59:09 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:34:27 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	display_enemycount(t_game *game)
 	}
 	if (game->cmg)
 		mlx_delete_image(game->mlx, game->cmg);
-	if (count == 0)
+	if (count == 0 && game->enemy_count != 0)
 	{
 		epic_w(game);
 		return ;
