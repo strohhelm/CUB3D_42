@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:02:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:22:11 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,11 @@ typedef struct s_coordinate {
 
 typedef struct s_player
 {
-	int		height;
-	int		width;
 	t_point	pos;
 	t_point	dir;
 	t_point	scr;
 	double	pov;
 	int		start;
-	long	color;
 }	t_player;
 
 typedef struct s_map

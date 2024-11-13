@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 17:00:14 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:22:39 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	mlx_mouse_hook(game.mlx, mouse, (void *)&game);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(game.mlx);
-	mlx_terminate(game.mlx);
+	free_game_end(&game);
 	exit (0);
 }
 
@@ -43,9 +43,6 @@ void	init_game(t_game *game)
 	game->x = 0;
 	game->y = 0;
 	game->mouse = -1;
-	game->player.height = HEIGHT;
-	game->player.width = WIDTH;
-	game->player.color = 0x6cf542ff;
 	game->player.pov = 0.66;
 	game->map.str_map = NULL;
 }
