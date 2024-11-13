@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 16:30:30 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:50:02 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	read_input(char **argv, t_player *player, t_map *map)
 		error_print("Woah hey there! Thats not a '.cub' file!");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		error_print("Woah hey there! Thats not a valid file!");
+		error_print("File doesn't exist or doesn't have permissions!");
 	get_info(fd, map);
 	get_start_pos(map, player);
 	close(fd);

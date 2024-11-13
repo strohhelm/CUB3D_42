@@ -6,15 +6,16 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 16:33:57 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:02:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# define WIDTH 1400
-# define HEIGHT 800
+# define WIDTH 1920
+# define HEIGHT 1080
+# define FPS 30
 
 # include <math.h>
 # include <stdio.h>
@@ -176,7 +177,6 @@ void	rotate_dir_plane(t_point *dir, t_point *plane, \
 /*		main.c				*/
 void	init_game(t_game *game);
 void	second_init(t_game *game);
-int		leaks(void);
 
 /*		raycaster.c			*/
 void	raycasting(t_game *game);
@@ -228,18 +228,3 @@ int		mv_arr(char **src, char **dest);
 
 #endif
 
-// Deep Amethyst
-// Hex: #9B5DE5
-// A rich purple with a soft, luxurious feel.
-
-// Burnt Coral
-// Hex: #FF6F61
-// A warm, slightly muted coral, striking but not too bold.
-
-// Electric Limoncello
-// Hex: #DFFF00
-// A zesty and vibrant yellow-green that stands out.
-
-// Iridescent Indigo
-// Hex: #3E00FF
-// A deep, electric blue with a hint of indigo, giving a futuristic vibe.
