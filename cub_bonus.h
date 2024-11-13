@@ -106,7 +106,6 @@ typedef struct s_sprites
 } t_sprites;
 
 
-
 typedef struct s_circlehelp
 {
 	int	x;

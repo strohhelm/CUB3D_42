@@ -51,6 +51,7 @@ void	free_sprites(t_game *game)
 	while (++i < 4)
 		mlx_delete_texture(game->player.gun[i]);
 	free_e_list(game);
+	free(game->player.gun);
 }
 
 // frees all textures for Walls and Bullethole also the indiv textures
@@ -74,6 +75,7 @@ void	free_textures(t_game *game)
 		if (game->map.indiv[i])
 			free_indiv(game->map.indiv[i]);
 	}
+	free(game->map.indiv);
 }
 
 // main frees the game and everything connected to it

@@ -52,7 +52,7 @@ void	init_game(t_game *game)
 	game->map.dstuff.nb = 0;
 	game->map.dstuff.doors = NULL;
 	game->map.dstuff.current = NULL;
-	
+	game->cmg = NULL;
 	
 }
 void	allocate_images(t_game *game)
@@ -95,10 +95,10 @@ void	second_init(t_game *game)
 	mlx_set_window_limit(game->mlx, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	allocate_images(game);
 	allocate_all_textures(game);
-	load_gun(game);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	mlx_image_to_window(game->mlx, game->minimap, MINIMAP_P, MINIMAP_P);
 	mlx_image_to_window(game->mlx, game->hp, 0, 0);
+	load_gun(game);
 	put_crosshair(game);
 }
 
