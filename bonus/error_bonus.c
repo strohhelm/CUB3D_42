@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:09:10 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 11:23:24 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:41:36 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	check_error(int e)
 	else if (e == NOINFO)
 		error_print("Woah hey there! There is nothing!");
 	else if (e != ALLIDENT)
-		error_print("Woah hey htere! There are identifyers missing!");
+		error_print("Woah hey there! There are identifiers missing!");
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 16:14:37 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:33:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ enum e_action
 
 enum e_error
 {
+	NOINFO = -4,
 	FALSEIDENT = -3,
 	DOUBLEIDENT = -2,
 	EMPTYLINE = -1,
 	NOUGHT,
-	MALLOC,
+	ALLIDENT = 6,
 };
 
 typedef struct s_coordinate {
