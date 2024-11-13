@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 13:50:17 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:37:21 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,12 @@ void	draw_on_tex(t_game *game, t_texture *tex, int dir)
 		x = -1;
 		while (++x < t.new->width)
 		{
-			t.arr_index = t.start_index +( y * t.current->width + x) * 4;
+			t.arr_index = t.start_index + (y * t.current->width + x) * 4;
 			t.new_tex_pos = &t.new->pixels[y * t.new->width * 4 + x * 4];
 			if (t.arr_index > 0 && t.arr_index < t.max_index)
 			{
 				if (*((uint32_t *)t.new_tex_pos))
-					*((uint32_t *)(&t.current->pixels[t.arr_index]))
-					= *((uint32_t *)t.new_tex_pos);
+					*((uint32_t *)(&t.current->pixels[t.arr_index])) = *((uint32_t *)t.new_tex_pos);
 			}
 		}
 	}
@@ -63,7 +62,7 @@ void	draw_on_tex(t_game *game, t_texture *tex, int dir)
 
 void	fill_text(t_tex *t, mlx_texture_t **tex, int (*arr)[4])
 {
-	int	i;
+	int		i;
 	size_t	nb;
 
 	i = 0;
@@ -113,17 +112,15 @@ void	fill_arr(t_map *map, int x, int y, int (*arr)[4])
 			(*arr)[WEST] = 1;
 	}
 	return ;
-
 }
 
-
-t_tex **allocate_textures(t_map *map)
+t_tex	**allocate_textures(t_map *map)
 {
 	t_tex	**text_arr;
 	int		i;
 	int		x;
 	int		y;
-	
+
 	text_arr = (t_tex **)malloc(sizeof(t_tex *) * map->map_h * map->map_w);
 	err_check(text_arr, "bruuuh look at your shitty pc, cant even malloc!");
 	i = 0;

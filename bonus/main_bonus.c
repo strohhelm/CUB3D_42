@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 16:51:41 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:17 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	// atexit((void *)leaks); 
+	// atexit((void *)leaks);
 	game_pointer(1, &game);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
@@ -53,7 +53,6 @@ void	init_game(t_game *game)
 	game->map.dstuff.doors = NULL;
 	game->map.dstuff.current = NULL;
 	game->cmg = NULL;
-	
 }
 
 void	allocate_images(t_game *game)

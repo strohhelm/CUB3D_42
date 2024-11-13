@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_input_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/12 11:08:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:37:46 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../cub_bonus.h"
-
 
 void	get_start_pos(t_map *map, t_player *player)
 {

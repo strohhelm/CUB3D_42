@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:34:53 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 14:26:43 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:37:26 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 // draws the background colours, depending on mouse vertical input.
 void	blank(t_game *game)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	uint	col;
-	
 	uint	flo;
 
 	x = -1;

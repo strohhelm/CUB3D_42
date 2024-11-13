@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_coll_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:16:49 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 23:24:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:50 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,17 @@ void	e_collision(t_point new_pos, t_game *game, t_ai *e)
 		&& game->map.map[iy][ix] == 0 && (game->map.map[iy][(int)e->pos.x] == 0
 			&& game->map.map[(int)e->pos.y][ix] == 0))
 	{
-
-			e->pos = new_pos;
+		e->pos = new_pos;
 	}
 	else if (iy <= game->map.map_h && game->map.map[iy][(int)e->pos.x] == 0)
 	{
 		new_pos.x = e->pos.x;
-			e->pos = new_pos;
+		e->pos = new_pos;
 	}
 	else if (ix <= game->map.map_w && game->map.map[(int)e->pos.y][ix] == 0)
 	{
 		new_pos.y = e->pos.y;
-			e->pos = new_pos;
+		e->pos = new_pos;
 	}
 }
 

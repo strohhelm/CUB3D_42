@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 17:22:39 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:32:53 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ void	second_init(t_game *game)
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
-

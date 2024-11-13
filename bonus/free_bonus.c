@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:00:58 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:29:33 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:35 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 // frees enemy struct list
 void	free_e_list(t_game *game)
 {
-	t_ai *e = game->e;
+	t_ai	*e;
 
-	while(game->e)
+	e = game->e;
+	while (game->e)
 	{
 		e = game->e->next;
 		free(game->e);
@@ -28,21 +29,21 @@ void	free_e_list(t_game *game)
 // frees all the sprite textures
 void	free_sprites(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	mlx_delete_image(game->mlx, game->emg);
 	mlx_delete_image(game->mlx, game->cmg);
 	mlx_delete_image(game->mlx, game->player.gun_img);
 	mlx_delete_image(game->mlx, game->hp);
-	if(game->w_img)
+	if (game->w_img)
 	{
 		mlx_delete_image(game->mlx, game->w_img);
 		mlx_delete_image(game->mlx, game->tmg);
 	}
 	if (game->l_img)
 		mlx_delete_image(game->mlx, game->l_img);
-	while(++i < 6)
+	while (++i < 6)
 		mlx_delete_texture(game->e_idle[i]);
 	i = -1;
 	while (++i < 8)

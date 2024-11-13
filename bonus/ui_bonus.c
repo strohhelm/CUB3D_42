@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:09:47 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 16:34:27 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:36:53 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	epic_w(t_game *game)
 {
 	mlx_texture_t	*tw;
-	char str[50];
-	char *time;
+	char			str[50];
+	char			*time;
 
 	tw = mlx_load_png("./include/textures/W.png");
 	err_check(tw, "w texture error\n");
@@ -25,7 +25,8 @@ void	epic_w(t_game *game)
 	mlx_delete_texture(tw);
 	snprintf(str, sizeof(str), "%.*f", 2, mlx_get_time());
 	time = ft_strjoin("Time to Complete: ", str);
-	game->tmg = mlx_put_string(game->mlx, time, (WIDTH / 2) - 125, (HEIGHT / 2) + 100);
+	game->tmg = mlx_put_string(game->mlx, time, (WIDTH / 2) - 125, (HEIGHT / 2)
+			+ 100);
 	free(time);
 	game->over = 1;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_textures_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/11 21:56:37 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:40:01 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	draw_tex(t_game *game, int x, t_rays *ray)
 
 void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 {
-	int	i;
-	uint w;
-	uint y;
+	int		i;
+	uint	w;
+	uint	y;
 
 	i = 0;
 	w = (uint)(ray->hitp.x + EPSILON);
@@ -50,12 +50,15 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 		{
 			tex->tex.y = (double)i * tex->step;
 			tex->arr_pos = ((long)tex->tex.y
-					* game->map.textures[ray->dir]->width + (uint)tex->tex.x) * 4;
-			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2) && game->player.attack == 1)
+					* game->map.textures[ray->dir]->width + (uint)tex->tex.x)
+				* 4;
+			if (x == (int)WIDTH / 2 && ray->start + i == (HEIGHT / 2)
+				&& game->player.attack == 1)
 			{
 				draw_on_tex(game, tex, ray->dir);
 			}
-			if (game->map.indiv[tex->index] && game->map.indiv[tex->index]->arr[ray->dir] == 1)
+			if (game->map.indiv[tex->index]
+				&& game->map.indiv[tex->index]->arr[ray->dir] == 1)
 				tex->tex_pos = &game->map.indiv[tex->index]->side[ray->dir].pixels[tex->arr_pos];
 			else
 				tex->tex_pos = &game->map.textures[ray->dir]->pixels[tex->arr_pos];

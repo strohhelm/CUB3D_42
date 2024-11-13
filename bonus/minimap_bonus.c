@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/09 21:25:14 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:38:09 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_minimap(t_game *game, t_minimap *m)
 void	check_pixel(t_game *game, t_minimap *m)
 {
 	if ((int)m->pos.x < game->map.map_w && (int)m->pos.y < game->map.map_h
-				&& (int)m->pos.x >= 0 && (int)m->pos.y >= 0)
+		&& (int)m->pos.x >= 0 && (int)m->pos.y >= 0)
 	{
 		if (m->w > m->min && m->w < m->max && m->h > m->min && m->h < m->max)
 			mlx_put_pixel(game->minimap, m->w, m->h, game->map.ceiling);
@@ -46,10 +46,10 @@ void	check_pixel(t_game *game, t_minimap *m)
 }
 
 // loops through each pixel of the minimap and draws a pixel.
-void	minimap(t_game * game)
+void	minimap(t_game *game)
 {
 	t_minimap	m;
-	
+
 	init_minimap(game, &m);
 	change_colour(game->map.ceiling, &m.wall, &m.floor);
 	while (m.h < m.printh)
@@ -58,11 +58,11 @@ void	minimap(t_game * game)
 		m.w = 0;
 		while (m.w < m.printh)
 		{
-				m.x = m.w * m.step;
-				m.pos.y = game->player.pos.y - game->scale/2 + m.y;
-				m.pos.x = game->player.pos.x - game->scale/2 + m.x;
-				mlx_put_pixel(game->minimap, m.w, m.h, m.wall);
-				check_pixel(game, &m);
+			m.x = m.w * m.step;
+			m.pos.y = game->player.pos.y - game->scale / 2 + m.y;
+			m.pos.x = game->player.pos.x - game->scale / 2 + m.x;
+			mlx_put_pixel(game->minimap, m.w, m.h, m.wall);
+			check_pixel(game, &m);
 			m.w++;
 		}
 		m.h++;
@@ -75,11 +75,9 @@ void	minimap(t_game * game)
 // effectively cutting a circle out of the minimap square.
 void	cut_minimap(t_game *game, t_minimap *m)
 {
-
 	m->x = 0.0;
 	m->y = 0.0;
 	m->h = 0;
-
 	while (m->h < m->printh)
 	{
 		m->y = m->h * m->step;
@@ -88,7 +86,7 @@ void	cut_minimap(t_game *game, t_minimap *m)
 		{
 			m->x = m->w * m->step;
 			if (colour(&game->circle->pixels[(((m->h) * game->circle->width)
-				+ m->w) * 4]))
+						+ m->w) * 4]))
 				mlx_put_pixel(game->minimap, m->w, m->h, 0x00000000);
 			m->w++;
 		}

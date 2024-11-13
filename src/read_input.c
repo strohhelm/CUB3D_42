@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 16:50:02 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:33:43 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void	insert_map(t_map *map, char **str)
 	map->str_map = tmp;
 	return ;
 }
+
 int	check_str(char **next_line, int *map_flag)
 {
 	if (!*next_line)
-			return (0);
+		return (0);
 	if (**next_line == '\n' || **next_line == '\0')
 	{
 		free(*next_line);
@@ -55,7 +56,7 @@ void	get_info(int fd, t_map *map)
 		next_line = get_next_line(fd);
 		status = check_str(&next_line, &map_flag);
 		if (!status)
-			break;
+			break ;
 		else if (status < 0)
 			continue ;
 		if (next_line[ft_strlen(next_line) - 1] == '\n')
@@ -65,7 +66,7 @@ void	get_info(int fd, t_map *map)
 		else if (map_flag == 1)
 			insert_map(map, &next_line);
 		else if (map_flag == 2)
-			error_print("What is this map here? you are tying to be funny aye?");
+			error_print("What is this map here? you are tying to be funny?");
 	}
 	check_error(error(GET, NOUGHT));
 	validate_map(map);
