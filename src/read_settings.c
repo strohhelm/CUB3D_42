@@ -6,16 +6,11 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 15:21:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:04:41 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-unsigned int	get_colour(int r, int g, int b)
-{
-	return (r << 24 | g << 16 | b << 8 | 255);
-}
 
 void	fill_col_arr(char ***col, char *str)
 {
@@ -62,6 +57,20 @@ void	set_colour(int type, t_map *map, char *str)
 	return ;
 }
 
+void	validate_texture(char *rem_str)
+{
+	int	fd;
+
+	if (!ft_strchr(rem_str, '.') || ft_strncmp(ft_strrchr(rem_str, '.'),
+			".png\0", 5) || (ft_strchr(rem_str, '.')
+			!= ft_strrchr(rem_str, '.')))
+		error_print("Woah hey there! Thats not a '.png' file!");
+	fd = open(rem_str, O_RDONLY);
+	if (fd < 0)
+		error_print("Woah hey there! not a readable texture path");
+	close(fd);
+}
+
 void	set_info(int type, t_map *map, char **str, int i)
 {
 	char	*rem_str;
@@ -75,10 +84,10 @@ void	set_info(int type, t_map *map, char **str, int i)
 		error_print("Shit went down in ft_strtrim, get a working pc mate!");
 	if (type < CEILING)
 	{
+		validate_texture(rem_str);
 		map->textures[type] = mlx_load_png(rem_str);
 		if (!map->textures[type])
-			error_print("Well wtf did you try here? \
-			Get an actual texture buddy!");
+			error_print("Well wtf did you try here?");
 	}
 	else if (type == CEILING || type == FLOOR)
 		set_colour(type, map, rem_str);

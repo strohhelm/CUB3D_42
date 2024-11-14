@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/07 16:05:48 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:07:29 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,9 @@ t_game	*game_pointer(int i, void *game)
 	}
 	else
 		return (def_not_global);
+}
+
+unsigned int	get_colour(int r, int g, int b)
+{
+	return (r << 24 | g << 16 | b << 8 | 255);
 }

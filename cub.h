@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:38:43 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:59:11 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,5 +222,6 @@ void	check_error(int e);
 int		arr_len(char **arr);
 t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
+unsigned int	get_colour(int r, int g, int b);
 
 #endif

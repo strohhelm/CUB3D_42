@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:39:20 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:18:04 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:11:48 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,10 @@ uint32_t	darken_colour(uint32_t col, int amount)
 	else
 		blue -= amount;
 	return (red << 24 | green << 16 | blue << 8 | a);
+}
+
+//returns the colour from rgbvalues with full alpha value
+unsigned int	get_colour(int r, int g, int b)
+{
+	return (r << 24 | g << 16 | b << 8 | 255);
 }

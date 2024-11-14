@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:39:08 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:18:20 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ typedef struct s_coordinate
 {
 	double				x;
 	double				y;
-}						t_point;
+}	t_point;
 
 typedef struct s_sprites
 {
 	mlx_texture_t		*tex;
 	struct s_sprites	*next;
-}						t_sprites;
+}	t_sprites;
 typedef struct s_drawhelp
 {
 	t_point	a;
@@ -129,7 +129,7 @@ typedef struct s_circlehelp
 	int					ycenter;
 	int					r;
 	int					p;
-}						t_circle_help;
+}	t_circle_help;
 
 typedef struct s_player
 {
@@ -145,7 +145,7 @@ typedef struct s_player
 	long				color;
 	int					attack;
 	int					hp;
-}						t_player;
+}	t_player;
 
 typedef struct s_door
 {
@@ -158,7 +158,7 @@ typedef struct s_door
 	double				progress;
 	int					dir;
 	mlx_texture_t		*texture;
-}						t_door;
+}	t_door;
 
 typedef struct s_doorhelp
 {
@@ -190,7 +190,7 @@ typedef struct s_doorhelp
 	t_door				*d;
 	int					i;
 	int					y;
-}						t_doorhelp;
+}	t_doorhelp;
 
 typedef struct s_dooralloc
 {
@@ -198,14 +198,14 @@ typedef struct s_dooralloc
 	int					x;
 	int					y;
 	int					id;
-}						t_da;
+}	t_da;
 
 typedef struct s_doorstuff
 {
 	t_list				*doors;
 	int					nb;
 	t_door				*current;
-}						t_doorstuff;
+}	t_doorstuff;
 
 typedef struct s_minimap
 {
@@ -226,7 +226,7 @@ typedef struct s_indiv_texture
 {
 	mlx_texture_t		side[4];
 	int					arr[4];
-}						t_tex;
+}	t_tex;
 
 typedef struct s_map
 {
@@ -242,7 +242,7 @@ typedef struct s_map
 	char				**tex_names;
 	t_tex				**indiv;
 	t_doorstuff			dstuff;
-}						t_map;
+}	t_map;
 
 typedef struct s_texture
 {
@@ -257,7 +257,7 @@ typedef struct s_texture
 	int					i;
 	t_uint				w;
 	t_uint				y;
-}						t_texture;
+}	t_texture;
 
 typedef struct s_texhelp
 {
@@ -268,7 +268,7 @@ typedef struct s_texhelp
 	long				arr_index;
 	long				max_index;
 
-}						t_texhelp;
+}	t_texhelp;
 
 // structure of values needed raycasting.
 typedef struct s_rays
@@ -296,7 +296,7 @@ typedef struct s_rays
 	t_point				pos;
 	int					dir;
 	t_texture			tex;
-}						t_rays;
+}	t_rays;
 
 typedef struct s_enemy
 {
@@ -310,7 +310,7 @@ typedef struct s_enemy
 	int					hp;
 	int					i;
 	int					id;
-}						t_ai;
+}	t_ai;
 
 typedef struct s_enemy_var
 {
@@ -329,7 +329,7 @@ typedef struct s_enemy_var
 	int					endx;
 	int					line;
 	int					y;
-}						t_enemy_var;
+}	t_enemy_var;
 
 typedef struct s_game
 {
@@ -357,7 +357,7 @@ typedef struct s_game
 	mlx_image_t			*tmg;
 	mlx_image_t			*l_img;
 	mlx_image_t			*w_img;
-}						t_game;
+}	t_game;
 
 typedef struct s_load_ai
 {
@@ -366,7 +366,7 @@ typedef struct s_load_ai
 	int					count;
 	t_point				pos;
 	t_ai				*e;
-}						t_load_ai;
+}	t_load_ai;
 
 // structure of values needed for putting pixels between two points.
 typedef struct s_algorythm
@@ -382,7 +382,7 @@ typedef struct s_algorythm
 	t_point				p_a;
 	t_point				p_b;
 	t_point				p_t;
-}						t_pixel_line;
+}	t_pixel_line;
 
 /*		alienpls			*/
 void					draw_sprites(t_game *game, t_ai *enemy, int frame);
@@ -415,6 +415,7 @@ uint32_t				colour(uint8_t *col);
 void					change_colour(uint32_t col, unsigned int *wall,
 							unsigned int *floor);
 uint32_t				darken_colour(uint32_t col, int amount);
+unsigned int			get_colour(int r, int g, int b);
 
 /*		door_mechanics	*/
 void					door_move(t_game *game, t_door *d);

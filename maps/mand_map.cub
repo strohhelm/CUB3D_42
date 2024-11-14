@@ -1,13 +1,14 @@
-WE ./include/textures/red.png
+WE./include/textures/3d.jpg
 
-NO ./include/textures/green.png
+NO ./include/textures/3d.jpg
 
-EA ./include/textures/yellow.png
+EA ./include/textures/3d.jpg
 
-SO ./include/textures/blue.png
+SO ./include/textures/3d.jpg
 
 C 45,120,190
 F 90,89,53
+
 
 1111111111111111111
 100000000S000000001

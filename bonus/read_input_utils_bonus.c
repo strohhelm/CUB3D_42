@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:19:22 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:09:58 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_identifyer(char *line, int *map_flag)
 
 	i = 0;
 	current = -2;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line [i] == '\t')
 		i++;
 	if (!line[i])
 		return (EMPTYLINE);

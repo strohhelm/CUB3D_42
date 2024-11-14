@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:36:17 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:54:57 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_identifyer(char *line, int *map_flag)
 
 	i = 0;
 	current = -2;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (!line[i])
 		return (EMPTYLINE);
