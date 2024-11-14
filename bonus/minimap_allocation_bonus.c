@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_allocation_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:37:30 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:38:13 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:07:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
 
 // works in combination with draw_circle in a simple algorithm
-void	circlePoints(t_circle_help *c, mlx_image_t *img, uint32_t col)
+void	circle_points(t_circle_help *c, mlx_image_t *img, uint32_t col)
 {
 	if (c->x == 0)
 	{
@@ -58,7 +58,7 @@ void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 	c.y = c.r;
 	c.p = (5 - c.r * 4) / 4;
 	c.x = 0;
-	circlePoints(&c, img, col);
+	circle_points(&c, img, col);
 	while (c.x < c.y)
 	{
 		c.x++;
@@ -69,9 +69,10 @@ void	draw_circle(mlx_image_t *img, uint32_t col, uint32_t radius)
 			c.y--;
 			c.p += 2 * (c.x - c.y) + 1;
 		}
-		circlePoints(&c, img, col);
+		circle_points(&c, img, col);
 	}
 }
+
 // fils the outside of the img with a circle drawn on with all full rgba(white).
 void	fill_outside_circle(mlx_image_t *img)
 {
@@ -83,14 +84,15 @@ void	fill_outside_circle(mlx_image_t *img)
 	{
 		x = -1;
 		while (++x < img->width / 2 && colour(&img->pixels[((y * img->width)
-					+ x) * 4]) != 0xFFFFFFFF)
+						+ x) * 4]) != 0xFFFFFFFF)
 			mlx_put_pixel(img, x, y, 0xFFFFFFFF);
 		x = img->width;
 		while (--x > img->width / 2 && colour(&img->pixels[((y * img->width)
-					+ x) * 4]) != 0xFFFFFFFF)
+						+ x) * 4]) != 0xFFFFFFFF)
 			mlx_put_pixel(img, x, y, 0xFFFFFFFF);
 	}
 }
+
 // allocates a new image that is used to map the minimap to a circular form.
 void	minimap_init(t_game *game)
 {

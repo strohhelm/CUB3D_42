@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:15:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:37:46 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:19:22 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	get_start_pos(t_map *map, t_player *player)
 	player->dir.x = (double)dir_x;
 	player->dir.y = (double)dir_y;
 }
+
 int	comp_ident(char *str, int *idents)
 {
 	char	*arr[7];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 16:24:52 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:39:03 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:05:28 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_point	intersection(t_point a, t_point b, t_point c, t_point d)
 	}
 	return (s);
 }
+
 // returns the point of intersection between line segment AB
 // and line segment CD.
 // If there is none, returns point (0.0 | 0.0)
@@ -94,19 +95,4 @@ t_point	point_x_vector(t_point p, double x, t_point v)
 	p.x = p.x + x * v.x;
 	p.y = p.y + x * v.y;
 	return (p);
-}
-// returns the angle between vector a and vector b.
-// a and b dont need to be normalized.
-double	vector_angle(t_point a, t_point b)
-{
-	double	scalar_product;
-	double	magnitude_a;
-	double	magnitude_b;
-	double	angle;
-
-	scalar_product = a.x * b.x + a.y * b.y;
-	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
-	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
-	angle = acos(scalar_product / (magnitude_a * magnitude_b));
-	return (angle);
 }

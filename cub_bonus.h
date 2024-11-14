@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 16:59:33 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:17:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,7 @@ void					set_status_progress(t_door *d, int status,
 							t_db progress);
 int						intersection_with_door(t_game *game, t_point pos,
 							t_point p);
+double					vector_angle(t_point a, t_point b);
 
 /*		doors			*/
 void					get_screen(t_game *game, t_player *player,
@@ -451,7 +452,6 @@ t_point					intersection(t_point a, t_point b, t_point c,
 t_point					vector(t_point a, t_point b);
 double					dist_points(t_point a, t_point b);
 t_point					point_x_vector(t_point p, double x, t_point v);
-double					vector_angle(t_point a, t_point b);
 t_point					segment_intersection(t_point a, t_point b, t_point c,
 							t_point d);
 
@@ -507,12 +507,13 @@ void					allocate_all_textures(t_game *game);
 void					init_game(t_game *game);
 void					second_init(t_game *game);
 void					screen_init(t_player *player);
+t_tex					**allocate_textures(t_map *map);
 
 /*		minimap				*/
 void					minimap(t_game *game);
 
 /*		minimap_allocation	*/
-void					circlePoints(t_circle_help *c, mlx_image_t *img,
+void					circle_points(t_circle_help *c, mlx_image_t *img,
 							uint32_t col);
 void					draw_circle(mlx_image_t *img, uint32_t col,
 							uint32_t radius);
@@ -529,6 +530,13 @@ void					ft_hook(t_game *game);
 void					rotate_dir_plane(t_point *dir, t_point *plane,
 							double speed, double l_r);
 void					update_pos(t_game *game, t_point new_pos);
+
+/*		movement_utils		*/
+void					rotate_dir_plane(t_point *dir, t_point *plane,
+							double speed, double l_r);
+void					update_pos(t_game *game, t_point new_pos);
+void					set_new_pos(t_game *game, t_point *new_pos, char key,
+							int mod);
 
 /*		raycaster			*/
 void					raycasting(t_game *game);
@@ -582,7 +590,6 @@ void					put_crosshair(t_game *game);
 void					call_drawing_functions(t_game *game, int frame);
 
 /*		textures			*/
-t_tex					**allocate_textures(t_map *map);
 void					draw_on_tex(t_game *game, t_texture *tex, int dir);
 void					fill_text(t_tex *t, mlx_texture_t **tex, int (*arr)[4]);
 void					fill_arr(t_map *map, int x, int y, int (*arr)[4]);

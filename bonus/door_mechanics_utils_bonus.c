@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:59:43 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 15:26:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:18:11 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ int	intersection_with_door(t_game *game, t_point pos, t_point p)
 		doors = doors->next;
 	}
 	return (0);
+}
+
+// returns the angle between vector a and vector b.
+// a and b dont need to be normalized.
+double	vector_angle(t_point a, t_point b)
+{
+	double	scalar_product;
+	double	magnitude_a;
+	double	magnitude_b;
+	double	angle;
+
+	scalar_product = a.x * b.x + a.y * b.y;
+	magnitude_a = sqrt(a.x * a.x + a.y * a.y);
+	magnitude_b = sqrt(b.x * b.x + b.y * b.y);
+	angle = acos(scalar_product / (magnitude_a * magnitude_b));
+	return (angle);
 }

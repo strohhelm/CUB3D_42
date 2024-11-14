@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 16:52:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:19:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	draw_enemies(t_game *game)
 			d.x = -1;
 			while (++d.x < d.printw)
 			{
-				if (d.draw_x + d.x >= 0 && d.draw_x + d.x <= MINIMAP_H
-					&& d.draw_y + d.y >= 0 && d.draw_y + d.y
-					<= MINIMAP_H && enemies->state == ALIVE)
+				if (d.draw_x + d.x > 0 && d.draw_x + d.x < MINIMAP_H
+					&& d.draw_y + d.y > 0 && d.draw_y + d.y
+					< MINIMAP_H && enemies->state == ALIVE)
 				{
 					mlx_put_pixel(game->minimap, d.draw_x + d.x, d.draw_y + d.y,
 						0xFF0000FF);
@@ -114,3 +114,4 @@ void	minimap(t_game *game)
 	draw_enemies(game);
 	cut_minimap(game, &m);
 }
+

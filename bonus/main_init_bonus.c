@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_init_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:38:41 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/14 12:39:24 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:20:29 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_game(t_game *game)
 	game->over = 0;
 	game->player.attack = 0;
 	game->player.hp = 100;
-	game->scale = 10;
+	game->scale = 15;
 	game->map.str_map = NULL;
 	game->map.dstuff.nb = 0;
 	game->map.dstuff.doors = NULL;
@@ -73,4 +73,24 @@ void	screen_init(t_player *player)
 	else if (dir.x < 0)
 		scr.y = -player->pov / 10;
 	player->scr = scr;
+}
+
+t_tex	**allocate_textures(t_map *map)
+{
+	t_tex	**text_arr;
+	int		i;
+	int		x;
+	int		y;
+
+	text_arr = (t_tex **)malloc(sizeof(t_tex *) * map->map_h * map->map_w);
+	err_check(text_arr, "bruuuh look at your shitty pc, cant even malloc!");
+	i = 0;
+	y = -1;
+	while (++y < map->map_h)
+	{
+		x = -1;
+		while (++x < map->map_w)
+			text_arr[i++] = NULL;
+	}
+	return (text_arr);
 }

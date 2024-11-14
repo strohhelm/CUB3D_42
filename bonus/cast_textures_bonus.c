@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/14 16:49:10 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:17:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,3 @@ int	get_direction(t_point pos, t_point hit, int side)
 	else
 		return (0);
 }
-

@@ -6,7 +6,7 @@
 #    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/14 17:01:28 by pstrohal         ###   ########.fr        #
+#    Updated: 2024/11/14 17:24:46 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ BFILES =	alienpls_bonus.c \
 			minimap_bonus.c \
 			minimap_utils_bonus.c \
 			movement_bonus.c \
+			movement_utils_bonus.c \
 			raycaster_bonus.c \
 			raycaster_utils_bonus.c \
 			read_input_bonus.c \
