@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_enemies_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:53:58 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 17:02:57 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:27:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

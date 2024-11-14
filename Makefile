@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
+#    By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/14 12:39:57 by timschmi         ###   ########.fr        #
+#    Updated: 2024/11/14 15:10:40 by pstrohal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,8 @@ BFILES =	alienpls_bonus.c \
 			read_input_bonus.c \
 			read_input_utils_bonus.c \
 			read_map_bonus.c \
+			read_map_doors_bonus.c \
+			read_map_doors_utils_bonus.c \
 			read_map_utils_bonus.c \
 			read_settings_bonus.c \
 			render_bonus.c \
@@ -88,7 +90,7 @@ LIBMLX := $(MLX)/libmlx42.a
 MLXFLAGS = -L$(MLX) -lmlx42 -lglfw -ldl -pthread
 
 
-CFLAGS = -Wall -Wextra -Ofast #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -Ofast #-fsanitize=address
 LIBFLAGS := $(MLXFLAGS) $(GET_FLAGS) $(LIBFT_FLAGS) -lm
 
 all: $(NAME)

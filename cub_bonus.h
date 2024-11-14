@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 13:07:27 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:10:25 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define MINIMAP_H HEIGHT / 3
+# define MINIMAP_H 360
 # define MINIMAP_P 10
 # define CROSSHAIR 30
 # define EPSILON 1e-6
 # define FPS 30.0
 # define TEX_COUNT 7
 # define PI 3.14159265358979323846
-# define DEG 180.0 / PI
-# define NINETY PI / 2.0
-# define ROTATE_AMOUNT NINETY * 0.9 / FPS
+# define ROTATE_AMOUNT 0.047123889803847
+// # define DEG 180.0 / PI
+// # define NINETY PI / 2.0
 
 # include "include/MLX42/include/MLX42/MLX42.h"
 # include "include/get_next_line/get_next_line.h"
@@ -35,9 +35,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef unsigned long	u_l;
-typedef double			db;
-typedef unsigned int	uint;
+typedef unsigned long	t_ul;
+typedef double			t_db;
+typedef unsigned int	t_uint;
 
 enum					e_state
 {
@@ -105,6 +105,18 @@ typedef struct s_sprites
 	mlx_texture_t		*tex;
 	struct s_sprites	*next;
 }						t_sprites;
+typedef struct s_drawhelp
+{
+	t_point	a;
+	t_point	b;
+	t_point	v;
+	double	sc;
+	int		y;
+	int		x;
+	int		draw_x;
+	int		draw_y;
+	int		printw;
+}	t_drawhelp;
 
 typedef struct s_circlehelp
 {
@@ -166,13 +178,15 @@ typedef struct s_doorhelp
 	uint8_t				*tex_pos;
 	uint8_t				*img_pos;
 	long				img_index;
-	uint				test;
+	t_uint				test;
 	double				tex_step;
 	double				dist;
 	double				tmpdist;
 	double				angle;
 	int					*enemy_flags;
 	t_door				*d;
+	int					i;
+	int					y;
 }						t_doorhelp;
 
 typedef struct s_dooralloc
@@ -217,8 +231,8 @@ typedef struct s_map
 	char				**str_map;
 	int					map_h;
 	int					map_w;
-	uint				ceiling;
-	uint				floor;
+	t_uint				ceiling;
+	t_uint				floor;
 	int					start[3];
 	double				scale;
 	mlx_texture_t		*textures[TEX_COUNT];
@@ -405,9 +419,10 @@ void					minimap_door_hit(t_game *game, t_point hit,
 void					draw_minimap_doors(t_game *game, uint32_t colour);
 
 /*		door_mechanics_utils	*/
-void					set_dir(t_door *d, t_door *p, db i, db j);
+void					set_dir(t_door *d, t_door *p, t_db i, t_db j);
 void					set_status(t_door *d, t_door *p, int i);
-void					set_status_progress(t_door *d, int status, db progress);
+void					set_status_progress(t_door *d, int status,
+							t_db progress);
 int						intersection_with_door(t_game *game, t_point pos,
 							t_point p);
 
@@ -532,6 +547,17 @@ int						**alloc_int_arr(int x, int y);
 int						check_line(t_map *map, int i);
 int						max_width(char **arr, int *y);
 void					validate_map(t_map *map);
+/*		read_map_doors			*/
+void					init_rest_door(t_door *dp, t_da *hlp, int lr);
+t_door					*make_new_door(t_da *hlp, int lr);
+void					insert_door(t_doorstuff *d, int dir, int x, int y);
+void					check_door(t_doorstuff *d, int **p, int x, int y);
+
+/*		read_map_doors_utils		*/
+void					init_left_door_north(t_door *dp, t_da *hlp);
+void					init_right_door_north(t_door *dp, t_da *hlp);
+void					init_left_door_west(t_door *dp, t_da *hlp);
+void					init_right_door_west(t_door *dp, t_da *hlp);
 
 /*		read_settigns.c		*/
 void					insert_info(t_map *map, char **str);

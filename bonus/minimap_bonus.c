@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:38:09 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 14:51:53 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,48 @@ void	check_pixel(t_game *game, t_minimap *m)
 	}
 }
 
+void	init_drawhelp(t_game *game, t_drawhelp *d, t_ai *e)
+{
+
+	d->a.x = game->minimap->height / 2.0;
+	d->a.y = game->minimap->height / 2.0;
+
+	d->v = vector(game->player.pos, e->pos);
+	d->sc = MINIMAP_H / game->scale;
+	d->b = point_x_vector(d->a, d->sc, d->v);
+	d->draw_x = (int)d->b.x - d->printw / 2;
+	d->draw_y = (int)d->b.y - d->printw / 2;
+}
+
+void	draw_enemies(t_game *game)
+{
+	t_ai		*enemies;
+	t_drawhelp	d;
+
+	enemies = game->e;
+	d.printw = MINIMAP_H / game->scale / 5;
+	while (enemies)
+	{
+		init_drawhelp(game, &d, enemies);
+		d.y = -1;
+		while (++d.y < d.printw)
+		{
+			d.x = -1;
+			while (++d.x < d.printw)
+			{
+				if (d.draw_x + d.x >= 0 && d.draw_x + d.x <= MINIMAP_H
+					&& d.draw_y + d.y >= 0 && d.draw_y + d.y
+					<= MINIMAP_H && enemies->state == ALIVE)
+				{
+					mlx_put_pixel(game->minimap, d.draw_x + d.x, d.draw_y + d.y,
+						0xFF0000FF);
+				}
+			}
+		}
+		enemies = enemies->next;
+	}
+}
+
 // loops through each pixel of the minimap and draws a pixel.
 void	minimap(t_game *game)
 {
@@ -68,8 +110,10 @@ void	minimap(t_game *game)
 		m.h++;
 	}
 	draw_minimap_doors(game, m.wall);
+	draw_enemies(game);
 	cut_minimap(game, &m);
 }
+
 
 // changes all pixel outside of the circle drawn on the cicle img to transparent,
 // effectively cutting a circle out of the minimap square.
@@ -86,7 +130,7 @@ void	cut_minimap(t_game *game, t_minimap *m)
 		{
 			m->x = m->w * m->step;
 			if (colour(&game->circle->pixels[(((m->h) * game->circle->width)
-						+ m->w) * 4]))
+							+ m->w) * 4]))
 				mlx_put_pixel(game->minimap, m->w, m->h, 0x00000000);
 			m->w++;
 		}

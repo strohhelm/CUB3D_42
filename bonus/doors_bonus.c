@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doors_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:21:53 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:39:16 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:06:49 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	init_for_draw_doorline(t_game *game, t_doorhelp *h)
 	h->doorwidth = dist_points(h->d->p1, h->d->p2);
 	h->start = -h->lineheight / 2 + HEIGHT / 2 - game->y;
 	h->end = h->lineheight / 2 + HEIGHT / 2;
-	h->tex_step = (db)h->d->texture->height / (db)h->lineheight;
+	h->tex_step = (t_db)h->d->texture->height / (t_db)h->lineheight;
 	h->door_x = dist_points(h->d->p1, h->door_intersect);
-	h->tex_coords.x = (db)h->d->texture->width / (h->doorwidth / h->door_x);
+	h->tex_coords.x = (t_db)h->d->texture->width / (h->doorwidth / h->door_x);
 	h->tex_coords.y = 0;
 }
 
@@ -42,7 +42,7 @@ void	draw_doorline(t_game *game, t_doorhelp *h, int x)
 			h->img_pos = &game->img->pixels[h->img_index];
 			check_emg(game, h);
 			if (h->test)
-				*((uint *)h->img_pos) = *((uint *)h->tex_pos);
+				*((t_uint *)h->img_pos) = *((t_uint *)h->tex_pos);
 		}
 		h->tex_coords.y += h->tex_step;
 	}
@@ -88,8 +88,8 @@ void	get_screen(t_game *game, t_player *player, t_doorhelp *h)
 	h->sr.y = player->pos.y + player->scr.y + player->dir.y;
 	h->pos = player->pos;
 	h->screenvector = vector(h->sl, h->sr);
-	h->stepvector.x = h->screenvector.x / (db)WIDTH;
-	h->stepvector.y = h->screenvector.y / (db)WIDTH;
+	h->stepvector.x = h->screenvector.x / (t_db)WIDTH;
+	h->stepvector.y = h->screenvector.y / (t_db)WIDTH;
 	h->dirvector = player->dir;
 	h->door_intersect.x = 0.0;
 	h->door_intersect.y = 0.0;
@@ -110,32 +110,28 @@ void	get_screen(t_game *game, t_player *player, t_doorhelp *h)
 void	draw_doors(t_game *game)
 {
 	t_doorhelp	h;
-	int			i;
-	int			y;
 
 	get_screen(game, &game->player, &h);
-	i = -1;
-	while (++i < WIDTH && game->map.dstuff.nb > 0)
+	h.i = -1;
+	while (++h.i < WIDTH && game->map.dstuff.nb > 0)
 	{
-		h.screen_x = point_x_vector(h.sl, (db)i, h.stepvector);
-		check_intersect(game, &h, game->map.dstuff.doors, i);
-		h.lineheight = (int)round((db)HEIGHT / h.dist);
-		if (h.dist < (game->dist_arr[i]))
+		h.screen_x = point_x_vector(h.sl, (t_db)h.i, h.stepvector);
+		check_intersect(game, &h, game->map.dstuff.doors, h.i);
+		h.lineheight = (int)round((t_db)HEIGHT / h.dist);
+		if (h.dist < (game->dist_arr[h.i]))
 		{
-			draw_doorline(game, &h, i);
-			if (i == WIDTH / 2 && h.dist <= 2.0)
+			draw_doorline(game, &h, h.i);
+			if (h.i == WIDTH / 2 && h.dist <= 2.0)
 				game->map.dstuff.current = h.d;
-			else if (i == WIDTH / 2)
+			else if (h.i == WIDTH / 2)
 				game->map.dstuff.current = NULL;
 		}
-		else if (i == WIDTH / 2)
+		else if (h.i == WIDTH / 2)
 			game->map.dstuff.current = NULL;
-		y = -1;
-		while (++y < game->enemy_count)
-			h.enemy_flags[y] = 0;
+		h.y = -1;
+		while (++h.y < game->enemy_count)
+			h.enemy_flags[h.y] = 0;
 	}
 	if (h.enemy_flags)
-	{
 		free(h.enemy_flags);
-	}
 }
