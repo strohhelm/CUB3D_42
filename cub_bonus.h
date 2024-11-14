@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 12:41:45 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:07:27 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,9 +365,12 @@ typedef struct s_algorythm
 }						t_pixel_line;
 
 /*		alienpls			*/
-t_ai					*load_alien(t_game *game);
-void					enemy_dist(t_game *game, t_ai **enemy, int frame);
 void					draw_sprites(t_game *game, t_ai *enemy, int frame);
+void					enemy_calc(t_game *game, t_enemy_var *i, t_ai *e);
+void					e_hit_check(t_game *game, t_enemy_var i, t_ai *e);
+void					render_sprite(t_game *game, t_enemy_var i, t_ai *e);
+void					render_sprite_loop(t_game *game, t_enemy_var *i,
+							t_ai *e);
 
 /*		cast_textures		*/
 void					draw_tex(t_game *game, int x, t_rays *ray);

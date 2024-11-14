@@ -2,6 +2,7 @@
 .vscode
 cub3d
 bcub3d
+cub3D_bonus
 MLX42
 *.o
 *.a

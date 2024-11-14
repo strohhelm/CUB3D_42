@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/14 12:49:45 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:06:25 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_sprites(t_game *game, t_ai *enemy, int frame)
 			display_enemycount(game);
 		}
 		enemy_calc(game, &i, e);
-		hit_check(game, i, e);
+		e_hit_check(game, i, e);
 		i.line = i.startx;
 		if (i.startx < 0)
 			i.line = 0;
@@ -65,7 +65,7 @@ void	enemy_calc(t_game *game, t_enemy_var *i, t_ai *e)
 		i->endx = WIDTH;
 }
 
-void	hit_check(t_game *game, t_enemy_var i, t_ai *e)
+void	e_hit_check(t_game *game, t_enemy_var i, t_ai *e)
 {
 	t_ai	*temp_e;
 
