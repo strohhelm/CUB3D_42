@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:37:21 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:16:36 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_texhelp(t_game *game, t_texture *tex, int dir, t_texhelp *t)
 			* (long)t->current->width - (long)t->new->width / 2 * 4);
 	t->max_index = (long)(t->current->width * t->current->height * 4);
 }
+
 void	draw_on_tex(t_game *game, t_texture *tex, int dir)
 {
 	uint		x;
@@ -54,7 +55,8 @@ void	draw_on_tex(t_game *game, t_texture *tex, int dir)
 			if (t.arr_index > 0 && t.arr_index < t.max_index)
 			{
 				if (*((uint32_t *)t.new_tex_pos))
-					*((uint32_t *)(&t.current->pixels[t.arr_index])) = *((uint32_t *)t.new_tex_pos);
+					*((uint32_t *)(&t.current->pixels[t.arr_index]))
+					= *((uint32_t *)t.new_tex_pos);
 			}
 		}
 	}
@@ -114,22 +116,3 @@ void	fill_arr(t_map *map, int x, int y, int (*arr)[4])
 	return ;
 }
 
-t_tex	**allocate_textures(t_map *map)
-{
-	t_tex	**text_arr;
-	int		i;
-	int		x;
-	int		y;
-
-	text_arr = (t_tex **)malloc(sizeof(t_tex *) * map->map_h * map->map_w);
-	err_check(text_arr, "bruuuh look at your shitty pc, cant even malloc!");
-	i = 0;
-	y = -1;
-	while (++y < map->map_h)
-	{
-		x = -1;
-		while (++x < map->map_w)
-			text_arr[i++] = NULL;
-	}
-	return (text_arr);
-}

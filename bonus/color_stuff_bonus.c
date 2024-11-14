@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_stuff_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:39:20 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/11 16:29:30 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:18:04 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ uint32_t	invert_colour(uint8_t *col)
 	blue = 255 - blue;
 	return (red << 24 | green << 16 | blue << 8 | 255);
 }
+
 // returns the uint32_t value of the pixel described by the 4 uint8_t
 // pointed to by argument.
 uint32_t	colour(uint8_t *col)

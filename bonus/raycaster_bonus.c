@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 18:38:45 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 17:37:57 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:49:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub_bonus.h"
-
-void	draw_minimap_rays(t_game *game, t_rays *ray)
-{
-	double	scale;
-	double	dist;
-	double	r;
-	double	sc;
-	t_point	a;
-	t_point	b;
-
-	scale = 0.0;
-	sc = MINIMAP_H / game->scale;
-	r = game->circle->width / 2 - 3;
-	a.x = game->minimap->height / 2.0;
-	a.y = game->minimap->height / 2.0;
-	minimap_door_hit(game, ray->wallhit, &b);
-	b = vector(game->player.pos, b);
-	if (b.x != ray->minimap_hit.x && b.y != ray->minimap_hit.y)
-		ray->minimap_hit = b;
-	b = point_x_vector(a, sc, ray->minimap_hit);
-	dist = dist_points(a, b);
-	if (dist > r)
-	{
-		scale = r / dist;
-		b.x = a.x + (b.x - a.x) * scale;
-		b.y = a.y + (b.y - a.y) * scale;
-	}
-	draw_line(&a, &b, game->minimap, game->map.ceiling);
-}
 
 void	raycasting(t_game *game)
 {

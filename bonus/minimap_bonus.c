@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 14:51:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:19:03 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	check_pixel(t_game *game, t_minimap *m)
 	{
 		if (m->w > m->min && m->w < m->max && m->h > m->min && m->h < m->max)
 			mlx_put_pixel(game->minimap, m->w, m->h, game->map.ceiling);
-		else if (game->map.map[(int)m->pos.y][(int)m->pos.x] == 1)
+		else if (game->map.map[(int)m->pos.y][(int)m->pos.x] == 1
+				|| game->map.map[(int)m->pos.y][(int)m->pos.x] == -1)
 			mlx_put_pixel(game->minimap, m->w, m->h, m->wall);
 		else if (game->map.map[(int)m->pos.y][(int)m->pos.x] != 1)
 			mlx_put_pixel(game->minimap, m->w, m->h, m->floor);
@@ -74,9 +75,9 @@ void	draw_enemies(t_game *game)
 			d.x = -1;
 			while (++d.x < d.printw)
 			{
-				if (d.draw_x + d.x >= 0 && d.draw_x + d.x <= MINIMAP_H
-					&& d.draw_y + d.y >= 0 && d.draw_y + d.y
-					<= MINIMAP_H && enemies->state == ALIVE)
+				if (d.draw_x + d.x > 0 && d.draw_x + d.x < MINIMAP_H
+					&& d.draw_y + d.y > 0 && d.draw_y + d.y
+					< MINIMAP_H && enemies->state == ALIVE)
 				{
 					mlx_put_pixel(game->minimap, d.draw_x + d.x, d.draw_y + d.y,
 						0xFF0000FF);
@@ -114,26 +115,3 @@ void	minimap(t_game *game)
 	cut_minimap(game, &m);
 }
 
-
-// changes all pixel outside of the circle drawn on the cicle img to transparent,
-// effectively cutting a circle out of the minimap square.
-void	cut_minimap(t_game *game, t_minimap *m)
-{
-	m->x = 0.0;
-	m->y = 0.0;
-	m->h = 0;
-	while (m->h < m->printh)
-	{
-		m->y = m->h * m->step;
-		m->w = 0;
-		while (m->w < m->printh)
-		{
-			m->x = m->w * m->step;
-			if (colour(&game->circle->pixels[(((m->h) * game->circle->width)
-							+ m->w) * 4]))
-				mlx_put_pixel(game->minimap, m->w, m->h, 0x00000000);
-			m->w++;
-		}
-		m->h++;
-	}
-}
