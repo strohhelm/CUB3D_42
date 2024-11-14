@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 14:51:53 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 15:34:37 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	check_pixel(t_game *game, t_minimap *m)
 	{
 		if (m->w > m->min && m->w < m->max && m->h > m->min && m->h < m->max)
 			mlx_put_pixel(game->minimap, m->w, m->h, game->map.ceiling);
-		else if (game->map.map[(int)m->pos.y][(int)m->pos.x] == 1)
+		else if (game->map.map[(int)m->pos.y][(int)m->pos.x] == 1
+				|| game->map.map[(int)m->pos.y][(int)m->pos.x] == -1)
 			mlx_put_pixel(game->minimap, m->w, m->h, m->wall);
 		else if (game->map.map[(int)m->pos.y][(int)m->pos.x] != 1)
 			mlx_put_pixel(game->minimap, m->w, m->h, m->floor);
