@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 15:34:37 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:52:11 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,28 +113,4 @@ void	minimap(t_game *game)
 	draw_minimap_doors(game, m.wall);
 	draw_enemies(game);
 	cut_minimap(game, &m);
-}
-
-
-// changes all pixel outside of the circle drawn on the cicle img to transparent,
-// effectively cutting a circle out of the minimap square.
-void	cut_minimap(t_game *game, t_minimap *m)
-{
-	m->x = 0.0;
-	m->y = 0.0;
-	m->h = 0;
-	while (m->h < m->printh)
-	{
-		m->y = m->h * m->step;
-		m->w = 0;
-		while (m->w < m->printh)
-		{
-			m->x = m->w * m->step;
-			if (colour(&game->circle->pixels[(((m->h) * game->circle->width)
-							+ m->w) * 4]))
-				mlx_put_pixel(game->minimap, m->w, m->h, 0x00000000);
-			m->w++;
-		}
-		m->h++;
-	}
 }
