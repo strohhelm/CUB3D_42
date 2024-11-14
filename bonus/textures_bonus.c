@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 12:05:31 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:16:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:32:45 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,3 @@ void	fill_arr(t_map *map, int x, int y, int (*arr)[4])
 	}
 	return ;
 }
-

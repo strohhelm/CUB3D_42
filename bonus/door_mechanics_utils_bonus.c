@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_mechanics_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 20:59:43 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:18:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:31:53 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	set_status(t_door *d, t_door *p, int i)
 {
 	d->status = i;
 	p->status = i;
-
 }
 
 void	set_status_progress(t_door *d, int status, t_db progress)

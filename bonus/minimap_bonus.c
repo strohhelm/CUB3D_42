@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 20:09:08 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:19:03 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:32:34 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	check_pixel(t_game *game, t_minimap *m)
 
 void	init_drawhelp(t_game *game, t_drawhelp *d, t_ai *e)
 {
-
 	d->a.x = game->minimap->height / 2.0;
 	d->a.y = game->minimap->height / 2.0;
-
 	d->v = vector(game->player.pos, e->pos);
 	d->sc = MINIMAP_H / game->scale;
 	d->b = point_x_vector(d->a, d->sc, d->v);
@@ -114,4 +112,3 @@ void	minimap(t_game *game)
 	draw_enemies(game);
 	cut_minimap(game, &m);
 }
-
