@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 20:47:45 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:32:22 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	validate_int_map(t_map *map)
 		x = -1;
 		while (++x < map->map_w)
 		{
-			if ((y == 0 || x == 0 || y == map->map_h -1|| x == map->map_w -1)
+			if ((y == 0 || x == 0 || y == map->map_h - 1 || x == map->map_w - 1)
 				&& p[y][x] == 0)
 				error_print("WTF! Map not closed properly!");
 			else if (p[y][x] == -1)

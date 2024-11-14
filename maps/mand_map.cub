@@ -1,19 +1,19 @@
-WE./include/textures/3d.jpg
+WE ./include/textures/castle4.png
 
-NO ./include/textures/3d.jpg
+NO ./include/textures/castle4.png
 
-EA ./include/textures/3d.jpg
+EA ./include/textures/castle4.png
 
-SO ./include/textures/3d.jpg
+SO ./include/textures/castle4.png
 
 C 45,120,190
-F 90,89,53
+F 90,89,    			53
 
 
 1111111111111111111
-100000000S000000001
-1010000000000000101
 1000000000000000001
+1010000000000000101
+100000000000S000001
 1000000000000000001
 1000000000000000001
 1000000001000000001

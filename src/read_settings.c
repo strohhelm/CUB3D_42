@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 22:04:41 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 23:04:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ void	validate_texture(char *rem_str)
 {
 	int	fd;
 
-	if (!ft_strchr(rem_str, '.') || ft_strncmp(ft_strrchr(rem_str, '.'),
-			".png\0", 5) || (ft_strchr(rem_str, '.')
-			!= ft_strrchr(rem_str, '.')))
+	if (ft_strncmp(rem_str, "./", 2)
+		|| ft_strncmp(ft_strrchr(&rem_str[2], '.'), ".png\0", 5)
+		|| (ft_strchr(&rem_str[2], '.')
+			!= ft_strrchr(&rem_str[2], '.')))
 		error_print("Woah hey there! Thats not a '.png' file!");
 	fd = open(rem_str, O_RDONLY);
 	if (fd < 0)

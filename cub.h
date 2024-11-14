@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 20:59:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:31:52 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "include/libft/src/libft.h"
 # include "include/get_next_line/get_next_line.h"
 # include "include/MLX42/include/MLX42/MLX42.h"
+
+typedef unsigned int	t_uint;
 
 enum e_colors
 {
@@ -222,6 +224,6 @@ void	check_error(int e);
 int		arr_len(char **arr);
 t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
-unsigned int	get_colour(int r, int g, int b);
+t_uint	get_colour(int r, int g, int b);
 
 #endif
