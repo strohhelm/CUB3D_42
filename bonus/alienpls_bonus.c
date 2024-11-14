@@ -6,7 +6,7 @@
 /*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:00:03 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/14 13:06:25 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:22:27 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	e_hit_check(t_game *game, t_enemy_var i, t_ai *e)
 	temp_e = e;
 	if (e->state == ALIVE && (WIDTH / 2 >= i.startx && WIDTH / 2 <= i.endx)
 		&& (HEIGHT / 2 >= i.starty && HEIGHT / 2 <= i.endy)
-		&& game->player.attack == 1 && i.proj.y > 0.0)
+		&& game->player.attack == 1 && i.proj.y > 0.0
+		&& i.proj.y < game->dist_arr[WIDTH / 2])
 		e->hit = 1;
 	temp_e = temp_e->next;
 	while (e->hit && temp_e)
