@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 17:17:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:39:08 by timschmi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -612,19 +612,3 @@ void					free_string_array(char **str);
 int						left_or_right(t_point a, t_point b, t_point p);
 
 #endif
-
-// Deep Amethyst
-// Hex: #9B5DE5
-// A rich purple with a soft, luxurious feel.
-
-// Burnt Coral
-// Hex: #FF6F61
-// A warm, slightly muted coral, striking but not too bold.
-
-// Electric Limoncello
-// Hex: #DFFF00
-// A zesty and vibrant yellow-green that stands out.
-
-// Iridescent Indigo
-// Hex: #3E00FF
-// A deep, electric blue with a hint of indigo, giving a futuristic vibe.
