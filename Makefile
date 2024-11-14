@@ -6,7 +6,7 @@
 #    By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/08 10:32:41 by pstrohal          #+#    #+#              #
-#    Updated: 2024/11/13 17:29:55 by timschmi         ###   ########.fr        #
+#    Updated: 2024/11/14 12:39:57 by timschmi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ BFILES =	alienpls_bonus.c \
 			render_bonus.c \
 			textures_bonus.c \
 			ui_bonus.c \
-			utils_bonus.c
+			utils_bonus.c \
+			main_init_bonus.c \
 
 
 SRC := $(addprefix $(SRC_PATH)/, $(FILES))
