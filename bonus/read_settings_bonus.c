@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 23:04:50 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/15 11:49:23 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	validate_texture(char *rem_str)
 		|| ft_strncmp(ft_strrchr(&rem_str[2], '.'), ".png\0", 5)
 		|| (ft_strchr(&rem_str[2], '.')
 			!= ft_strrchr(&rem_str[2], '.')))
-		error_print("Woah hey there! Thats not a '.png' file!");
+		error_print("Woah hey there! Thats not a '.png' texture!");
 	fd = open(rem_str, O_RDONLY);
 	if (fd < 0)
 		error_print("Woah hey there! not a readable texture path");

@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 19:19:14 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 23:04:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/15 11:51:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	set_colour(int type, t_map *map, char *str)
 
 	fill_col_arr(&col, str);
 	if (arr_len(col) != 3 || ft_strlen(col[0]) == 0 || ft_strlen(col[1]) == 0
-		|| ft_strlen(col[2]) == 0)
+		|| ft_strlen(col[2]) == 0 || ft_strlen(col[0]) > 3
+		|| ft_strlen(col[1]) > 3 || ft_strlen(col[2]) > 3)
 		error_print("Aha what do you want me to do? imagine colours?");
 	rgb[0] = ft_atoi(col[0]);
 	rgb[1] = ft_atoi(col[1]);
@@ -65,7 +66,7 @@ void	validate_texture(char *rem_str)
 		|| ft_strncmp(ft_strrchr(&rem_str[2], '.'), ".png\0", 5)
 		|| (ft_strchr(&rem_str[2], '.')
 			!= ft_strrchr(&rem_str[2], '.')))
-		error_print("Woah hey there! Thats not a '.png' file!");
+		error_print("Woah hey there! Thats not a '.png' texture!");
 	fd = open(rem_str, O_RDONLY);
 	if (fd < 0)
 		error_print("Woah hey there! not a readable texture path");

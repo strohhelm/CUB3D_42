@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/24 16:46:04 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/15 11:31:06 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_line(t_map *map, int i)
 
 	k = ft_strlen(map->str_map[i]);
 	j = -1;
-	while (++j <= k)
+	while (++j < k)
 	{
 		if (check_char(map->str_map[i][j]))
 			continue ;
