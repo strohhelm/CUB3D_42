@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 22:31:11 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:03:38 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ t_game	*game_pointer(int i, void *game)
 t_uint	get_colour(int r, int g, int b)
 {
 	return (r << 24 | g << 16 | b << 8 | 255);
+}
+int	numbers(char *str)
+{
+	while (str && *str)
+	{
+		if (!ft_isdigit((int)*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

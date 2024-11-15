@@ -1,0 +1,13 @@
+WE ./include/textures/red.png
+EA ./include/textures/green.png
+NO ./include/textures/blue.png
+SO ./include/textures/yellow.png
+
+
+
+F  220,100,0
+C 225,30,0 
+
+1111
+10N1
+1111

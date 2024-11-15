@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 22:18:20 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:02:51 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -611,5 +611,6 @@ void					free_game_end(t_game *game);
 void					free_int_array(int **arr, int h);
 void					free_string_array(char **str);
 int						left_or_right(t_point a, t_point b, t_point p);
+int						numbers(char *str);
 
 #endif

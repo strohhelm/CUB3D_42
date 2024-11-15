@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 14:30:39 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:36:45 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:02:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,15 @@ int	left_or_right(t_point a, t_point b, t_point p)
 		return (LEFT);
 	else
 		return (RIGHT);
+}
+
+int	numbers(char *str)
+{
+	while (str && *str)
+	{
+		if (!ft_isdigit((int)*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

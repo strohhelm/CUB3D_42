@@ -1,0 +1,7 @@
+WE ./include/textures/red.png
+EA ./include/textures/green.png
+NO ./include/textures/blue.png
+SO ./include/textures/tellow.png
+
+C 0,0,33
+F 60,179,110
