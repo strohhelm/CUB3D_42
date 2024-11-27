@@ -6,22 +6,22 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/27 14:36:19 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:57:35 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int	leaks(void)
-{
-	return (system("leaks cub3D"));
-}
+// int	leaks(void)
+// {
+// 	return (system("leaks cub3D"));
+// }
+	// atexit((void *)leaks);
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	atexit((void *)leaks);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
 	game_pointer(1, &game);
@@ -57,7 +57,9 @@ void	second_init(t_game *game)
 	game->player.pos.x += 0.5;
 	game->player.pos.y += 0.5;
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	err_check(game->mlx, "Holy shit it crashed!");
 	mlx_set_window_limit(game->mlx, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	err_check(game->img, "fucking malloc");
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }

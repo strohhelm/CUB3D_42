@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gun_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 15:07:07 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 17:38:25 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:05:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	load_gun(t_game *game)
 		i++;
 	}
 	gun_img = mlx_texture_to_image(game->mlx, gun[0]);
+	err_check(gun_img, "fucking malloc");
 	game->player.gun = gun;
 	game->player.gun_img = gun_img;
 	mlx_image_to_window(game->mlx, gun_img, WIDTH - 600, HEIGHT - 500);
@@ -39,12 +40,9 @@ void	gun_anim(t_game *game, int frame)
 {
 	static int	i = 0;
 
-	if (game->over)
+	if (game->over || !game->player.attack)
 		return ;
-	if (game->player.attack)
-		game->player.attack = 2;
-	else if (!game->player.attack)
-		return ;
+	game->player.attack = 2;
 	if (frame % 2 == 0 && i < 4)
 		i++;
 	if (i <= 3)
@@ -52,12 +50,14 @@ void	gun_anim(t_game *game, int frame)
 		mlx_delete_image(game->mlx, game->player.gun_img);
 		game->player.gun_img = mlx_texture_to_image(game->mlx,
 				game->player.gun[i]);
+		err_check(game->player.gun[i], " fucking malloc");
 		mlx_image_to_window(game->mlx, game->player.gun_img, WIDTH - 600, HEIGHT
 			- 500);
 		return ;
 	}
 	mlx_delete_image(game->mlx, game->player.gun_img);
 	game->player.gun_img = mlx_texture_to_image(game->mlx, game->player.gun[0]);
+	err_check(game->player.gun_img, " fucking malloc");
 	mlx_image_to_window(game->mlx, game->player.gun_img, WIDTH - 600, HEIGHT
 		- 500);
 	i = 0;

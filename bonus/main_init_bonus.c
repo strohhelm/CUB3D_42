@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:38:41 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/14 17:20:29 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:08:12 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	second_init(t_game *game)
 	game->player.pos.x += 0.5;
 	game->player.pos.y += 0.5;
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", true);
+	err_check(game->mlx, "Holy shit i crashed!");
 	mlx_set_window_limit(game->mlx, WIDTH, HEIGHT, WIDTH, HEIGHT);
 	allocate_images(game);
 	allocate_all_textures(game);

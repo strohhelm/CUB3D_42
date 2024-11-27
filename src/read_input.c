@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/27 14:31:01 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:17:00 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_str(char **next_line, int *map_flag)
 	}
 	else if (*map_flag)
 	{
-		while(next_line[0][i] == ' ' || next_line[0][i] == '\t')
+		while (next_line[0][i] == ' ' || next_line[0][i] == '\t')
 			i++;
 		if (next_line[0][i] == '\n' || next_line[0][i] == '\0')
 		{
