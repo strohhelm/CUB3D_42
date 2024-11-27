@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/13 17:32:53 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:47:45 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
 // atexit((void *)leaks);
-
 // int	leaks(void)
 // {
 // 	return (system("leaks cub3d"));
@@ -22,7 +21,6 @@
 int	main(int argc, char **argv)
 {
 	t_game	game;
-
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
 	game_pointer(1, &game);

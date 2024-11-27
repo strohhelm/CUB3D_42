@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/15 17:02:56 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/19 17:11:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,7 @@ typedef struct s_algorythm {
 	int		p;
 	int		xdiff;
 	int		ydiff;
-	int		zdiff;
-	int		zstep;
+	int		 s	 
 	long	col;
 	t_point	p_a;
 	t_point	p_b;
