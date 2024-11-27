@@ -1,7 +1,7 @@
-WE ./include/textures/red.png
-EA ./include/textures/green.png
-NO ./include/textures/blue.png
-SO ./include/textures/yellow.png
+WE ./include/textures/clouds.png
+EA ./include/textures/1.png
+NO ./include/textures/4.png
+SO ./include/textures/5.png
 
 F  220,100,0
 C 225,30,0
