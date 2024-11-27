@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:42:51 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/14 22:32:22 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:02:56 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	check_map_middle(int **p, int x, int y)
 {
 	if (p[y][x + 1] == 0 || p[y][x - 1] == 0 || p[y + 1][x] == 0 || p[y
 		- 1][x] == 0)
-		error_print("WTF! Map not valid! Get those \
-			spaces away from the zeros!");
+		error_print("WTF! Map not valid!");
 	return ;
 }
 

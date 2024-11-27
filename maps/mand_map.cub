@@ -1,10 +1,10 @@
-WE ./include/textures/castle4.png
+WE ./include/textures/red.png
 
-NO ./include/textures/castle4.png
+NO ./include/textures/green.png
 
-EA ./include/textures/castle4.png
+EA ./include/textures/yellow.png
 
-SO ./include/textures/castle4.png
+SO ./include/textures/3d.jpg
 
 C 45,120,190
 F 90,89,    			53

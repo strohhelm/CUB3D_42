@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/27 11:50:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:56:33 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum e_colors
 	SO = 0xDFFF0056,
 	EA = 0x3E00FFFF,
 };
+
 enum e_identifyers
 {
 	NORTH,
@@ -227,4 +228,5 @@ t_game	*game_pointer(int i, void *game);
 int		mv_arr(char **src, char **dest);
 t_uint	get_colour(int r, int g, int b);
 int		numbers(char *str);
+
 #endif

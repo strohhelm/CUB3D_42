@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 16:40:34 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/10/03 16:43:56 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:02:25 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ int	**alloc_int_arr(int x, int y)
 	while (i < y)
 	{
 		arr[i] = (int *)malloc(sizeof(int) * x);
-		err_check(arr[i], "My god! Malloc failed, \
-			what shitshow pc is this?");
+		err_check(arr[i], "My god! Malloc failed, what shitty pc is this?");
 		i++;
 	}
 	return (arr);

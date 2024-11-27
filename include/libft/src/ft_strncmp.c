@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:29:58 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/06/06 15:40:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:09:40 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 	s1p = (unsigned char *)s1;
 	s2p = (unsigned char *)s2;
-	if (n == 0)
+	if (n == 0 || !s1 || !s2)
 		return (0);
-	while (n > 1 && *s1p)
+	while (s1p && n > 1 && *s1p)
 	{
 		if (*s1p == *s2p)
 		{
