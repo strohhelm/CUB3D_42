@@ -6,22 +6,22 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:36:56 by timschmi          #+#    #+#             */
-/*   Updated: 2024/11/27 11:51:40 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:36:19 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-// atexit((void *)leaks);
-// int	leaks(void)
-// {
-// 	return (system("leaks cub3d"));
-// }
+int	leaks(void)
+{
+	return (system("leaks cub3D"));
+}
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	atexit((void *)leaks);
 	if (!(argc == 2))
 		return (printf("Wrong amount of arguments! need: 1\n"), 1);
 	game_pointer(1, &game);
@@ -34,7 +34,6 @@ int	main(int argc, char **argv)
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(game.mlx);
 	free_game_end(&game);
-	exit (0);
 }
 
 void	init_game(t_game *game)

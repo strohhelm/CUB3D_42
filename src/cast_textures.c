@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 15:44:50 by timschmi          #+#    #+#             */
-/*   Updated: 2024/10/06 18:12:36 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:19:55 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ void	tex_loop(t_game *game, t_rays *ray, t_texture *tex, int x)
 			tex->pic_pos = ((ray->start + i) * game->img->width + x)
 				* game->map.textures[ray->dir]->bytes_per_pixel;
 			tex->img_pos = &game->img->pixels[tex->pic_pos];
-			ft_memmove(&tex->test, tex->tex_pos,
-				game->map.textures[ray->dir]->bytes_per_pixel);
-			if (tex->test > 0)
-				ft_memmove(tex->img_pos, tex->tex_pos,
-					game->map.textures[ray->dir]->bytes_per_pixel);
+			if (*((uint32_t *)tex->tex_pos))
+				*((uint32_t *)tex->img_pos) = *((uint32_t *)tex->tex_pos);
 		}
 		i++;
 	}

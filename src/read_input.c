@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timschmi <timschmi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 16:19:41 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/13 17:33:43 by timschmi         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:31:01 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void	insert_map(t_map *map, char **str)
 
 int	check_str(char **next_line, int *map_flag)
 {
+	int	i;
+
+	i = 0;
 	if (!*next_line)
 		return (0);
 	if (**next_line == '\n' || **next_line == '\0')
@@ -40,6 +43,16 @@ int	check_str(char **next_line, int *map_flag)
 		if (*map_flag)
 			*map_flag = 2;
 		return (-1);
+	}
+	else if (*map_flag)
+	{
+		while(next_line[0][i] == ' ' || next_line[0][i] == '\t')
+			i++;
+		if (next_line[0][i] == '\n' || next_line[0][i] == '\0')
+		{
+			free(*next_line);
+			return (-1);
+		}
 	}
 	return (1);
 }
