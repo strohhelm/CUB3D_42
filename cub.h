@@ -6,7 +6,7 @@
 /*   By: pstrohal <pstrohal@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:55:17 by pstrohal          #+#    #+#             */
-/*   Updated: 2024/11/19 17:11:31 by pstrohal         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:50:31 by pstrohal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ enum e_error
 	ALLIDENT = 6,
 };
 
-typedef struct s_coordinate {
+typedef struct s_coordinate
+{
 	double	x;
 	double	y;
 }	t_point;
@@ -139,13 +140,14 @@ typedef struct s_game
 }	t_game;
 
 //structure of values needed for putting pixels betwwen two points.
-typedef struct s_algorythm {
+typedef struct s_algorythm
+{
 	int		a;
 	int		b;
 	int		p;
 	int		xdiff;
 	int		ydiff;
-	int		 s	 
+	int		s;
 	long	col;
 	t_point	p_a;
 	t_point	p_b;
