@@ -1,0 +1,28 @@
+NO ./src/textures/6.png
+SO ./src/textures/2.png
+WE ./src/textures/3.png
+EA ./src/textures/4.png
+MU ./src/textures/mushr.png
+MU2 ./src/textures/mushr2.png
+MUM ./src/textures/mushr_map.png
+DO0 ./src/textures/13.png
+DO1 ./src/textures/14.png
+DO2 ./src/textures/15.png
+PS1 ./src/textures/psy1.png
+PS2 ./src/textures/psy2.png
+PS3 ./src/textures/psy3.png
+
+C 91,166,252
+F 224,184,144
+
+1111111111111111111111111
+100000000001000E000000001
+1000000000000000000001111
+1000000000000010100000001
+1100000000000110100000001
+1000000000000000000000001
+10000000000000000000000011111
+1000000000000000000000001
+1000000000000000000000001
+1000000000000000000000001
+1111111111111111111111111

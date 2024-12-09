@@ -1,0 +1,20 @@
+WE ./include/textures/castle1+.png
+
+EA ./include/textures/castle1+.png
+
+NO ./include/textures/castle1+.png
+
+SO ./include/textures/castle1+.png
+
+C 123,90,210
+F 40,20,8
+
+1111111111111
+1000000000001
+1000000000001
+1000100000001
+1000D00000001
+10001D1000001
+1000000000001
+10000N0000001
+1111111111111
